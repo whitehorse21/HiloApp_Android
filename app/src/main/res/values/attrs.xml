@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RalewayEditText">
+        <attr name="fieldFont" format="enum">
+            <enum name="bold" value="1"/>
+            <enum name="light" value="2"/>
+            <enum name="medium" value="3"/>
+            <enum name="semiBold" value="4"/>
+            <enum name="regular" value="0"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="RalewayTextView">
+        <attr name="textFont" format="enum">
+            <enum name="bold" value="1"/>
+            <enum name="light" value="2"/>
+            <enum name="medium" value="3"/>
+            <enum name="semiBold" value="4"/>
+            <enum name="regular" value="0"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="RalewayButton">
+        <attr name="buttonFont" format="enum">
+            <enum name="bold" value="1"/>
+            <enum name="light" value="2"/>
+            <enum name="medium" value="3"/>
+            <enum name="semiBold" value="4"/>
+            <enum name="regular" value="0"/>
+        </attr>
+    </declare-styleable>
+</resources>

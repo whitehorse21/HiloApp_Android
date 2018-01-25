@@ -1,0 +1,108 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:background="@drawable/img_login_bg"
+    tools:context="com.hiloipa.app.hilo.LoginFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:src="@drawable/ic_hilo_white"/>
+
+        <com.hiloipa.app.hilo.widget.RalewayEditText
+            android:id="@+id/emailField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:imeOptions="actionNext"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/ic_field_email_white"
+            android:drawableStart="@drawable/ic_field_email_white"
+            android:drawablePadding="10dp"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:theme="@style/HiloET"/>
+
+        <com.hiloipa.app.hilo.widget.RalewayEditText
+            android:id="@+id/passwordField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:inputType="textPassword"
+            android:imeOptions="actionDone"
+            android:drawableLeft="@drawable/ic_field_password_white"
+            android:drawableStart="@drawable/ic_field_password_white"
+            android:drawablePadding="10dp"
+            android:textSize="16sp"
+            android:theme="@style/HiloET"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:hint="@string/password"/>
+
+        <com.hiloipa.app.hilo.widget.RalewayButton
+            android:id="@+id/forgotPasswordBtn"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="7dp"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:text="@string/forgot_password"
+            android:layout_gravity="end"/>
+
+        <com.hiloipa.app.hilo.widget.RalewayButton
+            android:id="@+id/loginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="10dp"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:background="@drawable/rectangle_orange_rounded"
+            android:textColor="@android:color/white"
+            app:buttonFont="bold"
+            android:text="@string/log_in" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+
+        <com.hiloipa.app.hilo.widget.RalewayTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textColor="@android:color/white"
+            android:text="@string/don_t_have_an_account_yet" />
+
+        <com.hiloipa.app.hilo.widget.RalewayButton
+            android:id="@+id/createAccountBtn"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            app:buttonFont="bold"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:text="@string/create_an_account"/>
+    </LinearLayout>
+</RelativeLayout>
