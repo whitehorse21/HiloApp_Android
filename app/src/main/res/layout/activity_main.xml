@@ -1,10 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hiloipa.app.hilo.MainActivity">
+    android:background="#ededed"
+    tools:context="com.hiloipa.app.hilo.ui.MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary">
 
-</android.support.constraint.ConstraintLayout>
+        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            tools:text="Goals Tracker"
+            app:textFont="medium"
+            android:textColor="@android:color/white" />
+    </android.support.v7.widget.Toolbar>
+
+    <RadioGroup
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="@android:color/white">
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayRadioButton
+            android:id="@+id/navGoalTracker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:checked="true"
+            android:textColor="@drawable/navigation_text_color"
+            android:drawableTop="@drawable/navigation_dashboard"
+            android:text="@string/goal_tracker"/>
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayRadioButton
+            android:id="@+id/navContacts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:textColor="@drawable/navigation_text_color"
+            android:drawableTop="@drawable/navigation_contacts"
+            android:text="@string/contacts"/>
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayRadioButton
+            android:id="@+id/navReachoutLogs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textColor="@drawable/navigation_text_color"
+            android:drawableTop="@drawable/navigation_reachoutlog"
+            android:text="@string/reachout_log"/>
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayRadioButton
+            android:id="@+id/navToDos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:textColor="@drawable/navigation_text_color"
+            android:drawableTop="@drawable/navigation_todos"
+            android:text="@string/todos"/>
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayRadioButton
+            android:id="@+id/navMore"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:textColor="@drawable/navigation_text_color"
+            android:drawableTop="@drawable/navigation_more"
+            android:text="@string/more"/>
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/bottomNavigation"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@id/toolbar"
+        android:background="@drawable/drop_shadow"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/drop_shadow_inverse"
+        android:layout_above="@id/bottomNavigation"/>
+</RelativeLayout>

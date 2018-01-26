@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/alert_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:padding="16dp"
+        android:gravity="center"
+        android:background="@drawable/alert_header"
+        android:text="@string/welcome_to_hilo_s_beta_release"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"/>
+
+    <ImageView
+        android:id="@+id/betaImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorAccent"
+        android:layout_below="@id/title"/>
+
+    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        android:id="@+id/messageLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/betaImage"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:gravity="center"
+        android:text="@string/beta_message"
+        android:textColor="@android:color/black"
+        app:textFont="medium"
+        android:textSize="16sp"/>
+
+    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        android:id="@+id/gotItBtn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/messageLabel"
+        style="@style/Base.Widget.AppCompat.ActionButton"
+        android:background="@drawable/rectangle_orange_rounded"
+        android:textColor="@android:color/white"
+        app:buttonFont="bold"
+        android:layout_marginBottom="20dp"
+        android:text="@string/got_it" />
+</RelativeLayout>

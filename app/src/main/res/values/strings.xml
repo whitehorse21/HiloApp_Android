@@ -19,4 +19,26 @@
     <string name="sign_up">Sign Up</string>
     <string name="submit">Submit</string>
     <string name="close">Close</string>
+    <string name="welcome_to_hilo_s_beta_release">Welcome to Hilo\'s BETA Release!!</string>
+    <string name="beta_message">Beta release means we are still working on improvements, new features and taking in user feedback. We can\'t wait to hear you.</string>
+    <string name="got_it">Got it !!</string>
+    <string name="goal_tracker">Goal tracker</string>
+    <string name="contacts">Contacts</string>
+    <string name="reachout_log">Reachout Log</string>
+    <string name="todos">To dos</string>
+    <string name="more">More</string>
+    <string name="adjust_my_graphs">Adjust My Graphs\n%s</string>
+    <string name="hilo_my_week">Hilo my week</string>
+    <string name="current_goal_plan">Current Goal Plan</string>
+    <string name="change_plan">Change plan</string>
+    <string name="reach_outs">Reach outs</string>
+    <string name="follow_ups">Follow ups</string>
+    <string name="team_reach_outs">Team reach outs</string>
+    <string name="reach_outs_s">Reach Outs (%s)</string>
+    <string name="new_reach_outs">New Reach Outs</string>
+    <string name="search">Search</string>
+    <string name="complete">Complete</string>
+    <string name="delete">Delete</string>
+    <string name="follow_ups_s">Follow Ups (%s)</string>
+    <string name="team_reach_outs_s">Team Reach Outs (%s)</string>
 </resources>

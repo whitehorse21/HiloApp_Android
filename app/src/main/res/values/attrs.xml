@@ -29,4 +29,24 @@
             <enum name="regular" value="0"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="RalewayRadioButton">
+        <attr name="radioFont" format="enum">
+            <enum name="bold" value="1"/>
+            <enum name="light" value="2"/>
+            <enum name="medium" value="3"/>
+            <enum name="semiBold" value="4"/>
+            <enum name="regular" value="0"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="RalewayTabLayout">
+        <attr name="tabFont" format="enum">
+            <enum name="bold" value="1"/>
+            <enum name="light" value="2"/>
+            <enum name="medium" value="3"/>
+            <enum name="semiBold" value="4"/>
+            <enum name="regular" value="0"/>
+        </attr>
+    </declare-styleable>
 </resources>
