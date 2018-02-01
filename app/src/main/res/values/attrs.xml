@@ -40,8 +40,8 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="RalewayTabLayout">
-        <attr name="tabFont" format="enum">
+    <declare-styleable name="RalewaySuggestionsField">
+        <attr name="suggestionFont" format="enum">
             <enum name="bold" value="1"/>
             <enum name="light" value="2"/>
             <enum name="medium" value="3"/>

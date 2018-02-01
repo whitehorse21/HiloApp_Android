@@ -1,0 +1,225 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.hiloipa.app.hilo.ui.more.MoreFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_bg"
+            android:padding="16dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userAvatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="60dp" />
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                android:id="@+id/userNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userAvatar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="80dp"
+                android:text="Eduard Albu"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/firstButtonsRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:minHeight="140dp"
+            android:layout_marginTop="-65dp"
+            android:padding="10dp"
+            android:layout_below="@id/relativeLayout"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/notepadBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    app:backgroundTint="@color/colorWhite"
+                    android:src="@drawable/ic_more_notepad"
+                    app:fabSize="normal"
+                    android:layout_weight="1" />
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:text="@string/notepad"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/feedbackBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_more_feedback"
+                    app:backgroundTint="@color/colorWhite"
+                    app:fabSize="normal"
+                    android:layout_weight="1" />
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:text="@string/feedback"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/productsBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_more_products"
+                    app:backgroundTint="@color/colorWhite"
+                    app:fabSize="normal"
+                    android:layout_weight="1" />
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:text="@string/products"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/secondButtonsRow"
+            android:layout_width="match_parent"
+            android:baselineAligned="false"
+            android:layout_height="140dp"
+            android:padding="10dp"
+            android:layout_below="@id/firstButtonsRow"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/scriptsBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_more_scripts"
+                    app:backgroundTint="@color/colorWhite"
+                    app:fabSize="normal"
+                    android:layout_weight="1" />
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:text="@string/scripts"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/accountBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_more_account"
+                    app:backgroundTint="@color/colorWhite"
+                    app:fabSize="normal"
+                    android:layout_weight="1" />
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:text="@string/account"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/templatesBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_more_templates"
+                    app:backgroundTint="@color/colorWhite"
+                    app:fabSize="normal"
+                    android:layout_weight="1" />
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:text="@string/templates"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            android:id="@+id/logoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="16dp"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:text="Log out"
+            android:textColor="@android:color/white"
+            android:drawableTop="@drawable/ic_action_logout_white"/>
+    </RelativeLayout>
+</ScrollView>

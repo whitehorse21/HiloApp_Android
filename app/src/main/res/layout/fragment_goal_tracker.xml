@@ -343,7 +343,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"
-            tools:listitem="@layout/list_item_contact"/>
+            tools:listitem="@layout/list_item_follow_contact"/>
 
         <View
             android:layout_width="match_parent"

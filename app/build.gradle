@@ -18,6 +18,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"http://54.197.165.106:81/Hilo/\""
+            buildConfigField "String", "HELP_URL", "\"http://54.197.165.106:81/Help\""
+        }
+
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://api.hiloipa.com/Hilo/\""
+            buildConfigField "String", "HELP_URL", "\"http://54.197.165.106:81/Help\""
         }
     }
 }

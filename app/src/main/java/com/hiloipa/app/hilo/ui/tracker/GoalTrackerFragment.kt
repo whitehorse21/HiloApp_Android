@@ -1,26 +1,34 @@
 package com.hiloipa.app.hilo.ui.tracker
 
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Spinner
 
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.GoalTrackerAdapter
 import com.hiloipa.app.hilo.models.GoalType
+import com.hiloipa.app.hilo.ui.widget.RalewayButton
+import com.hiloipa.app.hilo.ui.widget.RalewayEditText
+import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 import kotlinx.android.synthetic.main.fragment_goal_tracker.*
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener {
+class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTrackerAdapter.ContactClickListener {
 
     lateinit var adapter: GoalTrackerAdapter
 
@@ -40,6 +48,7 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = GoalTrackerAdapter(activity)
+        adapter.delegate = this
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.isNestedScrollingEnabled = false
@@ -89,5 +98,58 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener {
                 reachoutsTypeLabel.text = getString(R.string.team_reach_outs_s, adjustGraphsSpinner.selectedItem as String)
             }
         }
+    }
+
+    override fun onCompleteClicked() {
+        this.showCompleteReachOutDialog()
+    }
+
+    override fun onDeleteClicked() {
+
+    }
+
+    private fun showCompleteReachOutDialog() {
+        val dialogView = activity.layoutInflater.inflate(R.layout.alert_complete_reach_out, null)
+        val backBtn: RalewayButton = dialogView.findViewById(R.id.completeReachOutBackBtn)
+        val title: RalewayTextView = dialogView.findViewById(R.id.completeReachOutTile)
+        val leadTempBtn: RalewayButton = dialogView.findViewById(R.id.leadTempBtn)
+        val leadTempSpinner: Spinner = dialogView.findViewById(R.id.leadTempSpinner)
+        val pipelinePos: RalewayButton = dialogView.findViewById(R.id.updatePipelinePositionBtn)
+        val pipelineSpinner: Spinner = dialogView.findViewById(R.id.updatePipelinePositionSpinner)
+        val logReachOutType: RalewayButton = dialogView.findViewById(R.id.logReachOutTypeBtn)
+        val logReachOutTypeSpinner: Spinner = dialogView.findViewById(R.id.logReachOutTypeSpinner)
+        val logReachOutComment: RalewayEditText = dialogView.findViewById(R.id.logReachOutCommentsField)
+        val scheduleNextFollowUp: RalewayButton = dialogView.findViewById(R.id.scheduleNextFollowUpBtn)
+        val scheduleNextFollowUpSpinner: Spinner = dialogView.findViewById(R.id.scheduleNextFollowUpSpinner)
+        val contactType: RalewayButton = dialogView.findViewById(R.id.contactTypeBtn)
+        val contactTypeSpinner: Spinner = dialogView.findViewById(R.id.contactTypeSpinner)
+        val completeBtn: RalewayButton = dialogView.findViewById(R.id.completeBtn)
+
+        val dialog = AlertDialog.Builder(activity)
+                .setView(dialogView)
+                .create()
+        completeBtn.setOnClickListener { dialog.dismiss() }
+        backBtn.setOnClickListener { dialog.dismiss() }
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+    }
+
+    private fun showCompleteTeamReachOutDialog() {
+        val dialogView = activity.layoutInflater.inflate(R.layout.alert_complete_reach_out, null)
+        val backBtn: RalewayButton = dialogView.findViewById(R.id.completeReachOutBackBtn)
+        val logReachOutType: RalewayButton = dialogView.findViewById(R.id.logReachOutTypeBtn)
+        val logReachOutTypeSpinner: Spinner = dialogView.findViewById(R.id.logReachOutTypeSpinner)
+        val logReachOutComment: RalewayEditText = dialogView.findViewById(R.id.logReachOutCommentsField)
+        val completeBtn: RalewayButton = dialogView.findViewById(R.id.completeBtn)
+
+        val dialog = AlertDialog.Builder(activity)
+                .setView(dialogView)
+                .create()
+        completeBtn.setOnClickListener { dialog.dismiss() }
+        backBtn.setOnClickListener { dialog.dismiss() }
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
     }
 }

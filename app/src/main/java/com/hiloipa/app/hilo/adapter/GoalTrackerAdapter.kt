@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageButton
-import android.widget.RelativeLayout
 import android.widget.Spinner
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.GoalType
@@ -22,6 +21,7 @@ import kotlin.properties.Delegates
 class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTrackerAdapter.ViewHolder>() {
 
     var rows: Int = 10
+    var delegate: ContactClickListener? = null
 
     var goalType: GoalType by Delegates.observable(GoalType.reach_outs) { property, oldValue, newValue ->
         when(newValue) {
@@ -33,7 +33,7 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_contact, parent, false)
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_follow_contact, parent, false)
         return ViewHolder(view)
     }
 
@@ -70,5 +70,15 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
                 searchResultLayout.visibility = View.VISIBLE
             }
         }
+
+        init {
+            completeBtn.setOnClickListener { delegate?.onCompleteClicked() }
+            deleteBtn.setOnClickListener { delegate?.onDeleteClicked() }
+        }
+    }
+
+    interface ContactClickListener {
+        fun onCompleteClicked()
+        fun onDeleteClicked()
     }
 }

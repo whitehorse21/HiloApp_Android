@@ -1,0 +1,115 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.hiloipa.app.hilo.ui.contacts.ContactsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@android:color/white"
+            android:gravity="center_vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardElevation="3dp"
+                app:cardCornerRadius="5dp"
+                android:layout_margin="16dp">
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                    android:id="@+id/searchField"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@android:color/transparent"
+                    android:textSize="14sp"
+                    android:hint="@string/search"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:drawableLeft="@drawable/ic_action_search_normal"
+                    android:drawableStart="@drawable/ic_action_search_normal"
+                    android:drawablePadding="10dp"/>
+            </android.support.v7.widget.CardView>
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                android:id="@+id/goBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@drawable/rectangle_orange_rounded"
+                android:text="@string/go"
+                style="@style/Base.Widget.AppCompat.ActionButton"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@android:color/white"
+                app:buttonFont="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/darker_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                android:id="@+id/resetBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginRight="10dp"
+                android:singleLine="true"
+                android:lines="1"
+                android:textSize="14sp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/reset"
+                android:background="@drawable/orange_border_rect_rounded"
+                android:textColor="@color/colorPrimary"/>
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                android:id="@+id/addReachOutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_reachout"
+                android:layout_marginRight="16dp"
+                android:background="@android:color/transparent"
+                android:singleLine="true"
+                android:lines="1"
+                android:textSize="14sp"
+                android:ellipsize="end"
+                android:layout_marginEnd="16dp"
+                android:drawablePadding="5dp"
+                android:drawableRight="@mipmap/ic_action_add_small"
+                android:drawableEnd="@mipmap/ic_action_add_small"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/drop_shadow"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/list_item_reachout_log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
