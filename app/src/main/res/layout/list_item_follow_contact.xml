@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center_vertical"
     android:layout_marginBottom="4dp"
     android:layout_marginTop="4dp"
+    android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <com.hiloipa.app.hilo.ui.widget.RalewayTextView
         android:id="@+id/rowNumberLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
         android:layout_margin="16dp"
+        android:textColor="@color/colorPrimary"
         android:textSize="16sp"
         app:textFont="medium"
-        tools:text="1"/>
+        tools:text="1" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,88 +29,134 @@
             android:layout_width="0.1dp"
             android:layout_height="0.1dp"
             android:focusable="true"
-            android:focusableInTouchMode="true"/>
+            android:focusableInTouchMode="true" />
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+        <com.hiloipa.app.hilo.ui.widget.RalewaySuggestionsField
             android:id="@+id/searchField"
             android:layout_width="match_parent"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:imeOptions="actionDone"
             android:layout_height="45dp"
-            android:background="@drawable/gray_border_rect"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_marginRight="16dp"
             android:layout_marginEnd="16dp"
-            android:drawableRight="@drawable/ic_action_down"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/selectable_border_rect"
             android:drawableEnd="@drawable/ic_action_down"
             android:drawableLeft="@drawable/ic_action_search_normal"
-            android:drawableStart="@drawable/ic_action_search_normal"
             android:drawablePadding="5dp"
-            android:textSize="14sp"
-            android:hint="@string/search"/>
+            android:drawableRight="@drawable/ic_action_down"
+            android:drawableStart="@drawable/ic_action_search_normal"
+            android:ellipsize="end"
+            android:hint="@string/search"
+            android:imeOptions="actionDone"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textSize="14sp" />
 
         <Spinner
             android:id="@+id/searchSpinner"
-            android:layout_below="@id/searchField"
             android:layout_width="match_parent"
-            android:layout_marginRight="16dp"
+            android:layout_height="0dp"
+            android:layout_below="@id/searchField"
             android:layout_marginEnd="16dp"
-            android:layout_height="0dp"/>
+            android:layout_marginRight="16dp" />
 
         <!-- Search result layout -->
-        <FrameLayout
+        <LinearLayout
             android:id="@+id/searchResultLayout"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:visibility="gone"
-            android:layout_height="45dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/gray_border_rect"/>
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/gray_border_rect"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/searchResultLabel"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    tools:text="Search result"
-                    android:textSize="14sp"
+                    android:layout_marginRight="10dp"
                     android:textColor="@android:color/black"
-                    android:layout_gravity="center_vertical"/>
+                    android:textSize="14sp"
+                    tools:text="Search result" />
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:id="@+id/followUpDaysRemainedLabel"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:text="@string/d_days_remained_until_follow_up" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                        android:id="@+id/completeBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/rectangle_orange_rounded"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="@string/complete"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        app:buttonFont="bold" />
+
+                    <ImageButton
+                        android:id="@+id/deleteBtn"
+                        style="@style/Base.Widget.AppCompat.ActionButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:contentDescription="@string/delete"
+                        android:src="@drawable/ic_action_delete_empty" />
+                </LinearLayout>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayButton
-                    android:id="@+id/completeBtn"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/scheduleStatusBtn"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:paddingRight="15dp"
-                    android:paddingLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_gravity="center_vertical"
-                    android:textSize="14sp"
-                    android:background="@drawable/rectangle_orange_rounded"
+                    android:background="@drawable/rectangle_purple_rounded"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/scheduled"
                     android:textColor="@android:color/white"
-                    app:buttonFont="bold"
-                    android:text="@string/complete" />
-
-                <ImageButton
-                    android:id="@+id/deleteBtn"
-                    android:contentDescription="@string/delete"
-                    style="@style/Base.Widget.AppCompat.ActionButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_action_delete"/>
+                    android:textSize="14sp"
+                    app:buttonFont="bold" />
             </LinearLayout>
-        </FrameLayout>
+        </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

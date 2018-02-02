@@ -1,6 +1,7 @@
 package com.hiloipa.app.hilo.ui.tracker
 
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -19,6 +20,7 @@ import android.widget.Spinner
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.GoalTrackerAdapter
 import com.hiloipa.app.hilo.models.GoalType
+import com.hiloipa.app.hilo.models.GraphType
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
@@ -55,23 +57,41 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
         tabLayout.setOnTabSelectedListener(this)
         // setup graphs spinner
         adjustGraphsSpinner.adapter = ArrayAdapter<String>(activity,
-                android.R.layout.simple_spinner_dropdown_item, arrayOf("Daily % Complete",
-                "Weekly % Complete", "Monthly % Complete"))
+                android.R.layout.simple_spinner_dropdown_item, arrayOf(getString(R.string.daily_complete),
+                getString(R.string.weekly_complete), getString(R.string.monthly_complete)))
 
         adjustGraphsBtn.setOnClickListener { adjustGraphsSpinner.performClick() }
 
         adjustGraphsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val item = parent.getItemAtPosition(position) as String
+                val graphType = GraphType.fromInt(position)
+                targetTitleLabel.text = getString(R.string.s_ntarget, getString(graphType.title()))
+                completedTitleLabel.text = getString(R.string.s_ncompleted, getString(graphType.title()))
+                percentageTitleLabel.text = getString(R.string.s_npercentage, getString(graphType.title()))
                 adjustGraphsBtn.text = getString(R.string.adjust_my_graphs, item)
                 when(adapter.goalType) {
-                    GoalType.reach_outs -> reachoutsTypeLabel.text = getString(R.string.reach_outs_s, item)
-                    GoalType.follow_ups -> reachoutsTypeLabel.text = getString(R.string.follow_ups_s, item)
-                    GoalType.team_reach_outs -> reachoutsTypeLabel.text = getString(R.string.team_reach_outs_s, item)
+                    GoalType.reach_outs -> {
+                        reachoutsTypeLabel.text = getString(R.string.reach_outs_s, item)
+                    }
+                    GoalType.follow_ups -> {
+                        reachoutsTypeLabel.text = getString(R.string.follow_ups_s, item)
+                    }
+                    GoalType.team_reach_outs -> {
+                        reachoutsTypeLabel.text = getString(R.string.team_reach_outs_s, item)
+                    }
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        showFutureBtn.setOnClickListener {
+            val intent = Intent(activity, FutureContactsActivity::class.java)
+            val extras = Bundle()
+            extras.putInt("goalType", adapter.goalType.toInt())
+            intent.putExtras(extras)
+            activity.startActivity(intent)
         }
     }
 
@@ -88,20 +108,35 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
             0 -> {
                 adapter.goalType = GoalType.reach_outs
                 reachoutsTypeLabel.text = getString(R.string.reach_outs_s, adjustGraphsSpinner.selectedItem as String)
+                selectedTypeTitleLabel.text = getString(R.string.new_reach_outs)
+                progressBar.progressDrawable = resources.getDrawable(R.drawable.circular_progress_bar)
+                progressBar.progress = 34
+                progressBarPercentageLabel.text = "${progressBar.progress}%"
             }
             1 -> {
                 adapter.goalType = GoalType.follow_ups
                 reachoutsTypeLabel.text = getString(R.string.follow_ups_s, adjustGraphsSpinner.selectedItem as String)
+                selectedTypeTitleLabel.text = getString(R.string.follow_ups)
+                progressBar.progressDrawable = resources.getDrawable(R.drawable.circular_progress_bar_green)
+                progressBar.progress = 32
+                progressBarPercentageLabel.text = "${progressBar.progress}%"
             }
             else -> {
                 adapter.goalType = GoalType.team_reach_outs
                 reachoutsTypeLabel.text = getString(R.string.team_reach_outs_s, adjustGraphsSpinner.selectedItem as String)
+                selectedTypeTitleLabel.text = getString(R.string.team_reach_outs)
+                progressBar.progressDrawable = resources.getDrawable(R.drawable.circular_progress_bar_blue)
+                progressBar.progress = 30
+                progressBarPercentageLabel.text = "${progressBar.progress}%"
             }
         }
     }
 
     override fun onCompleteClicked() {
-        this.showCompleteReachOutDialog()
+        when(adapter.goalType) {
+            GoalType.follow_ups, GoalType.reach_outs -> this.showCompleteReachOutDialog()
+            GoalType.team_reach_outs -> this.showCompleteTeamReachOutDialog()
+        }
     }
 
     override fun onDeleteClicked() {
@@ -136,7 +171,7 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
     }
 
     private fun showCompleteTeamReachOutDialog() {
-        val dialogView = activity.layoutInflater.inflate(R.layout.alert_complete_reach_out, null)
+        val dialogView = activity.layoutInflater.inflate(R.layout.alert_complete_team_reach_out, null)
         val backBtn: RalewayButton = dialogView.findViewById(R.id.completeReachOutBackBtn)
         val logReachOutType: RalewayButton = dialogView.findViewById(R.id.logReachOutTypeBtn)
         val logReachOutTypeSpinner: Spinner = dialogView.findViewById(R.id.logReachOutTypeSpinner)

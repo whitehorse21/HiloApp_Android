@@ -23,6 +23,10 @@
                 style="@style/Base.Widget.AppCompat.ActionButton"
                 android:text="@string/complete_reach_out"
                 android:drawablePadding="-40dp"
+                android:textSize="17sp"
+                android:singleLine="true"
+                android:lines="1"
+                android:ellipsize="end"
                 android:background="?selectableItemBackground"
                 android:drawableStart="@drawable/ic_action_back"
                 android:drawableLeft="@drawable/ic_action_back"/>

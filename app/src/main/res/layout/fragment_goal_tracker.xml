@@ -94,6 +94,8 @@
                     android:id="@+id/changePlanBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:lines="1"
                     android:layout_weight="1.3"
                     android:background="@drawable/orange_border_rect_rounded"
                     android:text="@string/change_plan"
@@ -173,8 +175,9 @@
                         android:layout_height="wrap_content">
 
                         <ProgressBar
+                            android:id="@+id/progressBar"
                             style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="140dp"
+                            android:layout_width="100dp"
                             android:layout_height="140dp"
                             android:layout_gravity="center"
                             android:layout_margin="16dp"
@@ -185,6 +188,7 @@
                             android:progressDrawable="@drawable/circular_progress_bar" />
 
                         <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                            android:id="@+id/progressBarPercentageLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -206,11 +210,12 @@
                             android:layout_marginBottom="8dp">
 
                             <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                                android:id="@+id/targetTitleLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_span="1"
                                 android:gravity="end"
-                                android:text="Weekly\ntarget"
+                                android:text="@string/s_ntarget"
                                 android:layout_column="0" />
 
                             <View
@@ -224,6 +229,7 @@
                                 android:layout_column="1"/>
 
                             <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                                android:id="@+id/targetLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
@@ -241,11 +247,12 @@
                             android:layout_marginBottom="8dp">
 
                             <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                                android:id="@+id/completedTitleLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_span="1"
                                 android:gravity="end"
-                                android:text="Weekly\ncompleted"
+                                android:text="@string/s_ncompleted"
                                 android:layout_column="0" />
 
                             <View
@@ -259,6 +266,7 @@
                                 android:layout_column="1"/>
 
                             <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                                android:id="@+id/completedLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
@@ -276,11 +284,12 @@
                             android:layout_marginBottom="8dp">
 
                             <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                                android:id="@+id/percentageTitleLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_span="1"
                                 android:gravity="end"
-                                android:text="Weekly\npercentage"
+                                android:text="@string/s_npercentage"
                                 android:layout_column="0" />
 
                             <View
@@ -294,6 +303,7 @@
                                 android:layout_column="1"/>
 
                             <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                                android:id="@+id/percentageLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
@@ -315,6 +325,7 @@
                     android:orientation="horizontal">
 
                     <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                        android:id="@+id/selectedTypeTitleLabel"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -327,6 +338,7 @@
                         app:textFont="bold" />
 
                     <ImageButton
+                        android:id="@+id/showFutureBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/Base.Widget.AppCompat.ActionButton"

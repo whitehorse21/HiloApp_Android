@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.Spinner
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.GoalType
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
+import com.hiloipa.app.hilo.ui.widget.RalewaySuggestionsField
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 import kotlin.properties.Delegates
 
@@ -49,17 +51,41 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
             holder.searchResultField.text = "Eduard Albu"
         }
         when(goalType) {
-            GoalType.reach_outs -> holder.rowNumber.setTextColor(context.resources.getColor(R.color.colorPrimary))
-            GoalType.follow_ups -> holder.rowNumber.setTextColor(context.resources.getColor(R.color.colorGreen))
-            GoalType.team_reach_outs -> holder.rowNumber.setTextColor(context.resources.getColor(R.color.colorAccent))
+            GoalType.reach_outs -> {
+                holder.rowNumber.setTextColor(context.resources.getColor(R.color.colorPrimary))
+                holder.scheduleStatus.visibility = View.GONE
+                holder.scheduleDaysLabel.visibility = View.GONE
+            }
+            GoalType.follow_ups -> {
+                holder.rowNumber.setTextColor(context.resources.getColor(R.color.colorGreen))
+                if (holder.isFilled) {
+                    holder.scheduleStatus.visibility = View.VISIBLE
+                    holder.scheduleDaysLabel.visibility = View.VISIBLE
+                } else {
+                    holder.scheduleStatus.visibility = View.GONE
+                    holder.scheduleDaysLabel.visibility = View.GONE
+                }
+            }
+            GoalType.team_reach_outs -> {
+                holder.rowNumber.setTextColor(context.resources.getColor(R.color.colorBlue))
+                if (holder.isFilled) {
+                    holder.scheduleStatus.visibility = View.VISIBLE
+                    holder.scheduleDaysLabel.visibility = View.VISIBLE
+                } else {
+                    holder.scheduleStatus.visibility = View.GONE
+                    holder.scheduleDaysLabel.visibility = View.GONE
+                }
+            }
         }
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val searchField: RalewayEditText = itemView.findViewById(R.id.searchField)
+        val searchField: RalewaySuggestionsField = itemView.findViewById(R.id.searchField)
         val rowNumber: RalewayTextView = itemView.findViewById(R.id.rowNumberLabel)
         val searchSpinner: Spinner = itemView.findViewById(R.id.searchSpinner)
-        val searchResultLayout: FrameLayout = itemView.findViewById(R.id.searchResultLayout)
+        val searchResultLayout: LinearLayout = itemView.findViewById(R.id.searchResultLayout)
+        val scheduleStatus: RalewayButton = itemView.findViewById(R.id.scheduleStatusBtn)
+        val scheduleDaysLabel: RalewayTextView = itemView.findViewById(R.id.followUpDaysRemainedLabel)
         val searchResultField: RalewayTextView = itemView.findViewById(R.id.searchResultLabel)
         val completeBtn: RalewayButton = itemView.findViewById(R.id.completeBtn)
         val deleteBtn: ImageButton = itemView.findViewById(R.id.deleteBtn)

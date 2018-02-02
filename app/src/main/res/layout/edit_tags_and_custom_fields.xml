@@ -8,10 +8,13 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="3dp">
+        app:cardCornerRadius="7dp"
+        app:cardElevation="7dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,7 +23,7 @@
             android:orientation="vertical">
 
             <com.hiloipa.app.hilo.ui.widget.RalewayButton
-                android:id="@+id/personalInfoToggleBtn"
+                android:id="@+id/tagsAndFieldsToggleBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_contact_btn"
@@ -29,18 +32,17 @@
                 android:gravity="start|center_vertical"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:text="@string/rodan_plus_fields"
+                android:text="@string/tags_and_custom_fields"
                 android:textColor="@drawable/edit_contact_text"
                 app:buttonFont="bold" />
 
             <LinearLayout
-                android:id="@+id/personalInfoLayout"
+                android:id="@+id/tagsAndFieldsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:visibility="gone">
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/tagsButton"
