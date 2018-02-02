@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hiloipa.app.hilo.ui.ContactNotesFragment">
+
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            android:id="@+id/addNoteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:text="@string/add_note"
+            android:background="@android:color/transparent"
+            android:singleLine="true"
+            android:lines="1"
+            android:textSize="14sp"
+            android:ellipsize="end"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/ic_action_add_small"
+            android:drawableEnd="@mipmap/ic_action_add_small"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_below="@id/headerLayout"
+        android:layout_width="match_parent"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:clipToPadding="false"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/list_item_user_note"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/headerLayout"
+        android:background="@drawable/drop_shadow"/>
+</RelativeLayout>

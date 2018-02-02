@@ -35,8 +35,8 @@ class RalewayButton: Button {
 
     fun getAttributes(contex: Context, attrs: AttributeSet?) {
         if (attrs == null) return
-        val typedArray = contex.obtainStyledAttributes(attrs, R.styleable.RalewayRadioButton)
-        val intValue = typedArray.getInt(R.styleable.RalewayRadioButton_radioFont, 0)
+        val typedArray = contex.obtainStyledAttributes(attrs, R.styleable.RalewayButton)
+        val intValue = typedArray.getInt(R.styleable.RalewayButton_buttonFont, 0)
         this.fontType = FontType.fromInt(intValue = intValue)
         typedArray.recycle()
     }

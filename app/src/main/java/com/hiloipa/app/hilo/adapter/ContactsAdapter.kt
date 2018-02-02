@@ -10,11 +10,14 @@ import android.widget.CheckBox
 import android.widget.ImageButton
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
+import com.hiloipa.app.hilo.utils.ContactsDelegate
 
 /**
  * Created by eduardalbu on 01.02.2018.
  */
 class ContactsAdapter(val context: Context): RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
+
+    var delegate: ContactsDelegate? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_contact, parent, false)
@@ -39,5 +42,23 @@ class ContactsAdapter(val context: Context): RecyclerView.Adapter<ContactsAdapte
         val editBtn: ImageButton = itemView.findViewById(R.id.editBtn)
         val deleteBtn: ImageButton = itemView.findViewById(R.id.deleteBtn)
         val checkBox: AppCompatCheckBox = itemView.findViewById(R.id.contactCheckBox)
+
+        init {
+            itemView.setOnClickListener {
+                delegate?.onContactClicked()
+            }
+
+            editBtn.setOnClickListener {
+                delegate?.onEditContactClicked()
+            }
+
+            deleteBtn.setOnClickListener {
+                delegate?.onDeleteContactClicked()
+            }
+
+            messageBtn.setOnClickListener {
+                delegate?.onSendSmsClicked()
+            }
+        }
     }
 }

@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -21,120 +20,55 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                android:id="@+id/customPlanBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_top_rounded_purlple"
-                android:orientation="horizontal">
-
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
-                    android:id="@+id/autoFollowsTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    app:textFont="bold"
-                    android:layout_weight="1"
-                    android:text="@string/custom_plan"
-                    android:gravity="center_vertical"
-                    android:padding="16dp"/>
-
-                <ImageButton
-                    android:id="@+id/autoFollowsStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/selection_status_indicator"
-                    style="@style/Base.Widget.AppCompat.ActionButton"
-                    android:contentDescription="@null" />
-            </LinearLayout>
-
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/auto_follow_ups_message"/>
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatRadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:buttonTint="@color/colorPrimary"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:textColor="@android:color/darker_gray"
-                    android:text="@string/yes"/>
-
-                <android.support.v7.widget.AppCompatRadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    app:buttonTint="@color/colorPrimary"
-                    android:textColor="@android:color/darker_gray"
-                    android:text="@string/no"/>
-            </RadioGroup>
-
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginBottom="10dp"
-                app:textFont="semiBold"
-                android:text="@string/auto_follow_ups_message"/>
+                android:background="@drawable/rectangle_top_rounded_orange"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp"
+                android:textColor="@android:color/white"
+                android:text="@string/custom_plan"
+                android:gravity="start|center_vertical"
+                app:buttonFont="bold"
+                android:drawableRight="@drawable/selection_status_indicator"
+                android:drawableEnd="@drawable/selection_status_indicator"/>
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TableRow android:padding="5dp"
+                <TableRow android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <com.hiloipa.app.hilo.ui.widget.RalewayTextView
-                        android:layout_height="wrap_content"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        app:textFont="semiBold"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
                         android:gravity="center_vertical"
-                        android:text="@string/hot_leads"/>
+                        android:textSize="16sp"
+                        android:text="@string/weekly_reachouts"/>
 
                     <com.hiloipa.app.hilo.ui.widget.RalewayEditText
-                        android:id="@+id/hotLeadsField"
+                        android:id="@+id/customPlanWeekReachoutsField"
                         android:layout_height="30dp"
-                        android:layout_width="100dp"
+                        android:layout_width="wrap_content"
                         android:textSize="16sp"
                         android:background="@drawable/selectable_border_rect"
+                        android:layout_weight="1"
                         android:singleLine="true"
                         android:lines="1"
-                        android:layout_weight="1"
                         android:gravity="start|center_vertical"
                         android:paddingLeft="10dp"
                         android:inputType="number"
                         android:imeOptions="actionNext"
                         android:paddingRight="10dp"
-                        android:text="30"/>
-
-                    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
-                        android:layout_height="wrap_content"
-                        android:layout_width="0dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginStart="6dp"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:text="@string/hot_leads"/>
+                        android:text="27"/>
                 </TableRow>
 
-                <TableRow android:padding="5dp"
+                <TableRow android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -146,6 +80,7 @@
                         android:text="@string/weekly_followups"/>
 
                     <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                        android:id="@+id/customPlanWeekFollowupsField"
                         android:layout_height="30dp"
                         android:layout_width="wrap_content"
                         android:textSize="16sp"
@@ -161,7 +96,7 @@
                         android:text="10"/>
                 </TableRow>
 
-                <TableRow android:padding="5dp"
+                <TableRow android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -175,6 +110,7 @@
                         android:text="@string/weekly_team_needs"/>
 
                     <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                        android:id="@+id/customPlanWeekTeamNeedsField"
                         android:layout_height="30dp"
                         android:layout_width="wrap_content"
                         android:textSize="16sp"

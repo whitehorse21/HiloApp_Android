@@ -21,6 +21,7 @@ import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.GoalTrackerAdapter
 import com.hiloipa.app.hilo.models.GoalType
 import com.hiloipa.app.hilo.models.GraphType
+import com.hiloipa.app.hilo.ui.contacts.ContactDetailsActivity
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
@@ -93,6 +94,11 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
             intent.putExtras(extras)
             activity.startActivity(intent)
         }
+
+        changePlanBtn.setOnClickListener {
+            val dialog = ChangePlanFragment.newInstance()
+            dialog.show(childFragmentManager, "ChangePlanFragment")
+        }
     }
 
     override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -141,6 +147,11 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
 
     override fun onDeleteClicked() {
 
+    }
+
+    override fun onContactClicked() {
+        val intent = Intent(activity, ContactDetailsActivity::class.java)
+        activity.startActivity(intent)
     }
 
     private fun showCompleteReachOutDialog() {

@@ -100,11 +100,13 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
         init {
             completeBtn.setOnClickListener { delegate?.onCompleteClicked() }
             deleteBtn.setOnClickListener { delegate?.onDeleteClicked() }
+            itemView.setOnClickListener { delegate?.onContactClicked() }
         }
     }
 
     interface ContactClickListener {
         fun onCompleteClicked()
         fun onDeleteClicked()
+        fun onContactClicked()
     }
 }

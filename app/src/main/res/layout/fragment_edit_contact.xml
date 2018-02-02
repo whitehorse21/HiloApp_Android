@@ -2,10 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
     android:clipToPadding="false"
-    tools:context="com.hiloipa.app.hilo.ui.EditContactFragment">
+    tools:context="com.hiloipa.app.hilo.ui.contacts.EditContactFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,6 +23,23 @@
 
         <include layout="@layout/edit_social_and_websites"/>
 
-        <include layout="@layout/edit_address"/>
+        <include layout="@layout/edit_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"/>
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="end"
+            android:minWidth="100dp"
+            app:buttonFont="bold"
+            android:textColor="@android:color/white"
+            android:text="@string/save"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:background="@drawable/rectangle_orange_rounded"/>
     </LinearLayout>
 </ScrollView>

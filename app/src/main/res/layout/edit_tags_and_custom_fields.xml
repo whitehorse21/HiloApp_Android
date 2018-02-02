@@ -14,11 +14,12 @@
         android:layout_marginBottom="5dp"
         app:cardBackgroundColor="@android:color/white"
         app:cardCornerRadius="7dp"
-        app:cardElevation="7dp">
+        app:cardElevation="2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:gravity="center_vertical"
             android:orientation="vertical">
 

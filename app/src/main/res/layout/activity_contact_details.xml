@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hiloipa.app.hilo.ui.contacts.ContactDetailsActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        app:navigationIcon="@drawable/ic_action_back_white"
+        android:background="@color/colorPrimary">
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:text="@string/contact_details"
+            app:textFont="medium"
+            android:textColor="@android:color/white" />
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:background="@android:color/white">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/img_photo_border"
+                    android:cropToPadding="true"
+                    android:padding="8dp"
+                    android:src="@mipmap/ic_profile_default_round"/>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    app:textFont="bold"
+                    android:textSize="18sp"
+                    android:layout_margin="16dp"
+                    android:text="Eduard Albu"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"/>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabGravity="fill"
+                android:background="@android:color/white"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@android:color/black"
+                app:tabTextColor="@android:color/darker_gray">
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/personalTab"
+                    android:tag="personal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/personal" />
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/reachOutsTab"
+                    android:tag="reach_out_log"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/reachout_log" />
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:tag="notes"
+                    android:id="@+id/notesTab"
+                    android:layout_height="match_parent"
+                    android:text="@string/notes" />
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/productsTab"
+                    android:tag="products"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/products" />
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/documetsTab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/documents" />
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/campaignsTab"
+                    android:tag="campaigns"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/campaigns" />
+
+                <android.support.design.widget.TabItem
+                    android:tag="email_templates"
+                    android:id="@+id/emailTemplatesTab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/email_templates" />
+            </android.support.design.widget.TabLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@drawable/drop_shadow"/>
+
+            <FrameLayout
+                android:id="@+id/fragmentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/drop_shadow"
+        android:layout_below="@id/toolbar"/>
+</RelativeLayout>

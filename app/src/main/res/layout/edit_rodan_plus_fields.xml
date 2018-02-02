@@ -13,12 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@android:color/white"
-        app:cardElevation="7dp"
+        app:cardElevation="2dp"
         app:cardCornerRadius="7dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -53,9 +54,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:checkedButton="@id/enableGlowSampleBtn"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/enableGlowSampleBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
@@ -63,11 +66,11 @@
                         android:text="@string/yes"
                         android:textColor="@android:color/darker_gray"
                         app:buttonTint="@color/colorPrimary"
-                        android:checked="true"
                         android:drawableLeft="@drawable/radio_button_normal"
                         android:drawableStart="@drawable/radio_button_normal"/>
 
                     <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/disableGlowSampleBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/no"
@@ -166,6 +169,7 @@
                     android:id="@+id/giftRadioGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checkedButton="@id/giftYesBtn"
                     android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
@@ -178,7 +182,6 @@
                         android:text="@string/yes"
                         android:textColor="@android:color/darker_gray"
                         app:buttonTint="@color/colorPrimary"
-                        android:checked="true"
                         android:drawableLeft="@drawable/radio_button_normal"
                         android:drawableStart="@drawable/radio_button_normal"/>
 

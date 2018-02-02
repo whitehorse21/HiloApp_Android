@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="7dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:background="@drawable/rectangle_top_rounded_orange"
+                android:text="@string/add_note"
+                android:textColor="@android:color/white"
+                app:textFont="bold"/>
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                android:id="@+id/titleField"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/selectable_border_rect"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:singleLine="true"
+                android:lines="1"
+                android:imeOptions="actionNext"
+                android:inputType="textCapSentences"
+                android:hint="@string/title"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="14sp"/>
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                android:id="@+id/descriptionField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="100dp"
+                android:background="@drawable/selectable_border_rect"
+                android:layout_marginLeft="16dp"
+                android:gravity="start"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:inputType="textCapSentences|textMultiLine"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/description"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="14sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                    android:id="@+id/cancelBtn"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:minWidth="100dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/rectangle_orange_rounded"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/cancel"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:buttonFont="bold" />
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                    android:id="@+id/saveBtn"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="6dp"
+                    android:minWidth="100dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/rectangle_orange_rounded"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/save"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:buttonFont="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

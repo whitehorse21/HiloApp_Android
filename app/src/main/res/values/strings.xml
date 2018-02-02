@@ -24,7 +24,7 @@
     <string name="got_it">Got it !!</string>
     <string name="goal_tracker">Goal tracker</string>
     <string name="contacts">Contacts</string>
-    <string name="reachout_log">Reachout Log</string>
+    <string name="reachout_log">Reach Out Log</string>
     <string name="todos">To dos</string>
     <string name="more">More</string>
     <string name="adjust_my_graphs">Adjust My Graphs\n%s</string>
@@ -161,4 +161,20 @@
     <string name="custom_plan">CUSTOM PLAN</string>
     <string name="auto_follow_ups_message">Would you loke Hilo to automatically add follow ups to your queue?</string>
     <string name="hot_leads">Hot leads</string>
+    <string name="days_to_follow_up">Days to follow up</string>
+    <string name="warm_leads">Warm leads</string>
+    <string name="cold_leads">Cold leads</string>
+    <string name="cancel">Cancel</string>
+    <string name="revert_to_default_settings">Revert to default settings</string>
+    <string name="auto_follow_up_options">Auto follow up options</string>
+    <string name="contact_details">Contact Details</string>
+    <string name="personal">Personal</string>
+    <string name="notes">Notes</string>
+    <string name="documents">Documents</string>
+    <string name="campaigns">Campaigns</string>
+    <string name="email_templates">Email Templates</string>
+    <string name="add_note">Add Note</string>
+    <string name="description">Description *</string>
+    <string name="are_you_sure_you_want_to_delete">Are you sure you want to delete?</string>
+    <string name="edit_contact">Edit Contact</string>
 </resources>

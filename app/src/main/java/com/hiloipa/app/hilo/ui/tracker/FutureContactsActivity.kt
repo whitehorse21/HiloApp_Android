@@ -1,5 +1,6 @@
 package com.hiloipa.app.hilo.ui.tracker
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
@@ -11,6 +12,7 @@ import android.widget.Spinner
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.GoalTrackerAdapter
 import com.hiloipa.app.hilo.models.GoalType
+import com.hiloipa.app.hilo.ui.contacts.ContactDetailsActivity
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
@@ -51,6 +53,11 @@ class FutureContactsActivity : AppCompatActivity(), GoalTrackerAdapter.ContactCl
 
     override fun onDeleteClicked() {
 
+    }
+
+    override fun onContactClicked() {
+        val intent = Intent(this, ContactDetailsActivity::class.java)
+        this.startActivity(intent)
     }
 
     private fun showCompleteReachOutDialog() {

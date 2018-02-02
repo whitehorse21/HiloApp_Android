@@ -21,8 +21,9 @@ class ReachoutLogsFragment : Fragment() {
     lateinit var adapter: ReachoutLogsAdapter
 
     companion object {
-        fun newInstance(): ReachoutLogsFragment {
+        fun newInstance(isChild: Boolean = false): ReachoutLogsFragment {
             val args = Bundle()
+            args.putBoolean("isChild", isChild)
             val fragment = ReachoutLogsFragment()
             fragment.arguments = args
             return fragment
@@ -39,5 +40,12 @@ class ReachoutLogsFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.isNestedScrollingEnabled = false
+
+        val isChild = arguments.getBoolean("isChild")
+        if (isChild) {
+            searchLayout.visibility = View.GONE
+            searchBottomLine.visibility = View.GONE
+            resetBtn.visibility = View.GONE
+        }
     }
 }
