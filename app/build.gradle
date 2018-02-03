@@ -57,4 +57,5 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.makeramen:roundedimageview:2.3.0'
+    compile 'com.android.support:customtabs:26.1.0'
 }

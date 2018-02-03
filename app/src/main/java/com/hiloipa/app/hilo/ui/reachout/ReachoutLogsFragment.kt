@@ -1,6 +1,7 @@
 package com.hiloipa.app.hilo.ui.reachout
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -10,13 +11,14 @@ import android.view.ViewGroup
 
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.ReachoutLogsAdapter
+import com.hiloipa.app.hilo.ui.contacts.ContactDetailsActivity
 import kotlinx.android.synthetic.main.fragment_rachout_logs.*
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class ReachoutLogsFragment : Fragment() {
+class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
 
     lateinit var adapter: ReachoutLogsAdapter
 
@@ -37,6 +39,7 @@ class ReachoutLogsFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = ReachoutLogsAdapter(activity)
+        adapter.delegate = this
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.isNestedScrollingEnabled = false
@@ -47,5 +50,10 @@ class ReachoutLogsFragment : Fragment() {
             searchBottomLine.visibility = View.GONE
             resetBtn.visibility = View.GONE
         }
+    }
+
+    override fun onContactNameClicked() {
+        val intent = Intent(activity, ContactDetailsActivity::class.java)
+        activity.startActivity(intent)
     }
 }

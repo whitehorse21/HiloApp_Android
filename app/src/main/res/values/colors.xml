@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ff3704</color>
+    <color name="colorPrimary">#F3411B</color>
     <color name="colorPrimaryDark">#c30000</color>
     <color name="colorAccent">#485EB0</color>
     <color name="colorGreen">#77A757</color>
@@ -16,4 +16,33 @@
     <color name="colorRose">#C43A66</color>
     <color name="colorPurple">#8446AB</color>
     <color name="colorGray">#6A7D89</color>
+
+    <color name="tagRed">#f44336</color>
+    <color name="tagPurple">#9c27b0</color>
+    <color name="tagDeepPurple">#673ab7</color>
+    <color name="tagIndigo">#3f51b5</color>
+    <color name="tagBlue">#2196f3</color>
+    <color name="tagLightBlue600">#039be5</color>
+    <color name="tagPink">#e91e63</color>
+    <color name="tagCyan700">#0097a7</color>
+    <color name="tagTeal">#009688</color>
+    <color name="tagGreen600">#43a047</color>
+    <color name="tagLightGreen700">#689f38</color>
+    <color name="tagLime700">#afb42b</color>
+    <color name="tagYellow900">#f57f17</color>
+    <color name="tagYellow800">#f9a825</color>
+    <color name="tagAmber900">#ff6f00</color>
+    <color name="tagOrange900">#e65100</color>
+    <color name="tagDeepOrange900">#bf360c</color>
+    <color name="tagDeepOrangeA400">#ff3d00</color>
+    <color name="tagDeepOrange">#ff5722</color>
+    <color name="tagBlueGrey900">#263238</color>
+    <color name="tagBlueGrey">#607d8b</color>
+    <color name="tagBrown900">#3e2723</color>
+    <color name="tagGrey800">#424242</color>
+    <color name="tagAmberA700">#ffab00</color>
+    <color name="tagPurpleA400">#d500f9</color>
+    <color name="tagGrey600">#757575</color>
+    <color name="tagTeal900">#004d40</color>
+    <color name="tagGreenA400">#00e676</color>
 </resources>

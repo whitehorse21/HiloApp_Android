@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import com.hiloipa.app.hilo.R
-import com.hiloipa.app.hilo.ui.ContactNotesFragment
+import com.hiloipa.app.hilo.ui.more.EmailTemplatesFragment
 import com.hiloipa.app.hilo.ui.reachout.ReachoutLogsFragment
 import kotlinx.android.synthetic.main.activity_contact_details.*
 
@@ -39,6 +39,9 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
             TabType.personal -> replaceFragment(EditContactFragment.newInstance())
             TabType.reach_out_logs -> replaceFragment(ReachoutLogsFragment.newInstance(isChild = true))
             TabType.notes -> replaceFragment(ContactNotesFragment.newInstance())
+            TabType.products -> replaceFragment(UserProductsFragment.newInstace())
+
+            TabType.email_templates -> replaceFragment(EmailTemplatesFragment.newInstance())
         }
     }
 

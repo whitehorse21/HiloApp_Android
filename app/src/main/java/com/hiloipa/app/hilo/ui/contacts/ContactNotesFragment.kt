@@ -1,7 +1,6 @@
-package com.hiloipa.app.hilo.ui
+package com.hiloipa.app.hilo.ui.contacts
 
 
-import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle

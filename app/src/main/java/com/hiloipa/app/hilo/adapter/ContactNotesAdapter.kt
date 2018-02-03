@@ -17,7 +17,7 @@ class ContactNotesAdapter(val context: Context): RecyclerView.Adapter<ContactNot
     var delegate: ContactNoteDelegate? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_user_note, parent, false)
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_contact_note, parent, false)
         return ViewHolder(view)
     }
 

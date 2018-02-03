@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        android:id="@+id/backButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?actionBarSize"
+        android:background="@drawable/rectangle_fill_orange"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:drawablePadding="-16dp"
+        android:drawableLeft="@drawable/ic_action_back_white"
+        android:drawableStart="@drawable/ic_action_back_white"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        style="@style/Base.Widget.AppCompat.ActionButton"
+        android:layout_alignParentTop="true"
+        android:textSize="14sp"
+        android:text="Products List"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/backButton"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/drop_shadow"
+        android:layout_below="@id/backButton"/>
+</RelativeLayout>

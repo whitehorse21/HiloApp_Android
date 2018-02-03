@@ -43,7 +43,7 @@
         android:paddingBottom="10dp"
         android:clipToPadding="false"
         android:layout_height="match_parent"
-        tools:listitem="@layout/list_item_contact_note"/>
+        tools:listitem="@layout/list_item_user_note"/>
 
     <View
         android:layout_width="match_parent"

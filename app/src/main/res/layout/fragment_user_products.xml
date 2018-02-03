@@ -1,0 +1,98 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.hiloipa.app.hilo.ui.contacts.UserProductsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+        
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardElevation="3dp"
+            app:cardCornerRadius="4dp">
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                android:id="@+id/purchasedProductsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="?selectableItemBackground"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:textSize="12sp"
+                android:text="@string/products_purchased_d"
+                android:drawableRight="@drawable/ic_action_next"
+                android:drawableEnd="@drawable/ic_action_next"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/white"
+            android:layout_margin="6dp"
+            app:cardElevation="3dp"
+            app:cardCornerRadius="4dp">
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                android:id="@+id/recomendedProductsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                app:cardBackgroundColor="?selectableItemBackground"
+                android:textSize="12sp"
+                android:text="@string/recomended_products_d"
+                android:drawableRight="@drawable/ic_action_next"
+                android:drawableEnd="@drawable/ic_action_next"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/white"
+            android:layout_margin="6dp"
+            app:cardElevation="3dp"
+            app:cardCornerRadius="4dp">
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                android:id="@+id/interestedProductsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="?selectableItemBackground"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:textSize="12sp"
+                android:text="@string/product_interested_d"
+                android:drawableRight="@drawable/ic_action_next"
+                android:drawableEnd="@drawable/ic_action_next"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/white"
+            android:layout_margin="6dp"
+            app:cardElevation="3dp"
+            app:cardCornerRadius="4dp">
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                android:id="@+id/toolRecomendedProductsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="?selectableItemBackground"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:textSize="12sp"
+                android:text="@string/solution_tool_recomended_product_d"
+                android:drawableRight="@drawable/ic_action_next"
+                android:drawableEnd="@drawable/ic_action_next"/>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

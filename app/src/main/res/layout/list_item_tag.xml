@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/tagCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardElevation="3dp"
+        app:cardCornerRadius="3dp"
+        app:cardBackgroundColor="@color/colorBrown"
+        android:layout_margin="5dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:orientation="horizontal">
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                android:id="@+id/tagNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:padding="2dp"
+                android:textSize="12sp"
+                android:text="Tag name"/>
+
+            <ImageButton
+                android:id="@+id/removeTagBtn"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:padding="2dp"
+                style="@style/Base.Widget.AppCompat.ActionButton"
+                android:src="@drawable/ic_close_white_18dp"
+                android:contentDescription="@string/delete" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

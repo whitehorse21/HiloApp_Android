@@ -1,6 +1,7 @@
 package com.hiloipa.app.hilo.ui.more
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.hiloipa.app.hilo.R
+import kotlinx.android.synthetic.main.fragment_more.*
 
 
 /**
@@ -30,5 +32,14 @@ class MoreFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        templatesBtn.setOnClickListener {
+            val templatesIntent = Intent(activity, EmailTemplatesActivity::class.java)
+            activity.startActivity(templatesIntent)
+        }
+
+        notepadBtn.setOnClickListener {
+            val templatesIntent = Intent(activity, NotepadActivity::class.java)
+            activity.startActivity(templatesIntent)
+        }
     }
 }

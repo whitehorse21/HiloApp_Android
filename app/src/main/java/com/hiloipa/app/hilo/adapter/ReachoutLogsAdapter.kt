@@ -14,6 +14,9 @@ import com.hiloipa.app.hilo.ui.widget.RalewayTextView
  * Created by eduardalbu on 01.02.2018.
  */
 class ReachoutLogsAdapter(val context: Context): RecyclerView.Adapter<ReachoutLogsAdapter.ViewHolder>() {
+
+    var delegate: ReachOutDelegate? = null
+
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_reachout_log, parent, false)
         return ViewHolder(view)
@@ -38,7 +41,7 @@ class ReachoutLogsAdapter(val context: Context): RecyclerView.Adapter<ReachoutLo
         val deleteBtn: ImageButton = itemView.findViewById(R.id.deleteBtn)
 
         init {
-            expandBtn.setOnClickListener {
+            itemView.setOnClickListener {
                 if (expandBtn.isSelected) {
                     this.commentsLayout.visibility = View.GONE
                     expandBtn.isSelected = false
@@ -47,6 +50,14 @@ class ReachoutLogsAdapter(val context: Context): RecyclerView.Adapter<ReachoutLo
                     expandBtn.isSelected = true
                 }
             }
+
+            contactName.setOnClickListener {
+                delegate?.onContactNameClicked()
+            }
         }
+    }
+
+    interface ReachOutDelegate {
+        fun onContactNameClicked()
     }
 }

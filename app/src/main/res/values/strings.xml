@@ -177,4 +177,16 @@
     <string name="description">Description *</string>
     <string name="are_you_sure_you_want_to_delete">Are you sure you want to delete?</string>
     <string name="edit_contact">Edit Contact</string>
+    <string name="products_purchased_d">Products Purchased - %d</string>
+    <string name="recomended_products_d">Recomended Products - %d</string>
+    <string name="product_interested_d">Product Interested - %d</string>
+    <string name="solution_tool_recomended_product_d">Solution Tool Recomended Product - %d</string>
+    <string name="product_image">Product Image</string>
+    <string name="unassign">Unassign</string>
+    <string name="all_templates">All templates</string>
+    <string name="my_templates">My templates</string>
+    <string name="shared_with_downline">Share with downline</string>
+    <string name="shared_with_upline">Share with upline</string>
+    <string name="hilo_templates">Hilo templates</string>
+    <string name="preview_link">Preview Link</string>
 </resources>
