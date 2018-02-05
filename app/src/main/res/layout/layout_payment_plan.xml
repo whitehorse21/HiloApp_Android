@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/plan_bg_card"
+    android:orientation="vertical">
+
+    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        android:id="@+id/titleLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:text="Silver Plan"
+        android:textSize="18sp"
+        android:padding="5dp"
+        android:gravity="center"
+        app:textFont="bold"
+        android:background="@drawable/plan_bg_header"/>
+
+    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        android:id="@+id/priceLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:text="$19.99 / month"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:gravity="center"
+        android:background="@drawable/plan_bg_price"/>
+</LinearLayout>

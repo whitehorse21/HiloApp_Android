@@ -2,6 +2,7 @@ package com.hiloipa.app.hilo.ui.auth
 
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -12,6 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.ui.MainActivity
+import com.hiloipa.app.hilo.ui.more.products.ProductsActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
@@ -56,8 +59,11 @@ class LoginFragment : Fragment() {
             val gotItBtn: Button = dialogView.findViewById(R.id.gotItBtn)
             val dialog = AlertDialog.Builder(activity)
                     .setView(dialogView).create()
+
             gotItBtn.setOnClickListener {
                 dialog.dismiss()
+                val feedbackIntent = Intent(activity, MainActivity::class.java)
+                activity.startActivity(feedbackIntent)
                 activity.finish()
             }
             dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

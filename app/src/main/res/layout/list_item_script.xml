@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                android:id="@+id/scriptNameLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:text="Script title"
+                app:textFont="semiBold"
+                android:textSize="16sp"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/editBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_edit"
+                style="@style/Base.Widget.AppCompat.ActionButton"
+                android:contentDescription="@null" />
+
+            <ImageButton
+                android:id="@+id/deleteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_delete_empty"
+                style="@style/Base.Widget.AppCompat.ActionButton"
+                android:contentDescription="@string/delete" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</FrameLayout>

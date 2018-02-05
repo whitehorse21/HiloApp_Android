@@ -54,4 +54,10 @@
         <attr name="checked" format="boolean"/>
         <attr name="color" format="color"/>
     </declare-styleable>
+    
+    <declare-styleable name="PaymentPlanView">
+        <attr name="selected" format="boolean"/>
+        <attr name="planName" format="string"/>
+        <attr name="planPrice" format="string"/>
+    </declare-styleable>
 </resources>

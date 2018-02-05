@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/rectangle_top_rounded_orange">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:src="@drawable/ic_action_back_white"
+            android:contentDescription="@null" />
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            android:id="@+id/scriptNameLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:text="Note title"
+            app:textFont="semiBold"
+            android:textColor="@android:color/white"
+            style="@style/Base.Widget.AppCompat.ActionButton"/>
+
+        <ImageButton
+            android:id="@+id/editBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:src="@drawable/ic_action_edit_white"
+            android:contentDescription="@null" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:layout_height="200dp">
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            android:id="@+id/scriptLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Some script example"
+            android:padding="16dp"/>
+    </ScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            android:id="@+id/copyBtn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:textColor="@android:color/white"
+            android:text="@string/copy_to_clipboard"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:background="@drawable/rectangle_orange_rounded"
+            android:layout_marginBottom="16dp"/>
+    </FrameLayout>
+</LinearLayout>

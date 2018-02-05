@@ -44,6 +44,11 @@ class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.isNestedScrollingEnabled = false
 
+        addReachOutBtn.setOnClickListener {
+            val intent = Intent(activity, EditReachoutActivity::class.java)
+            activity.startActivity(intent)
+        }
+
         val isChild = arguments.getBoolean("isChild")
         if (isChild) {
             searchLayout.visibility = View.GONE
@@ -55,5 +60,14 @@ class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
     override fun onContactNameClicked() {
         val intent = Intent(activity, ContactDetailsActivity::class.java)
         activity.startActivity(intent)
+    }
+
+    override fun onEditLogClicked() {
+        val intent = Intent(activity, EditReachoutActivity::class.java)
+        activity.startActivity(intent)
+    }
+
+    override fun onDeleteLogClicked() {
+
     }
 }

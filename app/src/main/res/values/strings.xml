@@ -175,9 +175,9 @@
     <string name="are_you_sure_you_want_to_delete">Are you sure you want to delete?</string>
     <string name="edit_contact">Edit Contact</string>
     <string name="products_purchased_d">Products Purchased - %d</string>
-    <string name="recomended_products_d">Recomended Products - %d</string>
+    <string name="recomended_products_d">Recommended Products - %d</string>
     <string name="product_interested_d">Product Interested - %d</string>
-    <string name="solution_tool_recomended_product_d">Solution Tool Recomended Product - %d</string>
+    <string name="solution_tool_recomended_product_d">Solution Tool Recommended Product - %d</string>
     <string name="product_image">Product Image</string>
     <string name="unassign">Unassign</string>
     <string name="all_templates">All templates</string>
@@ -187,9 +187,6 @@
     <string name="hilo_templates">Hilo templates</string>
     <string name="preview_link">Preview Link</string>
     <string name="content">Content</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="select_tags">Select tags</string>
     <string name="add_tag">Add tag</string>
     <string name="comments">Comments *</string>
@@ -200,4 +197,39 @@
     <string name="assign">Assign</string>
     <string name="assign_as">Assign as *</string>
     <string name="assign_to">Assign to *</string>
+    <string name="my_account">My Account</string>
+    <string name="account_details">Account Details</string>
+    <string name="hilo_bcc_email">Hilo/BCC Email</string>
+    <string name="personal_url">Personal URL</string>
+    <string name="personal_url_business_site">Personal URL Business Site</string>
+    <string name="solution_tool_link">Solution Tool Link</string>
+    <string name="update_account">Update Account</string>
+    <string name="manage_payment_plan">Manage Payment Plan</string>
+    <string name="make_payment">Make Payment</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="choose_your_plan">Choose Your Plan</string>
+    <string name="all_hilo_features_amp_functions"><![CDATA[All Hilo Features & Functions]]></string>
+    <string name="_30_days_free_trial">30 days Free Trial</string>
+    <string name="up_to_5000_contacts">Up to 5000 Contacts</string>
+    <string name="up_to_3000_emails_month">Up to 3000 Emails/month</string>
+    <string name="full_hilo_support">Full Hilo Support</string>
+    <string name="up_to_15000_contacts">Up to 15.000 Contacts</string>
+    <string name="up_to_12000_emails_month">Up to 12.000 Emails/month</string>
+    <string name="online_team_training">Online Team Training (2/year)</string>
+    <string name="plans_description">I Purchasing a subscription to Hilo IPA above, for the Silver or Gold Plan, allows for full use of this app and the HiloIpa.com website after the 30 day free trial.\nI Subscriptions are auto-renewable on a monthly charge of $19.99 for the Silver Plan and 39.99 for the Gold Plan (See above for details of each plan)\nI Your subscription will be charged to yout iTunes account at confirmation of purchase and will autmatically renew on a monthly basis unless auto-renew is turned off at least 24 hours before the end of current period.\nI Current subscription may not be canceled during the active subscription period, however, yew can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase.\nI Any unused portion of the 30 day free trial period, will be forfeited when a subscription is purchased.</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="add_script">Add Script</string>
+    <string name="all_scripts">All scripts</string>
+    <string name="my_scripts">My scripts</string>
+    <string name="hilo_scripts">Hilo scripts</string>
+    <string name="edit_script">Edit Script</string>
+    <string name="copy_to_clipboard">Copy to Clipboard</string>
+    <string name="edit_reach_out">Edit Reach Out</string>
+    <string name="edit_reach_out_entry">Edit Reach Out Log Entry</string>
+    <string name="reach_type">Reach Out Type</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="reach_out_description">Reach Out Description</string>
+    <string name="contact">Contact</string>
 </resources>

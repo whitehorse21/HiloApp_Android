@@ -51,13 +51,17 @@ class ReachoutLogsAdapter(val context: Context): RecyclerView.Adapter<ReachoutLo
                 }
             }
 
-            contactName.setOnClickListener {
-                delegate?.onContactNameClicked()
-            }
+            editBtn.setOnClickListener { delegate?.onEditLogClicked() }
+
+            deleteBtn.setOnClickListener { delegate?.onDeleteLogClicked() }
+
+            contactName.setOnClickListener { delegate?.onContactNameClicked() }
         }
     }
 
     interface ReachOutDelegate {
         fun onContactNameClicked()
+        fun onEditLogClicked()
+        fun onDeleteLogClicked()
     }
 }

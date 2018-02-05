@@ -31,7 +31,12 @@
         <activity android:name=".ui.more.notes.NotepadActivity" />
         <activity android:name=".ui.more.notes.CreateNoteActivity" />
         <activity android:name=".ui.more.FeedbackActivity" />
-        <activity android:name=".ui.more.products.ProductsActivity"></activity>
+        <activity android:name=".ui.more.products.ProductsActivity" />
+        <activity android:name=".ui.more.account.AccountActivity" />
+        <activity android:name=".ui.more.account.SubscribeActivity" />
+        <activity android:name=".ui.more.scripts.ScriptsActivity" />
+        <activity android:name=".ui.more.scripts.EditScriptActivity" />
+        <activity android:name=".ui.reachout.EditReachoutActivity"></activity>
     </application>
 
 </manifest>
