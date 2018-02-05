@@ -27,8 +27,11 @@
         <activity android:name=".ui.tracker.FutureContactsActivity" />
         <activity android:name=".ui.contacts.ContactDetailsActivity" />
         <activity android:name=".ui.contacts.EditContactActivity" />
-        <activity android:name=".ui.more.EmailTemplatesActivity" />
-        <activity android:name=".ui.more.NotepadActivity"></activity>
+        <activity android:name=".ui.more.email.EmailTemplatesActivity" />
+        <activity android:name=".ui.more.notes.NotepadActivity" />
+        <activity android:name=".ui.more.notes.CreateNoteActivity" />
+        <activity android:name=".ui.more.FeedbackActivity" />
+        <activity android:name=".ui.more.products.ProductsActivity"></activity>
     </application>
 
 </manifest>

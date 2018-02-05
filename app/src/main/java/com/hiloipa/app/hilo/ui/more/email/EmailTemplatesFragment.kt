@@ -1,4 +1,4 @@
-package com.hiloipa.app.hilo.ui.more
+package com.hiloipa.app.hilo.ui.more.email
 
 
 import android.os.Bundle

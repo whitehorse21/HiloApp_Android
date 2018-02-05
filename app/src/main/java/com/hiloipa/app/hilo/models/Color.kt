@@ -62,6 +62,20 @@ enum class NoteColor {
         red, rose, purple, dark_blue, blue, sky_blue, olive, green, brown, grey -> R.drawable.ic_action_edit_white
     }
 
+    @DrawableRes
+    fun tagIcon(): Int = when (this) {
+        white, chartreuse, dark_yellow, yellow -> R.drawable.ic_action_add_tag
+
+        red, rose, purple, dark_blue, blue, sky_blue, olive, green, brown, grey -> R.drawable.ic_action_add_tag_white
+    }
+
+    @DrawableRes
+    fun colorIcon(): Int = when (this) {
+        white, chartreuse, dark_yellow, yellow -> R.drawable.ic_action_pick_color
+
+        red, rose, purple, dark_blue, blue, sky_blue, olive, green, brown, grey -> R.drawable.ic_action_pick_color_white
+    }
+
     fun stringColor(): String = when (this) {
         white -> "White"
         red -> "Red"

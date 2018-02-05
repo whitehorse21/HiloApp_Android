@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">Hilo</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password?</string>
@@ -189,4 +186,18 @@
     <string name="shared_with_upline">Share with upline</string>
     <string name="hilo_templates">Hilo templates</string>
     <string name="preview_link">Preview Link</string>
+    <string name="content">Content</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_tags">Select tags</string>
+    <string name="add_tag">Add tag</string>
+    <string name="comments">Comments *</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="wholesale_price_s">WholeSale Price: %s</string>
+    <string name="pc_price_s">PC Price: %s</string>
+    <string name="retail_price_s">Retail Price: %s</string>
+    <string name="assign">Assign</string>
+    <string name="assign_as">Assign as *</string>
+    <string name="assign_to">Assign to *</string>
 </resources>

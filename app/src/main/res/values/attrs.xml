@@ -49,4 +49,9 @@
             <enum name="regular" value="0"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="ColorButton">
+        <attr name="checked" format="boolean"/>
+        <attr name="color" format="color"/>
+    </declare-styleable>
 </resources>

@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.ui.more.email.EmailTemplatesActivity
+import com.hiloipa.app.hilo.ui.more.notes.NotepadActivity
+import com.hiloipa.app.hilo.ui.more.products.ProductsActivity
 import kotlinx.android.synthetic.main.fragment_more.*
 
 
@@ -40,6 +43,16 @@ class MoreFragment : Fragment() {
         notepadBtn.setOnClickListener {
             val templatesIntent = Intent(activity, NotepadActivity::class.java)
             activity.startActivity(templatesIntent)
+        }
+
+        feedbackBtn.setOnClickListener {
+            val feedbackIntent = Intent(activity, FeedbackActivity::class.java)
+            activity.startActivity(feedbackIntent)
+        }
+
+        productsBtn.setOnClickListener {
+            val feedbackIntent = Intent(activity, ProductsActivity::class.java)
+            activity.startActivity(feedbackIntent)
         }
     }
 }

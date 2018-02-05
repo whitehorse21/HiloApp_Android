@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hiloipa.app.hilo.ui.more.notes.NotepadActivity">
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context="com.hiloipa.app.hilo.ui.more.products.ProductsActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -20,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="18sp"
-            android:text="@string/notepad"
+            android:text="@string/products"
             app:textFont="medium"
             android:textColor="@android:color/white" />
     </android.support.v7.widget.Toolbar>
@@ -29,8 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:name="com.hiloipa.app.hilo.ui.more.notes.NotepadFragment"
-        android:id="@+id/notepadFragment"/>
+        android:id="@+id/productsFragment"
+        android:name="com.hiloipa.app.hilo.ui.more.products.ProductsFragment"/>
 
     <View
         android:layout_width="match_parent"

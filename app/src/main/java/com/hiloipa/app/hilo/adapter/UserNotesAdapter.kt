@@ -57,6 +57,9 @@ class UserNotesAdapter(val context: Context): RecyclerView.Adapter<UserNotesAdap
             adapter.delegate = this
             tagsList.adapter = adapter
             tagsList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+            editBtn.setOnClickListener { delegate?.onEditNoteClicked() }
+            deleteBtn.setOnClickListener { delegate?.onDeleteNoteClicked() }
         }
 
         override fun onRemoveTagClicked() {

@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hiloipa.app.hilo.ui.more.notes.TagsFragment">
+
+    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        android:id="@+id/backButton"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/rectangle_fill_orange"
+        android:textColor="@android:color/white"
+        android:text="@string/select_tags"
+        android:drawableLeft="@drawable/ic_action_back_white"
+        android:drawableStart="@drawable/ic_action_back_white"
+        android:drawablePadding="-30dp"/>
+
+    <LinearLayout
+        android:id="@+id/newTagFieldLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@android:color/white"
+        android:layout_below="@id/backButton"
+        android:orientation="horizontal">
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+            android:id="@+id/newTagField"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:hint="@string/add_tag"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:lines="1"
+            android:imeOptions="actionDone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/addTagBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:src="@drawable/ic_action_add_round"
+            android:contentDescription="@null" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        tools:listitem="@layout/list_item_select_tag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/newTagFieldLayout"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@id/newTagFieldLayout"
+        android:background="@drawable/drop_shadow"/>
+</RelativeLayout>

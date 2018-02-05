@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.hiloipa.app.hilo.ui.more.EmailTemplatesFragment">
+    tools:context="com.hiloipa.app.hilo.ui.more.email.EmailTemplatesFragment">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"

@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import com.hiloipa.app.hilo.R
-import com.hiloipa.app.hilo.ui.more.EmailTemplatesFragment
+import com.hiloipa.app.hilo.ui.more.email.EmailTemplatesFragment
 import com.hiloipa.app.hilo.ui.reachout.ReachoutLogsFragment
 import kotlinx.android.synthetic.main.activity_contact_details.*
 

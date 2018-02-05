@@ -1,7 +1,8 @@
-package com.hiloipa.app.hilo.ui.more
+package com.hiloipa.app.hilo.ui.more.notes
 
 
 import android.os.Bundle
+import android.support.design.widget.BottomSheetDialogFragment
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -9,21 +10,21 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.hiloipa.app.hilo.R
-import com.hiloipa.app.hilo.adapter.UserNotesAdapter
-import kotlinx.android.synthetic.main.fragment_notepad.*
+import com.hiloipa.app.hilo.adapter.SelectTagsAdapter
+import kotlinx.android.synthetic.main.fragment_tags.*
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
+class TagsFragment : BottomSheetDialogFragment(), SelectTagsAdapter.SelectTagDelegate {
 
-    lateinit var adapter: UserNotesAdapter
+    lateinit var adapter: SelectTagsAdapter
 
     companion object {
-        fun newInstance(): NotepadFragment {
+        fun newInstance(): TagsFragment {
             val args = Bundle()
-            val fragment = NotepadFragment()
+            val fragment = TagsFragment()
             fragment.arguments = args
             return fragment
         }
@@ -31,21 +32,22 @@ class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-        inflater!!.inflate(R.layout.fragment_notepad, container, false)
+        inflater!!.inflate(R.layout.fragment_tags, container, false)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = UserNotesAdapter(activity)
+        backButton.setOnClickListener { this.dismiss() }
+        adapter = SelectTagsAdapter(activity)
         adapter.delegate = this
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
     }
 
-    override fun onEditNoteClicked() {
+    override fun onRemoveTagClicked() {
 
     }
 
-    override fun onDeleteNoteClicked() {
+    override fun onTagSelectedChanged(isSelected: Boolean) {
 
     }
 }

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hiloipa.app.hilo.ui.more.notes.CreateNoteActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        app:navigationIcon="@drawable/ic_action_back_white"
+        android:background="@color/colorPrimary">
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:text="@string/notes"
+            app:textFont="medium"
+            android:textColor="@android:color/white" />
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/noteCard"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="true"
+                    android:focusable="true"
+                    android:orientation="vertical">
+
+                    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:textColor="@android:color/white"
+                        android:text="@string/add_note"
+                        android:gravity="start|center_vertical"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:background="@drawable/rectangle_top_rounded_orange"/>
+
+                    <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                        android:id="@+id/noteTitleField"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:hint="@string/title"
+                        android:textSize="14sp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:inputType="textCapSentences"
+                        android:imeOptions="actionNext"
+                        android:background="@drawable/selectable_border_rect"/>
+
+
+                    <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                        android:id="@+id/noteContentField"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/selectable_border_rect"
+                        android:gravity="start"
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:imeOptions="actionDone"
+                        android:textSize="14sp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:hint="@string/content"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="end|center_vertical">
+
+                        <ImageButton
+                            android:id="@+id/addTagBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Base.Widget.AppCompat.ActionButton"
+                            android:src="@drawable/ic_action_add_tag"
+                            android:contentDescription="@null" />
+
+                        <ImageButton
+                            android:id="@+id/pickColorBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Base.Widget.AppCompat.ActionButton"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_action_pick_color"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/colorsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:visibility="visible"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:gravity="center_horizontal"
+                    android:paddingRight="16dp">
+
+                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                        android:tag="White"
+                        android:id="@+id/whiteBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:color="@color/colorWhite"
+                        app:checked="true"/>
+
+                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                        android:tag="Red"
+                        android:id="@+id/redBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:color="@color/colorRed"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp" />
+
+                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                        android:tag="Rose"
+                        android:id="@+id/roseBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:color="@color/colorRose" />
+
+                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                        android:tag="Purple"
+                        android:id="@+id/purpleBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:color="@color/colorPurple"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp" />
+
+                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                        android:tag="Dark Blue"
+                        android:id="@+id/darkBlueBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:color="@color/colorAccent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:paddingLeft="16dp"
+                    android:gravity="center_horizontal"
+                    android:paddingRight="16dp">
+
+                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                        android:tag="Blue"
+                        android:id="@+id/blueBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:color="@color/colorBlue" />
+
+                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                        android:tag="Sky Blue"
+                        android:id="@+id/skyBlueBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:color="@color/colorSkyBlue"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp" />
+
+                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                        android:tag="Olive"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:color="@color/colorOlive"
+                        android:id="@+id/oliveBtn"/>
+
+                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                        android:tag="Green"
+                        android:id="@+id/greenBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:color="@color/colorGreen"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp" />
+
+                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                        android:tag="Chartreuse"
+                        android:id="@+id/chartreuseBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:color="@color/colorChartreuse" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:paddingLeft="16dp"
+                    android:gravity="center_horizontal"
+                    android:paddingRight="16dp">
+
+                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                        android:tag="Yellow"
+                        android:id="@+id/yellowBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:color="@color/colorYellow"/>
+
+                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                        android:tag="Dark Yellow"
+                        android:id="@+id/darkYellowBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:color="@color/colorDarkYellow"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp" />
+
+                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                        android:tag="Brown"
+                        android:id="@+id/brownBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:color="@color/colorBrown" />
+
+                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                        android:tag="Grey"
+                        android:id="@+id/grayBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:color="@color/colorGray"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                    android:id="@+id/cancelBtn"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:minWidth="100dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/rectangle_orange_rounded"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/cancel"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:buttonFont="bold" />
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                    android:id="@+id/saveBtn"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="6dp"
+                    android:minWidth="100dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/rectangle_orange_rounded"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/add_note"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:buttonFont="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@id/toolbar"
+        android:background="@drawable/drop_shadow"/>
+</RelativeLayout>
