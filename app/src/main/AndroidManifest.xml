@@ -24,19 +24,46 @@
         <activity
             android:name=".ui.auth.AuthActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.tracker.FutureContactsActivity" />
-        <activity android:name=".ui.contacts.ContactDetailsActivity" />
-        <activity android:name=".ui.contacts.EditContactActivity" />
-        <activity android:name=".ui.more.email.EmailTemplatesActivity" />
-        <activity android:name=".ui.more.notes.NotepadActivity" />
-        <activity android:name=".ui.more.notes.CreateNoteActivity" />
-        <activity android:name=".ui.more.FeedbackActivity" />
-        <activity android:name=".ui.more.products.ProductsActivity" />
-        <activity android:name=".ui.more.account.AccountActivity" />
-        <activity android:name=".ui.more.account.SubscribeActivity" />
-        <activity android:name=".ui.more.scripts.ScriptsActivity" />
-        <activity android:name=".ui.more.scripts.EditScriptActivity" />
-        <activity android:name=".ui.reachout.EditReachoutActivity"></activity>
+        <activity
+            android:name=".ui.tracker.FutureContactsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.contacts.ContactDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.contacts.EditContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.more.email.EmailTemplatesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.more.notes.NotepadActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.more.notes.CreateNoteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.more.FeedbackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.more.products.ProductsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.more.account.AccountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.more.account.SubscribeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.more.scripts.ScriptsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.more.scripts.EditScriptActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.reachout.EditReachoutActivity"
+            android:screenOrientation="portrait" />
+        <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
     </application>
 
 </manifest>

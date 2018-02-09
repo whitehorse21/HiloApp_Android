@@ -1,8 +1,8 @@
 package com.hiloipa.app.hilo.utils
 
-import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.support.multidex.MultiDexApplication
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.hiloipa.app.hilo.BuildConfig
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by eduardalbu on 31.01.2018.
  */
-class HiloApp: Application() {
+class HiloApp: MultiDexApplication() {
 
     lateinit var preferences: SharedPreferences
 
