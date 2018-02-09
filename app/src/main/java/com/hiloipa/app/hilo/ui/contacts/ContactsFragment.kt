@@ -133,7 +133,7 @@ class ContactsFragment : Fragment(), ContactsDelegate {
         val dialogView = layoutInflater.inflate(R.layout.alert_assign_campaign, null)
         val campaignsBtn: RalewayButton = dialogView.findViewById(R.id.emailCampaignsBtn)
         val spinner: Spinner = dialogView.findViewById(R.id.emailCampaignsSpinner)
-        val assignBtn: RalewayButton = dialogView.findViewById(R.id.assignCampaignBtn)
+        val assignBtn: RalewayButton = dialogView.findViewById(R.id.emailCampaignsBtn)
         val backBtn: RalewayButton = dialogView.findViewById(R.id.backButton)
 
         val dialog = AlertDialog.Builder(activity).setView(dialogView).create()
