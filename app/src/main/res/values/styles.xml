@@ -12,4 +12,8 @@
         <item name="colorControlNormal">@android:color/white</item>
         <item name="colorControlActivated">@android:color/white</item>
     </style>
+
+    <style name="HiloProgressBar" parent="Base.Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminate">true</item>
+    </style>
 </resources>

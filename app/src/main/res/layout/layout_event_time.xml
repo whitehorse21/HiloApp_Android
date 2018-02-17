@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            android:id="@+id/eventStartDate"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selectable_border_rect"
+            android:drawableEnd="@drawable/ic_action_calendar"
+            android:drawableRight="@drawable/ic_action_calendar"
+            android:gravity="start|center_vertical"
+            android:hint="@string/start_date"
+            android:lines="1"
+            android:singleLine="true" />
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            android:id="@+id/eventEndDate"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selectable_border_rect"
+            android:drawableEnd="@drawable/ic_action_calendar"
+            android:drawableRight="@drawable/ic_action_calendar"
+            android:gravity="start|center_vertical"
+            android:hint="@string/end_date"
+            android:lines="1"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            android:id="@+id/eventStartTime"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selectable_border_rect"
+            android:drawableEnd="@drawable/ic_action_clock"
+            android:drawableRight="@drawable/ic_action_clock"
+            android:gravity="start|center_vertical"
+            android:hint="@string/start_time"
+            android:lines="1"
+            android:singleLine="true" />
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            android:id="@+id/eventEndTime"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/selectable_border_rect"
+            android:drawableEnd="@drawable/ic_action_clock"
+            android:drawableRight="@drawable/ic_action_clock"
+            android:gravity="start|center_vertical"
+            android:hint="@string/end_time"
+            android:lines="1"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            android:id="@+id/eventStartTimeAmPm"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/selectable_border_rect"
+            android:drawableEnd="@drawable/ic_action_down"
+            android:drawableRight="@drawable/ic_action_down"
+            android:gravity="start|center_vertical"
+            android:hint="@string/am_pm"
+            android:lines="1"
+            android:singleLine="true" />
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            android:id="@+id/eventEndTimeAmPm"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/selectable_border_rect"
+            android:drawableEnd="@drawable/ic_action_down"
+            android:drawableRight="@drawable/ic_action_down"
+            android:gravity="start|center_vertical"
+            android:hint="@string/am_pm"
+            android:lines="1"
+            android:singleLine="true" />
+    </LinearLayout>
+</LinearLayout>

@@ -218,7 +218,7 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="16dp"
             style="@style/Base.Widget.AppCompat.ActionButton"
-            android:text="Log out"
+            android:text="@string/log_out"
             android:textColor="@android:color/white"
             android:drawableTop="@drawable/ic_action_logout_white"/>
     </RelativeLayout>

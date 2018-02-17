@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            android:id="@+id/backButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/team_needs"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:drawableStart="@drawable/ic_action_back"
+            android:drawableLeft="@drawable/ic_action_back"/>
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            android:id="@+id/addBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:textSize="12sp"
+            app:buttonFont="bold"
+            android:drawableTop="@mipmap/ic_action_add_small"
+            android:text="@string/add"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/headerLayout"
+        tools:listitem="@layout/list_item_todo"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/drop_shadow"
+        android:layout_below="@id/headerLayout"/>
+</RelativeLayout>

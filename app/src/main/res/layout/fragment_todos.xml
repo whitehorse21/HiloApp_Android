@@ -25,8 +25,10 @@
             android:layout_weight="1">
 
             <RelativeLayout
+                android:id="@+id/goalsButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
                 android:padding="5dp">
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayTextView
@@ -96,8 +98,10 @@
             android:layout_weight="1">
 
             <RelativeLayout
+                android:id="@+id/actionsButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
                 android:padding="5dp">
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayTextView
@@ -162,6 +166,8 @@
         android:layout_margin="10dp">
 
         <LinearLayout
+            android:id="@+id/teamNeedsBtn"
+            android:background="?selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -213,8 +219,10 @@
         android:layout_margin="10dp">
 
         <LinearLayout
+            android:id="@+id/calendarEvetsBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
             android:gravity="center_vertical"
             android:padding="16dp"
             android:orientation="horizontal">

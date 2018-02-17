@@ -12,21 +12,21 @@ android {
         targetSdkVersion 26
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "3c3c3cc3522e4040b1cf1ce15820de79"]
         multiDexEnabled true
-        versionCode 1
-        versionName "1.0.1"
+        versionCode 2
+        versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", "\"http://54.197.165.106:81/Hilo/\""
-            buildConfigField "String", "HELP_URL", "\"http://54.197.165.106:81/Help\""
+            buildConfigField "String", "BASE_URL", "\"https://api.hiloipa.com/Hilo/\""
+            buildConfigField "String", "HELP_URL", "\"http://54.197.165.106:81/Help/\""
         }
 
         debug {
-            buildConfigField "String", "BASE_URL", "\"https://api.hiloipa.com/Hilo/\""
-            buildConfigField "String", "HELP_URL", "\"http://54.197.165.106:81/Help\""
+            buildConfigField "String", "BASE_URL", "\"http://54.197.165.106:81/Hilo/\""
+            buildConfigField "String", "HELP_URL", "\"http://54.197.165.106:81/Help/\""
         }
     }
 }

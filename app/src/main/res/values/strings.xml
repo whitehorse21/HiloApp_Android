@@ -250,4 +250,18 @@
     <string name="update">Update</string>
     <string name="value_to_change_to">Value To Change To</string>
     <string name="email_campaigns">Email campaigns</string>
+    <string name="priority">Priority</string>
+    <string name="due_date">Due Date</string>
+    <string name="end_time">End Time</string>
+    <string name="am_pm">AM/PM</string>
+    <string name="details">Details</string>
+    <string name="add_action">Add action</string>
+    <string name="all_day_s">All Day %s</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="start_time">Start Time</string>
+    <string name="error">Error</string>
+    <string name="ok">OK</string>
+    <string name="log_out">Log out</string>
+    <string name="log_out_confirm">Are you sure you want to log out?</string>
 </resources>

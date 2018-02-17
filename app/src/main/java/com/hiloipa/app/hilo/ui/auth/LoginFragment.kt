@@ -12,9 +12,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.Toast
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.models.requests.LoginRequest
+import com.hiloipa.app.hilo.models.responses.HiloResponse
+import com.hiloipa.app.hilo.models.responses.UserData
 import com.hiloipa.app.hilo.ui.MainActivity
-import com.hiloipa.app.hilo.ui.more.products.ProductsActivity
+import com.hiloipa.app.hilo.ui.widget.RalewayTextView
+import com.hiloipa.app.hilo.utils.*
+import com.squareup.picasso.Picasso
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
@@ -24,6 +33,7 @@ import kotlinx.android.synthetic.main.fragment_login.*
 class LoginFragment : Fragment() {
 
     lateinit var authActivity: AuthActivity
+    lateinit var response: HiloResponse<UserData>
 
     companion object {
         fun newInstance(): LoginFragment {
@@ -55,8 +65,45 @@ class LoginFragment : Fragment() {
         }
 
         loginBtn.setOnClickListener {
+            val dialog = activity.showLoading();
+            val screenSize = activity.displaySize()
+            val screenSizeText = "${screenSize.first}*${screenSize.second}"
+            val loginRequest = LoginRequest(email = emailField.text.toString(),
+                    password = passwordField.text.toString(), screenSize = screenSizeText)
+            HiloApp.api().login(loginRequest).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ response: HiloResponse<UserData> ->
+                        dialog.dismiss()
+                        this.response = response
+                        val data = response.data
+                        if (data != null && response.status.isSuccess()) {
+                            HiloApp.instance.saveAccessToken(data.accessToken)
+                            HiloApp.instance.setIsLoggedIn(true)
+                            HiloApp.userData = data
+                            showWelcomeDialog(data.messageBody, data.messageImage, data.messageTitle)
+                        } else {
+                            activity.showExplanation(message = response.message)
+                        }
+                    }, { error: Throwable ->
+                        dialog.dismiss()
+                        error.printStackTrace()
+                        activity.showExplanation(message = error.localizedMessage)
+                    })
+        }
+    }
+
+    private fun showWelcomeDialog(message: String?, messageImage: String?, messageTitle: String?) {
+        if (message != null && messageTitle != null) {
             val dialogView = activity.layoutInflater.inflate(R.layout.alert_beta_testing, null)
             val gotItBtn: Button = dialogView.findViewById(R.id.gotItBtn)
+            val titleLabel: RalewayTextView = dialogView.findViewById(R.id.title)
+            val messageLabel: RalewayTextView = dialogView.findViewById(R.id.messageLabel)
+            val imageView: ImageView = dialogView.findViewById(R.id.betaImage)
+
+            Picasso.with(activity).load(messageImage).into(imageView)
+            titleLabel.text = messageTitle
+            messageLabel.text = message
+
             val dialog = AlertDialog.Builder(activity)
                     .setView(dialogView).create()
 
@@ -69,6 +116,10 @@ class LoginFragment : Fragment() {
             dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.setCanceledOnTouchOutside(false)
             dialog.show()
+        } else {
+            val feedbackIntent = Intent(activity, MainActivity::class.java)
+            activity.startActivity(feedbackIntent)
+            activity.finish()
         }
     }
 }

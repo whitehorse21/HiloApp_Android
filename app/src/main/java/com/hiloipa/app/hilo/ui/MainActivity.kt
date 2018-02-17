@@ -12,24 +12,27 @@ import com.hiloipa.app.hilo.ui.more.MoreFragment
 import com.hiloipa.app.hilo.ui.reachout.ReachoutLogsFragment
 import com.hiloipa.app.hilo.ui.todos.TodosFragment
 import com.hiloipa.app.hilo.ui.tracker.GoalTrackerFragment
+import com.hiloipa.app.hilo.utils.HiloApp
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
 
-    val goalTrackerFragment = GoalTrackerFragment.newInstance()
-    val contactsFragment = ContactsFragment.newInstance()
-    val reachoutLogsFragment = ReachoutLogsFragment.newInstance()
-    val todosFragment = TodosFragment.newInstance()
-    val moreFragment = MoreFragment.newInstance()
-    var selectedTab: SelectedTab = SelectedTab.tracker
+    private val goalTrackerFragment = GoalTrackerFragment.newInstance()
+    private val contactsFragment = ContactsFragment.newInstance()
+    private val reachoutLogsFragment = ReachoutLogsFragment.newInstance()
+    private val todosFragment = TodosFragment.newInstance()
+    private val moreFragment = MoreFragment.newInstance()
+    private var selectedTab: SelectedTab = SelectedTab.tracker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomNavigation.setOnCheckedChangeListener(this)
-//        startActivity(Intent(this, AuthActivity::class.java))
-
-        replaceFragment(goalTrackerFragment, title = getString(R.string.goal_tracker))
+        if (!HiloApp.instance.isLoggedIn()) {
+            startActivity(Intent(this, AuthActivity::class.java))
+            finish()
+        } else
+            replaceFragment(goalTrackerFragment, title = getString(R.string.goal_tracker))
     }
 
     fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false, title: String) {
@@ -42,7 +45,7 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
     }
 
     override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
-        when(checkedId) {
+        when (checkedId) {
             R.id.navGoalTracker -> {
                 if (selectedTab != SelectedTab.tracker) {
                     replaceFragment(goalTrackerFragment, title = getString(R.string.goal_tracker))

@@ -1,20 +1,28 @@
 package com.hiloipa.app.hilo.ui.more
 
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.models.requests.LogoutRequest
+import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.ui.auth.AuthActivity
 import com.hiloipa.app.hilo.ui.more.account.AccountActivity
 import com.hiloipa.app.hilo.ui.more.email.EmailTemplatesActivity
 import com.hiloipa.app.hilo.ui.more.notes.NotepadActivity
 import com.hiloipa.app.hilo.ui.more.products.ProductsActivity
 import com.hiloipa.app.hilo.ui.more.scripts.ScriptsActivity
+import com.hiloipa.app.hilo.utils.HiloApp
+import com.hiloipa.app.hilo.utils.showLoading
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_more.*
 
 
@@ -59,9 +67,41 @@ class MoreFragment : Fragment() {
         }
 
         logoutBtn.setOnClickListener {
-            val logoutIntent = Intent(activity, AuthActivity::class.java)
-            activity.startActivity(logoutIntent)
-            activity.finish()
+            val dialog = AlertDialog.Builder(activity)
+                    .setTitle(getString(R.string.log_out))
+                    .setMessage(getString(R.string.log_out_confirm))
+                    .setPositiveButton(getString(R.string.yes), { dialog, which ->
+                        dialog.dismiss()
+                        HiloApp.instance.setIsLoggedIn(false)
+                        HiloApp.instance.saveAccessToken("")
+                        val dialog = activity.showLoading()
+                        try {
+                            val logoutRequest = LogoutRequest(userId = "${HiloApp.userData.userId}")
+                            HiloApp.api().logout(logoutRequest).subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe({ response: HiloResponse<Any> ->
+                                        dialog.dismiss()
+                                        val logoutIntent = Intent(activity, AuthActivity::class.java)
+                                        activity.startActivity(logoutIntent)
+                                        activity.finish()
+                                    }, { error: Throwable ->
+                                        error.printStackTrace()
+                                        dialog.dismiss()
+                                        val logoutIntent = Intent(activity, AuthActivity::class.java)
+                                        activity.startActivity(logoutIntent)
+                                        activity.finish()
+                                    })
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            dialog.dismiss()
+                            val logoutIntent = Intent(activity, AuthActivity::class.java)
+                            activity.startActivity(logoutIntent)
+                            activity.finish()
+                        }
+                    })
+                    .setNegativeButton(getString(R.string.no), null)
+                    .create()
+            dialog.show()
         }
 
         accountBtn.setOnClickListener {

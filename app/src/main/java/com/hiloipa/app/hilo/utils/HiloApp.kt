@@ -6,6 +6,7 @@ import android.support.multidex.MultiDexApplication
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.hiloipa.app.hilo.BuildConfig
+import com.hiloipa.app.hilo.models.responses.UserData
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit
@@ -21,11 +22,12 @@ import java.util.concurrent.TimeUnit
  */
 class HiloApp: MultiDexApplication() {
 
-    lateinit var preferences: SharedPreferences
+    private lateinit var preferences: SharedPreferences
 
     companion object {
         lateinit var instance: HiloApp
         lateinit var retrofit: Retrofit
+        lateinit var userData: UserData
         fun api(): HiloAPI = retrofit.create(HiloAPI::class.java)
     }
 
