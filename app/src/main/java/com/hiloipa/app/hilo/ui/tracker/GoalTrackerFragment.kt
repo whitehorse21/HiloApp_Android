@@ -74,29 +74,7 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
 
         adjustGraphsBtn.setOnClickListener { adjustGraphsSpinner.performClick() }
 
-        adjustGraphsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val item = parent.getItemAtPosition(position) as String
-                val graphType = GraphType.fromInt(position)
-                targetTitleLabel.text = getString(R.string.s_ntarget, getString(graphType.title()))
-                completedTitleLabel.text = getString(R.string.s_ncompleted, getString(graphType.title()))
-                percentageTitleLabel.text = getString(R.string.s_npercentage, getString(graphType.title()))
-                adjustGraphsBtn.text = getString(R.string.adjust_my_graphs, item)
-                when(adapter.goalType) {
-                    GoalType.reach_outs -> {
-                        reachoutsTypeLabel.text = getString(R.string.reach_outs_s, item)
-                    }
-                    GoalType.follow_ups -> {
-                        reachoutsTypeLabel.text = getString(R.string.follow_ups_s, item)
-                    }
-                    GoalType.team_reach_outs -> {
-                        reachoutsTypeLabel.text = getString(R.string.team_reach_outs_s, item)
-                    }
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+        adjustGraphsSpinner.onItemSelectedListener = onPeriodChangeListener
 
         showFutureBtn.setOnClickListener {
             val intent = Intent(activity, FutureContactsActivity::class.java)
@@ -172,6 +150,32 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
                 progressBarPercentageLabel.text = "${progressBar.progress}%"
             }
         }
+
+        currentPlanBtn.text = data.goalPlan.name
+    }
+
+    private val onPeriodChangeListener = object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+            val item = parent.getItemAtPosition(position) as String
+            val graphType = GraphType.fromInt(position)
+            targetTitleLabel.text = getString(R.string.s_ntarget, getString(graphType.title()))
+            completedTitleLabel.text = getString(R.string.s_ncompleted, getString(graphType.title()))
+            percentageTitleLabel.text = getString(R.string.s_npercentage, getString(graphType.title()))
+            adjustGraphsBtn.text = getString(R.string.adjust_my_graphs, item)
+            when(adapter.goalType) {
+                GoalType.reach_outs -> {
+                    reachoutsTypeLabel.text = getString(R.string.reach_outs_s, item)
+                }
+                GoalType.follow_ups -> {
+                    reachoutsTypeLabel.text = getString(R.string.follow_ups_s, item)
+                }
+                GoalType.team_reach_outs -> {
+                    reachoutsTypeLabel.text = getString(R.string.team_reach_outs_s, item)
+                }
+            }
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
     }
 
     override fun onTabReselected(tab: TabLayout.Tab?) {
