@@ -72,28 +72,28 @@ class MoreFragment : Fragment() {
                     .setMessage(getString(R.string.log_out_confirm))
                     .setPositiveButton(getString(R.string.yes), { dialog, which ->
                         dialog.dismiss()
-                        HiloApp.instance.setIsLoggedIn(false)
-                        HiloApp.instance.saveAccessToken("")
-                        val dialog = activity.showLoading()
+
+                        val loadingDialog = activity.showLoading()
                         try {
-                            val logoutRequest = LogoutRequest(userId = "${HiloApp.userData.userId}")
-                            HiloApp.api().logout(logoutRequest).subscribeOn(Schedulers.io())
+                            HiloApp.api().logout(LogoutRequest()).subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe({ response: HiloResponse<Any> ->
-                                        dialog.dismiss()
+                                        loadingDialog.dismiss()
+                                        HiloApp.instance.setIsLoggedIn(false)
+                                        HiloApp.instance.saveAccessToken("")
                                         val logoutIntent = Intent(activity, AuthActivity::class.java)
                                         activity.startActivity(logoutIntent)
                                         activity.finish()
                                     }, { error: Throwable ->
                                         error.printStackTrace()
-                                        dialog.dismiss()
+                                        loadingDialog.dismiss()
                                         val logoutIntent = Intent(activity, AuthActivity::class.java)
                                         activity.startActivity(logoutIntent)
                                         activity.finish()
                                     })
                         } catch (e: Exception) {
                             e.printStackTrace()
-                            dialog.dismiss()
+                            loadingDialog.dismiss()
                             val logoutIntent = Intent(activity, AuthActivity::class.java)
                             activity.startActivity(logoutIntent)
                             activity.finish()
