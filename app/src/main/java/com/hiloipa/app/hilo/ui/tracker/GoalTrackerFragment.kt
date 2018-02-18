@@ -21,10 +21,20 @@ import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.GoalTrackerAdapter
 import com.hiloipa.app.hilo.models.GoalType
 import com.hiloipa.app.hilo.models.GraphType
+import com.hiloipa.app.hilo.models.requests.GoalDuration
+import com.hiloipa.app.hilo.models.requests.GoalTrackerRequest
+import com.hiloipa.app.hilo.models.responses.GoalTrackerResponse
+import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.ui.contacts.ContactDetailsActivity
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
+import com.hiloipa.app.hilo.utils.HiloApp
+import com.hiloipa.app.hilo.utils.isSuccess
+import com.hiloipa.app.hilo.utils.showExplanation
+import com.hiloipa.app.hilo.utils.showLoading
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_goal_tracker.*
 
 
@@ -34,6 +44,7 @@ import kotlinx.android.synthetic.main.fragment_goal_tracker.*
 class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTrackerAdapter.ContactClickListener {
 
     lateinit var adapter: GoalTrackerAdapter
+    lateinit var goalTrackerData: GoalTrackerResponse
 
     companion object {
         fun newInstance(): GoalTrackerFragment {
@@ -99,6 +110,68 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
             val dialog = ChangePlanFragment.newInstance()
             dialog.show(childFragmentManager, "ChangePlanFragment")
         }
+
+        getTrackerData()
+    }
+
+    private fun getTrackerData(duration: GoalDuration = GoalDuration.Weekly) {
+        val dialog = activity.showLoading()
+        try {
+            val request = GoalTrackerRequest()
+            request.goalDuration = duration.name
+            HiloApp.api().getGoalTrackerData(goalTrackerRequest = request)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ response: HiloResponse<GoalTrackerResponse> ->
+                        dialog.dismiss()
+                        if (response.status.isSuccess()) {
+                            val data = response.data
+                            if (data != null) {
+                                goalTrackerData = data
+                                updateTrackerWithNewData(data)
+                            } else {
+                                activity.showExplanation(message = getString(R.string.unknown_error))
+                            }
+                        } else {
+                            activity.showExplanation(message = response.message)
+                        }
+                    }, { error: Throwable ->
+                        dialog.dismiss()
+                        error.printStackTrace()
+                        activity.showExplanation(message = error.localizedMessage)
+                    })
+        } catch (e: Exception) {
+            dialog.dismiss()
+            e.printStackTrace()
+        }
+    }
+
+    private fun updateTrackerWithNewData(data: GoalTrackerResponse = this.goalTrackerData) {
+        when (adapter.goalType) {
+            GoalType.reach_outs -> {
+                targetLabel.text = "${data.reachOuts.reachOutsGraphData.target}"
+                completedLabel.text = "${data.reachOuts.reachOutsGraphData.completed}"
+                percentageLabel.text = "%${data.reachOuts.reachOutsGraphData.percentage}"
+                progressBar.progress = data.reachOuts.reachOutsGraphData.percentage
+                progressBarPercentageLabel.text = "${progressBar.progress}%"
+            }
+
+            GoalType.follow_ups -> {
+                targetLabel.text = "${data.followUps.followUpsGraphData.target}"
+                completedLabel.text = "${data.followUps.followUpsGraphData.completed}"
+                percentageLabel.text = "%${data.followUps.followUpsGraphData.percentage}"
+                progressBar.progress = data.followUps.followUpsGraphData.percentage
+                progressBarPercentageLabel.text = "${progressBar.progress}%"
+            }
+
+            GoalType.team_reach_outs -> {
+                targetLabel.text = "${data.teamReachOuts.teamReachoutsGraphData.target}"
+                completedLabel.text = "${data.teamReachOuts.teamReachoutsGraphData.completed}"
+                percentageLabel.text = "%${data.teamReachOuts.teamReachoutsGraphData.percentage}"
+                progressBar.progress = data.teamReachOuts.teamReachoutsGraphData.percentage
+                progressBarPercentageLabel.text = "${progressBar.progress}%"
+            }
+        }
     }
 
     override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -116,26 +189,21 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
                 reachoutsTypeLabel.text = getString(R.string.reach_outs_s, adjustGraphsSpinner.selectedItem as String)
                 selectedTypeTitleLabel.text = getString(R.string.new_reach_outs)
                 progressBar.progressDrawable = resources.getDrawable(R.drawable.circular_progress_bar)
-                progressBar.progress = 34
-                progressBarPercentageLabel.text = "${progressBar.progress}%"
             }
             1 -> {
                 adapter.goalType = GoalType.follow_ups
                 reachoutsTypeLabel.text = getString(R.string.follow_ups_s, adjustGraphsSpinner.selectedItem as String)
                 selectedTypeTitleLabel.text = getString(R.string.follow_ups)
                 progressBar.progressDrawable = resources.getDrawable(R.drawable.circular_progress_bar_green)
-                progressBar.progress = 32
-                progressBarPercentageLabel.text = "${progressBar.progress}%"
             }
             else -> {
                 adapter.goalType = GoalType.team_reach_outs
                 reachoutsTypeLabel.text = getString(R.string.team_reach_outs_s, adjustGraphsSpinner.selectedItem as String)
                 selectedTypeTitleLabel.text = getString(R.string.team_reach_outs)
                 progressBar.progressDrawable = resources.getDrawable(R.drawable.circular_progress_bar_blue)
-                progressBar.progress = 30
-                progressBarPercentageLabel.text = "${progressBar.progress}%"
             }
         }
+        updateTrackerWithNewData()
     }
 
     override fun onCompleteClicked() {

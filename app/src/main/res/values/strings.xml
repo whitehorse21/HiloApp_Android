@@ -264,4 +264,11 @@
     <string name="ok">OK</string>
     <string name="log_out">Log out</string>
     <string name="log_out_confirm">Are you sure you want to log out?</string>
+    <string name="select_company">Select Company</string>
+    <string name="accept_tersms">Please accept terms and conditions!</string>
+    <string name="field_required">This field is required!</string>
+    <string name="passwords_do_not_match">Passwords don\'t match!</string>
+    <string name="unknown_error">Something went wrong, please try again!</string>
+    <string name="success">Success</string>
+    <string name="check_your_inbox">Please check your inbox for furhter instructions.</string>
 </resources>

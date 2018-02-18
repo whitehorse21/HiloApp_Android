@@ -76,7 +76,7 @@ class LoginFragment : Fragment() {
                         dialog.dismiss()
                         this.response = response
                         val data = response.data
-                        if (data != null && response.status.isSuccess()) {
+                        if (data != null && response.status!!.isSuccess()) {
                             HiloApp.instance.saveAccessToken(data.accessToken)
                             HiloApp.instance.setIsLoggedIn(true)
                             HiloApp.userData = data

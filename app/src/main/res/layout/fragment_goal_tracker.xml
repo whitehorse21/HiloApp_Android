@@ -81,6 +81,7 @@
                         android:textSize="12sp" />
 
                     <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                        android:id="@+id/currentPlanBtn"
                         style="@style/Base.Widget.AppCompat.ActionButton"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"

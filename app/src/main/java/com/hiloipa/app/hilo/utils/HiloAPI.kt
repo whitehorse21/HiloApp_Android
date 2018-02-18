@@ -1,8 +1,9 @@
 package com.hiloipa.app.hilo.utils
 
-import com.hiloipa.app.hilo.models.requests.LoginRequest
-import com.hiloipa.app.hilo.models.requests.LogoutRequest
+import com.hiloipa.app.hilo.models.requests.*
+import com.hiloipa.app.hilo.models.responses.GoalTrackerResponse
 import com.hiloipa.app.hilo.models.responses.HiloResponse
+import com.hiloipa.app.hilo.models.responses.SignUpResponse
 import com.hiloipa.app.hilo.models.responses.UserData
 import io.reactivex.Observable
 import retrofit2.http.Body
@@ -18,4 +19,17 @@ interface HiloAPI {
 
     @POST("LogOut")
     fun logout(@Body logoutRequest: LogoutRequest): Observable<HiloResponse<Any>>
+
+    @POST("GetSignup")
+    fun getSignUpData(): Observable<HiloResponse<SignUpResponse>>
+
+    @POST("Signup")
+    fun createNewAccount(@Body registrationRequest: RegistrationRequest): Observable<HiloResponse<UserData>>
+
+    @POST("ForgotPassword")
+    fun resetPassword(@Body resetPassRequest: ResetPassRequest): Observable<HiloResponse<String>>
+
+    @POST("GoalTracker")
+    fun getGoalTrackerData(@Body goalTrackerRequest: GoalTrackerRequest = GoalTrackerRequest()):
+            Observable<HiloResponse<GoalTrackerResponse>>
 }

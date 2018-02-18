@@ -13,20 +13,20 @@ class UserData(@JsonProperty("Api_Access_token") val accessToken: String,
                @JsonProperty("daysremaining") val daysRemaining: String,
                @JsonProperty("expiry") val expiry: Boolean,
                @JsonProperty("expirycount") val expiryCount: Int,
-               @JsonProperty("expiryurl") val expiryUrl: String,
-               @JsonProperty("freemonth") val freeMonth: Int,
+               @JsonProperty("expiryurl") val expiryUrl: String?,
+               @JsonProperty("freemonth") val freeMonth: Int?,
                @JsonProperty("messageBody") val messageBody: String?,
                @JsonProperty("messageID") val messageId: String?,
                @JsonProperty("messageImage") val messageImage: String?,
                @JsonProperty("messageTitle") val messageTitle: String?,
-               @JsonProperty("totalcontacts") val totalContacts: Int,
+               @JsonProperty("totalcontacts") val totalContacts: Int?,
                @JsonProperty("useraccess") val userAccess: String,
                @JsonProperty("usercompany") val userCompany: String,
                @JsonProperty("userid") val userId: Int,
-               @JsonProperty("userimage") val userImage: String,
+               @JsonProperty("userimage") val userImage: String?,
                @JsonProperty("usermailid") val userMailId: String,
                @JsonProperty("username") val username: String,
-               @JsonProperty("userplan") val userPlan: String,
+               @JsonProperty("userplan") val userPlan: String?,
                @JsonProperty("userstatus") val userStatus: String,
                @JsonProperty("usertype") val userType: String,
                @JsonProperty("visionshow") val visionShow: Boolean): Parcelable {
@@ -60,12 +60,12 @@ class UserData(@JsonProperty("Api_Access_token") val accessToken: String,
         parcel.writeInt(if (expiry) 1 else 0)
         parcel.writeInt(expiryCount)
         parcel.writeString(expiryUrl)
-        parcel.writeInt(freeMonth)
+        parcel.writeInt(freeMonth ?: -1)
         parcel.writeString(messageBody)
         parcel.writeString(messageId)
         parcel.writeString(messageImage)
         parcel.writeString(messageTitle)
-        parcel.writeInt(totalContacts)
+        parcel.writeInt(totalContacts ?: -1)
         parcel.writeString(userAccess)
         parcel.writeString(userCompany)
         parcel.writeInt(userId)

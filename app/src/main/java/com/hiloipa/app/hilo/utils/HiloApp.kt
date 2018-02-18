@@ -3,12 +3,16 @@ package com.hiloipa.app.hilo.utils
 import android.content.Context
 import android.content.SharedPreferences
 import android.support.multidex.MultiDexApplication
+import android.util.Log
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.hiloipa.app.hilo.BuildConfig
 import com.hiloipa.app.hilo.models.responses.UserData
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.ResponseBody
+import okio.Buffer
+import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -50,14 +54,29 @@ class HiloApp: MultiDexApplication() {
                     .method(originalRequest.method(), originalRequest.body())
                     .build()
 
-            // get the response and check the response code
+            val body = newRequest.body()
+            if (body != null) {
+                val buffer = Buffer()
+                body.writeTo(buffer)
+                Log.d("REQUEST", buffer.readUtf8())
+            }
 
-            return@addInterceptor chain.proceed(newRequest)
+            // get the response and check the response code
+            val response = chain.proceed(newRequest)
+            val mediaType = response.body()!!.contentType()
+            val content = response.body()!!.string()
+            Log.d("RESPONSE", content)
+
+            val json = JSONObject(content)
+            val data = json.get("Data")
+            if (data is String && data.isEmpty()) json.put("Data", null)
+            val responseWrapper = ResponseBody.create(mediaType, json.toString())
+            return@addInterceptor response.newBuilder().body(responseWrapper).build()
         }
 
         // set default date format for jackson object mapper
         val objectMapper = ObjectMapper()
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault())
         objectMapper.dateFormat = dateFormat as DateFormat
         objectMapper.registerModule(KotlinModule())
 
