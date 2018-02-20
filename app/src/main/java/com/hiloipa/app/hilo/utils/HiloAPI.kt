@@ -1,10 +1,7 @@
 package com.hiloipa.app.hilo.utils
 
 import com.hiloipa.app.hilo.models.requests.*
-import com.hiloipa.app.hilo.models.responses.GoalTrackerResponse
-import com.hiloipa.app.hilo.models.responses.HiloResponse
-import com.hiloipa.app.hilo.models.responses.SignUpResponse
-import com.hiloipa.app.hilo.models.responses.UserData
+import com.hiloipa.app.hilo.models.responses.*
 import io.reactivex.Observable
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -32,4 +29,7 @@ interface HiloAPI {
     @POST("GoalTracker")
     fun getGoalTrackerData(@Body goalTrackerRequest: GoalTrackerRequest = GoalTrackerRequest()):
             Observable<HiloResponse<GoalTrackerResponse>>
+
+    @POST("ShowGoalPlans")
+    fun showGoalPlans(@Body standardRequest: StandardRequest): Observable<HiloResponse<ShowPlansResponse>>
 }

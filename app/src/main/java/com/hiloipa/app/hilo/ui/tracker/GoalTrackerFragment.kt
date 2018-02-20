@@ -14,15 +14,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.Spinner
-
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.GoalTrackerAdapter
 import com.hiloipa.app.hilo.models.GoalType
-import com.hiloipa.app.hilo.models.GraphType
 import com.hiloipa.app.hilo.models.requests.GoalDuration
 import com.hiloipa.app.hilo.models.requests.GoalTrackerRequest
+import com.hiloipa.app.hilo.models.responses.GoalDurationObjc
 import com.hiloipa.app.hilo.models.responses.GoalTrackerResponse
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.ui.contacts.ContactDetailsActivity
@@ -44,7 +42,8 @@ import kotlinx.android.synthetic.main.fragment_goal_tracker.*
 class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTrackerAdapter.ContactClickListener {
 
     lateinit var adapter: GoalTrackerAdapter
-    lateinit var goalTrackerData: GoalTrackerResponse
+    private lateinit var goalTrackerData: GoalTrackerResponse
+    var selectedDuration: GoalDurationObjc? = null
 
     companion object {
         fun newInstance(): GoalTrackerFragment {
@@ -67,14 +66,8 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.isNestedScrollingEnabled = false
         tabLayout.setOnTabSelectedListener(this)
-        // setup graphs spinner
-        adjustGraphsSpinner.adapter = ArrayAdapter<String>(activity,
-                android.R.layout.simple_spinner_dropdown_item, arrayOf(getString(R.string.daily_complete),
-                getString(R.string.weekly_complete), getString(R.string.monthly_complete)))
 
         adjustGraphsBtn.setOnClickListener { adjustGraphsSpinner.performClick() }
-
-        adjustGraphsSpinner.onItemSelectedListener = onPeriodChangeListener
 
         showFutureBtn.setOnClickListener {
             val intent = Intent(activity, FutureContactsActivity::class.java)
@@ -89,14 +82,20 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
             dialog.show(childFragmentManager, "ChangePlanFragment")
         }
 
+        hiloMyWeekBtn.setOnClickListener {
+            if (selectedDuration != null)
+                getTrackerData(GoalDuration.fromString(selectedDuration!!.value), hiloMyWeek = true)
+        }
+
         getTrackerData()
     }
 
-    private fun getTrackerData(duration: GoalDuration = GoalDuration.Weekly) {
+    private fun getTrackerData(duration: GoalDuration = GoalDuration.Weekly, hiloMyWeek: Boolean = false) {
         val dialog = activity.showLoading()
         try {
             val request = GoalTrackerRequest()
             request.goalDuration = duration.name
+            request.hiloMyWeek = hiloMyWeek
             HiloApp.api().getGoalTrackerData(goalTrackerRequest = request)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -125,6 +124,39 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
     }
 
     private fun updateTrackerWithNewData(data: GoalTrackerResponse = this.goalTrackerData) {
+        // setup period spinner
+        val periodNames = mutableListOf<String>()
+        periodNames.add(getString(R.string.select_period))
+        data.goalDurations.forEach { periodNames.add(it.name) }
+        adjustGraphsSpinner.adapter = ArrayAdapter<String>(activity,
+                android.R.layout.simple_spinner_dropdown_item, periodNames)
+        adjustGraphsSpinner.onItemSelectedListener = onPeriodChangeListener
+        // check if there are any selected items in the list or at least with weekly value as default
+        val selectedDuration = data.goalDurations.firstOrNull { it.value == data.goalDuration }
+        this.selectedDuration = selectedDuration
+        // if it finds any set it as selected in the spinner
+        if (selectedDuration != null) {
+            adjustGraphsBtn.text = getString(R.string.adjust_my_graphs, selectedDuration.name)
+            // change graph title text to contain selected duration
+            when (adapter.goalType) {
+                GoalType.reach_outs -> {
+                    reachoutsTypeLabel.text = getString(R.string.reach_outs_s, selectedDuration.name)
+                }
+                GoalType.follow_ups -> {
+                    reachoutsTypeLabel.text = getString(R.string.follow_ups_s, selectedDuration.name)
+                }
+                GoalType.team_reach_outs -> {
+                    reachoutsTypeLabel.text = getString(R.string.team_reach_outs_s, selectedDuration.name)
+                }
+            }
+
+            // update graph details name
+            targetTitleLabel.text = getString(R.string.s_ntarget, selectedDuration.value)
+            completedTitleLabel.text = getString(R.string.s_ncompleted, selectedDuration.value)
+            percentageTitleLabel.text = getString(R.string.s_npercentage, selectedDuration.value)
+        }
+
+        // set goal type and update data when the type is changed
         when (adapter.goalType) {
             GoalType.reach_outs -> {
                 targetLabel.text = "${data.reachOuts.reachOutsGraphData.target}"
@@ -133,7 +165,6 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
                 progressBar.progress = data.reachOuts.reachOutsGraphData.percentage
                 progressBarPercentageLabel.text = "${progressBar.progress}%"
             }
-
             GoalType.follow_ups -> {
                 targetLabel.text = "${data.followUps.followUpsGraphData.target}"
                 completedLabel.text = "${data.followUps.followUpsGraphData.completed}"
@@ -141,7 +172,6 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
                 progressBar.progress = data.followUps.followUpsGraphData.percentage
                 progressBarPercentageLabel.text = "${progressBar.progress}%"
             }
-
             GoalType.team_reach_outs -> {
                 targetLabel.text = "${data.teamReachOuts.teamReachoutsGraphData.target}"
                 completedLabel.text = "${data.teamReachOuts.teamReachoutsGraphData.completed}"
@@ -151,27 +181,22 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
             }
         }
 
+        // setup current goal plan btn
         currentPlanBtn.text = data.goalPlan.name
+        currentPlanBtn.setBackgroundResource(data.goalPlan.trackerBGColor())
+        currentPlanBtn.setTextColor(resources.getColor(data.goalPlan.trackerTextColor()))
     }
 
     private val onPeriodChangeListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-            val item = parent.getItemAtPosition(position) as String
-            val graphType = GraphType.fromInt(position)
-            targetTitleLabel.text = getString(R.string.s_ntarget, getString(graphType.title()))
-            completedTitleLabel.text = getString(R.string.s_ncompleted, getString(graphType.title()))
-            percentageTitleLabel.text = getString(R.string.s_npercentage, getString(graphType.title()))
-            adjustGraphsBtn.text = getString(R.string.adjust_my_graphs, item)
-            when(adapter.goalType) {
-                GoalType.reach_outs -> {
-                    reachoutsTypeLabel.text = getString(R.string.reach_outs_s, item)
-                }
-                GoalType.follow_ups -> {
-                    reachoutsTypeLabel.text = getString(R.string.follow_ups_s, item)
-                }
-                GoalType.team_reach_outs -> {
-                    reachoutsTypeLabel.text = getString(R.string.team_reach_outs_s, item)
-                }
+            if (position == 0) {
+                if (selectedDuration == null)
+                    adjustGraphsBtn.text = getString(R.string.adjust_my_graphs, getString(R.string.select_period))
+                this@GoalTrackerFragment.selectedDuration = null
+            } else {
+                // otherwise update ui with new selected item
+                this@GoalTrackerFragment.selectedDuration = goalTrackerData.goalDurations[position - 1] // we need to decrement it because we have the first placeholder
+                getTrackerData(GoalDuration.fromString(selectedDuration!!.value))
             }
         }
 
@@ -187,7 +212,7 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
-        when(tabLayout.selectedTabPosition) {
+        when (tabLayout.selectedTabPosition) {
             0 -> {
                 adapter.goalType = GoalType.reach_outs
                 reachoutsTypeLabel.text = getString(R.string.reach_outs_s, adjustGraphsSpinner.selectedItem as String)
@@ -211,7 +236,7 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
     }
 
     override fun onCompleteClicked() {
-        when(adapter.goalType) {
+        when (adapter.goalType) {
             GoalType.follow_ups, GoalType.reach_outs -> this.showCompleteReachOutDialog()
             GoalType.team_reach_outs -> this.showCompleteTeamReachOutDialog()
         }

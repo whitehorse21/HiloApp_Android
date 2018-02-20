@@ -2,7 +2,10 @@ package com.hiloipa.app.hilo.models.responses
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.support.annotation.ColorRes
+import android.support.annotation.DrawableRes
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.hiloipa.app.hilo.R
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -14,9 +17,10 @@ class GoalTrackerResponse(@JsonProperty("Reachouts") val reachOuts: ReachOuts,
                           @JsonProperty("TeamReachouts") val teamReachOuts: TeamReachOuts,
                           @JsonProperty("GoalPlan") val goalPlan: GoalPlan,
                           @JsonProperty("GoalDuration") val goalDuration: String,
-                          @JsonProperty("HiloMyWeekMsg") val hiloMyWeekMessage: String): Parcelable {
+                          @JsonProperty("HiloMyWeekMsg") val hiloMyWeekMessage: String) : Parcelable {
 
-    @JsonProperty("GoalDurationDropDown") lateinit var goalDurations: ArrayList<GoalDurationObjc>
+    @JsonProperty("GoalDurationDropDown")
+    lateinit var goalDurations: ArrayList<GoalDurationObjc>
 
     constructor(parcel: Parcel) : this(
             parcel.readParcelable(ReachOuts::class.java.classLoader),
@@ -54,9 +58,10 @@ class GoalTrackerResponse(@JsonProperty("Reachouts") val reachOuts: ReachOuts,
     }
 }
 
-class ReachOuts(@JsonProperty("Reachouts_Graph") val reachOutsGraphData: GraphData): Parcelable {
+class ReachOuts(@JsonProperty("Reachouts_Graph") val reachOutsGraphData: GraphData) : Parcelable {
 
-    @JsonProperty("Reachouts") lateinit var reachOuts: ArrayList<ReachOutContact>
+    @JsonProperty("Reachouts")
+    lateinit var reachOuts: ArrayList<ReachOutContact>
 
     constructor(parcel: Parcel) : this(parcel.readParcelable<GraphData>(GraphData::class.java.classLoader)) {
         parcel.readTypedList(reachOuts, ReachOutContact.CREATOR)
@@ -82,9 +87,10 @@ class ReachOuts(@JsonProperty("Reachouts_Graph") val reachOutsGraphData: GraphDa
     }
 }
 
-class FollowUps(@JsonProperty("Followups_Graph") val followUpsGraphData: GraphData): Parcelable {
+class FollowUps(@JsonProperty("Followups_Graph") val followUpsGraphData: GraphData) : Parcelable {
 
-    @JsonProperty("Followups") lateinit var followUpContacts: ArrayList<FollowUpContact>
+    @JsonProperty("Followups")
+    lateinit var followUpContacts: ArrayList<FollowUpContact>
 
     constructor(parcel: Parcel) : this(parcel.readParcelable<GraphData>(GraphData::class.java.classLoader)) {
         parcel.readTypedList(followUpContacts, FollowUpContact.CREATOR)
@@ -112,7 +118,8 @@ class FollowUps(@JsonProperty("Followups_Graph") val followUpsGraphData: GraphDa
 
 class TeamReachOuts(@JsonProperty("TeamReachouts_Graph") val teamReachoutsGraphData: GraphData) : Parcelable {
 
-    @JsonProperty("TeamReachouts") lateinit var teamReachoutContacts: ArrayList<TeamReachOutContact>
+    @JsonProperty("TeamReachouts")
+    lateinit var teamReachoutContacts: ArrayList<TeamReachOutContact>
 
     constructor(parcel: Parcel) : this(parcel.readParcelable<GraphData>(GraphData::class.java.classLoader)) {
         parcel.readTypedList(teamReachoutContacts, TeamReachOutContact.CREATOR)
@@ -143,7 +150,7 @@ class ReachOutContact(@JsonProperty("ContactID") val contactId: Int,
                       @JsonProperty("ContactName") val contactName: String,
                       @JsonProperty("priority") val priority: String,
                       @JsonProperty("LastModified") val lastModified: Date?,
-                      @JsonProperty("SlotID") val slotId: Int): Parcelable {
+                      @JsonProperty("SlotID") val slotId: Int) : Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
@@ -181,7 +188,7 @@ class FollowUpContact(@JsonProperty("ContactID") val contactId: Int,
                       @JsonProperty("priority") val priority: String,
                       @JsonProperty("badge") val badge: String,
                       @JsonProperty("LastModified") val lastModified: Date?,
-                      @JsonProperty("SlotID") val slotId: Int): Parcelable {
+                      @JsonProperty("SlotID") val slotId: Int) : Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
@@ -221,7 +228,7 @@ class TeamReachOutContact(@JsonProperty("TeamID") val teamId: Int,
                           @JsonProperty("TeamName") val teamName: String,
                           @JsonProperty("followupdate") val followUpDate: Date?,
                           @JsonProperty("SlotID") val slotId: Int,
-                          @JsonProperty("LastModified") val lastModified: Date?): Parcelable {
+                          @JsonProperty("LastModified") val lastModified: Date?) : Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
@@ -256,7 +263,7 @@ class TeamReachOutContact(@JsonProperty("TeamID") val teamId: Int,
 // graphs object
 class GraphData(@JsonProperty("Target") val target: Int,
                 @JsonProperty("Completed") val completed: Int,
-                @JsonProperty("Percentage") val percentage: Int): Parcelable {
+                @JsonProperty("Percentage") val percentage: Int) : Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
@@ -289,7 +296,7 @@ class GoalPlan(@JsonProperty("GoalPlanID") val planId: Int,
                @JsonProperty("GoalPlanName") val name: String,
                @JsonProperty("Reachouts") val reachOuts: Int,
                @JsonProperty("Followups") val followUps: Int,
-               @JsonProperty("TeamReachouts") val teamReachOuts: Int): Parcelable {
+               @JsonProperty("TeamReachouts") val teamReachOuts: Int) : Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
@@ -319,11 +326,27 @@ class GoalPlan(@JsonProperty("GoalPlanID") val planId: Int,
             return arrayOfNulls(size)
         }
     }
+
+    @DrawableRes
+    fun trackerBGColor(): Int = when (this.planId) {
+        1 -> R.drawable.button_plan_keep_lights_on
+        2 -> R.drawable.button_plan_positioned_for_growth
+        3 -> R.drawable.button_plan_watch_out_world
+        else -> R.drawable.button_plan_custom
+    }
+
+    @ColorRes
+    fun trackerTextColor(): Int = when (this.planId) {
+        1 -> R.color.tagBlue
+        2 -> R.color.tagGreen600
+        3 -> R.color.tagRed
+        else -> R.color.tagDeepOrange
+    }
 }
 
 class GoalDurationObjc(@JsonProperty("Text") val name: String,
                        @JsonProperty("Value") val value: String,
-                       @JsonProperty("Selected") val selected: Boolean): Parcelable {
+                       @JsonProperty("Selected") val selected: Boolean) : Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -348,5 +371,9 @@ class GoalDurationObjc(@JsonProperty("Text") val name: String,
         override fun newArray(size: Int): Array<GoalDurationObjc?> {
             return arrayOfNulls(size)
         }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return other is GoalDurationObjc && other.value == value
     }
 }

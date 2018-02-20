@@ -271,4 +271,5 @@
     <string name="unknown_error">Something went wrong, please try again!</string>
     <string name="success">Success</string>
     <string name="check_your_inbox">Please check your inbox for furhter instructions.</string>
+    <string name="select_period">Select Goal Period</string>
 </resources>

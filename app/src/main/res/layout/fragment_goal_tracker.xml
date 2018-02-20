@@ -47,6 +47,8 @@
                     style="@style/Base.Widget.AppCompat.ActionButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:layout_weight="1.3"
                     android:background="@drawable/rectangle_orange_rounded"
                     android:text="@string/hilo_my_week"
@@ -85,7 +87,7 @@
                         style="@style/Base.Widget.AppCompat.ActionButton"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:background="@drawable/current_plan_bg"
+                        android:background="@drawable/button_plan_keep_lights_on"
                         android:textColor="@color/colorAccent"
                         app:buttonFont="bold"
                         android:text="Keep the lights on" />
