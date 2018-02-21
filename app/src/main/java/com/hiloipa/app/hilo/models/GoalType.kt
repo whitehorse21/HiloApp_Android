@@ -32,7 +32,7 @@ enum class GoalType {
 
     @StringRes
     fun title(): Int = when(this) {
-        reach_outs -> R.string.new_reach_outs
+        reach_outs -> R.string.reach_outs
         follow_ups -> R.string.follow_ups
         team_reach_outs -> R.string.team_reach_outs
     }

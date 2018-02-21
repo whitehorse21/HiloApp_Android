@@ -11,9 +11,12 @@
 
     <com.hiloipa.app.hilo.ui.widget.RalewayTextView
         android:id="@+id/rowNumberLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
         app:textFont="medium"
