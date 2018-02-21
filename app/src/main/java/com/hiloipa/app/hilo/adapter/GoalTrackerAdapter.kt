@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.GoalType
+import com.hiloipa.app.hilo.models.responses.GoalTrackerResponse
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import com.hiloipa.app.hilo.ui.widget.RalewaySuggestionsField
@@ -24,12 +25,13 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
 
     var rows: Int = 10
     var delegate: ContactClickListener? = null
+    lateinit var data: GoalTrackerResponse
 
     var goalType: GoalType by Delegates.observable(GoalType.reach_outs) { property, oldValue, newValue ->
         when(newValue) {
-            GoalType.reach_outs -> rows = 15
-            GoalType.follow_ups -> rows = 10
-            GoalType.team_reach_outs -> rows = 5
+            GoalType.reach_outs -> rows = data.goalPlan.reachOuts
+            GoalType.follow_ups -> rows = data.goalPlan.followUps
+            GoalType.team_reach_outs -> rows = data.goalPlan.teamReachOuts
         }
         notifyDataSetChanged()
     }
@@ -46,35 +48,42 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         if (holder == null) return
         holder.rowNumber.text = "${position + 1}"
-        if (position == 0) {
-            holder.isFilled = true
-            holder.searchResultField.text = "Eduard Albu"
-        }
         when(goalType) {
             GoalType.reach_outs -> {
                 holder.rowNumber.setTextColor(context.resources.getColor(R.color.colorPrimary))
+                val contact = data.reachOuts.reachOuts.getOrNull(position)
+                if (contact != null) {
+                    holder.searchResultField.text = contact.name
+                    holder.isFilled = true
+                }
                 holder.scheduleStatus.visibility = View.GONE
                 holder.scheduleDaysLabel.visibility = View.GONE
             }
+
             GoalType.follow_ups -> {
                 holder.rowNumber.setTextColor(context.resources.getColor(R.color.colorGreen))
-                if (holder.isFilled) {
-                    holder.scheduleStatus.visibility = View.VISIBLE
-                    holder.scheduleDaysLabel.visibility = View.VISIBLE
-                } else {
-                    holder.scheduleStatus.visibility = View.GONE
-                    holder.scheduleDaysLabel.visibility = View.GONE
-                }
+                val contact = data.followUps.followUpContacts.getOrNull(position)
+                if (contact != null) {
+                    holder.searchResultField.text = contact.name
+                    holder.isFilled = true
+                    if (contact.badge.isNotEmpty()) {
+                        holder.scheduleStatus.visibility = View.VISIBLE
+                        holder.scheduleStatus.text = contact.badge
+                    } else {
+                        holder.scheduleStatus.visibility = View.GONE
+                    }
+                } else holder.isFilled = false
             }
+
             GoalType.team_reach_outs -> {
                 holder.rowNumber.setTextColor(context.resources.getColor(R.color.colorBlue))
-                if (holder.isFilled) {
-                    holder.scheduleStatus.visibility = View.VISIBLE
-                    holder.scheduleDaysLabel.visibility = View.VISIBLE
-                } else {
-                    holder.scheduleStatus.visibility = View.GONE
-                    holder.scheduleDaysLabel.visibility = View.GONE
+                val contact = data.teamReachOuts.teamReachoutContacts.getOrNull(position)
+                if (contact != null) {
+                    holder.searchResultField.text = contact.name
+                    holder.isFilled = true
                 }
+                holder.scheduleStatus.visibility = View.GONE
+                holder.scheduleDaysLabel.visibility = View.GONE
             }
         }
     }

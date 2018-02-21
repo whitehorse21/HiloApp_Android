@@ -1,6 +1,7 @@
 package com.hiloipa.app.hilo.ui.tracker
 
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -54,15 +55,18 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        adapter = GoalTrackerAdapter(context)
+    }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
             inflater!!.inflate(R.layout.fragment_goal_tracker, container, false)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = GoalTrackerAdapter(activity)
         adapter.delegate = this
-        recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.isNestedScrollingEnabled = false
         tabLayout.setOnTabSelectedListener(this)
@@ -124,6 +128,10 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
     }
 
     private fun updateTrackerWithNewData(data: GoalTrackerResponse = this.goalTrackerData) {
+        // setup recycler view and adapter
+        recyclerView.adapter = adapter
+        adapter.data = data
+        adapter.notifyDataSetChanged()
         // setup period spinner
         val periodNames = mutableListOf<String>()
         periodNames.add(getString(R.string.select_period))
@@ -190,9 +198,10 @@ class GoalTrackerFragment : Fragment(), TabLayout.OnTabSelectedListener, GoalTra
     private val onPeriodChangeListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
             if (position == 0) {
-                if (selectedDuration == null)
+                if (selectedDuration == null) {
                     adjustGraphsBtn.text = getString(R.string.adjust_my_graphs, getString(R.string.select_period))
-                this@GoalTrackerFragment.selectedDuration = null
+                    this@GoalTrackerFragment.selectedDuration = null
+                }
             } else {
                 // otherwise update ui with new selected item
                 this@GoalTrackerFragment.selectedDuration = goalTrackerData.goalDurations[position - 1] // we need to decrement it because we have the first placeholder

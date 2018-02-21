@@ -146,11 +146,11 @@ class TeamReachOuts(@JsonProperty("TeamReachouts_Graph") val teamReachoutsGraphD
 }
 
 // contacts objects
-class ReachOutContact(@JsonProperty("ContactID") val contactId: Int,
-                      @JsonProperty("ContactName") val contactName: String,
-                      @JsonProperty("priority") val priority: String,
-                      @JsonProperty("LastModified") val lastModified: Date?,
-                      @JsonProperty("SlotID") val slotId: Int) : Parcelable {
+class ReachOutContact(@JsonProperty("ContactID") id: Int,
+                      @JsonProperty("ContactName") name: String,
+                      @JsonProperty("priority") priority: String,
+                      @JsonProperty("LastModified") lastModified: Date?,
+                      @JsonProperty("SlotID") slotId: Int) : Contact(id, name, slotId, lastModified, priority), Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
@@ -160,8 +160,8 @@ class ReachOutContact(@JsonProperty("ContactID") val contactId: Int,
             parcel.readInt())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(contactId)
-        parcel.writeString(contactName)
+        parcel.writeInt(id)
+        parcel.writeString(name)
         parcel.writeString(priority)
         parcel.writeSerializable(lastModified)
         parcel.writeInt(slotId)
@@ -182,13 +182,13 @@ class ReachOutContact(@JsonProperty("ContactID") val contactId: Int,
     }
 }
 
-class FollowUpContact(@JsonProperty("ContactID") val contactId: Int,
-                      @JsonProperty("ContactName") val contactName: String,
+class FollowUpContact(@JsonProperty("ContactID") id: Int,
+                      @JsonProperty("ContactName") name: String,
                       @JsonProperty("reminderdate") val reminderDate: Date?,
-                      @JsonProperty("priority") val priority: String,
+                      @JsonProperty("priority") priority: String,
                       @JsonProperty("badge") val badge: String,
-                      @JsonProperty("LastModified") val lastModified: Date?,
-                      @JsonProperty("SlotID") val slotId: Int) : Parcelable {
+                      @JsonProperty("LastModified") lastModified: Date?,
+                      @JsonProperty("SlotID") slotId: Int) : Contact(id, name, slotId, lastModified, priority), Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
@@ -200,8 +200,8 @@ class FollowUpContact(@JsonProperty("ContactID") val contactId: Int,
             parcel.readInt())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(contactId)
-        parcel.writeString(contactName)
+        parcel.writeInt(id)
+        parcel.writeString(name)
         parcel.writeSerializable(reminderDate)
         parcel.writeString(priority)
         parcel.writeString(badge)
@@ -224,22 +224,23 @@ class FollowUpContact(@JsonProperty("ContactID") val contactId: Int,
     }
 }
 
-class TeamReachOutContact(@JsonProperty("TeamID") val teamId: Int,
-                          @JsonProperty("TeamName") val teamName: String,
+class TeamReachOutContact(@JsonProperty("TeamID") id: Int,
+                          @JsonProperty("TeamName") name: String,
                           @JsonProperty("followupdate") val followUpDate: Date?,
-                          @JsonProperty("SlotID") val slotId: Int,
-                          @JsonProperty("LastModified") val lastModified: Date?) : Parcelable {
+                          @JsonProperty("SlotID") slotId: Int,
+                          @JsonProperty("LastModified") lastModified: Date?): Contact(id, name, slotId, lastModified), Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
             parcel.readString(),
             parcel.readSerializable() as Date,
             parcel.readInt(),
-            parcel.readSerializable() as Date)
+            parcel.readSerializable() as Date) {
+    }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(teamId)
-        parcel.writeString(teamName)
+        parcel.writeInt(id)
+        parcel.writeString(name)
         parcel.writeSerializable(followUpDate)
         parcel.writeInt(slotId)
         parcel.writeSerializable(lastModified)
@@ -255,6 +256,41 @@ class TeamReachOutContact(@JsonProperty("TeamID") val teamId: Int,
         }
 
         override fun newArray(size: Int): Array<TeamReachOutContact?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
+
+open class Contact(val id: Int, val name: String,
+              val slotId: Int, val lastModified: Date?,
+              val priority: String = ""): Parcelable {
+
+    constructor(parcel: Parcel) : this(
+            parcel.readInt(),
+            parcel.readString(),
+            parcel.readInt(),
+            parcel.readSerializable() as Date,
+            parcel.readString()) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeString(name)
+        parcel.writeInt(slotId)
+        parcel.writeSerializable(lastModified)
+        parcel.writeString(priority)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Contact> {
+        override fun createFromParcel(parcel: Parcel): Contact {
+            return Contact(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Contact?> {
             return arrayOfNulls(size)
         }
     }

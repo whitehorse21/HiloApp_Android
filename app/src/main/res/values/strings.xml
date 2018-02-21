@@ -272,4 +272,7 @@
     <string name="success">Success</string>
     <string name="check_your_inbox">Please check your inbox for furhter instructions.</string>
     <string name="select_period">Select Goal Period</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
