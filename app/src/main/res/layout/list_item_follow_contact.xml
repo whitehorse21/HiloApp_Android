@@ -13,7 +13,7 @@
         android:id="@+id/rowNumberLabel"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="6dp"
         android:gravity="center"
         android:singleLine="true"
         android:ellipsize="end"

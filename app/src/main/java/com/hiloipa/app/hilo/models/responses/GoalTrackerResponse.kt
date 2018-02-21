@@ -186,6 +186,7 @@ class FollowUpContact(@JsonProperty("ContactID") id: Int,
                       @JsonProperty("ContactName") name: String,
                       @JsonProperty("reminderdate") val reminderDate: Date?,
                       @JsonProperty("priority") priority: String,
+                      @JsonProperty("days") val days: String?,
                       @JsonProperty("badge") val badge: String,
                       @JsonProperty("LastModified") lastModified: Date?,
                       @JsonProperty("SlotID") slotId: Int) : Contact(id, name, slotId, lastModified, priority), Parcelable {
@@ -196,6 +197,7 @@ class FollowUpContact(@JsonProperty("ContactID") id: Int,
             parcel.readSerializable() as Date,
             parcel.readString(),
             parcel.readString(),
+            parcel.readString(),
             parcel.readSerializable() as Date,
             parcel.readInt())
 
@@ -204,6 +206,7 @@ class FollowUpContact(@JsonProperty("ContactID") id: Int,
         parcel.writeString(name)
         parcel.writeSerializable(reminderDate)
         parcel.writeString(priority)
+        parcel.writeString(days)
         parcel.writeString(badge)
         parcel.writeSerializable(lastModified)
         parcel.writeInt(slotId)
@@ -229,6 +232,8 @@ class TeamReachOutContact(@JsonProperty("TeamID") id: Int,
                           @JsonProperty("followupdate") val followUpDate: Date?,
                           @JsonProperty("priority") priority: String?,
                           @JsonProperty("SlotID") slotId: Int,
+                          @JsonProperty("badge") val badge: String?,
+                          @JsonProperty("days") val days: String?,
                           @JsonProperty("LastModified") lastModified: Date?): Contact(id, name, slotId, lastModified), Parcelable {
 
     constructor(parcel: Parcel) : this(
@@ -237,6 +242,8 @@ class TeamReachOutContact(@JsonProperty("TeamID") id: Int,
             parcel.readSerializable() as Date,
             parcel.readString(),
             parcel.readInt(),
+            parcel.readString(),
+            parcel.readString(),
             parcel.readSerializable() as Date) {
     }
 
@@ -246,6 +253,8 @@ class TeamReachOutContact(@JsonProperty("TeamID") id: Int,
         parcel.writeSerializable(followUpDate)
         parcel.writeString(priority)
         parcel.writeInt(slotId)
+        parcel.writeString(badge)
+        parcel.writeString(days)
         parcel.writeSerializable(lastModified)
     }
 

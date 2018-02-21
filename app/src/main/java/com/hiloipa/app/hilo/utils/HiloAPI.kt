@@ -34,5 +34,11 @@ interface HiloAPI {
     fun showGoalPlans(@Body standardRequest: StandardRequest): Observable<HiloResponse<ShowPlansResponse>>
 
     @POST("DisplayAllGoalTracker")
-    fun <T: Contact> showAllGoalTracker(@Body standardRequest: StandardRequest): Observable<HiloResponse<TrackerDetails<T>>>
+    fun getFutureFollowUps(@Body standardRequest: StandardRequest): Observable<HiloResponse<FutureFollowUps>>
+
+    @POST("DisplayAllGoalTracker")
+    fun getFutureTeamReachOuts(@Body standardRequest: StandardRequest): Observable<HiloResponse<FutureTeamReachOuts>>
+
+    @POST("DisplayAllGoalTracker")
+    fun getFutureReachOutContacts(@Body standardRequest: StandardRequest): Observable<HiloResponse<ArrayList<ReachOutContact>>>
 }

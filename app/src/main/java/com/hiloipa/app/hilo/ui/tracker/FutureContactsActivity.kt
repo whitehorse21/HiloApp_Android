@@ -10,21 +10,27 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Spinner
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.adapter.FutureContactsAdapter
 import com.hiloipa.app.hilo.adapter.GoalTrackerAdapter
 import com.hiloipa.app.hilo.models.GoalType
 import com.hiloipa.app.hilo.models.requests.StandardRequest
-import com.hiloipa.app.hilo.models.responses.FollowUpContact
-import com.hiloipa.app.hilo.models.responses.GoalTrackerResponse
+import com.hiloipa.app.hilo.models.responses.*
 import com.hiloipa.app.hilo.ui.contacts.ContactDetailsActivity
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 import com.hiloipa.app.hilo.utils.HiloApp
+import com.hiloipa.app.hilo.utils.isSuccess
+import com.hiloipa.app.hilo.utils.showExplanation
+import com.hiloipa.app.hilo.utils.showLoading
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_future_contacts.*
 
 class FutureContactsActivity : AppCompatActivity(), GoalTrackerAdapter.ContactClickListener {
 
-    lateinit var adapter: GoalTrackerAdapter
+    lateinit var adapter: FutureContactsAdapter
+    lateinit var goalType: GoalType
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +39,7 @@ class FutureContactsActivity : AppCompatActivity(), GoalTrackerAdapter.ContactCl
 
         // get goal type from intent
         val intGoalType = intent.extras.getInt("goalType")
-        val data = intent.extras.getParcelable<GoalTrackerResponse>("data")
-        val goalType = GoalType.fromInt(intGoalType)
+        goalType = GoalType.fromInt(intGoalType)
         // set toolbar title according to goal type
         toolbarTitle.text = getString(goalType.title())
         // set list header text according to goal type
@@ -42,23 +47,47 @@ class FutureContactsActivity : AppCompatActivity(), GoalTrackerAdapter.ContactCl
             futureDescriptionLabel.text = getString(goalType.description())
         else futureDescriptionLabel.visibility = View.GONE
         // create adapter and setup recycler view
-        adapter = GoalTrackerAdapter(this)
-        adapter.delegate = this
+        adapter = FutureContactsAdapter(this, goalType)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter.data = data
-        adapter.goalType = goalType
+        // get contacts from server
+        when (goalType) {
+            GoalType.reach_outs -> this.getAllTrackerData<ReachOutContact>(goalType)
+            GoalType.follow_ups -> this.getAllTrackerData<FollowUpContact>(goalType)
+            GoalType.team_reach_outs -> this.getAllTrackerData<TeamReachOutContact>(goalType)
+        }
     }
 
-    private fun getAllTrackerData() {
-        val request = StandardRequest()
-        request.type = adapter.goalType.apiValue()
 
-        val observable = HiloApp.api().showAllGoalTracker<FollowUpContact>(request)
+    private fun <T: Contact> getAllTrackerData(goalType: GoalType) {
+        val dialog = showLoading()
+        val request = StandardRequest()
+        request.type = goalType.apiValue()
+
+        HiloApp.api().getFutureFollowUps(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response: HiloResponse<FutureFollowUps> ->
+                    dialog.dismiss()
+                    if (response.status.isSuccess()) {
+                        val data = response.data
+                        if (data != null) {
+                            when (goalType) {
+                                GoalType.follow_ups ->
+                                    adapter.updateAdapterData<FollowUpContact>(data.backlogs)
+                            }
+                        }
+                    } else
+                        showExplanation(message = response.message)
+                }, { error: Throwable ->
+                    dialog.dismiss()
+                    error.printStackTrace()
+                    showExplanation(message = error.localizedMessage)
+                })
     }
 
     override fun onCompleteClicked() {
-        when(adapter.goalType) {
+        when(goalType) {
             GoalType.follow_ups, GoalType.reach_outs -> this.showCompleteReachOutDialog()
             GoalType.team_reach_outs -> this.showCompleteTeamReachOutDialog()
         }
