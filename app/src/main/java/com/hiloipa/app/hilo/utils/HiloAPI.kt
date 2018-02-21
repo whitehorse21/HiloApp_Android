@@ -32,4 +32,7 @@ interface HiloAPI {
 
     @POST("ShowGoalPlans")
     fun showGoalPlans(@Body standardRequest: StandardRequest): Observable<HiloResponse<ShowPlansResponse>>
+
+    @POST("DisplayAllGoalTracker")
+    fun <T: Contact> showAllGoalTracker(@Body standardRequest: StandardRequest): Observable<HiloResponse<TrackerDetails<T>>>
 }

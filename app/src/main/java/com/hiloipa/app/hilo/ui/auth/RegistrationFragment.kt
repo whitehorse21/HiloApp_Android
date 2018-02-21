@@ -156,6 +156,8 @@ class RegistrationFragment : Fragment() {
                             HiloApp.userData = data
                             HiloApp.instance.saveAccessToken(data.accessToken)
                             HiloApp.instance.setIsLoggedIn(true)
+                            HiloApp.instance.saveUserCredentials(registrationRequest.email,
+                                    registrationRequest.password)
                             showWelcomeDialog(data.messageBody, data.messageImage, data.messageTitle)
                         } else
                             activity.showExplanation(message = getString(R.string.unknown_error))

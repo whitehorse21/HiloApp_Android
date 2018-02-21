@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.auth.AuthActivity"
             android:screenOrientation="portrait" />
@@ -64,11 +67,13 @@
             android:name=".ui.reachout.EditReachoutActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.todos.CreateTodoActivity"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
-
-        <activity android:name=".ui.todos.CreateTodoActivity"></activity>
     </application>
 
 </manifest>

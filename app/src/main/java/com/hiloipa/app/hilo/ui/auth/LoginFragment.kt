@@ -80,6 +80,7 @@ class LoginFragment : Fragment() {
                             HiloApp.instance.saveAccessToken(data.accessToken)
                             HiloApp.instance.setIsLoggedIn(true)
                             HiloApp.userData = data
+                            HiloApp.instance.saveUserCredentials(loginRequest.email, loginRequest.password)
                             showWelcomeDialog(data.messageBody, data.messageImage, data.messageTitle)
                         } else {
                             activity.showExplanation(message = response.message)

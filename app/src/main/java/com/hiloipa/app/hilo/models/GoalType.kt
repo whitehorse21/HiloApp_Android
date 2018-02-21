@@ -2,6 +2,8 @@ package com.hiloipa.app.hilo.models
 
 import android.support.annotation.StringRes
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.models.responses.FollowUpContact
+import kotlin.reflect.jvm.internal.impl.serialization.deserialization.ProtoContainer
 
 /**
  * Created by eduardalbu on 26.01.2018.
@@ -35,5 +37,11 @@ enum class GoalType {
         reach_outs -> R.string.reach_outs
         follow_ups -> R.string.follow_ups
         team_reach_outs -> R.string.team_reach_outs
+    }
+
+    fun apiValue(): String = when(this) {
+        reach_outs -> "Reachout"
+        follow_ups -> "Followup"
+        team_reach_outs -> "TeamReach"
     }
 }

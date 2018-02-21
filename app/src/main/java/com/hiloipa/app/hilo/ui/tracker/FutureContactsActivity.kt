@@ -12,10 +12,14 @@ import android.widget.Spinner
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.GoalTrackerAdapter
 import com.hiloipa.app.hilo.models.GoalType
+import com.hiloipa.app.hilo.models.requests.StandardRequest
+import com.hiloipa.app.hilo.models.responses.FollowUpContact
+import com.hiloipa.app.hilo.models.responses.GoalTrackerResponse
 import com.hiloipa.app.hilo.ui.contacts.ContactDetailsActivity
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
+import com.hiloipa.app.hilo.utils.HiloApp
 import kotlinx.android.synthetic.main.activity_future_contacts.*
 
 class FutureContactsActivity : AppCompatActivity(), GoalTrackerAdapter.ContactClickListener {
@@ -29,6 +33,7 @@ class FutureContactsActivity : AppCompatActivity(), GoalTrackerAdapter.ContactCl
 
         // get goal type from intent
         val intGoalType = intent.extras.getInt("goalType")
+        val data = intent.extras.getParcelable<GoalTrackerResponse>("data")
         val goalType = GoalType.fromInt(intGoalType)
         // set toolbar title according to goal type
         toolbarTitle.text = getString(goalType.title())
@@ -41,7 +46,15 @@ class FutureContactsActivity : AppCompatActivity(), GoalTrackerAdapter.ContactCl
         adapter.delegate = this
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter.data = data
         adapter.goalType = goalType
+    }
+
+    private fun getAllTrackerData() {
+        val request = StandardRequest()
+        request.type = adapter.goalType.apiValue()
+
+        val observable = HiloApp.api().showAllGoalTracker<FollowUpContact>(request)
     }
 
     override fun onCompleteClicked() {

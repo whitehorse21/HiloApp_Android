@@ -102,4 +102,14 @@ class HiloApp: MultiDexApplication() {
     fun setIsLoggedIn(isLoggedIn: Boolean) {
         preferences.edit().putBoolean("login_status", isLoggedIn).apply()
     }
+
+    fun saveUserCredentials(username: String, password: String) {
+        preferences.edit().putString("username", username)
+                .putString("password", AESCrypt.encrypt(password))
+                .apply()
+    }
+
+    fun getPassword(): String = AESCrypt.decrypt(preferences.getString("password", ""))
+
+    fun getUsername(): String = preferences.getString("username", "")
 }

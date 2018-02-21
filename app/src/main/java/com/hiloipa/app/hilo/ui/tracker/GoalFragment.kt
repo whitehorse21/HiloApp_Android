@@ -68,6 +68,7 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener {
             val intent = Intent(activity, FutureContactsActivity::class.java)
             val extras = Bundle()
             extras.putInt("goalType", goalType.toInt())
+            extras.putParcelable("data", data)
             intent.putExtras(extras)
             activity.startActivity(intent)
         }

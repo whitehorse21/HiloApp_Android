@@ -227,6 +227,7 @@ class FollowUpContact(@JsonProperty("ContactID") id: Int,
 class TeamReachOutContact(@JsonProperty("TeamID") id: Int,
                           @JsonProperty("TeamName") name: String,
                           @JsonProperty("followupdate") val followUpDate: Date?,
+                          @JsonProperty("priority") priority: String?,
                           @JsonProperty("SlotID") slotId: Int,
                           @JsonProperty("LastModified") lastModified: Date?): Contact(id, name, slotId, lastModified), Parcelable {
 
@@ -234,6 +235,7 @@ class TeamReachOutContact(@JsonProperty("TeamID") id: Int,
             parcel.readInt(),
             parcel.readString(),
             parcel.readSerializable() as Date,
+            parcel.readString(),
             parcel.readInt(),
             parcel.readSerializable() as Date) {
     }
@@ -242,6 +244,7 @@ class TeamReachOutContact(@JsonProperty("TeamID") id: Int,
         parcel.writeInt(id)
         parcel.writeString(name)
         parcel.writeSerializable(followUpDate)
+        parcel.writeString(priority)
         parcel.writeInt(slotId)
         parcel.writeSerializable(lastModified)
     }

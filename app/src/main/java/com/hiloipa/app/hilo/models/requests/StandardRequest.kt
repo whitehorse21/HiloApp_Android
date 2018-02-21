@@ -11,4 +11,5 @@ class StandardRequest {
     @JsonProperty("UserID") var userId: Int = HiloApp.userData.userId
     @JsonProperty("Api_Access_token") val accessToken: String = HiloApp.instance.getAccessToken()
     @JsonProperty("TimeZone") val timeZone: String = timezone()
+    @JsonProperty("Type") var type: String? = null
 }
