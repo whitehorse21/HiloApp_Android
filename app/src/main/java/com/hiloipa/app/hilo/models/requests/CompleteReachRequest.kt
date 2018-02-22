@@ -7,11 +7,7 @@ import com.hiloipa.app.hilo.utils.timezone
 /**
  * Created by eduardalbu on 22.02.2018.
  */
-class CompleteReachRequest {
-    @JsonProperty("UserID") var userId: String = "${HiloApp.userData.userId}"
-    @JsonProperty("Api_Access_token") var accessToken: String = HiloApp.instance.getAccessToken()
-    @JsonProperty("TimeZone") var timeZone: String = timezone()
-    @JsonProperty("ContactID") var contactId: String = ""
+class CompleteReachRequest : StandardRequest() {
     @JsonProperty("Type") var goalType: String = ""
     @JsonProperty("pipeline") var pipeline: String = ""
     @JsonProperty("setfollowup") var nextFollowUp: String = ""

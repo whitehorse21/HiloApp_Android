@@ -52,11 +52,6 @@ class GoalTrackerAdapter(val context: Context) : RecyclerView.Adapter<GoalTracke
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         if (holder == null) return
         holder.rowNumber.text = "${position + 1}"
-        // setup search field suggestions
-        val contactsNames = mutableListOf<String>()
-        contacts.forEach { contactsNames.add(it.name) }
-        holder.searchField.setAdapter(ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item,
-                contactsNames))
         // update item data
         when (goalType) {
             GoalType.reach_outs -> {
@@ -125,13 +120,19 @@ class GoalTrackerAdapter(val context: Context) : RecyclerView.Adapter<GoalTracke
             deleteBtn.setOnClickListener { delegate?.onDeleteClicked(contact, adapterPosition) }
             itemView.setOnClickListener { delegate?.onContactClicked(contact, adapterPosition) }
 
-            searchField.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    val contact = contacts[id.toInt()]
-                    delegate?.onContactAdded(contact, adapterPosition)
-                }
+            // setup search field suggestions
+            val contactsNames = mutableListOf<String>()
+            contacts.forEach { contactsNames.add(it.name) }
+            searchField.setAdapter(ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item,
+                    contactsNames))
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            searchField.onItemClickListener = object : AdapterView.OnItemClickListener {
+                override fun onItemClick(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                    val contactName = parent.getItemAtPosition(position) as String
+                    val contact = contacts.firstOrNull { it.name == contactName }
+                    if (contact != null)
+                        delegate?.onContactAdded(contact, adapterPosition)
+                }
             }
         }
     }

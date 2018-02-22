@@ -5,9 +5,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.LocalBroadcastManager
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +26,8 @@ import com.hiloipa.app.hilo.models.responses.GoalDurationObjc
 import com.hiloipa.app.hilo.models.responses.GoalTrackerResponse
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.models.responses.SearchContact
+import com.hiloipa.app.hilo.ui.widget.RalewayButton
+import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
 import com.hiloipa.app.hilo.utils.showExplanation
@@ -59,7 +64,7 @@ class GoalTrackerFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val filter = IntentFilter("update_tracker")
-        activity.registerReceiver(broadcastReceiver, filter)
+        LocalBroadcastManager.getInstance(activity).registerReceiver(broadcastReceiver, filter)
         adapter = PagerAdapter(activity, childFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
         viewPager.offscreenPageLimit = 4
@@ -75,7 +80,6 @@ class GoalTrackerFragment : Fragment() {
             if (selectedDuration != null)
                 getTrackerData(GoalDuration.fromString(selectedDuration!!.value), hiloMyWeek = true)
         }
-
         // get data from server
         getTrackerData()
     }
@@ -143,6 +147,7 @@ class GoalTrackerFragment : Fragment() {
         currentPlanBtn.text = data.goalPlan.name
         currentPlanBtn.setBackgroundResource(data.goalPlan.trackerBGColor())
         currentPlanBtn.setTextColor(resources.getColor(data.goalPlan.trackerTextColor()))
+        currentPlanBtn.setOnClickListener { showCurrentPlanDetails() }
         if (viewPager.adapter == null) {
             setupPagerAdapter(data).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -218,8 +223,31 @@ class GoalTrackerFragment : Fragment() {
                 })
     }
 
+    private fun showCurrentPlanDetails() {
+        val dialogView = layoutInflater.inflate(R.layout.alert_current_goal_plan, null)
+        val planHeader: RalewayButton = dialogView.findViewById(R.id.keepLightsOnBtn)
+        val reachOuts: RalewayTextView = dialogView.findViewById(R.id.reachoutsLabel)
+        val followUps: RalewayTextView = dialogView.findViewById(R.id.followUpsLabel)
+        val teamNeeds: RalewayTextView = dialogView.findViewById(R.id.teamNeedsLabel)
+        val backBtn: RalewayButton = dialogView.findViewById(R.id.backButton)
+
+        // setup views
+        val plan = goalTrackerData.goalPlan
+        planHeader.setBackgroundDrawable(resources.getDrawable(plan.planHeader()))
+        planHeader.text = plan.name
+        reachOuts.text = "${plan.reachOuts}"
+        followUps.text = "${plan.followUps}"
+        teamNeeds.text = "${plan.teamReachOuts}"
+
+        val dialog = AlertDialog.Builder(activity).setView(dialogView).create()
+        dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        backBtn.setOnClickListener { dialog.dismiss() }
+        dialog.show()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        activity.unregisterReceiver(broadcastReceiver)
+        LocalBroadcastManager.getInstance(activity).unregisterReceiver(broadcastReceiver)
     }
 }

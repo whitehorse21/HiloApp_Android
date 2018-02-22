@@ -183,11 +183,32 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener {
 
     override fun onContactClicked(contact: Contact, position: Int) {
         val intent = Intent(activity, ContactDetailsActivity::class.java)
+        val extras = Bundle()
+        extras.putString(ContactDetailsActivity.contactIdKey, "${contact.id}")
+        intent.putExtras(extras)
         activity.startActivity(intent)
     }
 
     override fun onContactAdded(contact: SearchContact, position: Int) {
-
+        val request = StandardRequest()
+        request.type = goalType.apiValue()
+        request.contactId = "${contact.contactId}"
+        val loading = activity.showLoading()
+        HiloApp.api().addGoalTrackerContact(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response: HiloResponse<String> ->
+                    loading.dismiss()
+                    if (response.status.isSuccess()) {
+                        activity.sendBroadcast(Intent("update_tracker"))
+                    } else {
+                        activity.showExplanation(message = response.message)
+                    }
+                }, { error: Throwable ->
+                    loading.dismiss()
+                    error.printStackTrace()
+                    activity.showExplanation(message = error.localizedMessage)
+                })
     }
 
     private val broadcastReceiver = object : BroadcastReceiver() {
@@ -422,7 +443,7 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener {
                         loading.dismiss()
                         if (response.status.isSuccess()) {
                             dialog.dismiss()
-                            activity.sendBroadcast(Intent("update_tracker"))
+                            LocalBroadcastManager.getInstance(activity).sendBroadcast(Intent("update_tracker"))
                         } else {
                             Toast.makeText(activity, response.message, Toast.LENGTH_SHORT).show()
                         }

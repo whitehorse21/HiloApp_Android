@@ -14,6 +14,10 @@ import retrofit2.http.Query
  */
 interface HiloAPI {
 
+    /**
+     *     Authentication calls
+     */
+
     @POST("Login")
     fun login(@Body loginRequest: LoginRequest): Observable<HiloResponse<UserData>>
 
@@ -29,12 +33,16 @@ interface HiloAPI {
     @POST("ForgotPassword")
     fun resetPassword(@Body resetPassRequest: ResetPassRequest): Observable<HiloResponse<String>>
 
+    /**
+     *    Goal tracker calls
+     */
+
     @POST("GoalTracker")
     fun getGoalTrackerData(@Body goalTrackerRequest: GoalTrackerRequest = GoalTrackerRequest()):
             Observable<HiloResponse<GoalTrackerResponse>>
 
     @POST("ShowGoalPlans")
-    fun showGoalPlans(@Body standardRequest: StandardRequest): Observable<HiloResponse<ShowPlansResponse>>
+    fun showGoalPlans(@Body standardRequest: StandardRequest): Observable<HiloResponse<GoalPlans>>
 
     @POST("DisplayAllGoalTracker")
     fun getFutureFollowUps(@Body standardRequest: StandardRequest): Observable<HiloResponse<FutureFollowUps>>
@@ -59,4 +67,29 @@ interface HiloAPI {
 
     @GET("GetTeamContact?")
     fun getTeamContactId(@Query("teamid") teamId: Int): Observable<ResponseBody>
+
+    @POST("AddGoalTrackerContact")
+    fun addGoalTrackerContact(@Body standardRequest: StandardRequest): Observable<HiloResponse<String>>
+
+    @POST("SaveGoalPlans")
+    fun saveGoalPlan(@Body savePlanRequest: SavePlanRequest): Observable<HiloResponse<String>>
+
+    /**
+     *    Contacts calls
+     */
+
+    @POST("ContactsList")
+    fun getContactsList(@Body contactsListRequest: ContactsListRequest): Observable<HiloResponse<DetailedContacs>>
+
+    @POST("SearchContactsList")
+    fun searchDetailedContacts(@Body contactsListRequest: ContactsListRequest): Observable<HiloResponse<DetailedContacs>>
+
+    @POST("ImportContacts")
+    fun importContacts(@Body importContactsRequest: ImportContactsRequest): Observable<HiloResponse<ImportContactsResponse>>
+
+    @POST("DeleteContact")
+    fun deleteContact(@Body deleteContactRequest: DeleteContactRequest): Observable<HiloResponse<String>>
+
+    @POST("ContactDetails")
+    fun getContactFullDetails(@Body standardRequest: StandardRequest): Observable<HiloResponse<FullContactDetails>>
 }

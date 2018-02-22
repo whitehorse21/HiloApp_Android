@@ -410,6 +410,14 @@ class GoalPlan(@JsonProperty("GoalPlanID") val planId: Int,
         3 -> R.color.tagRed
         else -> R.color.tagDeepOrange
     }
+
+    @DrawableRes
+    fun planHeader(): Int = when (this.planId) {
+        1 -> R.drawable.rectangle_top_rounded_blue
+        2 -> R.drawable.rectangle_top_rounded_green
+        3 -> R.drawable.rectangle_top_rounded_orange
+        else -> R.drawable.rectangle_top_rounded_rose
+    }
 }
 
 @JsonIgnoreProperties(ignoreUnknown = true)

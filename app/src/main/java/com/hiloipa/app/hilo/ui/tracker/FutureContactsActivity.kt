@@ -226,7 +226,7 @@ class FutureContactsActivity : AppCompatActivity(), GoalTrackerAdapter.ContactCl
     override fun onContactClicked(contact: Contact, position: Int) {
         val intent = Intent(this, ContactDetailsActivity::class.java)
         val extras = Bundle()
-        extras.putParcelable("contact", contact)
+        extras.putString(ContactDetailsActivity.contactIdKey, "${contact.id}")
         intent.putExtras(extras)
         this.startActivity(intent)
     }

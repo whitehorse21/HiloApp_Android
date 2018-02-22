@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
 /**
  * Created by eduardalbu on 19.02.2018.
  */
-class ShowPlansResponse(@JsonProperty("autofollow") val autoFollow: AutoFollow,
-                        @JsonProperty("currentplan") val currentPlan: Int,
-                        @JsonProperty("customplan") val customPlan: CustomPlan,
-                        @JsonProperty("goaloption") val goalOption: Int): Parcelable {
+class GoalPlans(@JsonProperty("autofollow") val autoFollow: AutoFollow,
+                @JsonProperty("currentplan") val currentPlan: Int,
+                @JsonProperty("customplan") val customPlan: CustomPlan,
+                @JsonProperty("goaloption") val goalOption: Int): Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readParcelable(AutoFollow::class.java.classLoader),
@@ -29,12 +29,12 @@ class ShowPlansResponse(@JsonProperty("autofollow") val autoFollow: AutoFollow,
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<ShowPlansResponse> {
-        override fun createFromParcel(parcel: Parcel): ShowPlansResponse {
-            return ShowPlansResponse(parcel)
+    companion object CREATOR : Parcelable.Creator<GoalPlans> {
+        override fun createFromParcel(parcel: Parcel): GoalPlans {
+            return GoalPlans(parcel)
         }
 
-        override fun newArray(size: Int): Array<ShowPlansResponse?> {
+        override fun newArray(size: Int): Array<GoalPlans?> {
             return arrayOfNulls(size)
         }
     }
@@ -42,17 +42,20 @@ class ShowPlansResponse(@JsonProperty("autofollow") val autoFollow: AutoFollow,
 
 class AutoFollow(@JsonProperty("autofollow_cold") val cold: Int,
                  @JsonProperty("autofollow_hot") val hot: Int,
-                 @JsonProperty("autofollow_warm") val warm: Int): Parcelable {
+                 @JsonProperty("autofollow_warm") val warm: Int,
+                 @JsonProperty("autofollow_yesno") val isEnabled: Boolean): Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
             parcel.readInt(),
-            parcel.readInt())
+            parcel.readInt(),
+            parcel.readByte() != 0.toByte())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(cold)
         parcel.writeInt(hot)
         parcel.writeInt(warm)
+        parcel.writeByte(if (isEnabled) 1 else 0)
     }
 
     override fun describeContents(): Int {

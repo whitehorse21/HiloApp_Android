@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="7dp"
+        app:cardBackgroundColor="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                android:id="@+id/backButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.ActionButton"
+                android:text="@string/current_goal_plan_details"
+                android:drawablePadding="-40dp"
+                android:singleLine="true"
+                app:buttonFont="semiBold"
+                android:background="?selectableItemBackground"
+                android:drawableStart="@drawable/ic_action_back"
+                android:drawableLeft="@drawable/ic_action_back"/>
+
+            <include layout="@layout/layout_plan_keep_lights_on"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

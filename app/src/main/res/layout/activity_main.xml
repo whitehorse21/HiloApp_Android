@@ -14,6 +14,15 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary">
 
+        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            android:id="@+id/importContactsBtn"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="@string/import_contacts"
+            android:visibility="gone"/>
+
         <com.hiloipa.app.hilo.ui.widget.RalewayTextView
             android:id="@+id/toolbarTitle"
             android:layout_width="wrap_content"
