@@ -5,16 +5,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.Spinner
+import android.widget.*
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.GoalType
 import com.hiloipa.app.hilo.models.responses.Contact
 import com.hiloipa.app.hilo.models.responses.GoalTrackerResponse
+import com.hiloipa.app.hilo.models.responses.SearchContact
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
-import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import com.hiloipa.app.hilo.ui.widget.RalewaySuggestionsField
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 import kotlin.properties.Delegates
@@ -22,14 +19,20 @@ import kotlin.properties.Delegates
 /**
  * Created by eduardalbu on 26.01.2018.
  */
-class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTrackerAdapter.ViewHolder>() {
+class GoalTrackerAdapter(val context: Context) : RecyclerView.Adapter<GoalTrackerAdapter.ViewHolder>() {
 
     var rows: Int = 10
     var delegate: ContactClickListener? = null
+
+    var contacts: ArrayList<SearchContact> by
+    Delegates.observable<ArrayList<SearchContact>>(arrayListOf()) { property, oldValue, newValue ->
+        notifyDataSetChanged()
+    }
+
     lateinit var data: GoalTrackerResponse
 
     var goalType: GoalType by Delegates.observable(GoalType.reach_outs) { property, oldValue, newValue ->
-        when(newValue) {
+        when (newValue) {
             GoalType.reach_outs -> rows = data.goalPlan.reachOuts
             GoalType.follow_ups -> rows = data.goalPlan.followUps
             GoalType.team_reach_outs -> rows = data.goalPlan.teamReachOuts
@@ -49,7 +52,13 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         if (holder == null) return
         holder.rowNumber.text = "${position + 1}"
-        when(goalType) {
+        // setup search field suggestions
+        val contactsNames = mutableListOf<String>()
+        contacts.forEach { contactsNames.add(it.name) }
+        holder.searchField.setAdapter(ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item,
+                contactsNames))
+        // update item data
+        when (goalType) {
             GoalType.reach_outs -> {
                 holder.rowNumber.setTextColor(context.resources.getColor(R.color.colorPrimary))
                 val contact = data.reachOuts.reachOuts.getOrNull(position)
@@ -92,7 +101,7 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
         }
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val searchField: RalewaySuggestionsField = itemView.findViewById(R.id.searchField)
         val rowNumber: RalewayTextView = itemView.findViewById(R.id.rowNumberLabel)
         val searchSpinner: Spinner = itemView.findViewById(R.id.searchSpinner)
@@ -115,6 +124,15 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
             completeBtn.setOnClickListener { delegate?.onCompleteClicked(contact, adapterPosition) }
             deleteBtn.setOnClickListener { delegate?.onDeleteClicked(contact, adapterPosition) }
             itemView.setOnClickListener { delegate?.onContactClicked(contact, adapterPosition) }
+
+            searchField.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val contact = contacts[id.toInt()]
+                    delegate?.onContactAdded(contact, adapterPosition)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
         }
     }
 
@@ -122,5 +140,6 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
         fun onCompleteClicked(contact: Contact, position: Int)
         fun onDeleteClicked(contact: Contact, position: Int)
         fun onContactClicked(contact: Contact, position: Int)
+        fun onContactAdded(contact: SearchContact, position: Int)
     }
 }

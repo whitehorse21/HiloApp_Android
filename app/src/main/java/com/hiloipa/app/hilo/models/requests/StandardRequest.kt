@@ -13,4 +13,5 @@ class StandardRequest {
     @JsonProperty("TimeZone") val timeZone: String = timezone()
     @JsonProperty("Type") var type: String? = null
     @JsonProperty("ContactID") var contactId: String? = null
+    @JsonProperty("ContactName") var contactName: String = ""
 }

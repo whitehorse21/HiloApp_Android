@@ -38,33 +38,34 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
                     <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
-                        <ProgressBar
+                        <com.mikhaellopez.circularprogressbar.CircularProgressBar
                             android:id="@+id/progressBar"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="100dp"
+                            android:layout_width="120dp"
                             android:layout_height="140dp"
                             android:layout_gravity="center"
                             android:layout_margin="16dp"
-                            android:background="@drawable/circle_shape"
-                            android:indeterminate="false"
-                            android:max="100"
-                            android:progress="43"
+                            app:cpb_background_progressbar_width="7dp"
+                            app:cpb_background_progressbar_color="#CCC"
+                            app:cpb_progressbar_width="7dp"
+                            app:cpb_progressbar_color="@color/colorPrimary"
                             android:progressDrawable="@drawable/circular_progress_bar" />
 
                         <com.hiloipa.app.hilo.ui.widget.RalewayTextView
-                            android:id="@+id/progressBarPercentageLabel"
+                            android:id="@+id/progressLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="43%"
+                            android:textColor="@android:color/black"
+                            app:textFont="bold"
                             android:textSize="20sp"
-                            app:textFont="bold" />
+                            tools:text="43%"/>
                     </FrameLayout>
 
                     <TableLayout

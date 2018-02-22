@@ -1,8 +1,13 @@
 package com.hiloipa.app.hilo.ui.tracker
 
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.LocalBroadcastManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +18,11 @@ import com.hiloipa.app.hilo.adapter.PagerAdapter
 import com.hiloipa.app.hilo.models.GoalType
 import com.hiloipa.app.hilo.models.requests.GoalDuration
 import com.hiloipa.app.hilo.models.requests.GoalTrackerRequest
+import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.GoalDurationObjc
 import com.hiloipa.app.hilo.models.responses.GoalTrackerResponse
 import com.hiloipa.app.hilo.models.responses.HiloResponse
+import com.hiloipa.app.hilo.models.responses.SearchContact
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
 import com.hiloipa.app.hilo.utils.showExplanation
@@ -51,6 +58,8 @@ class GoalTrackerFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val filter = IntentFilter("update_tracker")
+        activity.registerReceiver(broadcastReceiver, filter)
         adapter = PagerAdapter(activity, childFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
         viewPager.offscreenPageLimit = 4
@@ -69,6 +78,15 @@ class GoalTrackerFragment : Fragment() {
 
         // get data from server
         getTrackerData()
+    }
+
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent == null) return
+            when (intent.action) {
+                "update_tracker" -> getTrackerData()
+            }
+        }
     }
 
     private fun getTrackerData(duration: GoalDuration = GoalDuration.Weekly, hiloMyWeek: Boolean = false) {
@@ -136,6 +154,8 @@ class GoalTrackerFragment : Fragment() {
             fragments.forEach { keySet -> keySet.value.updateFragmentData(data, selectedDuration!!) }
             dialog.dismiss()
         }
+
+        getAllContactsFromServer()
     }
 
     private fun setupPagerAdapter(data: GoalTrackerResponse): Observable<PagerAdapter> = Observable.create {
@@ -174,5 +194,32 @@ class GoalTrackerFragment : Fragment() {
         }
 
         override fun onNothingSelected(parent: AdapterView<*>?) {}
+    }
+
+    private fun getAllContactsFromServer() {
+        val request = StandardRequest()
+        HiloApp.api().searchContacts(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response: HiloResponse<ArrayList<SearchContact>> ->
+                    if (response.status.isSuccess()) {
+                        val data = response.data
+                        if (data != null) {
+                            val intent = Intent("contacts_ready")
+                            val extras = Bundle()
+                            extras.putParcelableArrayList("contacts", data)
+                            intent.putExtras(extras)
+                            LocalBroadcastManager.getInstance(activity).sendBroadcast(intent)
+                        }
+                    }
+                }, { error: Throwable ->
+                    error.printStackTrace()
+                    activity.showExplanation(message = error.localizedMessage)
+                })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        activity.unregisterReceiver(broadcastReceiver)
     }
 }

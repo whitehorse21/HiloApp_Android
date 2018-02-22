@@ -3,8 +3,11 @@ package com.hiloipa.app.hilo.utils
 import com.hiloipa.app.hilo.models.requests.*
 import com.hiloipa.app.hilo.models.responses.*
 import io.reactivex.Observable
+import okhttp3.ResponseBody
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 /**
  * Created by eduardalbu on 31.01.2018.
@@ -44,4 +47,16 @@ interface HiloAPI {
 
     @POST("ShowCompleteOption")
     fun showCompleteOption(@Body standardRequest: StandardRequest): Observable<HiloResponse<CompleteOption>>
+
+    @POST("CompleteGoal")
+    fun completeGoal(@Body completeRequest: CompleteReachRequest): Observable<HiloResponse<String>>
+
+    @POST("RemoveGoalTrackerContact")
+    fun removeGoalTrackerContact(@Body standardRequest: StandardRequest): Observable<HiloResponse<String>>
+
+    @POST("GoalTrackerReachoutContacts")
+    fun searchContacts(@Body standardRequest: StandardRequest): Observable<HiloResponse<ArrayList<SearchContact>>>
+
+    @GET("GetTeamContact?")
+    fun getTeamContactId(@Query("teamid") teamId: Int): Observable<ResponseBody>
 }

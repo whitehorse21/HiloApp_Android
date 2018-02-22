@@ -67,11 +67,15 @@ class HiloApp: MultiDexApplication() {
             val content = response.body()!!.string()
             Log.d("RESPONSE", content)
 
-            val json = JSONObject(content)
-            val data = json.get("Data")
-            if (data is String && data.isEmpty()) json.put("Data", null)
-            val responseWrapper = ResponseBody.create(mediaType, json.toString())
-            return@addInterceptor response.newBuilder().body(responseWrapper).build()
+            try {
+                val json = JSONObject(content)
+                val data = json.get("Data")
+                if (data is String && data.isEmpty()) json.put("Data", null)
+                val responseWrapper = ResponseBody.create(mediaType, json.toString())
+                return@addInterceptor response.newBuilder().body(responseWrapper).build()
+            } catch (e: Exception) {
+                return@addInterceptor response.newBuilder().body(ResponseBody.create(mediaType, content)).build()
+            }
         }
 
         // set default date format for jackson object mapper
