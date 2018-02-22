@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.GoalType
+import com.hiloipa.app.hilo.models.responses.Contact
 import com.hiloipa.app.hilo.models.responses.GoalTrackerResponse
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
@@ -53,6 +54,7 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
                 holder.rowNumber.setTextColor(context.resources.getColor(R.color.colorPrimary))
                 val contact = data.reachOuts.reachOuts.getOrNull(position)
                 if (contact != null) {
+                    holder.contact = contact
                     holder.searchResultField.text = contact.name
                     holder.isFilled = true
                 }
@@ -64,6 +66,7 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
                 holder.rowNumber.setTextColor(context.resources.getColor(R.color.colorGreen))
                 val contact = data.followUps.followUpContacts.getOrNull(position)
                 if (contact != null) {
+                    holder.contact = contact
                     holder.searchResultField.text = contact.name
                     holder.isFilled = true
                     if (contact.badge.isNotEmpty()) {
@@ -79,6 +82,7 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
                 holder.rowNumber.setTextColor(context.resources.getColor(R.color.colorBlue))
                 val contact = data.teamReachOuts.teamReachoutContacts.getOrNull(position)
                 if (contact != null) {
+                    holder.contact = contact
                     holder.searchResultField.text = contact.name
                     holder.isFilled = true
                 }
@@ -98,6 +102,7 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
         val searchResultField: RalewayTextView = itemView.findViewById(R.id.searchResultLabel)
         val completeBtn: RalewayButton = itemView.findViewById(R.id.completeBtn)
         val deleteBtn: ImageButton = itemView.findViewById(R.id.deleteBtn)
+        lateinit var contact: Contact
 
         var isFilled: Boolean by Delegates.observable(false) { property, oldValue, newValue ->
             if (newValue) {
@@ -107,15 +112,15 @@ class GoalTrackerAdapter(val context: Context): RecyclerView.Adapter<GoalTracker
         }
 
         init {
-            completeBtn.setOnClickListener { delegate?.onCompleteClicked() }
-            deleteBtn.setOnClickListener { delegate?.onDeleteClicked() }
-            itemView.setOnClickListener { delegate?.onContactClicked() }
+            completeBtn.setOnClickListener { delegate?.onCompleteClicked(contact, adapterPosition) }
+            deleteBtn.setOnClickListener { delegate?.onDeleteClicked(contact, adapterPosition) }
+            itemView.setOnClickListener { delegate?.onContactClicked(contact, adapterPosition) }
         }
     }
 
     interface ContactClickListener {
-        fun onCompleteClicked()
-        fun onDeleteClicked()
-        fun onContactClicked()
+        fun onCompleteClicked(contact: Contact, position: Int)
+        fun onDeleteClicked(contact: Contact, position: Int)
+        fun onContactClicked(contact: Contact, position: Int)
     }
 }

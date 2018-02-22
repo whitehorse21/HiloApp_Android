@@ -12,4 +12,5 @@ class StandardRequest {
     @JsonProperty("Api_Access_token") val accessToken: String = HiloApp.instance.getAccessToken()
     @JsonProperty("TimeZone") val timeZone: String = timezone()
     @JsonProperty("Type") var type: String? = null
+    @JsonProperty("ContactID") var contactId: String? = null
 }

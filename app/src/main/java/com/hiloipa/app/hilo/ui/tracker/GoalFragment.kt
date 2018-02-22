@@ -11,17 +11,25 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Spinner
 
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.GoalTrackerAdapter
 import com.hiloipa.app.hilo.models.GoalType
-import com.hiloipa.app.hilo.models.responses.GoalDurationObjc
-import com.hiloipa.app.hilo.models.responses.GoalTrackerResponse
+import com.hiloipa.app.hilo.models.requests.StandardRequest
+import com.hiloipa.app.hilo.models.responses.*
 import com.hiloipa.app.hilo.ui.contacts.ContactDetailsActivity
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
+import com.hiloipa.app.hilo.utils.HiloApp
+import com.hiloipa.app.hilo.utils.isSuccess
+import com.hiloipa.app.hilo.utils.showExplanation
+import com.hiloipa.app.hilo.utils.showLoading
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_goal.*
 
 
@@ -141,23 +149,48 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener {
         }
     }
 
-    override fun onCompleteClicked() {
-        when (adapter.goalType) {
-            GoalType.follow_ups, GoalType.reach_outs -> this.showCompleteReachOutDialog()
-            GoalType.team_reach_outs -> this.showCompleteTeamReachOutDialog()
-        }
+    override fun onCompleteClicked(contact: Contact, position: Int) {
+        completeContact(contact)
     }
 
-    override fun onDeleteClicked() {
+    override fun onDeleteClicked(contact: Contact, position: Int) {
 
     }
 
-    override fun onContactClicked() {
+    override fun onContactClicked(contact: Contact, position: Int) {
         val intent = Intent(activity, ContactDetailsActivity::class.java)
         activity.startActivity(intent)
     }
 
-    private fun showCompleteReachOutDialog() {
+    private fun completeContact(contact: Contact) {
+        val dialog = activity.showLoading()
+        val request = StandardRequest()
+        request.type = goalType.apiValue()
+        request.contactId = "${contact.id}"
+        HiloApp.api().showCompleteOption(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response: HiloResponse<CompleteOption> ->
+                    dialog.dismiss()
+                    if (response.status.isSuccess()) {
+                        val data = response.data
+                        if (data != null) {
+                            when (goalType) {
+                                GoalType.follow_ups, GoalType.reach_outs -> this.showCompleteReachOutDialog(data)
+                                GoalType.team_reach_outs -> this.showCompleteTeamReachOutDialog(data)
+                            }
+                        }
+                    } else {
+                        activity.showExplanation(message = response.message)
+                    }
+                }, { error: Throwable ->
+                    dialog.dismiss()
+                    error.printStackTrace()
+                    activity.showExplanation(message = error.localizedMessage)
+                })
+    }
+
+    private fun showCompleteReachOutDialog(option: CompleteOption) {
         val dialogView = activity.layoutInflater.inflate(R.layout.alert_complete_reach_out, null)
         val backBtn: RalewayButton = dialogView.findViewById(R.id.completeReachOutBackBtn)
         val title: RalewayTextView = dialogView.findViewById(R.id.completeReachOutTile)
@@ -169,10 +202,42 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener {
         val logReachOutTypeSpinner: Spinner = dialogView.findViewById(R.id.logReachOutTypeSpinner)
         val logReachOutComment: RalewayEditText = dialogView.findViewById(R.id.logReachOutCommentsField)
         val scheduleNextFollowUp: RalewayButton = dialogView.findViewById(R.id.scheduleNextFollowUpBtn)
-        val scheduleNextFollowUpSpinner: Spinner = dialogView.findViewById(R.id.scheduleNextFollowUpSpinner)
         val contactType: RalewayButton = dialogView.findViewById(R.id.contactTypeBtn)
         val contactTypeSpinner: Spinner = dialogView.findViewById(R.id.contactTypeSpinner)
         val completeBtn: RalewayButton = dialogView.findViewById(R.id.completeBtn)
+
+        // set dialog data
+        title.text = option.contactName
+        // setup lead temp spinner and button
+        var isFromUser = false
+        var selectedLeadTemp = option.temps.firstOrNull { it.value == "${option.leadTemp}" }
+        leadTempBtn.text = selectedLeadTemp?.text
+        val tempsTitle = mutableListOf<String>()
+        option.temps.forEach { tempsTitle.add(it.text) }
+        leadTempSpinner.adapter = ArrayAdapter<String>(activity,
+                android.R.layout.simple_spinner_dropdown_item, tempsTitle)
+        leadTempSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isFromUser) {
+                    val temp = option.temps[position]
+                    if (temp.value.isEmpty()) selectedLeadTemp = null
+                    else selectedLeadTemp = temp
+                    leadTempBtn.text = temp.text
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        leadTempBtn.setOnClickListener {
+            isFromUser = true
+            leadTempSpinner.performClick()
+        }
+
+        pipelinePos.text = option.pipelines.firstOrNull { it.value == "${option.pipeline}" }?.text
+
+        contactType.text = option.contactTypes.firstOrNull { it.value == option.contactType }?.text
+
+        logReachOutType.text = option.reachOutTypes.firstOrNull { it.value == option.type }?.text
 
         val dialog = AlertDialog.Builder(activity)
                 .setView(dialogView)
@@ -184,7 +249,7 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener {
         dialog.show()
     }
 
-    private fun showCompleteTeamReachOutDialog() {
+    private fun showCompleteTeamReachOutDialog(option: CompleteOption) {
         val dialogView = activity.layoutInflater.inflate(R.layout.alert_complete_team_reach_out, null)
         val backBtn: RalewayButton = dialogView.findViewById(R.id.completeReachOutBackBtn)
         val logReachOutType: RalewayButton = dialogView.findViewById(R.id.logReachOutTypeBtn)

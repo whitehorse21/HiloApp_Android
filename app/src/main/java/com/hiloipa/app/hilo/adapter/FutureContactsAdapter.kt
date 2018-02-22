@@ -40,21 +40,22 @@ class FutureContactsAdapter(val context: Context, val goalType: GoalType): Recyc
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         if (holder == null) return
+        holder.position.text = "${position + 1}"
         when (goalType) {
             GoalType.reach_outs -> {
                 val contact = contacts[position] as ReachOutContact
+                holder.contact = contact
                 holder.contactName.text = contact.name
-                holder.position.text = "${contact.slotId}"
-                holder.position.setTextColor(context.resources.getColor(R.color.tagGreen600))
+                holder.position.setTextColor(context.resources.getColor(R.color.colorPrimary))
                 holder.badge.visibility = View.GONE
                 holder.daysLabel.visibility = View.GONE
             }
 
             GoalType.follow_ups -> {
                 val contact = contacts[position] as FollowUpContact
+                holder.contact = contact
                 holder.contactName.text = contact.name
-                holder.position.text = "${contact.slotId}"
-                holder.position.setTextColor(context.resources.getColor(R.color.tagGreen600))
+                holder.position.setTextColor(context.resources.getColor(R.color.colorGreen))
 
                 if (contact.badge.isNotEmpty()) {
                     holder.badge.visibility = View.VISIBLE
@@ -69,9 +70,9 @@ class FutureContactsAdapter(val context: Context, val goalType: GoalType): Recyc
 
             GoalType.team_reach_outs -> {
                 val contact = contacts[position] as TeamReachOutContact
+                holder.contact = contact
                 holder.contactName.text = contact.name
-                holder.position.text = "${contact.slotId}"
-                holder.position.setTextColor(context.resources.getColor(R.color.tagGreen600))
+                holder.position.setTextColor(context.resources.getColor(R.color.colorBlue))
 
                 if (contact.badge != null && contact.badge.isNotEmpty()) {
                     holder.badge.visibility = View.VISIBLE
@@ -93,11 +94,12 @@ class FutureContactsAdapter(val context: Context, val goalType: GoalType): Recyc
         val completeBtn: RalewayButton = itemView.findViewById(R.id.completeBtn)
         val deleteBtn: ImageButton = itemView.findViewById(R.id.deleteBtn)
         val badge: RalewayButton = itemView.findViewById(R.id.badgeBtn)
+        lateinit var contact: Contact
 
         init {
-            itemView.setOnClickListener { delegate?.onContactClicked() }
-            deleteBtn.setOnClickListener { delegate?.onDeleteClicked() }
-            completeBtn.setOnClickListener { delegate?.onCompleteClicked() }
+            itemView.setOnClickListener { delegate?.onContactClicked(contact, adapterPosition) }
+            deleteBtn.setOnClickListener { delegate?.onDeleteClicked(contact, adapterPosition) }
+            completeBtn.setOnClickListener { delegate?.onCompleteClicked(contact, adapterPosition) }
         }
     }
 }

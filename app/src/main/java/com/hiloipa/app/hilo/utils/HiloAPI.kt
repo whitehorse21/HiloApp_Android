@@ -41,4 +41,7 @@ interface HiloAPI {
 
     @POST("DisplayAllGoalTracker")
     fun getFutureReachOutContacts(@Body standardRequest: StandardRequest): Observable<HiloResponse<ArrayList<ReachOutContact>>>
+
+    @POST("ShowCompleteOption")
+    fun showCompleteOption(@Body standardRequest: StandardRequest): Observable<HiloResponse<CompleteOption>>
 }

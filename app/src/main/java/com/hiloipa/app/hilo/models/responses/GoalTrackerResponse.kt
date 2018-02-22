@@ -4,7 +4,9 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonSetter
 import com.hiloipa.app.hilo.R
 import java.util.*
 import kotlin.collections.ArrayList
@@ -12,6 +14,7 @@ import kotlin.collections.ArrayList
 /**
  * Created by eduardalbu on 18.02.2018.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 class GoalTrackerResponse(@JsonProperty("Reachouts") val reachOuts: ReachOuts,
                           @JsonProperty("Followups") val followUps: FollowUps,
                           @JsonProperty("TeamReachouts") val teamReachOuts: TeamReachOuts,
@@ -58,6 +61,7 @@ class GoalTrackerResponse(@JsonProperty("Reachouts") val reachOuts: ReachOuts,
     }
 }
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 class ReachOuts(@JsonProperty("Reachouts_Graph") val reachOutsGraphData: GraphData) : Parcelable {
 
     @JsonProperty("Reachouts")
@@ -87,6 +91,7 @@ class ReachOuts(@JsonProperty("Reachouts_Graph") val reachOutsGraphData: GraphDa
     }
 }
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 class FollowUps(@JsonProperty("Followups_Graph") val followUpsGraphData: GraphData) : Parcelable {
 
     @JsonProperty("Followups")
@@ -116,6 +121,7 @@ class FollowUps(@JsonProperty("Followups_Graph") val followUpsGraphData: GraphDa
     }
 }
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 class TeamReachOuts(@JsonProperty("TeamReachouts_Graph") val teamReachoutsGraphData: GraphData) : Parcelable {
 
     @JsonProperty("TeamReachouts")
@@ -146,6 +152,7 @@ class TeamReachOuts(@JsonProperty("TeamReachouts_Graph") val teamReachoutsGraphD
 }
 
 // contacts objects
+@JsonIgnoreProperties(ignoreUnknown = true)
 class ReachOutContact(@JsonProperty("ContactID") id: Int,
                       @JsonProperty("ContactName") name: String,
                       @JsonProperty("priority") priority: String,
@@ -182,6 +189,7 @@ class ReachOutContact(@JsonProperty("ContactID") id: Int,
     }
 }
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 class FollowUpContact(@JsonProperty("ContactID") id: Int,
                       @JsonProperty("ContactName") name: String,
                       @JsonProperty("reminderdate") val reminderDate: Date?,
@@ -194,11 +202,11 @@ class FollowUpContact(@JsonProperty("ContactID") id: Int,
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
             parcel.readString(),
-            parcel.readSerializable() as Date,
+            parcel.readSerializable() as Date?,
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readSerializable() as Date,
+            parcel.readSerializable() as Date?,
             parcel.readInt())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -227,18 +235,18 @@ class FollowUpContact(@JsonProperty("ContactID") id: Int,
     }
 }
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 class TeamReachOutContact(@JsonProperty("TeamID") id: Int,
-                          @JsonProperty("TeamName") name: String,
                           @JsonProperty("followupdate") val followUpDate: Date?,
                           @JsonProperty("priority") priority: String?,
                           @JsonProperty("SlotID") slotId: Int,
                           @JsonProperty("badge") val badge: String?,
                           @JsonProperty("days") val days: String?,
-                          @JsonProperty("LastModified") lastModified: Date?): Contact(id, name, slotId, lastModified), Parcelable {
+                          @JsonProperty("LastModified") lastModified: Date?): Contact(id = id,
+        slotId = slotId, lastModified = lastModified), Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
-            parcel.readString(),
             parcel.readSerializable() as Date,
             parcel.readString(),
             parcel.readInt(),
@@ -258,6 +266,16 @@ class TeamReachOutContact(@JsonProperty("TeamID") id: Int,
         parcel.writeSerializable(lastModified)
     }
 
+    @JsonSetter("TeamName")
+    fun setTeamName(name: String) {
+        this.name = name
+    }
+
+    @JsonSetter("ContactName")
+    fun setContactName(name: String) {
+        this.name = name
+    }
+
     override fun describeContents(): Int {
         return 0
     }
@@ -273,7 +291,7 @@ class TeamReachOutContact(@JsonProperty("TeamID") id: Int,
     }
 }
 
-open class Contact(val id: Int, val name: String,
+open class Contact(val id: Int, var name: String = "",
               val slotId: Int, val lastModified: Date?,
               val priority: String = ""): Parcelable {
 
@@ -309,6 +327,7 @@ open class Contact(val id: Int, val name: String,
 }
 
 // graphs object
+@JsonIgnoreProperties(ignoreUnknown = true)
 class GraphData(@JsonProperty("Target") val target: Int,
                 @JsonProperty("Completed") val completed: Int,
                 @JsonProperty("Percentage") val percentage: Int) : Parcelable {
@@ -340,6 +359,7 @@ class GraphData(@JsonProperty("Target") val target: Int,
 }
 
 // plan object
+@JsonIgnoreProperties(ignoreUnknown = true)
 class GoalPlan(@JsonProperty("GoalPlanID") val planId: Int,
                @JsonProperty("GoalPlanName") val name: String,
                @JsonProperty("Reachouts") val reachOuts: Int,
@@ -392,6 +412,7 @@ class GoalPlan(@JsonProperty("GoalPlanID") val planId: Int,
     }
 }
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 class GoalDurationObjc(@JsonProperty("Text") val name: String,
                        @JsonProperty("Value") val value: String,
                        @JsonProperty("Selected") val selected: Boolean) : Parcelable {
@@ -423,5 +444,12 @@ class GoalDurationObjc(@JsonProperty("Text") val name: String,
 
     override fun equals(other: Any?): Boolean {
         return other is GoalDurationObjc && other.value == value
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + value.hashCode()
+        result = 31 * result + selected.hashCode()
+        return result
     }
 }
