@@ -43,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp"
-                android:visibility="gone">
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/tagsButton"

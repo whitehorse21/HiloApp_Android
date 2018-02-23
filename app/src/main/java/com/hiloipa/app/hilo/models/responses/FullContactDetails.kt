@@ -143,7 +143,7 @@ class ContactDetails(@JsonProperty("AlternativeEmail") val alternativeEmail: Str
                      @JsonProperty("thereway_call") val thereWayToCall: String,
                      @JsonProperty("title") val title: String?,
                      @JsonProperty("unsubscripe") val unsubscribe: String,
-                     @JsonProperty("updated_datetime") val updatedDateTime: Date,
+                     @JsonProperty("updated_datetime") val updatedDateTime: Date?,
                      @JsonProperty("created_datetime") val createdDateTime: Date): Parcelable {
 
     @JsonProperty("AssignCustomFields") lateinit var assignCustomFields: ArrayList<CustomField>

@@ -6,15 +6,20 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.responses.FullContactDetails
+import com.hiloipa.app.hilo.ui.widget.CustomFieldView
+import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import kotlinx.android.synthetic.main.edit_address.*
 import kotlinx.android.synthetic.main.edit_contact_info.*
 import kotlinx.android.synthetic.main.edit_personal_info.*
 import kotlinx.android.synthetic.main.edit_rodan_plus_fields.*
 import kotlinx.android.synthetic.main.edit_social_and_websites.*
 import kotlinx.android.synthetic.main.edit_tags_and_custom_fields.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -57,15 +62,60 @@ class EditContactFragment : Fragment(), View.OnClickListener {
     }
 
     private fun updateUIWithNewDetails(contactDetails: FullContactDetails) {
-        // contact info
         val details = contactDetails.contactDetails
+        val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
+        // contact info
         titleField.text = details.title
         firstNameField.setText(details.firstName)
         lastNameField.setText(details.lastName)
         emailField.setText(details.email)
         emailField1.setText(details.alternativeEmail)
         phoneNumberField.setText(details.contactNumber)
-//        cellPhoneField.setText(details.)
+        val otherPhones = details.alternatephns.split(",")
+        otherPhones.forEach {
+            if (!it.equals("empty", true)) {
+                if (cellPhoneField.text.isEmpty()) {
+                    cellPhoneField.setText(it)
+                    return@forEach
+                }
+
+                if (workPhoneField.text.isEmpty()) {
+                    workPhoneField.setText(it)
+                    return@forEach
+                }
+
+                if (homePhoneField.text.isEmpty()) {
+                    homePhoneField.setText(it)
+                    return@forEach
+                }
+            }
+        }
+
+        // personal info
+        groupButton.text = details.groups
+        contactTypeButton.text = details.contactType
+        pipelinePositionButton.text = details.pipelinePosition
+        tempButton.text = details.temp
+        childrenField.setText(details.children)
+        spouseField.setText(details.spouse)
+        if (details.birthday != null)
+            birthDayButton.text = dateFormat.format(details.birthday)
+        threeWayCallButton.text = details.thereWayToCall
+        derivedByButton.text = details.derivedBy
+        companyField.setText(details.company)
+        sourceField.setText(details.contactSource)
+        jobTitleField.setText(details.jobTitle)
+
+        // rodan + fields
+
+        // tags and custom fields
+        tagsButton.text = details.contactTag
+        details.assignCustomFields.forEach { field ->
+            val fieldInput = CustomFieldView(activity, field)
+            fieldInput.text(field.fieldValue)
+            fieldInput.hint(field.fieldName)
+            customFieldsLayout.addView(fieldInput)
+        }
     }
 
     override fun onClick(v: View) {
