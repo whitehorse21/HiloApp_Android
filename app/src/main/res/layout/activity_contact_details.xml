@@ -44,6 +44,7 @@
                 android:background="@android:color/white">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/contactImage"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:background="@drawable/img_photo_border"
@@ -52,13 +53,14 @@
                     android:src="@mipmap/ic_profile_default_round"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:id="@+id/contactFullName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
                     app:textFont="bold"
                     android:textSize="18sp"
                     android:layout_margin="16dp"
-                    android:text="Eduard Albu"/>
+                    tools:text="Eduard Albu"/>
             </LinearLayout>
 
             <View

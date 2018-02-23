@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.models.responses.FullContactDetails
 import kotlinx.android.synthetic.main.edit_address.*
 import kotlinx.android.synthetic.main.edit_contact_info.*
 import kotlinx.android.synthetic.main.edit_personal_info.*
@@ -21,11 +22,13 @@ import kotlinx.android.synthetic.main.edit_tags_and_custom_fields.*
  */
 class EditContactFragment : Fragment(), View.OnClickListener {
 
-
+    var contactDetails: FullContactDetails? = null
 
     companion object {
-        fun newInstance(): EditContactFragment {
+        fun newInstance(details: FullContactDetails? = null): EditContactFragment {
             val args = Bundle()
+            if (details != null)
+                args.putParcelable("details", details)
             val fragment = EditContactFragment()
             fragment.arguments = args
             return fragment
@@ -38,6 +41,12 @@ class EditContactFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // get details from arguments if this is the case
+        if (arguments.containsKey("details"))
+            this.contactDetails = arguments.getParcelable("details")
+        // update data if we have contact details
+        if (contactDetails != null)
+            updateUIWithNewDetails(contactDetails!!)
         // set main buttons click listener
         contactInfoToggleBtn.setOnClickListener(this)
         personalInfoToggleBtn.setOnClickListener(this)
@@ -47,8 +56,20 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         addressToggleBtn.setOnClickListener(this)
     }
 
+    private fun updateUIWithNewDetails(contactDetails: FullContactDetails) {
+        // contact info
+        val details = contactDetails.contactDetails
+        titleField.text = details.title
+        firstNameField.setText(details.firstName)
+        lastNameField.setText(details.lastName)
+        emailField.setText(details.email)
+        emailField1.setText(details.alternativeEmail)
+        phoneNumberField.setText(details.contactNumber)
+//        cellPhoneField.setText(details.)
+    }
+
     override fun onClick(v: View) {
-        when(v.id) {
+        when (v.id) {
             R.id.contactInfoToggleBtn -> {
                 contactInfoLayout.visibility =
                         if (contactInfoLayout.visibility == View.VISIBLE) View.GONE else View.VISIBLE

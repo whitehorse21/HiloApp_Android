@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.FullContactDetails
@@ -14,6 +15,7 @@ import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
 import com.hiloipa.app.hilo.utils.showExplanation
 import com.hiloipa.app.hilo.utils.showLoading
+import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_contact_details.*
@@ -30,7 +32,6 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact_details)
         toolbar.setNavigationOnClickListener { finish() }
-        replaceFragment(EditContactFragment.newInstance())
         tabLayout.setOnTabSelectedListener(this)
 
         if (intent.hasExtra(contactIdKey)) {
@@ -50,17 +51,35 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response: HiloResponse<FullContactDetails> ->
-                    loading.dismiss()
                     if (response.status.isSuccess()) {
                         val data = response.data
-                        if (data != null)
+                        if (data != null) {
                             this.contactDetails = data
-                    } else showExplanation(message = response.message)
+                            this.updateUIWithNewData(loading)
+                        }
+                    } else {
+                        loading.dismiss()
+                        showExplanation(message = response.message)
+                    }
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
                     showExplanation(message = error.localizedMessage)
                 })
+    }
+
+    private fun updateUIWithNewData(dialog: AlertDialog = showLoading()) {
+        // set basic data like name and avatar
+        contactFullName.text = "${contactDetails.contactDetails.firstName} " +
+                "${contactDetails.contactDetails.lastName}"
+        Picasso.with(this)
+                .load(contactDetails.contactDetails.userImage)
+                .placeholder(R.mipmap.ic_profile_default_round)
+                .error(R.mipmap.ic_profile_default_round)
+                .into(contactImage)
+
+        replaceFragment(EditContactFragment.newInstance(contactDetails))
+        dialog.dismiss()
     }
 
     fun replaceFragment(fragment: Fragment) {
@@ -80,7 +99,7 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
     override fun onTabSelected(tab: TabLayout.Tab) {
         val tabType = TabType.fromInt(tab.position)
         when (tabType) {
-            TabType.personal -> replaceFragment(EditContactFragment.newInstance())
+            TabType.personal -> replaceFragment(EditContactFragment.newInstance(contactDetails))
             TabType.reach_out_logs -> replaceFragment(ReachoutLogsFragment.newInstance(isChild = true))
             TabType.notes -> replaceFragment(ContactNotesFragment.newInstance())
             TabType.products -> replaceFragment(UserProductsFragment.newInstace())
