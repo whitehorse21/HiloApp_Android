@@ -80,25 +80,20 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         searchField.addTextChangedListener(this)
 
         mainActivity.importContactsBtn.visibility = View.VISIBLE
-
         mainActivity.importContactsBtn.setOnClickListener { importContactsFromDevice() }
 
         addContactBtn.setOnClickListener {
             val intent = Intent(activity, EditContactActivity::class.java)
             activity.startActivity(intent)
         }
-
         filterBtn.setOnClickListener {
             ContactsFilterFragment.newInstance().show(childFragmentManager, "ContactsFilterFragment")
         }
-
         actionsBtn.setOnClickListener { showBulkActions() }
-
         loadMoreBtn.setOnClickListener {
             page++
             loadContactsFromServer()
         }
-
         goBtn.setOnClickListener {
             page = 1
             adapter.contacts.clear()
@@ -106,6 +101,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
             this.loadContactsFromServer()
         }
 
+        adapter.contacts.clear()
         this.loadContactsFromServer()
     }
 

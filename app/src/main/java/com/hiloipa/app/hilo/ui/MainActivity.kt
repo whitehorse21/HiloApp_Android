@@ -20,11 +20,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
 
-    private val goalTrackerFragment = GoalTrackerFragment.newInstance()
-    private val contactsFragment = ContactsFragment.newInstance()
-    private val reachoutLogsFragment = ReachoutLogsFragment.newInstance()
-    private val todosFragment = TodosFragment.newInstance()
-    private val moreFragment = MoreFragment.newInstance()
     private var selectedTab: SelectedTab = SelectedTab.tracker
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +30,7 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
             startActivity(Intent(this, AuthActivity::class.java))
             finish()
         } else
-            replaceFragment(goalTrackerFragment, title = getString(R.string.goal_tracker))
+            replaceFragment(GoalTrackerFragment.newInstance(), title = getString(R.string.goal_tracker))
     }
 
     fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false, title: String) {
@@ -51,34 +46,34 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
         when (checkedId) {
             R.id.navGoalTracker -> {
                 if (selectedTab != SelectedTab.tracker) {
-                    replaceFragment(goalTrackerFragment, title = getString(R.string.goal_tracker))
+                    replaceFragment(GoalTrackerFragment.newInstance(), title = getString(R.string.goal_tracker))
                     selectedTab = SelectedTab.tracker
                 }
             }
             R.id.navContacts -> {
                 if (selectedTab != SelectedTab.contacts) {
-                    replaceFragment(contactsFragment, title = getString(R.string.contacts))
+                    replaceFragment(ContactsFragment.newInstance(), title = getString(R.string.contacts))
                     selectedTab = SelectedTab.contacts
                 }
             }
 
             R.id.navReachoutLogs -> {
                 if (selectedTab != SelectedTab.logs) {
-                    replaceFragment(reachoutLogsFragment, title = getString(R.string.reachout_log))
+                    replaceFragment(ReachoutLogsFragment.newInstance(), title = getString(R.string.reachout_log))
                     selectedTab = SelectedTab.logs
                 }
             }
 
             R.id.navToDos -> {
                 if (selectedTab != SelectedTab.todos) {
-                    replaceFragment(todosFragment, title = getString(R.string.todos))
+                    replaceFragment(TodosFragment.newInstance(), title = getString(R.string.todos))
                     selectedTab = SelectedTab.todos
                 }
             }
 
             R.id.navMore -> {
                 if (selectedTab != SelectedTab.more) {
-                    replaceFragment(moreFragment, title = getString(R.string.more))
+                    replaceFragment(MoreFragment.newInstance(), title = getString(R.string.more))
                     selectedTab = SelectedTab.more
                 }
             }
