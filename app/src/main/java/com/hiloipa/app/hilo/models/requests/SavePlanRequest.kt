@@ -13,5 +13,5 @@ class SavePlanRequest: StandardRequest() {
     @JsonProperty("autofollow_hot") lateinit var autofollowHot: String
     @JsonProperty("autofollow_warm") lateinit var autofollowWarm: String
     @JsonProperty("autofollow_cold") lateinit var autofollowCold: String
-    @JsonProperty("autofollow_yesno") var autofollowYesNo: Boolean = true
+    @JsonProperty("autofollow_yesno") var autofollowYesNo: Int = 1
 }

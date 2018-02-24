@@ -130,7 +130,7 @@ class ChangePlanFragment: BottomSheetDialogFragment(), View.OnClickListener {
 
         request.selectedPlan = selectedPlan.tag as Int
         // autofollow
-        request.autofollowYesNo = autoFollowEnabled
+        request.autofollowYesNo = if (autoFollowEnabled) 1 else 0
         request.autofollowHot = autoHot
         request.autofollowWarm = autoWarm
         request.autofollowCold = autoCold

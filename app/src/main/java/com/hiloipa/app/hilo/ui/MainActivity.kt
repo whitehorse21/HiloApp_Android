@@ -15,6 +15,9 @@ import com.hiloipa.app.hilo.ui.reachout.ReachoutLogsFragment
 import com.hiloipa.app.hilo.ui.todos.TodosFragment
 import com.hiloipa.app.hilo.ui.tracker.GoalTrackerFragment
 import com.hiloipa.app.hilo.utils.HiloApp
+import com.hiloipa.app.hilo.utils.checkForCrashes
+import com.hiloipa.app.hilo.utils.checkForUpdates
+import com.hiloipa.app.hilo.utils.unregisterManagers
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -31,6 +34,13 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
             finish()
         } else
             replaceFragment(GoalTrackerFragment.newInstance(), title = getString(R.string.goal_tracker))
+
+        checkForUpdates()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkForCrashes()
     }
 
     fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false, title: String) {
@@ -134,5 +144,10 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
         contacts.close()
         subscriber.onNext(deviceContacts)
         subscriber.onComplete()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterManagers()
     }
 }

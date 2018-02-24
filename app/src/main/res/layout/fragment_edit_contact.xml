@@ -17,7 +17,10 @@
 
         <include layout="@layout/edit_personal_info"/>
 
-        <include layout="@layout/edit_rodan_plus_fields"/>
+        <include layout="@layout/edit_rodan_plus_fields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rodanFieldsRootLayout"/>
 
         <include layout="@layout/edit_tags_and_custom_fields"/>
 

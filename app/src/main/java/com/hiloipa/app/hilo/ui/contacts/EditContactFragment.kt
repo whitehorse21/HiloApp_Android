@@ -6,9 +6,13 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.ImageButton
 
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.adapter.TagsSpinnerAdapter
+import com.hiloipa.app.hilo.models.Tag
 import com.hiloipa.app.hilo.models.responses.FullContactDetails
 import com.hiloipa.app.hilo.ui.widget.CustomFieldView
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
@@ -18,6 +22,7 @@ import kotlinx.android.synthetic.main.edit_personal_info.*
 import kotlinx.android.synthetic.main.edit_rodan_plus_fields.*
 import kotlinx.android.synthetic.main.edit_social_and_websites.*
 import kotlinx.android.synthetic.main.edit_tags_and_custom_fields.*
+import kotlinx.android.synthetic.main.fragment_edit_contact.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -107,14 +112,45 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         jobTitleField.setText(details.jobTitle)
 
         // rodan + fields
+        if (details.company != null && details.company.equals("rodan + fields", true))
+            rodanFieldsRootLayout.visibility = View.VISIBLE
+        else
+            rodanFieldsRootLayout.visibility = View.GONE
 
         // tags and custom fields
-        tagsButton.text = details.contactTag
         details.assignCustomFields.forEach { field ->
             val fieldInput = CustomFieldView(activity, field)
             fieldInput.text(field.fieldValue)
             fieldInput.hint(field.fieldName)
             customFieldsLayout.addView(fieldInput)
+        }
+
+        tagsButton.text = details.contactTag
+        val tagsNames = contactDetails.tags.split(",")
+        val tags = arrayListOf<Tag>()
+        tagsNames.forEach { tags.add(Tag(name = it)) }
+        var isFromUser = false
+        val adapter = TagsSpinnerAdapter(tags = tags)
+        adapter.delegate = object : TagsSpinnerAdapter.TagSpinnerDelegate {
+            override fun didClickOnTag(tag: Tag, position: Int) {
+                var currentText = tagsButton.text.toString()
+                if (currentText.isNotEmpty() && tag.isSelected)
+                    currentText = "$currentText,${tag.name}"
+                else if (tag.isSelected)
+                    currentText = tag.name
+                else if (currentText.contains(","))
+                    currentText = currentText.replace(",${tag.name}", "")
+                else
+                    currentText = currentText.replace("${tag.name}", "")
+
+                tagsButton.text = currentText
+            }
+        }
+        tagsSpinner.adapter = adapter
+
+        tagsButton.setOnClickListener {
+            isFromUser = true
+            tagsSpinner.performClick()
         }
     }
 
