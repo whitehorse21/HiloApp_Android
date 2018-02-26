@@ -8,11 +8,16 @@ import kotlinx.android.synthetic.main.activity_edit_contact.*
 
 class EditContactActivity : AppCompatActivity() {
 
+    companion object {
+        const val contactIdKey = "com.hiloipa.app.hilo.ui.contacts.CONTACT_ID"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_contact)
         toolbar.setNavigationOnClickListener { finish() }
-        replaceFragment(EditContactFragment.newInstance())
+        val contactId: String? = intent.extras.getString(contactIdKey, null)
+        replaceFragment(EditContactFragment.newInstance(contactId))
     }
 
     fun replaceFragment(fragment: Fragment) {

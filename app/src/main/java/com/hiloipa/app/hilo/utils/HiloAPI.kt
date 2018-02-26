@@ -1,5 +1,6 @@
 package com.hiloipa.app.hilo.utils
 
+import com.hiloipa.app.hilo.models.responses.MessageScript
 import com.hiloipa.app.hilo.models.requests.*
 import com.hiloipa.app.hilo.models.responses.*
 import io.reactivex.Observable
@@ -92,4 +93,22 @@ interface HiloAPI {
 
     @POST("ContactDetails")
     fun getContactFullDetails(@Body standardRequest: StandardRequest): Observable<HiloResponse<FullContactDetails>>
+
+    @POST("FilterListValue")
+    fun getFilterData(@Body standardRequest: StandardRequest): Observable<HiloResponse<FilterData>>
+
+    @POST("FilterContacts")
+    fun filterContacts(@Body filterRequest: FilterRequest): Observable<HiloResponse<DetailedContacs>>
+
+    @POST("Addfollowup")
+    fun addToGoalTracker(@Body addToTrackerRequest: AddToTrackerRequest): Observable<HiloResponse<String>>
+
+    @POST("CampaignsDropDown")
+    fun getCampaignData(@Body standardRequest: StandardRequest): Observable<HiloResponse<CampaignsData>>
+
+    @POST("AssignCampaign")
+    fun assignCampaign(@Body assignCampaignRequest: AssignCampaignRequest): Observable<HiloResponse<String>>
+
+    @POST("GetScripts")
+    fun getScripts(@Body smsScriptsRequest: GetSmsScriptsRequest): Observable<HiloResponse<ArrayList<MessageScript>>>
 }

@@ -20,8 +20,12 @@ class CustomFieldView: LinearLayout {
     lateinit var customField: CustomField
 
     constructor(context: Context, customField: CustomField) : super(context) {
-        this.customField = customField
         initialize(context)
+        this.customField = customField
+        this.text(customField.fieldValue)
+        this.hint(customField.fieldName)
+        this.deleteBtn.tag = customField
+        this.tag = customField
     }
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {

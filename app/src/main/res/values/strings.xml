@@ -65,7 +65,7 @@
     <string name="auto_ship_date">Auto Ship Date</string>
     <string name="concerns">Concerns</string>
     <string name="gift">Gift</string>
-    <string name="wrinkles">Wrinkles</string>
+    <string name="wrinkles">Wrinkless</string>
     <string name="sensitivity">Sensitivity</string>
     <string name="dark_marks">Dark Marks</string>
     <string name="lashes_brows">Lashes/Brows</string>
@@ -282,4 +282,12 @@
     <string name="select_your_plan">Select your goals plan</string>
     <string name="load_more">Load More</string>
     <string name="import_contacts">Import</string>
+    <string name="done">Done</string>
+    <string name="no_selected_contacts">Please select at least one contact to continue!</string>
+    <string name="contacts_added_to_tracker">Contacts added to goal tracker successfully!</string>
+    <string name="prepare_text_message">Prepare Text Message</string>
+    <string name="insert_to_text">Insert To Text</string>
+    <string name="send_to_text">Send to text</string>
+    <string name="phone_number_s">Phone Number: %s</string>
+    <string name="contact_has_no_phone_numbers">Contact has no phone numbers!</string>
 </resources>

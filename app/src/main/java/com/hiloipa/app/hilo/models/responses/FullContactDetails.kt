@@ -69,6 +69,10 @@ class CustomField(@JsonProperty("FieldName") var fieldName: String,
             return arrayOfNulls(size)
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        return other is CustomField && other.fieldName == fieldName
+    }
 }
 
 @JsonIgnoreProperties(ignoreUnknown = true)

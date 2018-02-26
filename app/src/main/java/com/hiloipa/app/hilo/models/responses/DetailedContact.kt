@@ -10,7 +10,7 @@ import kotlin.collections.ArrayList
 /**
  * Created by eduardalbu on 22.02.2018.
  */
-class DetailedContact(@JsonProperty("contact_id") val id: Int,
+class DetailedContact(@JsonProperty("contact_id") id: Int,
                       @JsonProperty("contact_number") val contactNumber: String?,
                       @JsonProperty("contact_type") val contactType: String?,
                       @JsonProperty("contact_type_position") val contactTypePos: Int,
@@ -24,7 +24,7 @@ class DetailedContact(@JsonProperty("contact_id") val id: Int,
                       @JsonProperty("pipeline_position") val pipelinePos: String,
                       @JsonProperty("temp_id") val tempId: Int,
                       @JsonProperty("temp_name") val tempName: String,
-                      @JsonProperty("user_image") val userImage: String): Parcelable {
+                      @JsonProperty("user_image") val userImage: String): Parcelable, Contact(id, firstName, 0, Date()) {
 
     @JsonIgnore
     var isSelected = false

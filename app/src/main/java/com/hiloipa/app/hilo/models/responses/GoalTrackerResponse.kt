@@ -300,8 +300,7 @@ open class Contact(val id: Int, var name: String = "",
             parcel.readString(),
             parcel.readInt(),
             parcel.readSerializable() as Date,
-            parcel.readString()) {
-    }
+            parcel.readString())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)

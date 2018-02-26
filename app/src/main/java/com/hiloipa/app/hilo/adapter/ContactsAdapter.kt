@@ -52,10 +52,10 @@ class ContactsAdapter(val context: Context): RecyclerView.Adapter<ContactsAdapte
         holder.contactStatus.text = contact.pipelinePos
         // contact temperature
         var color = R.color.colorBlue
-        when (contact.tempId) {
-            1 -> color = R.color.colorBlue
-            2 -> color = R.color.colorDarkYellow
-            3 -> color = R.color.colorPrimary
+        when (contact.tempName) {
+            "Cold" -> color = R.color.colorBlue
+            "Warm" -> color = R.color.colorDarkYellow
+            "Hot" -> color = R.color.colorPrimary
         }
         holder.tempIndicator.setBackgroundColor(context.resources.getColor(color))
         holder.checkBox.isChecked = contact.isSelected

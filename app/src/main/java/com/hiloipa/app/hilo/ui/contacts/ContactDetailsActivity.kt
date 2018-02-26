@@ -26,7 +26,7 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
         const val contactIdKey = "com.hiloipa.app.hilo.ui.contacts.CONTACT_ID"
     }
 
-    lateinit var contactDetails: FullContactDetails
+    private lateinit var contactDetails: FullContactDetails
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,8 +78,8 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
                 .error(R.mipmap.ic_profile_default_round)
                 .into(contactImage)
 
-        replaceFragment(EditContactFragment.newInstance(contactDetails))
         dialog.dismiss()
+        replaceFragment(EditContactFragment.newInstance(contactId = "${contactDetails.contactDetails.contactId}"))
     }
 
     fun replaceFragment(fragment: Fragment) {
@@ -99,7 +99,8 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
     override fun onTabSelected(tab: TabLayout.Tab) {
         val tabType = TabType.fromInt(tab.position)
         when (tabType) {
-            TabType.personal -> replaceFragment(EditContactFragment.newInstance(contactDetails))
+            TabType.personal ->
+                replaceFragment(EditContactFragment.newInstance(contactId = "${contactDetails.contactDetails.contactId}"))
             TabType.reach_out_logs -> replaceFragment(ReachoutLogsFragment.newInstance(isChild = true))
             TabType.notes -> replaceFragment(ContactNotesFragment.newInstance())
             TabType.products -> replaceFragment(UserProductsFragment.newInstace())

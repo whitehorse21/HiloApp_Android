@@ -42,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
+                tools:visibility="visible"
                 android:padding="16dp"
                 android:orientation="vertical">
                 
@@ -215,6 +216,7 @@
                         android:hint="@string/gift_given"/>
 
                     <ImageButton
+                        android:id="@+id/addGiftBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
@@ -230,9 +232,7 @@
                     android:id="@+id/giftFieldsContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                </LinearLayout>
+                    android:orientation="vertical"/>
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

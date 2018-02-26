@@ -70,7 +70,7 @@ class HiloApp: MultiDexApplication() {
             try {
                 val json = JSONObject(content)
                 val data = json.get("Data")
-                if (data is String && data.isEmpty()) json.put("Data", null)
+                if (data is String && !json.getInt("Status").isSuccess()) json.put("Data", null)
                 val responseWrapper = ResponseBody.create(mediaType, json.toString())
                 return@addInterceptor response.newBuilder().body(responseWrapper).build()
             } catch (e: Exception) {
