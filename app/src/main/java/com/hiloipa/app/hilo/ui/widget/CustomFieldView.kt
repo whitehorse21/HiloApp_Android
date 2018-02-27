@@ -17,6 +17,7 @@ class CustomFieldView: LinearLayout {
 
     private lateinit var field: RalewayEditText
     private lateinit var deleteBtn: ImageButton
+    private lateinit var fieldTitle: RalewayTextView
     lateinit var customField: CustomField
 
     constructor(context: Context, customField: CustomField) : super(context) {
@@ -45,16 +46,18 @@ class CustomFieldView: LinearLayout {
         inflate(context, R.layout.layout_custom_field, this)
         field = this.findViewById(R.id.customFieldInput)
         deleteBtn = this.findViewById(R.id.deleteBtn)
+        fieldTitle = this.findViewById(R.id.fieldTItle)
     }
 
     fun text(text: String) {
-        this.field.setText(text)
+        this.field.setText(text.replace("_", " "))
     }
 
     fun text(): String = this.field.text.toString()
 
     fun hint(hint: String) {
         this.field.setHint(hint)
+        this.fieldTitle.text = hint
     }
 
     fun hint(): String = this.field.hint.toString()

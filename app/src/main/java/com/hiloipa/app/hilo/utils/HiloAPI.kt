@@ -61,16 +61,16 @@ interface HiloAPI {
     fun completeGoal(@Body completeRequest: CompleteReachRequest): Observable<HiloResponse<String>>
 
     @POST("RemoveGoalTrackerContact")
-    fun removeGoalTrackerContact(@Body standardRequest: StandardRequest): Observable<HiloResponse<String>>
+    fun removeGoalTrackerContact(@Body standardRequest: StandardRequest = StandardRequest()): Observable<HiloResponse<String>>
 
     @POST("GoalTrackerReachoutContacts")
-    fun searchContacts(@Body standardRequest: StandardRequest): Observable<HiloResponse<ArrayList<SearchContact>>>
+    fun searchContacts(@Body standardRequest: StandardRequest = StandardRequest()): Observable<HiloResponse<ArrayList<SearchContact>>>
 
     @GET("GetTeamContact?")
     fun getTeamContactId(@Query("teamid") teamId: Int): Observable<ResponseBody>
 
     @POST("AddGoalTrackerContact")
-    fun addGoalTrackerContact(@Body standardRequest: StandardRequest): Observable<HiloResponse<String>>
+    fun addGoalTrackerContact(@Body standardRequest: StandardRequest = StandardRequest()): Observable<HiloResponse<String>>
 
     @POST("SaveGoalPlans")
     fun saveGoalPlan(@Body savePlanRequest: SavePlanRequest): Observable<HiloResponse<String>>
@@ -92,10 +92,10 @@ interface HiloAPI {
     fun deleteContact(@Body deleteContactRequest: DeleteContactRequest): Observable<HiloResponse<String>>
 
     @POST("ContactDetails")
-    fun getContactFullDetails(@Body standardRequest: StandardRequest): Observable<HiloResponse<FullContactDetails>>
+    fun getContactFullDetails(@Body standardRequest: StandardRequest = StandardRequest()): Observable<HiloResponse<FullContactDetails>>
 
     @POST("FilterListValue")
-    fun getFilterData(@Body standardRequest: StandardRequest): Observable<HiloResponse<FilterData>>
+    fun getFilterData(@Body standardRequest: StandardRequest = StandardRequest()): Observable<HiloResponse<FilterData>>
 
     @POST("FilterContacts")
     fun filterContacts(@Body filterRequest: FilterRequest): Observable<HiloResponse<DetailedContacs>>
@@ -104,11 +104,23 @@ interface HiloAPI {
     fun addToGoalTracker(@Body addToTrackerRequest: AddToTrackerRequest): Observable<HiloResponse<String>>
 
     @POST("CampaignsDropDown")
-    fun getCampaignData(@Body standardRequest: StandardRequest): Observable<HiloResponse<CampaignsData>>
+    fun getCampaignData(@Body standardRequest: StandardRequest = StandardRequest()): Observable<HiloResponse<CampaignsData>>
 
     @POST("AssignCampaign")
     fun assignCampaign(@Body assignCampaignRequest: AssignCampaignRequest): Observable<HiloResponse<String>>
 
     @POST("GetScripts")
     fun getScripts(@Body smsScriptsRequest: GetSmsScriptsRequest): Observable<HiloResponse<ArrayList<MessageScript>>>
+
+    @POST("GetAddContact")
+    fun getDataForNewContact(@Body standardRequest: StandardRequest = StandardRequest()): Observable<HiloResponse<NewContactData>>
+
+    @POST("UpdateContact")
+    fun updateContactDetails(@Body saveContactRequest: SaveContactRequest): Observable<HiloResponse<String>>
+
+    @POST("AddContact")
+    fun addNewContact(@Body saveContactRequest: SaveContactRequest): Observable<HiloResponse<String>>
+
+    @POST("BulkUpdate")
+    fun getBulkUpdateValues(@Body standardRequest: StandardRequest = StandardRequest()): Observable<HiloResponse<BulkUpdate>>
 }

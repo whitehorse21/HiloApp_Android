@@ -64,4 +64,11 @@ class FilterValue(@JsonProperty("Text") val text: String,
     override fun equals(other: Any?): Boolean {
         return other is FilterValue && other.value == value
     }
+
+    override fun hashCode(): Int {
+        var result = text.hashCode()
+        result = 31 * result + value.hashCode()
+        result = 31 * result + isSelected.hashCode()
+        return result
+    }
 }

@@ -2,6 +2,7 @@ package com.hiloipa.app.hilo.ui.contacts
 
 
 import android.Manifest
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -131,8 +132,12 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                     loading.dismiss()
                     if (response.status.isSuccess()) {
                         val data = response.data
-                        if (data != null)
+                        if (data != null) {
                             adapter.addContacts(data.contacts)
+                            // hide load more button if we've reached the maximum pages
+                            if (page == data.totalPages)
+                                loadMoreBtn.visibility = View.GONE
+                        }
                     } else activity.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
@@ -176,7 +181,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
     override fun onEditContactClicked(contact: DetailedContact, position: Int) {
         val intent = Intent(activity, EditContactActivity::class.java)
         intent.putExtra(EditContactActivity.contactIdKey, "${contact.id}")
-        activity.startActivity(intent)
+        activity.startActivityForResult(intent, 1250)
     }
 
     override fun onDeleteContactClicked(contact: DetailedContact, position: Int) {
@@ -269,6 +274,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         val messageField: RalewayEditText = dialogView.findViewById(R.id.messageInput)
         val contactPhoneLabel: RalewayTextView = dialogView.findViewById(R.id.phoneNumberLabel)
         val recyclerView: RecyclerView = dialogView.findViewById(R.id.recyclerView)
+        val backBtn: RalewayButton = dialogView.findViewById(R.id.backButton)
 
         val adapter = TextMessageScriptAdapter(scripts)
         adapter.delegate = object : TextMessageScriptAdapter.ScriptDelegate {
@@ -294,6 +300,11 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         val dialog = AlertDialog.Builder(activity)
                 .setView(dialogView)
                 .create()
+
+        backBtn.setOnClickListener {
+            dialog.dismiss()
+            activity.hideKeyboard()
+        }
 
         sendBtn.setOnClickListener {
             val sendMessageIntent = Intent(Intent.ACTION_VIEW)
@@ -359,7 +370,10 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                     })
         }
 
-        backBtn.setOnClickListener { dialog.dismiss() }
+        backBtn.setOnClickListener {
+            activity.hideKeyboard()
+            dialog.dismiss()
+        }
         dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
     }
@@ -367,19 +381,51 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
     private fun showUpdateContactDialog() {
         val dialogView = layoutInflater.inflate(R.layout.alert_bulk_update, null)
         val backBtn: RalewayButton = dialogView.findViewById(R.id.backButton)
-        val fieldToEdit: RalewayEditText = dialogView.findViewById(R.id.fieldToEditField)
+        val fieldToEditBtn: RalewayButton = dialogView.findViewById(R.id.fieldToEditBtn)
+        val fieldToEditSpinner: Spinner = dialogView.findViewById(R.id.fieldToUpdateSpinner)
         val newValueField: RalewayEditText = dialogView.findViewById(R.id.newValueField)
         val updateBtn: RalewayButton = dialogView.findViewById(R.id.updateBtn)
 
-        val dialog = AlertDialog.Builder(activity).setView(dialogView).create()
+        val loading = activity.showLoading()
+        HiloApp.api().getBulkUpdateValues()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response: HiloResponse<BulkUpdate> ->
+                    loading.dismiss()
+                    if (response.status.isSuccess()) {
+                        val data = response.data
+                        if (data != null) {
+                            val valuesToEdit = mutableListOf<String>()
+                            data.fieldsAvailable.forEach { valuesToEdit.add(it.text) }
+                            fieldToEditSpinner.adapter = ArrayAdapter<String>(activity,
+                                    android.R.layout.simple_spinner_dropdown_item, valuesToEdit)
+                            fieldToEditSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                                    val valueToEdit = data.fieldsAvailable[position]
+                                    fieldToEditBtn.text = valueToEdit.text
+                                    fieldToEditBtn.tag = valueToEdit.value
+                                }
 
-        backBtn.setOnClickListener {
-            activity.hideKeyboard()
-            dialog.dismiss()
-        }
+                                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                            }
+                            fieldToEditBtn.setOnClickListener { fieldToEditSpinner.performClick() }
 
-        dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.show()
+                            val dialog = AlertDialog.Builder(activity).setView(dialogView).create()
+
+                            backBtn.setOnClickListener {
+                                activity.hideKeyboard()
+                                dialog.dismiss()
+                            }
+
+                            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                            dialog.show()
+                        }
+                    } else activity.showExplanation(message = response.message)
+                }, { error: Throwable ->
+                    loading.dismiss()
+                    error.printStackTrace()
+                    activity.showExplanation(message = error.localizedMessage)
+                })
     }
 
     private fun showEmailCampaignsDialog() {
@@ -502,6 +548,15 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                                     activity.showExplanation(message = error.localizedMessage)
                                 })
                     }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1250 && resultCode == Activity.RESULT_OK) {
+            adapter.contacts.clear()
+            page = 1
+            loadContactsFromServer()
         }
     }
 

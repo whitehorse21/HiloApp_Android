@@ -42,8 +42,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
+                tools:visibility="visible"
                 android:padding="16dp"
                 android:orientation="vertical">
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/street"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/streetField"
@@ -62,6 +69,12 @@
                     android:textSize="14sp"
                     android:hint="@string/street"/>
 
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/street_two"/>
+
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/street2Field"
                     android:layout_width="match_parent"
@@ -77,6 +90,12 @@
                     android:layout_marginBottom="5dp"
                     android:textSize="14sp"
                     android:hint="@string/street_two"/>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/city"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/cityField"
@@ -94,21 +113,42 @@
                     android:textSize="14sp"
                     android:hint="@string/city"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewaySuggestionsField
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/state"/>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/stateField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:lines="1"
+                    android:gravity="start|center_vertical"
+                    android:drawableRight="@drawable/ic_action_down"
+                    android:drawableEnd="@drawable/ic_action_down"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
                     android:layout_height="45dp"
                     android:background="@drawable/selectable_border_rect"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:layout_marginBottom="5dp"
                     android:textSize="14sp"
                     android:hint="@string/state"/>
+
+                <Spinner
+                    android:id="@+id/statesSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="0.01dp"/>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/zip_code"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/zipCodeField"
@@ -126,21 +166,36 @@
                     android:textSize="14sp"
                     android:hint="@string/zip_code"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewaySuggestionsField
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/country"/>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/countryField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:inputType="textCapWords"
                     android:lines="1"
+                    android:gravity="start|center_vertical"
+                    android:drawableRight="@drawable/ic_action_down"
+                    android:drawableEnd="@drawable/ic_action_down"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
                     android:imeOptions="actionDone"
                     android:layout_height="45dp"
                     android:background="@drawable/selectable_border_rect"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:layout_marginBottom="5dp"
                     android:textSize="14sp"
                     android:hint="@string/country"/>
+
+                <Spinner
+                    android:id="@+id/countriesSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="0.01dp"/>
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

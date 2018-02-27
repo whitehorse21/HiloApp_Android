@@ -46,6 +46,12 @@
                 android:padding="16dp"
                 android:orientation="vertical">
 
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/title"/>
+
                 <com.hiloipa.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/titleField"
                     android:layout_width="match_parent"
@@ -57,6 +63,7 @@
                     android:background="@drawable/selectable_border_rect"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
                     android:drawableRight="@drawable/ic_action_down"
                     android:drawableEnd="@drawable/ic_action_down"
                     android:drawablePadding="5dp"
@@ -68,6 +75,12 @@
                     android:layout_width="match_parent"
                     android:layout_marginBottom="5dp"
                     android:layout_height="0dp"/>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/first_name"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/firstNameField"
@@ -85,6 +98,12 @@
                     android:textSize="14sp"
                     android:hint="@string/first_name"/>
 
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/last_name"/>
+
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/lastNameField"
                     android:layout_width="match_parent"
@@ -100,6 +119,12 @@
                     android:layout_marginBottom="5dp"
                     android:textSize="14sp"
                     android:hint="@string/last_name"/>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/email"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/emailField"
@@ -117,6 +142,12 @@
                     android:textSize="14sp"
                     android:hint="@string/email"/>
 
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/email_2"/>
+
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/emailField1"
                     android:layout_width="match_parent"
@@ -132,6 +163,12 @@
                     android:layout_marginBottom="5dp"
                     android:textSize="14sp"
                     android:hint="@string/email_2"/>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/email_3"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/emailField2"
@@ -149,6 +186,12 @@
                     android:textSize="14sp"
                     android:hint="@string/email_3"/>
 
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/email_4"/>
+
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/emailField3"
                     android:layout_width="match_parent"
@@ -164,6 +207,12 @@
                     android:layout_marginBottom="5dp"
                     android:textSize="14sp"
                     android:hint="@string/email_4"/>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/phone_number"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/phoneNumberField"
@@ -181,6 +230,12 @@
                     android:textSize="14sp"
                     android:hint="@string/phone_number"/>
 
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/cell_phone"/>
+
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/cellPhoneField"
                     android:layout_width="match_parent"
@@ -197,6 +252,12 @@
                     android:textSize="14sp"
                     android:hint="@string/cell_phone"/>
 
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/work_phone"/>
+
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/workPhoneField"
                     android:layout_width="match_parent"
@@ -212,6 +273,12 @@
                     android:layout_marginBottom="5dp"
                     android:textSize="14sp"
                     android:hint="@string/work_phone"/>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/home_phone"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/homePhoneField"

@@ -16,7 +16,10 @@ class EditContactActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_contact)
         toolbar.setNavigationOnClickListener { finish() }
-        val contactId: String? = intent.extras.getString(contactIdKey, null)
+        if (intent.extras == null || !intent.extras.containsKey(contactIdKey)) {
+            toolbarTitle.text = getString(R.string.add_contact)
+        }
+        val contactId: String? = intent.extras?.getString(contactIdKey, null)
         replaceFragment(EditContactFragment.newInstance(contactId))
     }
 

@@ -1,26 +1,32 @@
 package com.hiloipa.app.hilo.ui.contacts
 
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
+import android.widget.Toast
 
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.TagsSpinnerAdapter
 import com.hiloipa.app.hilo.models.Tag
+import com.hiloipa.app.hilo.models.requests.SaveContactRequest
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.CustomField
 import com.hiloipa.app.hilo.models.responses.FullContactDetails
 import com.hiloipa.app.hilo.models.responses.HiloResponse
+import com.hiloipa.app.hilo.models.responses.NewContactData
 import com.hiloipa.app.hilo.ui.widget.CustomFieldView
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import com.hiloipa.app.hilo.utils.*
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.edit_address.*
@@ -41,7 +47,10 @@ class EditContactFragment : Fragment(), View.OnClickListener {
 
     var contactDetails: FullContactDetails? = null
     var customFields: MutableList<CustomFieldView> = mutableListOf()
+    var newCustomFields: MutableList<CustomFieldView> = mutableListOf()
+    var newTags: MutableList<Tag> = mutableListOf()
     var giftsGiven: MutableList<CustomFieldView> = mutableListOf()
+    lateinit var newContactData: NewContactData
 
     companion object {
         fun newInstance(contactId: String? = null): EditContactFragment {
@@ -60,11 +69,7 @@ class EditContactFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // get details from arguments if this is the case
-        if (arguments.containsKey("contactId")) {
-            val contactId = arguments.getString("contactId")
-            getFullContactDetails(contactId)
-        }
+        getNewContactData()
         // set main buttons click listener
         contactInfoToggleBtn.setOnClickListener(this)
         personalInfoToggleBtn.setOnClickListener(this)
@@ -72,13 +77,13 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         tagsAndFieldsToggleBtn.setOnClickListener(this)
         socialAndWebsitesToggleBtn.setOnClickListener(this)
         addressToggleBtn.setOnClickListener(this)
+        // save button setup
+        saveBtn.setOnClickListener { saveContactData() }
     }
 
-    private fun getFullContactDetails(contactId: String) {
+    private fun getFullContactDetails(contactId: String, loading: AlertDialog = activity.showLoading()) {
         val request = StandardRequest()
         request.contactId = contactId
-
-        val loading = activity.showLoading()
         HiloApp.api().getContactFullDetails(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -100,6 +105,296 @@ class EditContactFragment : Fragment(), View.OnClickListener {
                 })
     }
 
+    private fun getNewContactData() {
+        val loading = activity.showLoading()
+        HiloApp.api().getDataForNewContact(StandardRequest())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response: HiloResponse<NewContactData> ->
+                    if (response.status.isSuccess()) {
+                        val data = response.data
+                        if (data != null) {
+                            this.newContactData = data
+                            this.setupSpinnersAndButtons(loading)
+                        }
+                    } else {
+                        loading.dismiss()
+                        activity.showExplanation(message = response.message)
+                    }
+                }, { error ->
+                    loading.dismiss()
+                    error.printStackTrace()
+                    activity.showExplanation(message = error.localizedMessage)
+                })
+    }
+
+    private fun setupSpinnersAndButtons(loading: AlertDialog) {
+        // contact info
+        val titles = mutableListOf<String>()
+        var isTitleFromUser = false
+        this.newContactData.titles.forEach { titles.add(it.text) }
+        titleSpinner.adapter = ArrayAdapter<String>(activity,
+                android.R.layout.simple_spinner_dropdown_item, titles)
+        titleSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isTitleFromUser) {
+                    val title = newContactData.titles[position]
+                    titleField.text = title.text
+                    titleField.tag = title.value
+                    isTitleFromUser = false
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        titleField.setOnClickListener {
+            isTitleFromUser = true
+            titleSpinner.performClick()
+        }
+
+        // personal info
+        // group
+        val groups = mutableListOf<String>()
+        var isGroupFromUser = false
+        this.newContactData.groupsList.forEach { groups.add(it.text) }
+        groupSpinner.adapter = ArrayAdapter<String>(activity,
+                android.R.layout.simple_spinner_dropdown_item, groups)
+        groupSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isGroupFromUser) {
+                    val group = newContactData.groupsList[position]
+                    groupButton.text = group.text
+                    groupButton.tag = group.value
+                    isGroupFromUser = false
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        groupButton.setOnClickListener {
+            isGroupFromUser = true
+            groupSpinner.performClick()
+        }
+        // contact type
+        val types = mutableListOf<String>()
+        var isTypeFromUser = false
+        this.newContactData.contactTypes.forEach { types.add(it.text) }
+        contactTypeSpinner.adapter = ArrayAdapter<String>(activity,
+                android.R.layout.simple_spinner_dropdown_item, types)
+        contactTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isTypeFromUser) {
+                    val type = newContactData.contactTypes[position]
+                    contactTypeButton.text = type.text
+                    contactTypeButton.tag = type.value
+                    isTypeFromUser = false
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        contactTypeButton.setOnClickListener {
+            isTypeFromUser = true
+            contactTypeSpinner.performClick()
+        }
+        // pipeline position
+        val positions = mutableListOf<String>()
+        var isPipelineFromUser = false
+        this.newContactData.pipelines.forEach { positions.add(it.text) }
+        pipelinePositionSpinner.adapter = ArrayAdapter<String>(activity,
+                android.R.layout.simple_spinner_dropdown_item, positions)
+        pipelinePositionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isPipelineFromUser) {
+                    val pipeline = newContactData.pipelines[position]
+                    pipelinePositionButton.text = pipeline.text
+                    pipelinePositionButton.tag = pipeline.value
+                    isPipelineFromUser = false
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        pipelinePositionButton.setOnClickListener {
+            isPipelineFromUser = true
+            pipelinePositionSpinner.performClick()
+        }
+        // lead temp
+        val temps = mutableListOf<String>()
+        var isTempFromUser = false
+        this.newContactData.temps.forEach { temps.add(it.text) }
+        tempSpinner.adapter = ArrayAdapter<String>(activity,
+                android.R.layout.simple_spinner_dropdown_item, temps)
+        tempSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isTempFromUser) {
+                    val temp = newContactData.temps[position]
+                    tempButton.text = temp.text
+                    tempButton.tag = temp.value
+                    isTempFromUser = false
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        tempButton.setOnClickListener {
+            isTempFromUser = true
+            tempSpinner.performClick()
+        }
+        // three way call
+        val callWays = mutableListOf<String>(getString(R.string.yes), getString(R.string.no))
+        var isWayFromUser = false
+        threeWayCallSpinner.adapter = ArrayAdapter<String>(activity,
+                android.R.layout.simple_spinner_dropdown_item, callWays)
+        threeWayCallSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isWayFromUser) {
+                    val way = callWays[position]
+                    threeWayCallButton.text = way
+                    threeWayCallButton.tag = way
+                    isWayFromUser = false
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        threeWayCallButton.setOnClickListener {
+            isWayFromUser = true
+            threeWayCallSpinner.performClick()
+        }
+        // derived by
+        val derivedBys = mutableListOf<String>()
+        var isDerivedFromUser = false
+        this.newContactData.derivedBys.forEach { derivedBys.add(it.text) }
+        derivedBySpinner.adapter = ArrayAdapter<String>(activity,
+                android.R.layout.simple_spinner_dropdown_item, derivedBys)
+        derivedBySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isDerivedFromUser) {
+                    val derivedBy = newContactData.derivedBys[position]
+                    derivedByButton.text = derivedBy.text
+                    derivedByButton.tag = derivedBy.value
+                    isDerivedFromUser = false
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        derivedByButton.setOnClickListener {
+            isDerivedFromUser = true
+            derivedBySpinner.performClick()
+        }
+        // source
+        val sources = mutableListOf<String>()
+        var isSourceFromUser = false
+        this.newContactData.sources.forEach { sources.add(it.text) }
+        sourceSpinner.adapter = ArrayAdapter<String>(activity,
+                android.R.layout.simple_spinner_dropdown_item, sources)
+        sourceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isSourceFromUser) {
+                    val source = newContactData.sources[position]
+                    sourceField.text = source.text
+                    sourceField.tag = source.value
+                    isSourceFromUser = false
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        sourceField.setOnClickListener {
+            isSourceFromUser = true
+            sourceSpinner.performClick()
+        }
+        // tags and custom fields
+        val tags = arrayListOf<Tag>()
+        this.newContactData.allTags.split(",").forEach { tags.add(Tag(it)) }
+        val adapter = TagsSpinnerAdapter(tags)
+        adapter.delegate = object : TagsSpinnerAdapter.TagSpinnerDelegate {
+            override fun didClickOnTag(tag: Tag, position: Int) {
+                var currentText = tagsButton.text.toString()
+                if (currentText.isNotEmpty() && tag.isSelected)
+                    currentText = "$currentText,${tag.name}"
+                else if (tag.isSelected)
+                    currentText = tag.name
+                else {
+                    val regex = "(,)*(${tag.name})(,$)*".toRegex()
+                    currentText = regex.replace(currentText, "")
+                    if (currentText.startsWith(",")) currentText = "^,".toRegex()
+                            .replace(currentText, "")
+                }
+
+                tagsButton.text = currentText
+            }
+        }
+        tagsSpinner.adapter = adapter
+        tagsButton.setOnClickListener { tagsSpinner.performClick() }
+        addTagBtn.setOnClickListener {
+            if (newTagField.text.isNotEmpty()) {
+                val tag = Tag(newTagField.text.toString(), true)
+                adapter.tags.add(tag)
+                var currentText = tagsButton.text
+                if (currentText.isNotEmpty())
+                    currentText = "$currentText,${tag.name}"
+                else currentText = tag.name
+                tagsButton.text = currentText
+                newTags.add(tag)
+                newTagField.setText("")
+            }
+        }
+        // address
+        //states
+        val states = mutableListOf<String>()
+        var isStateFromUser = false
+        this.newContactData.states.forEach { states.add(it.text) }
+        statesSpinner.adapter = ArrayAdapter<String>(activity,
+                android.R.layout.simple_spinner_dropdown_item, states)
+        statesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isStateFromUser) {
+                    val state = newContactData.states[position]
+                    stateField.text = state.text
+                    stateField.tag = state.value
+                    isStateFromUser = false
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        stateField.setOnClickListener {
+            isStateFromUser = true
+            statesSpinner.performClick()
+        }
+        // countries
+        val countries = mutableListOf<String>()
+        var isCountryFromUser = false
+        this.newContactData.countries.forEach { countries.add(it.text) }
+        countriesSpinner.adapter = ArrayAdapter<String>(activity,
+                android.R.layout.simple_spinner_dropdown_item, countries)
+        countriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isCountryFromUser) {
+                    val country = newContactData.countries[position]
+                    countryField.text = country.text
+                    countryField.tag = country.value
+                    isCountryFromUser = false
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        countryField.setOnClickListener {
+            isCountryFromUser = true
+            countriesSpinner.performClick()
+        }
+
+        // get details from arguments if this is the case
+        if (arguments.containsKey("contactId")) {
+            val contactId = arguments.getString("contactId")
+            getFullContactDetails(contactId, loading)
+        } else loading.dismiss()
+    }
+
     private fun updateUIWithNewDetails(contactDetails: FullContactDetails) {
         val details = contactDetails.contactDetails
         val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
@@ -108,7 +403,16 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         firstNameField.setText(details.firstName)
         lastNameField.setText(details.lastName)
         emailField.setText(details.email)
-        emailField1.setText(details.alternativeEmail)
+        val emails = details.alternativeEmail.split(",")
+        val emailFileds = mutableListOf(emailField1, emailField2, emailField3)
+        if (emails.isNotEmpty()) {
+            for (i in 0..emails.lastIndex) {
+                val email = emails[i]
+                if (email.isNotEmpty() && !email.equals("empty", true)) {
+                    emailFileds[i].setText(email)
+                }
+            }
+        }
         phoneNumberField.setText(details.contactNumber)
         val otherPhones = details.alternatephns.split(",")
         otherPhones.forEach {
@@ -131,30 +435,61 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         }
 
         // personal info
+        // group
         groupButton.text = details.groups
+        groupButton.tag = details.groups
+        // contact type
         contactTypeButton.text = details.contactType
+        contactTypeButton.tag = details.contactTypePosition
+        // pipeline position
         pipelinePositionButton.text = details.pipelinePosition
+        pipelinePositionButton.tag = "${details.pipeline}"
+        // lead temp
         tempButton.text = details.temp
+        tempButton.tag = "${details.tempId}"
+        // children and spouse
         childrenField.setText(details.children)
         spouseField.setText(details.spouse)
         // setup birth date button
-        var birthDate = details.birthday
-        birthDayButton.setOnClickListener {
+        if (details.birthdayMonth != null) {
             val calendar = Calendar.getInstance()
-            val datePicker = DatePickerDialog(activity, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                calendar.set(year, month, dayOfMonth)
-                birthDate = Date(calendar.timeInMillis)
-                birthDayButton.text = dateFormat.format(birthDate)
-            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
-            datePicker.show()
+            try {
+                val month = SimpleDateFormat("MMM", Locale.ENGLISH).parse(details.birthdayMonth)
+                calendar.time = month
+                calendar.set(Calendar.DAY_OF_MONTH, details.birthdayDay)
+                // set seleceted date in the button if it is not null
+                val date = Date(calendar.timeInMillis)
+                birthDayButton.text = SimpleDateFormat("MMM dd", Locale.ENGLISH)
+                        .format(date)
+                birthDayButton.tag = date
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            birthDayButton.setOnClickListener {
+                val datePicker = DatePickerDialog(activity, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                    calendar.set(year, month, dayOfMonth)
+                    val birthDate = Date(calendar.timeInMillis)
+                    val birthDateFormat = SimpleDateFormat("MMM dd", Locale.ENGLISH)
+                    birthDayButton.text = birthDateFormat.format(birthDate)
+                    birthDayButton.tag = birthDate
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+                datePicker.show()
+            }
         }
-        // set seleceted date in the button if it is not null
-        if (birthDate != null)
-            birthDayButton.text = dateFormat.format(birthDate)
+        // three way to call
         threeWayCallButton.text = details.thereWayToCall
+        threeWayCallButton.tag = details.thereWayToCall
+        // derived by
         derivedByButton.text = details.derivedBy
+        if (details.derivedBy != null)
+            derivedByButton.tag = newContactData.derivedBys
+                    .firstOrNull { it.text.equals(details.derivedBy) }?.value
         companyField.setText(details.company)
+        // contact source
         sourceField.setText(details.contactSource)
+        if (details.contactSource.isNotEmpty())
+            sourceField.tag = newContactData.sources
+                    .firstOrNull { it.text.equals(details.contactSource) }?.value
         jobTitleField.setText(details.jobTitle)
 
         // rodan + fields
@@ -210,6 +545,7 @@ class EditContactFragment : Fragment(), View.OnClickListener {
                     calendar.set(year, month, dayOfMonth)
                     autoShipDate = Date(calendar.timeInMillis)
                     autoShipDayButton.text = dateFormat.format(autoShipDate)
+                    autoShipDayButton.tag = autoShipDate
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
                 datePicker.show()
             }
@@ -230,38 +566,19 @@ class EditContactFragment : Fragment(), View.OnClickListener {
             customFieldsLayout.addView(fieldInput)
         }
         tagsButton.text = details.contactTag
-        val tagsNames = contactDetails.tags.split(",")
-        val tags = arrayListOf<Tag>()
-        tagsNames.forEach { tags.add(Tag(name = it)) }
-        var isFromUser = false
-        val adapter = TagsSpinnerAdapter(tags = tags)
-        adapter.delegate = object : TagsSpinnerAdapter.TagSpinnerDelegate {
-            override fun didClickOnTag(tag: Tag, position: Int) {
-                var currentText = tagsButton.text.toString()
-                if (currentText.isNotEmpty() && tag.isSelected)
-                    currentText = "$currentText,${tag.name}"
-                else if (tag.isSelected)
-                    currentText = tag.name
-                else {
-                    val regex = ",*(${tag.name})(,$)*".toRegex()
-                    currentText = regex.replace(currentText, "")
-                }
-
-                tagsButton.text = currentText
+        val tagsAdapter = tagsSpinner.adapter as TagsSpinnerAdapter
+        if (details.contactTag != null)
+            details.contactTag.split(",").forEach { tag: String ->
+                tagsAdapter.tags.firstOrNull { tag.equals(it.name) }?.isSelected = true
+                tagsAdapter.notifyDataSetChanged()
             }
-        }
-        tagsSpinner.adapter = adapter
-        tagsButton.setOnClickListener {
-            isFromUser = true
-            tagsSpinner.performClick()
-        }
         addFieldBtn.setOnClickListener {
             val fieldHint = newCustomField.text.toString()
             if (fieldHint.isNotEmpty()) {
                 val customField = CustomField(fieldHint, "")
                 val customFieldView = CustomFieldView(activity, customField)
-                customFieldView.deleteClickListener(onDeleteFieldListener)
-                this.customFields.add(customFieldView)
+                customFieldView.deleteClickListener(onDeleteNewFieldListener)
+                this.newCustomFields.add(customFieldView)
                 customFieldsLayout.addView(customFieldView)
                 newCustomField.setText("")
                 activity.hideKeyboard()
@@ -292,14 +609,24 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         street2Field.setText(details.street2)
         cityField.setText(details.city)
         stateField.setText(details.state)
+        stateField.tag = (this.newContactData.states
+                .firstOrNull { it.text == details.state }?.value) ?: ""
         zipCodeField.setText(details.zipCode)
-        countryField.setText(details.country)
+        val country = newContactData.countries.firstOrNull { it.value == details.country }
+        countryField.text = country?.text
+        countryField.tag = country?.value
     }
 
     private val onDeleteFieldListener = View.OnClickListener { v ->
         val field: CustomFieldView = customFieldsLayout.findViewWithTag(v.tag)
         customFieldsLayout.removeView(field)
         customFields.remove(field)
+    }
+
+    private val onDeleteNewFieldListener = View.OnClickListener { v ->
+        val field: CustomFieldView = customFieldsLayout.findViewWithTag(v.tag)
+        customFieldsLayout.removeView(field)
+        newCustomFields.remove(field)
     }
 
     private val onDeleteGiftListener = View.OnClickListener { v ->
@@ -347,5 +674,174 @@ class EditContactFragment : Fragment(), View.OnClickListener {
                         addressLayout.visibility == View.VISIBLE
             }
         }
+    }
+
+    private fun saveContactData() {
+        // if first or last name are not filled we can't save contact
+        if (firstNameField.text.isEmpty() || lastNameField.text.isEmpty()) {
+            Toast.makeText(activity, getString(R.string.fill_contact_info), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val request = SaveContactRequest()
+        val regex = ",$".toRegex()
+        val stringBuilder = StringBuilder()
+        request.contactId = if (contactDetails != null) "${contactDetails!!.contactDetails.contactId}" else "0"
+        // contact info
+        request.title = titleField.tag as String? ?: ""
+        request.firstName = firstNameField.text.toString()
+        request.lastName = lastNameField.text.toString()
+        request.email = emailField.text.toString()
+        // build alternative emails
+        val emailFileds = mutableListOf(emailField1, emailField2, emailField3)
+        emailFileds.forEach { field: RalewayEditText ->
+            val text = field.text.toString()
+            if (text.isNotEmpty()) {
+                stringBuilder.append(text).append(",")
+            }
+        }
+        request.alternEmail = regex.replace(stringBuilder.toString(), "")
+        stringBuilder.setLength(0)
+        request.phoneNumber = phoneNumberField.text.toString()
+        // build alternative phones
+        val phoneFields = mutableListOf(cellPhoneField, workPhoneField, homePhoneField)
+        phoneFields.forEach {
+            val phone = it.text.toString()
+            if (phone.isNotEmpty())
+                stringBuilder.append(phone).append(",")
+        }
+        request.alternPhones = regex.replace(stringBuilder.toString(), "")
+        stringBuilder.setLength(0)
+
+        // personal info
+        request.groups = groupButton.tag as String? ?: ""
+        request.contactType = contactTypeButton.text.toString()
+        request.pipelinePosition = pipelinePositionButton.text.toString()
+        request.pipeline = pipelinePositionButton.tag as String? ?: ""
+        request.temp = tempButton.tag as String? ?: ""
+        request.children = childrenField.text.toString()
+        request.spouse = spouseField.text.toString()
+        val birthDate = birthDayButton.tag as Date?
+        if (birthDate != null) {
+            val birthDayMonthFormat = SimpleDateFormat("MMM", Locale.ENGLISH)
+            request.birthDateMonth = birthDayMonthFormat.format(birthDate)
+            request.birthDateDay = "${birthDate.date}"
+        }
+        request.thereWayCall = if ((threeWayCallButton.tag as String? ?: "no")
+                        .equals("yes", true)) "true" else "false"
+        request.derivedBy = derivedByButton.tag as String? ?: ""
+        request.company = companyField.text.toString()
+        request.source = sourceField.tag as String? ?: ""
+        request.addJob = jobTitleField.text.toString()
+
+        // rodan plus fields
+        request.glowSample = "${enableGlowSampleBtn.isChecked}"
+        if ((autoShipDayButton.tag as Date?) != null) {
+            val date = autoShipDayButton.tag as Date
+            request.shipDateTime = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(date)
+        }
+        request.wrinkless = "${wrinklesCheckBox.isChecked}"
+        request.sensit = "${sensitivityCheckBox.isChecked}"
+        request.darkMark = "${darkMarksCheckBox.isChecked}"
+        request.lashBrows = "${lashesBrowsCheckBox.isChecked}"
+        request.sogg = "${saggingCheckBox.isChecked}"
+        request.acne = "${acneCheckBox.isChecked}"
+        request.dullness = "${dullnessCheckBox.isChecked}"
+        request.gift = "${giftYesBtn.isChecked}"
+        // build gifts string
+        for (index in 0..(giftFieldsContainer.childCount - 1)) {
+            val view = giftFieldsContainer.getChildAt(index) as CustomFieldView
+            stringBuilder.append(view.customField.fieldValue).append(",")
+        }
+        request.giftGiven = regex.replace(stringBuilder.toString(), "")
+        stringBuilder.setLength(0)
+
+        // tags and custom fields
+        val allTags = tagsButton.text.toString()
+        this.newTags.forEach { stringBuilder.append(it.name).append(",") }
+        request.assignedTags = allTags
+        request.newTag = regex.replace(stringBuilder.toString(), "")
+        stringBuilder.setLength(0)
+        // set existent fields
+        stringBuilder.append("<xml>")
+        this.customFields.forEach { field: CustomFieldView ->
+            stringBuilder.append("<").append(field.hint()).append(">").append(field.text())
+                    .append("</").append(field.hint()).append(">")
+        }
+        stringBuilder.append("</xml>")
+        request.customValue = stringBuilder.toString()
+        stringBuilder.setLength(0)
+        // set new fields
+        stringBuilder.append("<xml>")
+        this.newCustomFields.forEach { field: CustomFieldView ->
+            stringBuilder.append("<").append(field.hint()).append(">").append(field.text())
+                    .append("</").append(field.hint()).append(">")
+        }
+        stringBuilder.append("</xml>")
+        request.newCustomFields = stringBuilder.toString()
+        stringBuilder.setLength(0)
+
+        // social and websites
+        request.facebookPersonal = facebookPersonalField.text.toString()
+        request.facebookBusiness = facebookBusinessField.text.toString()
+        request.twitter = twitterField.text.toString()
+        request.instagram = instagramField.text.toString()
+        request.pinterest = pinterestField.text.toString()
+        request.periscope = periscopeField.text.toString()
+        request.linkedIn = linkedInField.text.toString()
+        request.snapChat = snapChatField.text.toString()
+        request.vine = vineField.text.toString()
+        request.tumblr = tumblrField.text.toString()
+        request.youTube = youTubeField.text.toString()
+        request.googlePlus = googlePlusField.text.toString()
+        request.meetUp = meetupField.text.toString()
+        request.personalWebsite = websitePersonalField.text.toString()
+        request.businessWebsite = websiteBusinessField.text.toString()
+        request.other1 = other1Field.text.toString()
+        request.other2 = other2Field.text.toString()
+
+        // address
+        request.street = streetField.text.toString()
+        request.street2 = street2Field.text.toString()
+        request.city = cityField.text.toString()
+        request.countryId = countryField.tag as String? ?: ""
+        request.country = countryField.text.toString()
+        request.zipCode = zipCodeField.text.toString()
+        request.state = stateField.text.toString()
+        request.stateId = stateField.tag as String? ?: "1"
+
+        val loading = activity.showLoading()
+        val observable: Observable<HiloResponse<String>>
+        if (contactDetails == null)
+            observable = HiloApp.api().addNewContact(request)
+        else
+            observable = HiloApp.api().updateContactDetails(request)
+
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response: HiloResponse<String> ->
+                    if (response.status.isSuccess()) {
+                        val data = response.data
+                        activity.hideKeyboard()
+                        if (data != null)
+                            Toast.makeText(activity, data, Toast.LENGTH_SHORT).show()
+
+                        activity.setResult(Activity.RESULT_OK)
+                        if (activity is ContactDetailsActivity) {
+                            val contactId = arguments.getString("contactId")
+                            getFullContactDetails(loading = loading, contactId = contactId)
+                        } else {
+                            loading.dismiss()
+                            activity.finish()
+                        }
+                    } else {
+                        loading.dismiss()
+                        activity.showExplanation(message = response.message)
+                    }
+                }, { error: Throwable ->
+                    loading.dismiss()
+                    error.printStackTrace()
+                    activity.showExplanation(message = error.localizedMessage)
+                })
     }
 }

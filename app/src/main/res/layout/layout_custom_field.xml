@@ -5,25 +5,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center_vertical"
     android:layout_marginBottom="5dp"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayEditText
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        android:singleLine="true"
-        tools:hint="Field hint"
-        android:textSize="14sp"
-        android:id="@+id/customFieldInput"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_weight="1"
-        android:background="@drawable/selectable_border_rect"/>
-
-    <ImageButton
-        android:id="@+id/deleteBtn"
+    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        android:id="@+id/fieldTItle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Base.Widget.AppCompat.ActionButton"
-        android:src="@drawable/ic_action_delete_empty"
-        android:contentDescription="@null" />
+        android:textSize="12sp"
+        tools:text="Field title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            tools:hint="Field hint"
+            android:textSize="14sp"
+            android:id="@+id/customFieldInput"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@drawable/selectable_border_rect"/>
+
+        <ImageButton
+            android:id="@+id/deleteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:src="@drawable/ic_action_delete_empty"
+            android:contentDescription="@null" />
+    </LinearLayout>
 </LinearLayout>

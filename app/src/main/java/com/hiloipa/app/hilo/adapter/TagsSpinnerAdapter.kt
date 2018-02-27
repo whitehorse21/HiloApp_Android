@@ -13,7 +13,7 @@ import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 /**
  * Created by eduardalbu on 24.02.2018.
  */
-class TagsSpinnerAdapter(val tags: List<Tag>): BaseAdapter() {
+class TagsSpinnerAdapter(val tags: ArrayList<Tag>): BaseAdapter() {
 
     var delegate: TagSpinnerDelegate? = null
 

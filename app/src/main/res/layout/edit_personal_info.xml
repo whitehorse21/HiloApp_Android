@@ -42,8 +42,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
+                tools:visibility="visible"
                 android:padding="16dp"
                 android:orientation="vertical">
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/group"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/groupButton"
@@ -53,6 +60,7 @@
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
                     android:layout_height="45dp"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
                     android:background="@drawable/selectable_border_rect"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
@@ -68,10 +76,17 @@
                     android:layout_marginBottom="5dp"
                     android:layout_height="0dp"/>
 
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/contact_type"/>
+
                 <com.hiloipa.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/contactTypeButton"
                     android:layout_width="match_parent"
                     android:gravity="start|center_vertical"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
@@ -91,10 +106,17 @@
                     android:layout_marginBottom="5dp"
                     android:layout_height="0dp"/>
 
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/pipeline_postion"/>
+
                 <com.hiloipa.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/pipelinePositionButton"
                     android:layout_width="match_parent"
                     android:gravity="start|center_vertical"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
@@ -114,11 +136,18 @@
                     android:layout_marginBottom="5dp"
                     android:layout_height="0dp"/>
 
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/temp"/>
+
                 <com.hiloipa.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/tempButton"
                     android:layout_width="match_parent"
                     android:gravity="start|center_vertical"
                     android:singleLine="true"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
                     android:layout_height="45dp"
@@ -137,6 +166,12 @@
                     android:layout_marginBottom="5dp"
                     android:layout_height="0dp"/>
 
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/children"/>
+
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/childrenField"
                     android:layout_width="match_parent"
@@ -151,6 +186,12 @@
                     android:layout_marginBottom="5dp"
                     android:textSize="14sp"
                     android:hint="@string/children"/>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/spouse"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/spouseField"
@@ -170,47 +211,74 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayButton
-                        android:id="@+id/birthDayButton"
+                    <LinearLayout
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="start|center_vertical"
-                        android:singleLine="true"
-                        android:ellipsize="end"
-                        android:imeOptions="actionDone"
-                        android:layout_height="45dp"
-                        android:layout_marginRight="2.5dp"
-                        android:layout_marginEnd="2.5dp"
-                        android:background="@drawable/selectable_border_rect"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:drawableRight="@drawable/ic_action_calendar"
-                        android:drawableEnd="@drawable/ic_action_calendar"
-                        android:drawablePadding="5dp"
-                        android:textSize="14sp"
-                        android:hint="@string/birthday"/>
+                        android:orientation="vertical">
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayButton
-                        android:id="@+id/threeWayCallButton"
+                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:text="@string/birthday"/>
+
+                        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                            android:id="@+id/birthDayButton"
+                            android:layout_width="match_parent"
+                            android:gravity="start|center_vertical"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:imeOptions="actionDone"
+                            android:layout_height="45dp"
+                            android:layout_marginRight="2.5dp"
+                            android:layout_marginEnd="2.5dp"
+                            style="@style/Base.Widget.AppCompat.ActionButton"
+                            android:background="@drawable/selectable_border_rect"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:drawableRight="@drawable/ic_action_calendar"
+                            android:drawableEnd="@drawable/ic_action_calendar"
+                            android:drawablePadding="5dp"
+                            android:textSize="14sp"
+                            android:hint="@string/birthday"/>
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="start|center_vertical"
-                        android:singleLine="true"
-                        android:ellipsize="end"
-                        android:imeOptions="actionDone"
-                        android:layout_height="45dp"
-                        android:layout_marginLeft="2.5dp"
-                        android:layout_marginStart="2.5dp"
-                        android:background="@drawable/selectable_border_rect"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:drawableRight="@drawable/ic_action_down"
-                        android:drawableEnd="@drawable/ic_action_down"
-                        android:drawablePadding="5dp"
-                        android:textSize="14sp"
-                        android:hint="@string/three_way_to_call"/>
+                        android:orientation="vertical">
+
+                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:text="@string/three_way_to_call"/>
+
+                        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                            android:id="@+id/threeWayCallButton"
+                            android:layout_width="match_parent"
+                            android:gravity="start|center_vertical"
+                            android:singleLine="true"
+                            style="@style/Base.Widget.AppCompat.ActionButton"
+                            android:ellipsize="end"
+                            android:imeOptions="actionDone"
+                            android:layout_height="45dp"
+                            android:layout_marginLeft="2.5dp"
+                            android:layout_marginStart="2.5dp"
+                            android:background="@drawable/selectable_border_rect"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:drawableRight="@drawable/ic_action_down"
+                            android:drawableEnd="@drawable/ic_action_down"
+                            android:drawablePadding="5dp"
+                            android:textSize="14sp"
+                            android:hint="@string/three_way_to_call"/>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <Spinner
@@ -219,6 +287,12 @@
                     android:layout_marginBottom="5dp"
                     android:layout_height="0dp"/>
 
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/derived_by"/>
+
                 <com.hiloipa.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/derivedByButton"
                     android:layout_width="match_parent"
@@ -226,6 +300,7 @@
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
                     android:layout_height="45dp"
                     android:background="@drawable/selectable_border_rect"
                     android:paddingLeft="10dp"
@@ -242,6 +317,12 @@
                     android:layout_marginBottom="5dp"
                     android:layout_height="0dp"/>
 
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/company"/>
+
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/companyField"
                     android:layout_width="match_parent"
@@ -257,20 +338,41 @@
                     android:textSize="14sp"
                     android:hint="@string/company"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/source"/>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/sourceField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
                     android:lines="1"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
                     android:ellipsize="end"
                     android:imeOptions="actionNext"
+                    android:gravity="start|center_vertical"
                     android:layout_height="45dp"
+                    android:drawableRight="@drawable/ic_action_down"
+                    android:drawableEnd="@drawable/ic_action_down"
                     android:background="@drawable/selectable_border_rect"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:layout_marginBottom="5dp"
                     android:textSize="14sp"
                     android:hint="@string/source"/>
+
+                <Spinner
+                    android:id="@+id/sourceSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="0dp"/>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/job_title"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/jobTitleField"

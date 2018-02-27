@@ -46,6 +46,12 @@
                 android:visibility="gone"
                 tools:visibility="visible">
 
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/tags"/>
+
                 <com.hiloipa.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/tagsButton"
                     android:layout_width="match_parent"
@@ -53,6 +59,7 @@
                     android:background="@drawable/selectable_border_rect"
                     android:drawableEnd="@drawable/ic_action_down"
                     android:drawablePadding="5dp"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
                     android:drawableRight="@drawable/ic_action_down"
                     android:ellipsize="end"
                     android:gravity="start|center_vertical"
@@ -68,6 +75,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginBottom="5dp" />
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/new_tag"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/newTagField"
@@ -97,6 +110,12 @@
                     android:text="@string/add"
                     android:textColor="@android:color/white"
                     app:buttonFont="bold" />
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/new_custom_field"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/newCustomField"

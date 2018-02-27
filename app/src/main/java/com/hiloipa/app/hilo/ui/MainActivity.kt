@@ -146,6 +146,11 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
         subscriber.onComplete()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        supportFragmentManager.fragments.forEach { it.onActivityResult(requestCode, resultCode, data) }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         unregisterManagers()

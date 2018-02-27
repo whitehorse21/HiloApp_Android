@@ -28,12 +28,26 @@
                 android:lines="1"
                 android:text="@string/bulk_contact_update"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayEditText
-                android:id="@+id/fieldToEditField"
+            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textSize="12sp"
+                android:text="@string/field_to_edit"/>
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                android:id="@+id/fieldToEditBtn"
                 android:layout_width="match_parent"
+                style="@style/Base.Widget.AppCompat.ActionButton"
+                android:gravity="start|center_vertical"
                 android:layout_height="40dp"
+                android:drawableRight="@drawable/ic_action_down"
+                android:drawableEnd="@drawable/ic_action_down"
                 android:background="@drawable/selectable_border_rect"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:textSize="14sp"
@@ -42,6 +56,23 @@
                 android:imeOptions="actionNext"
                 android:inputType="textCapWords"/>
 
+            <Spinner
+                android:id="@+id/fieldToUpdateSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="0.01dp"
+                android:alpha="0"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textSize="12sp"
+                android:text="@string/value_to_change_to"/>
+
             <com.hiloipa.app.hilo.ui.widget.RalewayEditText
                 android:id="@+id/newValueField"
                 android:layout_width="match_parent"
@@ -49,7 +80,6 @@
                 android:background="@drawable/selectable_border_rect"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:textSize="14sp"
@@ -58,10 +88,20 @@
                 android:imeOptions="actionNext"
                 android:inputType="textCapWords"/>
 
+            <Spinner
+                android:id="@+id/editableFieldSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="0.01dp"
+                android:alpha="0"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"/>
+
             <com.hiloipa.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/updateBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="40dp"
+                app:buttonFont="bold"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@android:color/white"
                 android:text="@string/update"

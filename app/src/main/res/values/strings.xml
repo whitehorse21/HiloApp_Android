@@ -290,4 +290,5 @@
     <string name="send_to_text">Send to text</string>
     <string name="phone_number_s">Phone Number: %s</string>
     <string name="contact_has_no_phone_numbers">Contact has no phone numbers!</string>
+    <string name="fill_contact_info">Fill Contact Info first!</string>
 </resources>
