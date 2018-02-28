@@ -34,12 +34,14 @@
             android:focusable="true"
             android:focusableInTouchMode="true" />
 
-        <com.hiloipa.app.hilo.ui.widget.RalewaySuggestionsField
+        <com.hiloipa.app.hilo.ui.widget.RalewayButton
             android:id="@+id/searchField"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
+            android:gravity="start|center_vertical"
+            style="@style/Base.Widget.AppCompat.ActionButton"
             android:background="@drawable/selectable_border_rect"
             android:drawableEnd="@drawable/ic_action_down"
             android:drawableLeft="@drawable/ic_action_search_normal"

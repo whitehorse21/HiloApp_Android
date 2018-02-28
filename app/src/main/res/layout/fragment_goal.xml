@@ -108,7 +108,7 @@
                                 app:textFont="bold"
                                 android:textSize="16sp"
                                 android:textColor="@android:color/black"
-                                android:text="15"
+                                tools:text="15"
                                 android:layout_column="2" />
                         </TableRow>
 
@@ -145,7 +145,7 @@
                                 app:textFont="bold"
                                 android:textSize="16sp"
                                 android:textColor="@android:color/black"
-                                android:text="15"
+                                tools:text="15"
                                 android:layout_column="2" />
                         </TableRow>
 
@@ -182,7 +182,7 @@
                                 app:textFont="bold"
                                 android:textSize="16sp"
                                 android:textColor="@android:color/black"
-                                android:text="43%"
+                                tools:text="43%"
                                 android:layout_column="2" />
                         </TableRow>
                     </TableLayout>
@@ -223,6 +223,7 @@
             android:id="@+id/recyclerView"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"

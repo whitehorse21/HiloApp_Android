@@ -231,8 +231,6 @@ class FutureContactsActivity : AppCompatActivity(), GoalTrackerAdapter.ContactCl
         this.startActivity(intent)
     }
 
-    override fun onContactAdded(contact: SearchContact, position: Int) {}
-
     private fun showCompleteReachOutDialog(option: CompleteOption) {
         val dialogView = layoutInflater.inflate(R.layout.alert_complete_reach_out, null)
         val backBtn: RalewayButton = dialogView.findViewById(R.id.completeReachOutBackBtn)
@@ -502,4 +500,6 @@ class FutureContactsActivity : AppCompatActivity(), GoalTrackerAdapter.ContactCl
 
         dialog.show()
     }
+
+    override fun didWantToSearchContact() {}
 }

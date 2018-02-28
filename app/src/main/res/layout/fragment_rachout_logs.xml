@@ -116,5 +116,14 @@
             tools:listitem="@layout/list_item_reachout_log"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            android:id="@+id/loadMoreBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:layout_gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="@string/load_more"/>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

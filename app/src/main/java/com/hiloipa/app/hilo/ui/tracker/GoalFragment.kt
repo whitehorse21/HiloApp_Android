@@ -21,6 +21,7 @@ import com.hiloipa.app.hilo.models.GoalType
 import com.hiloipa.app.hilo.models.requests.CompleteReachRequest
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.*
+import com.hiloipa.app.hilo.ui.FragmentSearchContacts
 import com.hiloipa.app.hilo.ui.contacts.ContactDetailsActivity
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
@@ -41,7 +42,7 @@ import kotlin.collections.ArrayList
 /**
  * A simple [Fragment] subclass.
  */
-class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener {
+class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, FragmentSearchContacts.SearchDelegate {
 
     lateinit var adapter: GoalTrackerAdapter
     lateinit var goalType: GoalType
@@ -189,10 +190,15 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener {
         activity.startActivity(intent)
     }
 
-    override fun onContactAdded(contact: SearchContact, position: Int) {
+    override fun didWantToSearchContact() {
+        FragmentSearchContacts.newInstance(this)
+                .show(activity.fragmentManager, "SearchContacts")
+    }
+
+    override fun onContactSelected(contact: DetailedContact) {
         val request = StandardRequest()
         request.type = goalType.apiValue()
-        request.contactId = "${contact.contactId}"
+        request.contactId = "${contact.id}"
         val loading = activity.showLoading()
         HiloApp.api().addGoalTrackerContact(request)
                 .subscribeOn(Schedulers.io())
@@ -200,7 +206,7 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener {
                 .subscribe({ response: HiloResponse<String> ->
                     loading.dismiss()
                     if (response.status.isSuccess()) {
-                        activity.sendBroadcast(Intent("update_tracker"))
+                        LocalBroadcastManager.getInstance(activity).sendBroadcast(Intent("update_tracker"))
                     } else {
                         activity.showExplanation(message = response.message)
                     }
@@ -216,7 +222,7 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener {
             if (intent == null) return
             when(intent.action) {
                 "contacts_ready" -> {
-                    val contacts: ArrayList<SearchContact> = intent.extras.getParcelableArrayList("contacts")
+                    val contacts: ArrayList<DetailedContact> = intent.extras.getParcelableArrayList("contacts")
                     adapter.contacts = contacts
                 }
             }

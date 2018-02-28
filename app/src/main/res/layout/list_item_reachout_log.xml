@@ -41,11 +41,14 @@
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/contactNameLabel"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:lines="1"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:ellipsize="end"
+                    android:textSize="16sp"
                     android:textColor="@color/colorPrimary"
                     tools:text="Eduard Albu"/>
 
@@ -96,5 +99,15 @@
         android:paddingLeft="45dp"
         android:paddingStart="45dp"
         android:paddingRight="10dp"
-        android:paddingEnd="10dp"/>
+        android:paddingEnd="10dp">
+
+        <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+            android:id="@+id/logCommentLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"/>
+    </LinearLayout>
 </LinearLayout>

@@ -55,20 +55,34 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
-                    android:id="@+id/reachoutsTypeField"
+                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                    android:id="@+id/reachoutsTypeButton"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:hint="@string/reach_type"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
+                    android:drawableRight="@drawable/ic_action_down"
+                    android:drawableEnd="@drawable/ic_action_down"
+                    android:gravity="start|center_vertical"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
                     android:inputType="textCapWords"
                     android:singleLine="true"
                     android:lines="1"
-                    android:imeOptions="actionNext"
                     android:textSize="14sp"
                     android:background="@drawable/selectable_border_rect"
-                    android:layout_margin="10dp"/>
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"/>
+
+                <Spinner
+                    android:id="@+id/reachTypeSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.01dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@android:color/transparent"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -128,7 +142,7 @@
                     android:paddingBottom="5dp"
                     android:inputType="textCapSentences|textMultiLine"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewaySuggestionsField
+                <com.hiloipa.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/contactField"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -137,6 +151,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
+                    android:gravity="start|center_vertical"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:singleLine="true"

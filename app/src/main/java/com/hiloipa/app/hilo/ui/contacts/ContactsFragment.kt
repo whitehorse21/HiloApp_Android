@@ -3,6 +3,7 @@ package com.hiloipa.app.hilo.ui.contacts
 
 import android.Manifest
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -22,9 +23,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.widget.*
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.ContactsAdapter
@@ -42,6 +41,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -54,6 +56,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
     var filterRequest: FilterRequest? = null
     var query: String = ""
     var page: Int = 1
+    val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
 
     companion object {
         fun newInstance(): ContactsFragment {
@@ -347,7 +350,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
             deleteContact(contacts)
         }
 
-        bulkUpdateBtn.setOnClickListener { showUpdateContactDialog() }
+        bulkUpdateBtn.setOnClickListener { showUpdateContactDialog(selectedContacts, dialog) }
         assignCampaignBtn.setOnClickListener { showEmailCampaignsDialog() }
         addToGoalTrackerBtn.setOnClickListener {
             dialog.dismiss()
@@ -378,12 +381,18 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         dialog.show()
     }
 
-    private fun showUpdateContactDialog() {
+    private fun showUpdateContactDialog(selectedContacts: List<DetailedContact>, parentDialog: AlertDialog) {
         val dialogView = layoutInflater.inflate(R.layout.alert_bulk_update, null)
         val backBtn: RalewayButton = dialogView.findViewById(R.id.backButton)
         val fieldToEditBtn: RalewayButton = dialogView.findViewById(R.id.fieldToEditBtn)
         val fieldToEditSpinner: Spinner = dialogView.findViewById(R.id.fieldToUpdateSpinner)
-        val newValueField: RalewayEditText = dialogView.findViewById(R.id.newValueField)
+        val newValueFieldLayout: LinearLayout = dialogView.findViewById(R.id.newValueFieldLayout)
+        val newValueSpinnerLayout: LinearLayout = dialogView.findViewById(R.id.newValueSpinnerLayout)
+        val newValueDateLayout: LinearLayout = dialogView.findViewById(R.id.newValueDateLayout)
+        val newValueCheckBoxesLayout: LinearLayout = dialogView.findViewById(R.id.newValueCheckBoxesLayout)
+        val newValueRadioLayout: RadioGroup = dialogView.findViewById(R.id.newValueRadioLayout)
+        val layouts = mutableListOf<View>(newValueFieldLayout, newValueSpinnerLayout, newValueDateLayout,
+                newValueCheckBoxesLayout, newValueRadioLayout)
         val updateBtn: RalewayButton = dialogView.findViewById(R.id.updateBtn)
 
         val loading = activity.showLoading()
@@ -402,6 +411,211 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                             fieldToEditSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                                     val valueToEdit = data.fieldsAvailable[position]
+                                    activity.hideKeyboard()
+                                    when (valueToEdit.value) {
+                                        "3-way", "Gift", "Give It A Glow Sample" -> {
+                                            newValueRadioLayout.visibility = View.VISIBLE
+                                            newValueRadioLayout.clearCheck()
+                                            layouts.forEach {
+                                                if (it != newValueRadioLayout)
+                                                    it.visibility = View.GONE
+                                            }
+                                        }
+                                        "Auto Ship Date" -> {
+                                            newValueDateLayout.visibility = View.VISIBLE
+                                            val dateBtn: RalewayButton = newValueDateLayout
+                                                    .findViewById(R.id.autoShipDayButton)
+                                            dateBtn.setOnClickListener {
+                                                val calendar = Calendar.getInstance()
+                                                val datePicker = DatePickerDialog(activity,
+                                                        DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                                                            calendar.set(year, month, dayOfMonth)
+                                                            val autoShipDate = Date(calendar.timeInMillis)
+                                                            dateBtn.text = dateFormat.format(autoShipDate)
+                                                            newValueDateLayout.tag = autoShipDate
+                                                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                                                        calendar.get(Calendar.DAY_OF_MONTH))
+                                                datePicker.show()
+                                            }
+                                            layouts.forEach {
+                                                if (it != newValueDateLayout)
+                                                    it.visibility = View.GONE
+                                            }
+                                        }
+                                        "Concerns" -> {
+                                            newValueCheckBoxesLayout.visibility = View.VISIBLE
+                                            layouts.forEach {
+                                                if (it != newValueCheckBoxesLayout)
+                                                    it.visibility = View.GONE
+                                            }
+                                        }
+                                        "Contact Type" -> {
+                                            newValueSpinnerLayout.visibility = View.VISIBLE
+                                            layouts.forEach {
+                                                if (it != newValueSpinnerLayout)
+                                                    it.visibility = View.GONE
+                                            }
+                                            val spinner: Spinner = newValueSpinnerLayout
+                                                    .findViewById(R.id.valueToChangeSpinner)
+                                            val btn: RalewayButton = newValueSpinnerLayout
+                                                    .findViewById(R.id.valueToChangeBtn)
+                                            val types = mutableListOf<String>()
+                                            data.contactTypes.forEach { types.add(it.text) }
+                                            spinner.adapter = ArrayAdapter<String>(activity,
+                                                    android.R.layout.simple_spinner_dropdown_item,
+                                                    types)
+                                            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                                                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                                                    val type = data.contactTypes[position]
+                                                    newValueSpinnerLayout.tag = type.value
+                                                    btn.text = type.text
+                                                }
+
+                                                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                                            }
+                                            btn.setOnClickListener { spinner.performClick() }
+                                        }
+                                        "Derived By" -> {
+                                            newValueSpinnerLayout.visibility = View.VISIBLE
+                                            layouts.forEach {
+                                                if (it != newValueSpinnerLayout)
+                                                    it.visibility = View.GONE
+                                            }
+                                            val spinner: Spinner = newValueSpinnerLayout
+                                                    .findViewById(R.id.valueToChangeSpinner)
+                                            val btn: RalewayButton = newValueSpinnerLayout
+                                                    .findViewById(R.id.valueToChangeBtn)
+                                            val derivedBys = mutableListOf<String>()
+                                            data.derivedBys.forEach { derivedBys.add(it.text) }
+                                            spinner.adapter = ArrayAdapter<String>(activity,
+                                                    android.R.layout.simple_spinner_dropdown_item,
+                                                    derivedBys)
+                                            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                                                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                                                    val type = data.derivedBys[position]
+                                                    newValueSpinnerLayout.tag = type.value
+                                                    btn.text = type.text
+                                                }
+
+                                                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                                            }
+                                            btn.setOnClickListener { spinner.performClick() }
+                                        }
+                                        "Group" -> {
+                                            newValueSpinnerLayout.visibility = View.VISIBLE
+                                            layouts.forEach {
+                                                if (it != newValueSpinnerLayout)
+                                                    it.visibility = View.GONE
+                                            }
+                                            val spinner: Spinner = newValueSpinnerLayout
+                                                    .findViewById(R.id.valueToChangeSpinner)
+                                            val btn: RalewayButton = newValueSpinnerLayout
+                                                    .findViewById(R.id.valueToChangeBtn)
+                                            val groups = mutableListOf<String>()
+                                            data.groups.forEach { groups.add(it.text) }
+                                            spinner.adapter = ArrayAdapter<String>(activity,
+                                                    android.R.layout.simple_spinner_dropdown_item,
+                                                    groups)
+                                            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                                                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                                                    val type = data.groups[position]
+                                                    newValueSpinnerLayout.tag = type.value
+                                                    btn.text = type.text
+                                                }
+
+                                                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                                            }
+                                            btn.setOnClickListener { spinner.performClick() }
+                                        }
+                                        "Temp" -> {
+                                            newValueSpinnerLayout.visibility = View.VISIBLE
+                                            layouts.forEach {
+                                                if (it != newValueSpinnerLayout)
+                                                    it.visibility = View.GONE
+                                            }
+                                            val spinner: Spinner = newValueSpinnerLayout
+                                                    .findViewById(R.id.valueToChangeSpinner)
+                                            val btn: RalewayButton = newValueSpinnerLayout
+                                                    .findViewById(R.id.valueToChangeBtn)
+                                            val temps = mutableListOf<String>()
+                                            data.leadTemps.forEach { temps.add(it.text) }
+                                            spinner.adapter = ArrayAdapter<String>(activity,
+                                                    android.R.layout.simple_spinner_dropdown_item,
+                                                    temps)
+                                            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                                                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                                                    val type = data.leadTemps[position]
+                                                    newValueSpinnerLayout.tag = "${type.value}"
+                                                    btn.text = type.text
+                                                }
+
+                                                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                                            }
+                                            btn.setOnClickListener { spinner.performClick() }
+                                        }
+                                        "Pipeline Position" -> {
+                                            newValueSpinnerLayout.visibility = View.VISIBLE
+                                            layouts.forEach {
+                                                if (it != newValueSpinnerLayout)
+                                                    it.visibility = View.GONE
+                                            }
+                                            val spinner: Spinner = newValueSpinnerLayout
+                                                    .findViewById(R.id.valueToChangeSpinner)
+                                            val btn: RalewayButton = newValueSpinnerLayout
+                                                    .findViewById(R.id.valueToChangeBtn)
+                                            val positions = mutableListOf<String>()
+                                            data.pipelinePositions.forEach { positions.add(it.text) }
+                                            spinner.adapter = ArrayAdapter<String>(activity,
+                                                    android.R.layout.simple_spinner_dropdown_item,
+                                                    positions)
+                                            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                                                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                                                    val type = data.pipelinePositions[position]
+                                                    newValueSpinnerLayout.tag = type.value
+                                                    btn.text = type.text
+                                                }
+
+                                                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                                            }
+                                            btn.setOnClickListener { spinner.performClick() }
+                                        }
+                                        "Remove Tag" -> {
+                                            newValueSpinnerLayout.visibility = View.VISIBLE
+                                            layouts.forEach {
+                                                if (it != newValueSpinnerLayout)
+                                                    it.visibility = View.GONE
+                                            }
+                                            val spinner: Spinner = newValueSpinnerLayout
+                                                    .findViewById(R.id.valueToChangeSpinner)
+                                            val btn: RalewayButton = newValueSpinnerLayout
+                                                    .findViewById(R.id.valueToChangeBtn)
+                                            val tags = mutableListOf<String>()
+                                            data.tagsToRemove.forEach { tags.add(it.text) }
+                                            spinner.adapter = ArrayAdapter<String>(activity,
+                                                    android.R.layout.simple_spinner_dropdown_item,
+                                                    tags)
+                                            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                                                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                                                    val type = data.tagsToRemove[position]
+                                                    newValueSpinnerLayout.tag = type.value
+                                                    btn.text = type.text
+                                                }
+
+                                                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                                            }
+                                            btn.setOnClickListener { spinner.performClick() }
+                                        }
+                                        else -> {
+                                            newValueFieldLayout.visibility = View.VISIBLE
+                                            val field: RalewayEditText = newValueFieldLayout
+                                                    .findViewById(R.id.newValueField)
+                                            field.setText("")
+                                            layouts.forEach {
+                                                if (it != newValueFieldLayout)
+                                                    it.visibility = View.GONE
+                                            }
+                                        }
+                                    }
                                     fieldToEditBtn.text = valueToEdit.text
                                     fieldToEditBtn.tag = valueToEdit.value
                                 }
@@ -415,6 +629,60 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                             backBtn.setOnClickListener {
                                 activity.hideKeyboard()
                                 dialog.dismiss()
+                            }
+
+                            updateBtn.setOnClickListener {
+                                val valueToChange = fieldToEditBtn.tag as String?
+                                var newValue: String? = null
+                                if (valueToChange != null) {
+                                    when (valueToChange) {
+                                        "3-way", "Gift", "Give It A Glow Sample" ->
+                                            newValue = "${newValueRadioLayout.checkedRadioButtonId == R.id.bulkPositiveBtn}"
+                                        "Contact Type", "Concerns", "Derived By", "Group", "Temp",
+                                        "Pipeline Position", "Remove Tag" ->
+                                                newValue = newValueSpinnerLayout.tag as String
+                                        "Auto Ship Date" ->
+                                                newValue = newValueDateLayout.tag as String
+                                        else -> {
+                                            val field: RalewayEditText = newValueFieldLayout.findViewById(R.id.newValueField)
+                                            newValue = field.text.toString()
+                                        }
+                                    }
+                                }
+                                val regex = "(,$)*".toRegex()
+                                val contactsBuilder = StringBuilder()
+                                selectedContacts.forEach {
+                                    contactsBuilder.append(it.id.toString()).append(",")
+                                }
+                                val contacts = regex.replace(contactsBuilder.toString(), "")
+                                val request = BulkUpdateRequest()
+                                if (valueToChange != null && newValue != null) {
+                                    request.contacts = contacts
+                                    request.selectedValue = newValue
+                                    request.selectedOption = valueToChange
+
+                                    val bulkLoading = activity.showLoading()
+                                    HiloApp.api().bulkUpdateContact(request)
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe({ response: HiloResponse<String> ->
+                                                bulkLoading.dismiss()
+                                                if (response.status.isSuccess()) {
+                                                    dialog.dismiss()
+                                                    Toast.makeText(activity,
+                                                            getString(R.string.contacts_update_successfully),
+                                                            Toast.LENGTH_SHORT).show()
+                                                    parentDialog.dismiss()
+                                                    adapter.contacts.clear()
+                                                    page = 1
+                                                    loadContactsFromServer()
+                                                } else activity.showExplanation(message = response.message)
+                                            }, { error: Throwable ->
+                                                bulkLoading.dismiss()
+                                                error.printStackTrace()
+                                                activity.showExplanation(message = error.localizedMessage)
+                                            })
+                                }
                             }
 
                             dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

@@ -19,13 +19,11 @@ import android.widget.ArrayAdapter
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.PagerAdapter
 import com.hiloipa.app.hilo.models.GoalType
+import com.hiloipa.app.hilo.models.requests.ContactsListRequest
 import com.hiloipa.app.hilo.models.requests.GoalDuration
 import com.hiloipa.app.hilo.models.requests.GoalTrackerRequest
 import com.hiloipa.app.hilo.models.requests.StandardRequest
-import com.hiloipa.app.hilo.models.responses.GoalDurationObjc
-import com.hiloipa.app.hilo.models.responses.GoalTrackerResponse
-import com.hiloipa.app.hilo.models.responses.HiloResponse
-import com.hiloipa.app.hilo.models.responses.SearchContact
+import com.hiloipa.app.hilo.models.responses.*
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 import com.hiloipa.app.hilo.utils.HiloApp
@@ -159,8 +157,6 @@ class GoalTrackerFragment : Fragment() {
             fragments.forEach { keySet -> keySet.value.updateFragmentData(data, selectedDuration!!) }
             dialog.dismiss()
         }
-
-        getAllContactsFromServer()
     }
 
     private fun setupPagerAdapter(data: GoalTrackerResponse): Observable<PagerAdapter> = Observable.create {
@@ -201,27 +197,7 @@ class GoalTrackerFragment : Fragment() {
         override fun onNothingSelected(parent: AdapterView<*>?) {}
     }
 
-    private fun getAllContactsFromServer() {
-        val request = StandardRequest()
-        HiloApp.api().searchContacts(request)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ response: HiloResponse<ArrayList<SearchContact>> ->
-                    if (response.status.isSuccess()) {
-                        val data = response.data
-                        if (data != null) {
-                            val intent = Intent("contacts_ready")
-                            val extras = Bundle()
-                            extras.putParcelableArrayList("contacts", data)
-                            intent.putExtras(extras)
-                            LocalBroadcastManager.getInstance(activity).sendBroadcast(intent)
-                        }
-                    }
-                }, { error: Throwable ->
-                    error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
-                })
-    }
+
 
     private fun showCurrentPlanDetails() {
         val dialogView = layoutInflater.inflate(R.layout.alert_current_goal_plan, null)

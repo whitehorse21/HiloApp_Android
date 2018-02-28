@@ -1,5 +1,6 @@
 package com.hiloipa.app.hilo.ui.contacts
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -101,7 +102,8 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
         when (tabType) {
             TabType.personal ->
                 replaceFragment(EditContactFragment.newInstance(contactId = "${contactDetails.contactDetails.contactId}"))
-            TabType.reach_out_logs -> replaceFragment(ReachoutLogsFragment.newInstance(isChild = true))
+            TabType.reach_out_logs -> replaceFragment(ReachoutLogsFragment
+                    .newInstance(contactId = "${contactDetails.contactDetails.contactId}"))
             TabType.notes -> replaceFragment(ContactNotesFragment.newInstance())
             TabType.products -> replaceFragment(UserProductsFragment.newInstace())
 
@@ -123,5 +125,10 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
                 else -> email_templates
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        supportFragmentManager.fragments.forEach { it.onActivityResult(requestCode, resultCode, data) }
     }
 }

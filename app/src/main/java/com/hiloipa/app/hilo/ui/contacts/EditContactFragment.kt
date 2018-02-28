@@ -51,6 +51,7 @@ class EditContactFragment : Fragment(), View.OnClickListener {
     var newTags: MutableList<Tag> = mutableListOf()
     var giftsGiven: MutableList<CustomFieldView> = mutableListOf()
     lateinit var newContactData: NewContactData
+    val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
 
     companion object {
         fun newInstance(contactId: String? = null): EditContactFragment {
@@ -241,6 +242,18 @@ class EditContactFragment : Fragment(), View.OnClickListener {
             isTempFromUser = true
             tempSpinner.performClick()
         }
+        // birth date
+        birthDayButton.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val datePicker = DatePickerDialog(activity, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                calendar.set(year, month, dayOfMonth)
+                val birthDate = Date(calendar.timeInMillis)
+                val birthDateFormat = SimpleDateFormat("MMM dd", Locale.ENGLISH)
+                birthDayButton.text = birthDateFormat.format(birthDate)
+                birthDayButton.tag = birthDate
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+            datePicker.show()
+        }
         // three way call
         val callWays = mutableListOf<String>(getString(R.string.yes), getString(R.string.no))
         var isWayFromUser = false
@@ -342,6 +355,40 @@ class EditContactFragment : Fragment(), View.OnClickListener {
                 newTagField.setText("")
             }
         }
+        addFieldBtn.setOnClickListener {
+            val fieldHint = newCustomField.text.toString()
+            if (fieldHint.isNotEmpty()) {
+                val customField = CustomField(fieldHint, "")
+                val customFieldView = CustomFieldView(activity, customField)
+                customFieldView.deleteClickListener(onDeleteNewFieldListener)
+                this.newCustomFields.add(customFieldView)
+                customFieldsLayout.addView(customFieldView)
+                newCustomField.setText("")
+                activity.hideKeyboard()
+            }
+        }
+        // rodan plus fields
+        addGiftBtn.setOnClickListener {
+            val gift = giftGivenField.text.toString()
+            if (gift.isNotEmpty()) {
+                val giftField = CustomField(getString(R.string.gift_given), gift)
+                val customFieldView = CustomFieldView(activity, giftField)
+                customFieldView.deleteClickListener(onDeleteGiftListener)
+                this.giftsGiven.add(customFieldView)
+                giftFieldsContainer.addView(customFieldView)
+                giftGivenField.setText("")
+            }
+        }
+        autoShipDayButton.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val datePicker = DatePickerDialog(activity, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                calendar.set(year, month, dayOfMonth)
+                val autoShipDate = Date(calendar.timeInMillis)
+                autoShipDayButton.text = dateFormat.format(autoShipDate)
+                autoShipDayButton.tag = autoShipDate
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+            datePicker.show()
+        }
         // address
         //states
         val states = mutableListOf<String>()
@@ -397,7 +444,6 @@ class EditContactFragment : Fragment(), View.OnClickListener {
 
     private fun updateUIWithNewDetails(contactDetails: FullContactDetails) {
         val details = contactDetails.contactDetails
-        val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
         // contact info
         titleField.text = details.title
         firstNameField.setText(details.firstName)
@@ -465,16 +511,6 @@ class EditContactFragment : Fragment(), View.OnClickListener {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            birthDayButton.setOnClickListener {
-                val datePicker = DatePickerDialog(activity, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    calendar.set(year, month, dayOfMonth)
-                    val birthDate = Date(calendar.timeInMillis)
-                    val birthDateFormat = SimpleDateFormat("MMM dd", Locale.ENGLISH)
-                    birthDayButton.text = birthDateFormat.format(birthDate)
-                    birthDayButton.tag = birthDate
-                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
-                datePicker.show()
-            }
         }
         // three way to call
         threeWayCallButton.text = details.thereWayToCall
@@ -497,19 +533,6 @@ class EditContactFragment : Fragment(), View.OnClickListener {
             rodanFieldsRootLayout.visibility = View.VISIBLE
             giftYesBtn.isChecked = details.gift.equals("yes", true)
             giftNoBtn.isChecked = details.gift.equals("no", true)
-            // setup add gift button to add a new gift when it is clicked
-            addGiftBtn.setOnClickListener {
-                val gift = giftGivenField.text.toString()
-                if (gift.isNotEmpty()) {
-                    val giftField = CustomField(getString(R.string.gift_given), gift)
-                    val customFieldView = CustomFieldView(activity, giftField)
-                    customFieldView.deleteClickListener(onDeleteGiftListener)
-                    this.giftsGiven.add(customFieldView)
-                    giftFieldsContainer.addView(customFieldView)
-                    giftGivenField.setText("")
-                }
-            }
-
             // check if we have any added gifts
             val giftsGiven = details.giftGiven
             if (giftsGiven != null) {
@@ -526,7 +549,6 @@ class EditContactFragment : Fragment(), View.OnClickListener {
                     }
                 }
             }
-
             // setup concerns check boxes
             val concernsList = details.concerns.split(",")
             val checkBoxes = listOf(wrinklesCheckBox, sensitivityCheckBox, darkMarksCheckBox,
@@ -536,23 +558,11 @@ class EditContactFragment : Fragment(), View.OnClickListener {
                     if (concernsList.contains(it.text.toString().toLowerCase())) it.isChecked = true
                 }
             }
-
             // auto ship date field
-            var autoShipDate = details.shipDateTime
-            autoShipDayButton.setOnClickListener {
-                val calendar = Calendar.getInstance()
-                val datePicker = DatePickerDialog(activity, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    calendar.set(year, month, dayOfMonth)
-                    autoShipDate = Date(calendar.timeInMillis)
-                    autoShipDayButton.text = dateFormat.format(autoShipDate)
-                    autoShipDayButton.tag = autoShipDate
-                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
-                datePicker.show()
-            }
+            val autoShipDate = details.shipDateTime
             if (autoShipDate != null) {
                 autoShipDayButton.text = dateFormat.format(autoShipDate)
             }
-
             // setup glow sample buttons
             enableGlowSampleBtn.isChecked = details.miniFacial.equals("yes", true)
             disableGlowSampleBtn.isChecked = details.miniFacial.equals("no", true)
@@ -572,18 +582,6 @@ class EditContactFragment : Fragment(), View.OnClickListener {
                 tagsAdapter.tags.firstOrNull { tag.equals(it.name) }?.isSelected = true
                 tagsAdapter.notifyDataSetChanged()
             }
-        addFieldBtn.setOnClickListener {
-            val fieldHint = newCustomField.text.toString()
-            if (fieldHint.isNotEmpty()) {
-                val customField = CustomField(fieldHint, "")
-                val customFieldView = CustomFieldView(activity, customField)
-                customFieldView.deleteClickListener(onDeleteNewFieldListener)
-                this.newCustomFields.add(customFieldView)
-                customFieldsLayout.addView(customFieldView)
-                newCustomField.setText("")
-                activity.hideKeyboard()
-            }
-        }
 
         // social and websites
         facebookBusinessField.setText(details.facebookBusiness)

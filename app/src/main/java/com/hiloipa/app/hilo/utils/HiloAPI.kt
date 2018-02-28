@@ -123,4 +123,20 @@ interface HiloAPI {
 
     @POST("BulkUpdate")
     fun getBulkUpdateValues(@Body standardRequest: StandardRequest = StandardRequest()): Observable<HiloResponse<BulkUpdate>>
+
+    @POST("BulkUpdateContact")
+    fun bulkUpdateContact(@Body bulkUpdateRequest: BulkUpdateRequest): Observable<HiloResponse<String>>
+
+    /**
+     *    Reach out logs
+     */
+
+    @POST("ReachoutLog")
+    fun getReachOutLogs(@Body reachOutLogsRequest: ReachOutLogsRequest): Observable<HiloResponse<ReachOutLogs>>
+
+    @POST("DeleteReachoutLog")
+    fun deleteReachOutLog(@Body deleteReachOutRequest: DeleteReachOutRequest): Observable<HiloResponse<String>>
+
+    @POST("AddContactReachoutLog")
+    fun saveReachOutLog(@Body saveReachOutLogRequest: SaveReachOutLogRequest): Observable<HiloResponse<String>>
 }

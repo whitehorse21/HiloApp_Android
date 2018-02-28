@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Fabity.co / Developer: Eduard Albu
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:baselineAligned="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/wrinklesCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            app:buttonTint="@color/colorPrimary"
+            android:text="@string/wrinkles"/>
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/sensitivityCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            app:buttonTint="@color/colorPrimary"
+            android:text="@string/sensitivity"/>
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/darkMarksCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            app:buttonTint="@color/colorPrimary"
+            android:text="@string/dark_marks"/>
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/lashesBrowsCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            app:buttonTint="@color/colorPrimary"
+            android:text="@string/lashes_brows"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/saggingCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            app:buttonTint="@color/colorPrimary"
+            android:text="@string/sagging"/>
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/acneCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            app:buttonTint="@color/colorPrimary"
+            android:text="@string/acne"/>
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/dullnessCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            app:buttonTint="@color/colorPrimary"
+            android:layout_marginBottom="10dp"
+            android:text="@string/dullness"/>
+    </LinearLayout>
+</LinearLayout>

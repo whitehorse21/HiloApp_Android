@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Fabity.co / Developer: Eduard Albu
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        android:id="@+id/autoShipDayButton"
+        android:layout_width="match_parent"
+        android:gravity="start|center_vertical"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:imeOptions="actionDone"
+        android:layout_height="45dp"
+        android:layout_marginRight="2.5dp"
+        android:layout_marginEnd="2.5dp"
+        style="@style/Base.Widget.AppCompat.ActionButton"
+        android:background="@drawable/selectable_border_rect"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:drawableRight="@drawable/ic_action_calendar"
+        android:drawableEnd="@drawable/ic_action_calendar"
+        android:drawablePadding="5dp"
+        android:textSize="14sp"
+        android:hint="@string/value_to_change_to"/>
+</LinearLayout>
