@@ -4,6 +4,30 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        android:id="@+id/eventTypeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        style="@style/Base.Widget.AppCompat.ActionButton"
+        android:drawableRight="@drawable/ic_action_down"
+        android:drawableEnd="@drawable/ic_action_down"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:hint="@string/event_type"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/selectable_border_rect"/>
+
+    <Spinner
+        android:id="@+id/eventTypeSpinner"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_height="1dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -121,5 +145,27 @@
             android:hint="@string/am_pm"
             android:lines="1"
             android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <Spinner
+            android:id="@+id/eventStartTimeAmPmSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/transparent"
+            android:layout_weight="1"/>
+
+        <Spinner
+            android:id="@+id/eventEndTimeAmPmSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/transparent"
+            android:layout_weight="1"/>
     </LinearLayout>
 </LinearLayout>

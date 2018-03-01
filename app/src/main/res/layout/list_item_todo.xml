@@ -20,12 +20,27 @@
         android:padding="10dp"
         android:orientation="horizontal">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
-            android:id="@+id/todoLabel"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="Some text"/>
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                android:id="@+id/todoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="Some text"/>
+
+            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                android:id="@+id/todoDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:textSize="12sp"
+                tools:text="Some text"/>
+        </LinearLayout>
 
         <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/todoCheckBox"
@@ -40,7 +55,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_action_edit_black"
-            style="@style/Base.Widget.AppCompat.ActionButton"/>
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:contentDescription="@string/edit_reach_out" />
     </LinearLayout>
 
     <View

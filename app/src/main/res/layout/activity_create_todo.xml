@@ -42,6 +42,7 @@
                 android:orientation="vertical">
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    android:id="@+id/headerButton"
                     style="@style/Base.Widget.AppCompat.ActionButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -63,7 +64,7 @@
                     android:visibility="gone"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
-                    android:id="@+id/reachoutsTypeField"
+                    android:id="@+id/todoTitleField"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
@@ -75,7 +76,7 @@
                     android:paddingRight="10dp"
                     android:singleLine="true"
                     android:textSize="14sp"
-                    tools:hint="Action title" />
+                    android:hint="@string/s_title" />
 
                 <include layout="@layout/layout_todo_time"
                     android:layout_width="match_parent"
@@ -89,6 +90,7 @@
                     android:id="@+id/eventTimeLayout"/>
 
                 <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/allDayCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -96,13 +98,46 @@
                     app:buttonTint="@color/colorPrimary"
                     android:textColor="@android:color/darker_gray"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewaySuggestionsField
+                <LinearLayout
+                    android:id="@+id/actionsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+                    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                        android:id="@+id/actionsBtn"
+                        android:hint="@string/actions"
+                        android:gravity="start|center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:drawableRight="@drawable/ic_action_down"
+                        android:drawableEnd="@drawable/ic_action_down"
+                        style="@style/Base.Widget.AppCompat.ActionButton"
+                        android:singleLine="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/selectable_border_rect"/>
+
+                    <Spinner
+                        android:id="@+id/actionsSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.01dp"
+                        android:background="@android:color/transparent"/>
+                </LinearLayout>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/contactField"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:gravity="start|center_vertical"
+                    style="@style/Base.Widget.AppCompat.ActionButton"
                     android:background="@drawable/selectable_border_rect"
                     android:drawableEnd="@drawable/ic_action_down"
                     android:drawableRight="@drawable/ic_action_down"
@@ -114,7 +149,22 @@
                     android:textSize="14sp" />
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayEditText
-                    android:id="@+id/reachoutDescriptionField"
+                    android:id="@+id/locationLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/selectable_border_rect"
+                    android:textSize="14sp"
+                    android:hint="@string/location"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"/>
+
+                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                    android:id="@+id/todoDescriptionField"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginBottom="10dp"

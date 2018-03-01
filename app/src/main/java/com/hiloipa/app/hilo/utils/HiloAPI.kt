@@ -3,6 +3,7 @@ package com.hiloipa.app.hilo.utils
 import com.hiloipa.app.hilo.models.responses.MessageScript
 import com.hiloipa.app.hilo.models.requests.*
 import com.hiloipa.app.hilo.models.responses.*
+import com.hiloipa.app.hilo.ui.todos.ActionDropDown
 import io.reactivex.Observable
 import okhttp3.ResponseBody
 import retrofit2.http.Body
@@ -139,4 +140,17 @@ interface HiloAPI {
 
     @POST("AddContactReachoutLog")
     fun saveReachOutLog(@Body saveReachOutLogRequest: SaveReachOutLogRequest): Observable<HiloResponse<String>>
+
+    /**
+     *    To Dos
+     */
+
+    @POST("DashBoard")
+    fun getToDoDashboard(@Body standardRequest: StandardRequest): Observable<HiloResponse<ToDoData>>
+
+    @POST("CommonCompleted")
+    fun completeGoal(@Body completeGoalRequest: CompleteGoalRequest): Observable<ResponseBody>
+
+    @POST("ContactActions")
+    fun getContactActions(@Body standardRequest: StandardRequest): Observable<HiloResponse<ActionDropDown>>
 }
