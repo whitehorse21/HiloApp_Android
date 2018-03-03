@@ -86,7 +86,7 @@ fun Activity.showLoading(message: String? = null): AlertDialog {
 fun timezone(): String {
     val calendar = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault())
     val currentLocalTime = calendar.time
-    val date = SimpleDateFormat("ZZZZZ", Locale.getDefault())
+    val date = SimpleDateFormat("Z", Locale.getDefault())
     return date.format(currentLocalTime)
 }
 

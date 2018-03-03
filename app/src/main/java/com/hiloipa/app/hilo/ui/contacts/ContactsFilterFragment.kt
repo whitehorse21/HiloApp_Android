@@ -209,7 +209,7 @@ class ContactsFilterFragment() : BottomSheetDialogFragment() {
         if (all != null)
             selectedFilters.add(all)
 
-        val adapter = FiltersAdapter(values, filterType)
+        val adapter = FiltersAdapter(values)
         adapter.delegate = object : FiltersAdapter.FiltersDelegate {
             override fun didClickOnTag(value: FilterValue, position: Int) {
                 selectedFilters.clear()

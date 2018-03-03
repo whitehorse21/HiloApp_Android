@@ -67,7 +67,6 @@
         <activity
             android:name=".ui.reachout.EditReachoutActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.todos.CreateTodoActivity"
             android:screenOrientation="portrait" />
@@ -75,6 +74,8 @@
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
+
+        <activity android:name=".ui.todos.AddActionActivity"></activity>
     </application>
 
 </manifest>

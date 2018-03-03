@@ -13,10 +13,16 @@ import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 /**
  * Created by eduardalbu on 26.02.2018.
  */
-class FiltersAdapter(val data: ArrayList<FilterValue>, val filterType: ContactsFilterFragment.FilterType) :
+class FiltersAdapter(val data: ArrayList<FilterValue>) :
         RecyclerView.Adapter<FiltersAdapter.ViewHolder>() {
 
     var delegate: FiltersDelegate? = null
+
+    fun refreshList(data: ArrayList<FilterValue>) {
+        this.data.clear()
+        this.data.addAll(data)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_tag_spinner,

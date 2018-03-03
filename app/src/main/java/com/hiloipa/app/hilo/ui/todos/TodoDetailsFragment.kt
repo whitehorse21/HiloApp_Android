@@ -1,8 +1,7 @@
 package com.hiloipa.app.hilo.ui.todos
 
 import android.app.Activity
-import android.content.DialogInterface
-import android.content.Intent
+import android.content.*
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
 import android.support.v4.content.LocalBroadcastManager
@@ -35,7 +34,6 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
     var data: ArrayList<T> = arrayListOf()
 
     companion object {
-        val actionUpdate = "com.hiloipa.app.hilo.ui.todos.UPDATE_DASHBOARD"
         fun <T: ToDo> newInstance(title: String, type: TodoType, data: ArrayList<T>): TodoDetailsFragment<T> {
             val args = Bundle()
             args.putString("title", title)
@@ -52,6 +50,9 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val filter = IntentFilter(CreateTodoActivity.actionUpdateDashboard)
+        LocalBroadcastManager.getInstance(activity).registerReceiver(broadcastReceiver, filter)
+
         val title = arguments.getString("title")
         backButton.text = title
 
@@ -79,11 +80,20 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
         showToDoDetails(toDo)
     }
 
+    val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent == null) return
+            when(intent.action) {
+                CreateTodoActivity.actionUpdateDashboard -> this@TodoDetailsFragment.dismiss()
+            }
+        }
+    }
+
     override fun onTodoCheckedChanged(toDo: ToDo, position: Int) {
         if (toDo.isSelected) {
             val alert = AlertDialog.Builder(activity)
                     .setTitle(getString(R.string.hilo))
-                    .setMessage(getString(R.string.confirm_goal_complete))
+                    .setMessage(getString(R.string.confirm_goal_complete, todoType.title()))
                     .setPositiveButton(getString(R.string.yes), { dialog, which ->
                         dialog.dismiss()
                         val loading = activity.showLoading()
@@ -98,7 +108,7 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
                                     val body = JSONObject(response.string())
                                     if (body.getInt("Status").isSuccess()) {
                                         LocalBroadcastManager.getInstance(activity)
-                                                .sendBroadcast(Intent(actionUpdate))
+                                                .sendBroadcast(Intent(CreateTodoActivity.actionUpdateDashboard))
                                         adapter.data.removeAt(position)
                                         adapter.notifyItemRemoved(position)
                                     } else activity.showExplanation(message = body.getString("Message"))
@@ -132,14 +142,13 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
             TodoType.need -> extras.putParcelable("data", toDo as TeamNeed)
             TodoType.event -> extras.putParcelable("data", toDo as Event)
         }
+
         editIntent.putExtras(extras)
-        activity.startActivityForResult(editIntent, 2155)
+        activity.startActivity(editIntent)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 2155 && resultCode == Activity.RESULT_OK) {
-            LocalBroadcastManager.getInstance(activity).sendBroadcast(Intent(actionUpdate))
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        LocalBroadcastManager.getInstance(activity).unregisterReceiver(broadcastReceiver)
     }
 }

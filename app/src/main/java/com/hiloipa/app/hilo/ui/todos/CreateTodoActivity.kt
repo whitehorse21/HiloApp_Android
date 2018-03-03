@@ -3,16 +3,22 @@ package com.hiloipa.app.hilo.ui.todos
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.LocalBroadcastManager
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.TagsSpinnerAdapter
 import com.hiloipa.app.hilo.models.Tag
+import com.hiloipa.app.hilo.models.requests.ActionForGoalRequest
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.*
 import com.hiloipa.app.hilo.ui.FragmentSearchContacts
@@ -20,6 +26,7 @@ import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
 import com.hiloipa.app.hilo.utils.showExplanation
 import com.hiloipa.app.hilo.utils.showLoading
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_create_todo.*
@@ -30,6 +37,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDelegate {
+
+    companion object {
+        val actionUpdateDashboard = "com.hiloipa.app.hilo.ui.todos.UPDATE_DASHBOARD"
+    }
 
     var item: ToDo? = null
     lateinit var todoType: TodoType
@@ -51,7 +62,6 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
         setupDueDateBtn()
         setupEndTimeBtn()
         setupEventAmPmSpinner()
-        getContactActions()
         // get to do type from intent
         todoType = TodoType.fromInt(intent.extras.getInt("type"))
 
@@ -63,10 +73,14 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
             TodoType.event -> item = intent.extras.getParcelable("data") as Event?
         }
 
+        if (todoType == TodoType.goal)
+            getContactActions()
+
         todoTimeLayout.visibility = if (todoType == TodoType.event) View.GONE else View.VISIBLE
         eventTimeLayout.visibility = if (todoType == TodoType.event) View.VISIBLE else View.GONE
         actionsLayout.visibility = if (todoType == TodoType.goal) View.VISIBLE else View.GONE
         locationLabel.visibility = if (todoType == TodoType.event) View.VISIBLE else View.GONE
+        assignActionBtn.visibility = if (todoType == TodoType.goal && item == null) View.VISIBLE else View.GONE
 
         todoTitleField.hint = getString(R.string.s_title, todoType.title())
         toolbarTitle.text = todoType.title()
@@ -76,6 +90,12 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
         contactField.setOnClickListener {
             FragmentSearchContacts.newInstance(this)
                     .show(fragmentManager, "SearchContacts")
+        }
+
+        assignActionBtn.setOnClickListener {
+            if (todoType == TodoType.goal) {
+                addGoal(goToActions = true)
+            }
         }
 
         if (item != null) {
@@ -90,7 +110,8 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
             when (todoType) {
                 TodoType.goal -> {
                     val dueDate = item!!.dueDate
-                    priorityBtn.text
+                    priorityBtn.text = item!!.priority
+                    priorityBtn.tag = "${item!!.priorityId}"
                     if (dueDate != null) {
                         dueDateBtn.text = dateFormat.format(dueDate)
                         endTimeBtn.text = timeFormat.format(dueDate)
@@ -108,7 +129,8 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
                 }
                 TodoType.action, TodoType.need -> {
                     val dueDate = item!!.dueDate
-                    priorityBtn.text
+                    priorityBtn.text = item!!.priority
+                    priorityBtn.tag = "${item!!.priorityId}"
                     if (dueDate != null) {
                         dueDateBtn.text = dateFormat.format(dueDate)
                         endTimeBtn.text = timeFormat.format(dueDate)
@@ -134,6 +156,10 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
                     eventTypeBtn.text = event.eventType
                 }
             }
+        }
+
+        saveBtn.setOnClickListener {
+            addGoal()
         }
     }
 
@@ -254,6 +280,87 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
         eventEndTimeAmPm.setOnClickListener {
             isFromUser = true
             eventEndTimeAmPmSpinner.performClick()
+        }
+    }
+
+    private fun addGoal(goToActions: Boolean = false) {
+        val title = todoTitleField.text.toString()
+        if (title.isEmpty()) {
+            Toast.makeText(this, getString(R.string.enter_s_title, todoType.title()),
+                    Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val request = ActionForGoalRequest()
+        request.title = title
+        val dueDate = dueDateBtn.text.toString()
+        if (dueDate.isNotEmpty())
+            request.dueDate = dueDate
+        val priority = priorityBtn.tag as String?
+        if (!priority.isNullOrEmpty())
+            request.priority = priority
+        val time = endTimeBtn.text.toString()
+        if (time.isNotEmpty())
+            request.time = time
+        val session = amPmBtn.text.toString()
+        if (session.isNotEmpty())
+            request.session = session
+        request.allDay = "${allDayCheckBox.isChecked}"
+        val details = todoDescriptionField.text.toString()
+        if (details.isNotEmpty())
+            request.details = details
+        val contactId = contactField.tag as String?
+        if (contactId.isNullOrEmpty()) {
+            Toast.makeText(this, getString(R.string.select_contact),
+                    Toast.LENGTH_SHORT).show()
+            return
+        }
+        request.contactId = contactId
+
+        if (todoType == TodoType.goal && actionsBtn.text.isNotEmpty())
+            request.goalActions = actionsBtn.tag as String?
+
+        if (todoType != TodoType.event && item != null)
+            request.taskId = "${item!!.id}"
+
+        val observable: Observable<HiloResponse<String>>?
+        when (todoType) {
+            TodoType.action -> observable = HiloApp.api().addAction(request)
+            TodoType.goal -> {
+                if (item == null)
+                    observable = HiloApp.api().addGoal(request)
+                else observable = HiloApp.api().updateGoal(request)
+            }
+            TodoType.need -> observable = HiloApp.api().addTeamNead(request)
+            else -> observable = null
+        }
+
+        if (observable != null) {
+            val loading = showLoading()
+            observable.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ response: HiloResponse<String> ->
+                        loading.dismiss()
+                        if (response.status.isSuccess()) {
+                            if (goToActions) {
+                                val assignIntent = Intent(this, AddActionActivity::class.java)
+                                assignIntent.putExtra("contactId", contactId)
+                                assignIntent.putExtra("goalId", response.data!!)
+                                startActivity(assignIntent)
+                                finish()
+                            } else {
+                                LocalBroadcastManager.getInstance(this)
+                                        .sendBroadcast(Intent(actionUpdateDashboard))
+                                finish()
+                            }
+                            Toast.makeText(this, response.message,
+                                    Toast.LENGTH_SHORT).show()
+                        } else showExplanation(message = response.message)
+                    }, { error: Throwable ->
+                        loading.dismiss()
+                        error.printStackTrace()
+                        showExplanation(message = error.localizedMessage)
+                    })
         }
     }
 

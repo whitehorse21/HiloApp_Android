@@ -153,4 +153,22 @@ interface HiloAPI {
 
     @POST("ContactActions")
     fun getContactActions(@Body standardRequest: StandardRequest): Observable<HiloResponse<ActionDropDown>>
+
+    @POST("AddActionForGoal")
+    fun addActionForGoal(@Body actionForGoalRequest: ActionForGoalRequest): Observable<HiloResponse<Int>>
+
+    @POST("AddGoal")
+    fun addGoal(@Body actionForGoalRequest: ActionForGoalRequest): Observable<HiloResponse<String>>
+
+    @POST("UpdateGoal")
+    fun updateGoal(@Body actionForGoalRequest: ActionForGoalRequest): Observable<HiloResponse<String>>
+
+    @POST("Addaction")
+    fun addAction(@Body actionForGoalRequest: ActionForGoalRequest): Observable<HiloResponse<String>>
+
+    @POST("AddTeamneed")
+    fun addTeamNead(@Body actionForGoalRequest: ActionForGoalRequest): Observable<HiloResponse<String>>
+
+    @POST("AddActionToGoal")
+    fun addActionToGoal(@Body actionToGoalRequest: ActionToGoalRequest): Observable<HiloResponse<String>>
 }

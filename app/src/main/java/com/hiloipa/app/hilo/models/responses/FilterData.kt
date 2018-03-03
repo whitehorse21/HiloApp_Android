@@ -33,6 +33,7 @@ class FilterValue(@JsonProperty("Text") val text: String,
                   @JsonProperty("Value") val value: String): Parcelable {
 
     var isSelected: Boolean = true
+    var id: Int = -1
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),

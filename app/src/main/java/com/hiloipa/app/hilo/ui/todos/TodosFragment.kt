@@ -49,7 +49,7 @@ class TodosFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         LocalBroadcastManager.getInstance(activity).registerReceiver(broadcastReceiver,
-                IntentFilter(TodoDetailsFragment.actionUpdate))
+                IntentFilter(CreateTodoActivity.actionUpdateDashboard))
 
         goalsButton.setOnClickListener { TodoDetailsFragment.newInstance(getString(R.string.goals),
                 TodoType.goal, toDoData.goals).show(childFragmentManager, "GoalsFragment") }
@@ -70,7 +70,7 @@ class TodosFragment : Fragment() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent == null) return
             when(intent.action) {
-                TodoDetailsFragment.actionUpdate -> getDashboardData()
+                CreateTodoActivity.actionUpdateDashboard -> getDashboardData()
             }
         }
     }

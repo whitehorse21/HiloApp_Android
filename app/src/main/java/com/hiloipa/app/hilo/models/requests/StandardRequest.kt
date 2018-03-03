@@ -10,10 +10,10 @@ import com.hiloipa.app.hilo.utils.timezone
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 open class StandardRequest {
-    @JsonProperty("UserID") var userId: Int = HiloApp.userData.userId
+    @JsonProperty("UserID") var userId: String = "${HiloApp.userData.userId}"
     @JsonProperty("Api_Access_token") val accessToken: String = HiloApp.instance.getAccessToken()
     @JsonProperty("TimeZone") val timeZone: String = timezone()
     @JsonProperty("Type") var type: String? = null
-    @JsonProperty("ContactID") var contactId: String? = null
+    @JsonProperty("ContactID") open var contactId: String? = null
     @JsonProperty("ContactName") var contactName: String? = null
 }

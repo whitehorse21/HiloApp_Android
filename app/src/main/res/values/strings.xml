@@ -301,4 +301,13 @@
     <string name="edit_s">Edit %s</string>
     <string name="event_type">Event Type</string>
     <string name="location">Location</string>
+    <string name="add_existent_action">Add Existing Action to Goal</string>
+    <string name="or">OR</string>
+    <string name="add_action_to_goal">Add Action to Goal</string>
+    <string name="select_contact">Select a contact first</string>
+    <string name="assign_actions">Assign Actions</string>
+    <string name="enter_action_title">Enter action title</string>
+    <string name="all_day_action">All day Action</string>
+    <string name="enter_s_title">Enter %s title</string>
+    <string name="select_actions">Please select an action or create new one!</string>
 </resources>
