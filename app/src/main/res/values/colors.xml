@@ -45,4 +45,6 @@
     <color name="tagGrey600">#757575</color>
     <color name="tagTeal900">#004d40</color>
     <color name="tagGreenA400">#00e676</color>
+
+    <color name="colorBlackSemitrasparent">#69000000</color>
 </resources>

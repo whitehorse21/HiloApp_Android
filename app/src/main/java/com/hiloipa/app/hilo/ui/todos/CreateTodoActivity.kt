@@ -19,6 +19,8 @@ import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.TagsSpinnerAdapter
 import com.hiloipa.app.hilo.models.Tag
 import com.hiloipa.app.hilo.models.requests.ActionForGoalRequest
+import com.hiloipa.app.hilo.models.requests.ActionToGoalRequest
+import com.hiloipa.app.hilo.models.requests.SaveEventRequest
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.*
 import com.hiloipa.app.hilo.ui.FragmentSearchContacts
@@ -39,7 +41,7 @@ import kotlin.collections.ArrayList
 class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDelegate {
 
     companion object {
-        val actionUpdateDashboard = "com.hiloipa.app.hilo.ui.todos.UPDATE_DASHBOARD"
+        const val actionUpdateDashboard = "com.hiloipa.app.hilo.ui.todos.UPDATE_DASHBOARD"
     }
 
     var item: ToDo? = null
@@ -62,6 +64,7 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
         setupDueDateBtn()
         setupEndTimeBtn()
         setupEventAmPmSpinner()
+        setupEventTypeSpinner()
         // get to do type from intent
         todoType = TodoType.fromInt(intent.extras.getInt("type"))
 
@@ -159,7 +162,9 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
         }
 
         saveBtn.setOnClickListener {
-            addGoal()
+            if (todoType != TodoType.event)
+                addGoal()
+            else saveEvent()
         }
     }
 
@@ -283,6 +288,29 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
         }
     }
 
+    private fun setupEventTypeSpinner() {
+        var isFromUser = false
+        val eventTypes = arrayListOf<String>("Meeting", "Follow up", "New Reachout", "Phone call",
+                "Scheduled Meeting", "Personal", "Other")
+        eventTypeSpinner.adapter = ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, eventTypes)
+        eventTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isFromUser) {
+                    eventTypeBtn.text = eventTypes[position]
+                    eventTypeBtn.tag = eventTypes[position]
+                    isFromUser = false
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        eventTypeBtn.setOnClickListener {
+            isFromUser = true
+            eventTypeSpinner.performClick()
+        }
+    }
+
     private fun addGoal(goToActions: Boolean = false) {
         val title = todoTitleField.text.toString()
         if (title.isEmpty()) {
@@ -341,18 +369,22 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ response: HiloResponse<String> ->
                         loading.dismiss()
-                        if (response.status.isSuccess()) {
+                        if (response.message.contains("successfully", true)) {
                             if (goToActions) {
                                 val assignIntent = Intent(this, AddActionActivity::class.java)
                                 assignIntent.putExtra("contactId", contactId)
                                 assignIntent.putExtra("goalId", response.data!!)
                                 startActivity(assignIntent)
                                 finish()
+                            } else if (item == null && todoType == TodoType.goal &&
+                                    actionsBtn.text.isNotEmpty()) {
+                                addActionsToGoal(response.data!!, actionsBtn.tag as String)
                             } else {
                                 LocalBroadcastManager.getInstance(this)
                                         .sendBroadcast(Intent(actionUpdateDashboard))
                                 finish()
                             }
+
                             Toast.makeText(this, response.message,
                                     Toast.LENGTH_SHORT).show()
                         } else showExplanation(message = response.message)
@@ -424,6 +456,106 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
                     showExplanation(message = error.localizedMessage)
                 })
 
+    }
+
+    private fun saveEvent() {
+        val title = todoTitleField.text.toString()
+        if (title.isEmpty()) {
+            Toast.makeText(this, getString(R.string.enter_s_title, todoType.title()),
+                    Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val eventType = eventTypeBtn.text.toString()
+        if (eventType.isEmpty()) {
+            Toast.makeText(this, getString(R.string.select_event_type),
+                    Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val startDate = eventStartDate.text.toString()
+        if (startDate.isEmpty()) {
+            Toast.makeText(this, getString(R.string.select_start_date),
+                    Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val startTime = eventStartTime.text.toString()
+        if (startDate.isEmpty()) {
+            Toast.makeText(this, getString(R.string.select_start_time),
+                    Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val startAmPm = eventStartTimeAmPm.text.toString()
+        if (startDate.isEmpty()) {
+            Toast.makeText(this, getString(R.string.select_start_ampm),
+                    Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val request = SaveEventRequest()
+        request.name = title
+        request.eventType = eventType
+        request.date = startDate
+        request.time = startTime
+        request.startAmPm = startAmPm
+        request.allDay = "${allDayCheckBox.isChecked}"
+
+        if (item != null)
+            request.eventId = "${item!!.id}"
+        if (eventEndDate.text.isNotEmpty())
+            request.endDate = eventEndDate.text.toString()
+        if (eventEndTime.text.isNotEmpty())
+            request.endTime = eventEndTime.text.toString()
+        if (eventEndTimeAmPm.text.isNotEmpty())
+            request.endAmPm = eventEndTimeAmPm.text.toString()
+        if (locationLabel.text.isNotEmpty())
+            request.location = locationLabel.text.toString()
+        if (contactField.text.isNotEmpty())
+            request.contactId = contactField.tag as String?
+        if (todoDescriptionField.text.isNotEmpty())
+            request.details = todoDescriptionField.text.toString()
+
+        val loading = showLoading()
+        HiloApp.api().saveEvent(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response: HiloResponse<String> ->
+                    if (response.message.contains("successfully", true)) {
+                        LocalBroadcastManager.getInstance(this)
+                                .sendBroadcast(Intent(actionUpdateDashboard))
+                        Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
+                        finish()
+                    } else showExplanation(message = response.message)
+                }, { error: Throwable ->
+                    loading.dismiss()
+                    error.printStackTrace()
+                    showExplanation(message = error.localizedMessage)
+                })
+    }
+
+    private fun addActionsToGoal(goalId: String, actions: String) {
+        val request = ActionToGoalRequest()
+        request.goalId = goalId
+        request.actions = actions
+
+        val loading = showLoading()
+        HiloApp.api().addActionToGoal(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response: HiloResponse<String> ->
+                    loading.dismiss()
+                    if (response.status.isSuccess()) {
+                        LocalBroadcastManager.getInstance(this)
+                                .sendBroadcast(Intent(actionUpdateDashboard))
+                        finish()
+                    } else showExplanation(message = response.message)
+                }, { error: Throwable ->
+                    loading.dismiss()
+                    error.printStackTrace()
+                    showExplanation(message = error.localizedMessage)
+                })
     }
 }
 

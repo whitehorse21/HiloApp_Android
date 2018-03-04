@@ -63,4 +63,5 @@ dependencies {
     compile 'com.android.support:customtabs:26.1.0'
     compile 'net.hockeyapp.android:HockeySDK:5.1.0'
     compile 'com.mikhaellopez:circularprogressbar:1.1.1'
+    compile 'com.otaliastudios:cameraview:1.4.1'
 }

@@ -14,6 +14,7 @@ import com.hiloipa.app.hilo.models.responses.TodoType
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by eduardalbu on 17.02.2018.
@@ -23,6 +24,12 @@ class TodosAdapter<T: ToDo>(val context: Context, val type: TodoType, val data: 
 
     var delegate: TodoDelegate? = null
     val dateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm aaa", Locale.ENGLISH)
+
+    fun refreshList(data: ArrayList<T>) {
+        this.data.clear()
+        this.data.addAll(data)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_todo, parent, false)

@@ -1,13 +1,19 @@
 package com.hiloipa.app.hilo.ui.more
 
 
+import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.requests.LogoutRequest
 import com.hiloipa.app.hilo.models.responses.HiloResponse
@@ -17,11 +23,15 @@ import com.hiloipa.app.hilo.ui.more.email.EmailTemplatesActivity
 import com.hiloipa.app.hilo.ui.more.notes.NotepadActivity
 import com.hiloipa.app.hilo.ui.more.products.ProductsActivity
 import com.hiloipa.app.hilo.ui.more.scripts.ScriptsActivity
+import com.hiloipa.app.hilo.ui.widget.CameraActivity
+import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.showLoading
+import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_more.*
+import java.io.File
 
 
 /**
@@ -110,6 +120,59 @@ class MoreFragment : Fragment() {
         scriptsBtn.setOnClickListener {
             val scriptsIntent = Intent(activity, ScriptsActivity::class.java)
             activity.startActivity(scriptsIntent)
+        }
+
+        Picasso.with(activity)
+                .load(HiloApp.userData.userImage)
+                .into(userAvatar)
+
+        userNameLabel.text = HiloApp.userData.username
+
+        userAvatar.setOnClickListener {
+            val dialogView = layoutInflater.inflate(R.layout.alert_user_image, null)
+            val image: ImageView = dialogView.findViewById(R.id.imageView)
+            val button: RalewayButton = dialogView.findViewById(R.id.updateBtn)
+            Picasso.with(activity).load(HiloApp.userData.userImage).into(image)
+            val dialog = AlertDialog.Builder(activity)
+                    .setView(dialogView)
+                    .create()
+
+            button.setOnClickListener {
+                dialog.dismiss()
+                showUpdateImageAlert()
+            }
+
+            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.show()
+        }
+    }
+
+    private fun showUpdateImageAlert() {
+        val dialog = AlertDialog.Builder(activity)
+                .setTitle(getString(R.string.change_avatar))
+                .setMessage(getString(R.string.change_avatar_message))
+                .setPositiveButton(getString(R.string.from_gallery), { dialog, which ->
+
+                })
+                .setNegativeButton(getString(R.string.from_camera), { dialog, which ->
+                    val pictureIntent = Intent(activity, CameraActivity::class.java)
+                    activity.startActivityForResult(pictureIntent, 1343)
+                })
+                .setNeutralButton(getString(R.string.cancel), null)
+                .create()
+        dialog.show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                1343 -> {
+                    val file = File(data.extras.getString(CameraActivity.pathKey))
+                    val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+                    userAvatar.setImageBitmap(bitmap)
+                }
+            }
         }
     }
 }

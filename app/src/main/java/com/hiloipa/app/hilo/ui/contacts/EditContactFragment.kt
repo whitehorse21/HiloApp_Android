@@ -497,7 +497,7 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         childrenField.setText(details.children)
         spouseField.setText(details.spouse)
         // setup birth date button
-        if (details.birthdayMonth != null) {
+        if (details.birthdayMonth != null && details.birthdayMonth.isNotEmpty()) {
             val calendar = Calendar.getInstance()
             try {
                 val month = SimpleDateFormat("MMM", Locale.ENGLISH).parse(details.birthdayMonth)

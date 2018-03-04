@@ -171,4 +171,7 @@ interface HiloAPI {
 
     @POST("AddActionToGoal")
     fun addActionToGoal(@Body actionToGoalRequest: ActionToGoalRequest): Observable<HiloResponse<String>>
+
+    @POST("Addnewevents")
+    fun saveEvent(@Body saveEventRequest: SaveEventRequest): Observable<HiloResponse<String>>
 }

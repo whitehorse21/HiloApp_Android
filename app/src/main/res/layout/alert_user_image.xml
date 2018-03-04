@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Fabity.co / Developer: Eduard Albu
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:scaleType="fitXY" />
+
+    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        android:id="@+id/updateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="end"
+        android:layout_margin="16dp"
+        android:textColor="@android:color/white"
+        android:text="@string/update_stage"
+        style="@style/Base.Widget.AppCompat.ActionButton"
+        android:background="@drawable/rectangle_orange_rounded"/>
+</LinearLayout>

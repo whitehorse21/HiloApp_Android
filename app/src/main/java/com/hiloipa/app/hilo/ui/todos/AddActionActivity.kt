@@ -81,6 +81,10 @@ class AddActionActivity : AppCompatActivity(), FiltersAdapter.FiltersDelegate {
 
         getContactActions()
 
+        assignActionBtn.setOnClickListener {
+            addActionsToGoal()
+        }
+
         doneBtn.setOnClickListener {
             addActionsToGoal()
         }
@@ -188,8 +192,6 @@ class AddActionActivity : AppCompatActivity(), FiltersAdapter.FiltersDelegate {
                 .subscribe({ response: HiloResponse<String> ->
                     loading.dismiss()
                     if (response.status.isSuccess()) {
-                        LocalBroadcastManager.getInstance(this)
-                                .sendBroadcast(Intent(CreateTodoActivity.actionUpdateDashboard))
                         finish()
                     } else showExplanation(message = response.message)
                 }, { error: Throwable ->
@@ -277,5 +279,11 @@ class AddActionActivity : AppCompatActivity(), FiltersAdapter.FiltersDelegate {
             selectedActions.remove(value)
         else if (value.isSelected)
             selectedActions.add(value)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LocalBroadcastManager.getInstance(this)
+                .sendBroadcast(Intent(CreateTodoActivity.actionUpdateDashboard))
     }
 }

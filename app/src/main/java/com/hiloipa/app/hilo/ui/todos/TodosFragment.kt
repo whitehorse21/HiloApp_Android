@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.fragment_todos.*
  */
 class TodosFragment : Fragment() {
 
-    lateinit var toDoData: ToDoData
+    var toDoData: ToDoData? = null
 
     companion object {
         fun newInstance(): TodosFragment {
@@ -44,24 +44,37 @@ class TodosFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-        inflater!!.inflate(R.layout.fragment_todos, container, false)
+            inflater!!.inflate(R.layout.fragment_todos, container, false)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        LocalBroadcastManager.getInstance(activity).registerReceiver(broadcastReceiver,
-                IntentFilter(CreateTodoActivity.actionUpdateDashboard))
+        val filter = IntentFilter(CreateTodoActivity.actionUpdateDashboard)
+        filter.addAction(TodoDetailsFragment.updateData)
+        LocalBroadcastManager.getInstance(activity).registerReceiver(broadcastReceiver, filter)
 
-        goalsButton.setOnClickListener { TodoDetailsFragment.newInstance(getString(R.string.goals),
-                TodoType.goal, toDoData.goals).show(childFragmentManager, "GoalsFragment") }
+        goalsButton.setOnClickListener {
+            if (toDoData != null)
+                TodoDetailsFragment.newInstance(getString(R.string.goals),
+                        TodoType.goal, toDoData!!.goals).show(childFragmentManager, "GoalsFragment")
+        }
 
-        actionsButton.setOnClickListener { TodoDetailsFragment.newInstance(getString(R.string.actions),
-                TodoType.action, toDoData.actions).show(childFragmentManager, "ActionsFragment") }
+        actionsButton.setOnClickListener {
+            if (toDoData != null)
+                TodoDetailsFragment.newInstance(getString(R.string.actions),
+                        TodoType.action, toDoData!!.actions).show(childFragmentManager, "ActionsFragment")
+        }
 
-        teamNeedsBtn.setOnClickListener { TodoDetailsFragment.newInstance(getString(R.string.team_needs),
-                TodoType.need, toDoData.teamNeeds).show(childFragmentManager, "TeamNeedsFragment") }
+        teamNeedsBtn.setOnClickListener {
+            if (toDoData != null)
+                TodoDetailsFragment.newInstance(getString(R.string.team_needs),
+                        TodoType.need, toDoData!!.teamNeeds).show(childFragmentManager, "TeamNeedsFragment")
+        }
 
-        calendarEvetsBtn.setOnClickListener { TodoDetailsFragment.newInstance(getString(R.string.calendar_events),
-                TodoType.event, toDoData.events).show(childFragmentManager, "CalendarEventsFragment") }
+        calendarEvetsBtn.setOnClickListener {
+            if (toDoData != null)
+                TodoDetailsFragment.newInstance(getString(R.string.calendar_events),
+                        TodoType.event, toDoData!!.events).show(childFragmentManager, "CalendarEventsFragment")
+        }
 
         getDashboardData()
     }
@@ -69,7 +82,8 @@ class TodosFragment : Fragment() {
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent == null) return
-            when(intent.action) {
+            when (intent.action) {
+                TodoDetailsFragment.updateData,
                 CreateTodoActivity.actionUpdateDashboard -> getDashboardData()
             }
         }
@@ -97,10 +111,10 @@ class TodosFragment : Fragment() {
     }
 
     private fun updateUIWithNewData() {
-        val goalsCount = toDoData.goals.size
-        val actionsCount = toDoData.actions.size
-        val needsCount = toDoData.teamNeeds.size
-        val eventsCount = toDoData.events.size
+        val goalsCount = toDoData!!.goals.size
+        val actionsCount = toDoData!!.actions.size
+        val needsCount = toDoData!!.teamNeeds.size
+        val eventsCount = toDoData!!.events.size
 
         goalsLabel.text = getString(R.string.d_goals_pending, goalsCount)
         goalsCountLabel.text = "$goalsCount"
@@ -113,6 +127,10 @@ class TodosFragment : Fragment() {
 
         eventsLabel.text = getString(R.string.d_events_scheduled, eventsCount)
         eventsCountLabel.text = "$eventsCount"
+
+        val updateIntent = Intent(TodoDetailsFragment.updateList)
+        updateIntent.putExtra("data", toDoData)
+        LocalBroadcastManager.getInstance(activity).sendBroadcast(updateIntent)
     }
 
     override fun onDestroyView() {

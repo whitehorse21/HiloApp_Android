@@ -3,6 +3,7 @@ package com.hiloipa.app.hilo.ui.todos
 import android.app.Activity
 import android.content.*
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.BottomSheetDialogFragment
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AlertDialog
@@ -34,6 +35,8 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
     var data: ArrayList<T> = arrayListOf()
 
     companion object {
+        const val updateList = "com.hiloipa.app.hilo.ui.todos.UPDATE_LIST"
+        const val updateData = "com.hiloipa.app.hilo.ui.todos.UPDATE_DATA"
         fun <T: ToDo> newInstance(title: String, type: TodoType, data: ArrayList<T>): TodoDetailsFragment<T> {
             val args = Bundle()
             args.putString("title", title)
@@ -50,7 +53,7 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val filter = IntentFilter(CreateTodoActivity.actionUpdateDashboard)
+        val filter = IntentFilter(updateList)
         LocalBroadcastManager.getInstance(activity).registerReceiver(broadcastReceiver, filter)
 
         val title = arguments.getString("title")
@@ -84,7 +87,15 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent == null) return
             when(intent.action) {
-                CreateTodoActivity.actionUpdateDashboard -> this@TodoDetailsFragment.dismiss()
+                updateList -> {
+                    val data = intent.extras.getParcelable<ToDoData>("data")
+                    when (todoType) {
+                        TodoType.goal -> adapter.refreshList(data.goals as ArrayList<T>)
+                        TodoType.action -> adapter.refreshList(data.actions as ArrayList<T>)
+                        TodoType.need -> adapter.refreshList(data.teamNeeds as ArrayList<T>)
+                        TodoType.event -> adapter.refreshList(data.events as ArrayList<T>)
+                    }
+                }
             }
         }
     }
@@ -108,7 +119,7 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
                                     val body = JSONObject(response.string())
                                     if (body.getInt("Status").isSuccess()) {
                                         LocalBroadcastManager.getInstance(activity)
-                                                .sendBroadcast(Intent(CreateTodoActivity.actionUpdateDashboard))
+                                                .sendBroadcast(Intent(updateData))
                                         adapter.data.removeAt(position)
                                         adapter.notifyItemRemoved(position)
                                     } else activity.showExplanation(message = body.getString("Message"))
