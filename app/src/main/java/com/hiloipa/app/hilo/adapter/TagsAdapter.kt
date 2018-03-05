@@ -41,10 +41,9 @@ class TagsAdapter(val context: Context): RecyclerView.Adapter<TagsAdapter.ViewHo
         holder.tag = tag
         holder.tagName.text = tag.name
         // colors
-        val tagColor = tag.color
+        val tagColor = tag.color()
         holder.tagCard.setCardBackgroundColor(context.resources.getColor(tagColor.colorRes()))
         holder.tagName.setTextColor(context.resources.getColor(tagColor.textColor()))
-        holder.removeTagBtn.setImageResource(tagColor.icon())
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -54,11 +53,11 @@ class TagsAdapter(val context: Context): RecyclerView.Adapter<TagsAdapter.ViewHo
         lateinit var tag: NoteTag
 
         init {
-            removeTagBtn.setOnClickListener { delegate?.onRemoveTagClicked() }
+            removeTagBtn.setOnClickListener { delegate?.onRemoveTagClicked(tag, adapterPosition) }
         }
     }
 
     interface TagDelegate {
-        fun onRemoveTagClicked()
+        fun onRemoveTagClicked(tag: NoteTag, position: Int)
     }
 }

@@ -4,6 +4,7 @@
 
 package com.hiloipa.app.hilo.models.requests
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -11,6 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * For project: Hilo
  * Copyright (c) 2018. Fabity.co
  */
-class DeleteNoteRequest: StandardRequest() {
-    @JsonProperty("Notesid") lateinit var noteId: String
+@JsonInclude(JsonInclude.Include.NON_NULL)
+class DeleteNoteRequest : StandardRequest() {
+    @JsonProperty("Notesid")
+    lateinit var noteId: String
+    @JsonProperty("TagID")
+    var tagId: String? = null
 }

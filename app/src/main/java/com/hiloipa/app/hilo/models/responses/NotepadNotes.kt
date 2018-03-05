@@ -60,7 +60,7 @@ class Note(@JsonProperty("Notesid") val id: Int,
             val ids = tagsIds.split(",")
 
             for (i in 0..names.lastIndex) {
-                val tag = NoteTag(id = ids[i], name = names[i], color = TagColor.fromString(colors[i]))
+                val tag = NoteTag(id = ids[i], name = names[i], colorString = colors[i])
                 tags.add(tag)
             }
         }
@@ -83,4 +83,23 @@ class Note(@JsonProperty("Notesid") val id: Int,
     }
 }
 
-class NoteTag(val id: String, val name: String, val color: TagColor)
+class NoteTag(@JsonProperty("TagID") val id: String,
+              @JsonProperty("TagName") val name: String,
+              @JsonProperty("TagColor") val colorString: String) {
+
+    var isSelected: Boolean = false
+
+    fun color(): TagColor = TagColor.fromString(colorString)
+
+    override fun equals(other: Any?): Boolean {
+        return other is NoteTag && other.id == id
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + colorString.hashCode()
+        result = 31 * result + isSelected.hashCode()
+        return result
+    }
+}

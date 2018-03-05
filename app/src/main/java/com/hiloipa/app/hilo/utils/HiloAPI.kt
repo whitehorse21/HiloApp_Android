@@ -187,4 +187,13 @@ interface HiloAPI {
 
     @POST("DeleteUserNote")
     fun deleteNote(@Body deleteNoteRequest: DeleteNoteRequest): Observable<HiloResponse<String>>
+
+    @POST("RemoveTagFromNote")
+    fun deleteTagFromNote(@Body deleteNoteRequest: DeleteNoteRequest): Observable<HiloResponse<String>>
+
+    @POST("Addusernote")
+    fun saveUserNote(@Body saveNoteRequest: SaveNoteRequest): Observable<HiloResponse<String>>
+
+    @POST("NotepadTagsList")
+    fun getTagsList(@Body standardRequest: StandardRequest): Observable<HiloResponse<NoteTagsResponse>>
 }

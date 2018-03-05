@@ -11,11 +11,19 @@ import kotlinx.android.synthetic.main.activity_create_note.*
 class CreateNoteActivity : AppCompatActivity(), View.OnClickListener {
 
     var colorBtns: MutableList<ColorButton> = mutableListOf()
+    var noteId: String = "0"
+
+    companion object {
+        const val noteIdKey = "com.hiloipa.app.hilo.ui.more.notes.NOTE_ID"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_note)
         toolbar.setNavigationOnClickListener { finish() }
+
+        if (intent.extras != null && intent.extras.containsKey(noteIdKey))
+            noteId = intent.extras.getString(noteIdKey)
 
         addTagBtn.setOnClickListener {
             TagsFragment.newInstance().show(supportFragmentManager, "TagsFragment")
@@ -43,5 +51,9 @@ class CreateNoteActivity : AppCompatActivity(), View.OnClickListener {
         noteContentField.setTextColor(resources.getColor(color.textColor()))
         addTagBtn.setImageResource(color.tagIcon())
         pickColorBtn.setImageResource(color.colorIcon())
+    }
+
+    private fun saveNote() {
+
     }
 }

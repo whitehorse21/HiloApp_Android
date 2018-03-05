@@ -17,6 +17,7 @@ import com.hiloipa.app.hilo.models.requests.DeleteNoteRequest
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.models.responses.Note
+import com.hiloipa.app.hilo.models.responses.NoteTag
 import com.hiloipa.app.hilo.models.responses.NotepadNotes
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
@@ -64,6 +65,7 @@ class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
 
     override fun onEditNoteClicked(note: Note, position: Int) {
         val intent = Intent(activity, CreateNoteActivity::class.java)
+        intent.putExtra(CreateNoteActivity.noteIdKey, "${note.id}")
         activity.startActivity(intent)
     }
 
@@ -75,14 +77,44 @@ class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
                     dialog.dismiss()
                     val loading = activity.showLoading()
                     val request = DeleteNoteRequest()
-
+                    request.noteId = "${note.id}"
                     HiloApp.api().deleteNote(request)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({ response: HiloResponse<String> ->
+                                loading.dismiss()
                                 if (response.status.isSuccess()) {
                                     adapter.data.remove(note)
                                     adapter.notifyItemRemoved(position)
+                                } else activity.showExplanation(message = response.message)
+                            }, { error: Throwable ->
+                                loading.dismiss()
+                                error.printStackTrace()
+                                activity.showExplanation(message = error.localizedMessage)
+                            })
+                })
+                .setNegativeButton(getString(R.string.no), null)
+                .create()
+        alert.show()
+    }
+
+    override fun onDeleteTagClicked(note: Note, notePosition: Int, tag: NoteTag, position: Int) {
+        val alert = AlertDialog.Builder(activity)
+                .setTitle(getString(R.string.delete))
+                .setMessage(getString(R.string.confirm_delete_tag))
+                .setPositiveButton(getString(R.string.yes), { dialog, which ->
+                    dialog.dismiss()
+                    val loading = activity.showLoading()
+                    val request = DeleteNoteRequest()
+                    request.noteId = "${note.id}"
+                    request.tagId = tag.name
+                    HiloApp.api().deleteTagFromNote(request)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ response: HiloResponse<String> ->
+                                loading.dismiss()
+                                if (response.status.isSuccess()) {
+                                    getNotes()
                                 } else activity.showExplanation(message = response.message)
                             }, { error: Throwable ->
                                 loading.dismiss()

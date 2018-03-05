@@ -81,13 +81,14 @@ class UserNotesAdapter(val context: Context): RecyclerView.Adapter<UserNotesAdap
             deleteBtn.setOnClickListener { delegate?.onDeleteNoteClicked(note, adapterPosition) }
         }
 
-        override fun onRemoveTagClicked() {
-
+        override fun onRemoveTagClicked(tag: NoteTag, position: Int) {
+            delegate?.onDeleteTagClicked(note, adapterPosition, tag, position)
         }
     }
 
     interface UserNoteDelegate {
         fun onEditNoteClicked(note: Note, position: Int)
         fun onDeleteNoteClicked(note: Note, position: Int)
+        fun onDeleteTagClicked(note: Note, notePosition: Int, tag: NoteTag, position: Int)
     }
 }
