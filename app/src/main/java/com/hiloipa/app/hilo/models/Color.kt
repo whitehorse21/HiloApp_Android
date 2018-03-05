@@ -182,4 +182,12 @@ enum class TagColor {
         blue_grey_900, blue_grey, brown_900, grey_800, amber_a700, purple_a400, grey_600, teal_900, green_a400 -> R.color.colorWhite
         white -> android.R.color.black
     }
+
+    @DrawableRes
+    fun icon(): Int = when(this) {
+        red, purple, deep_purple, indigo, blue, light_blue_600, pink, cyan_700, teal, green_600, light_green_700,
+        lime_700, yellow_900, yellow_800, amber_900, orange_900, deep_orange_900, deep_orange_a400, deep_orange,
+        blue_grey_900, blue_grey, brown_900, grey_800, amber_a700, purple_a400, grey_600, teal_900, green_a400 -> R.drawable.ic_close_white_18dp
+        white -> R.drawable.ic_close_black_18dp
+    }
 }

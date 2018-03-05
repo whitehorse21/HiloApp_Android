@@ -10,7 +10,11 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.NoteColor
+import com.hiloipa.app.hilo.models.responses.Note
+import com.hiloipa.app.hilo.models.responses.NoteTag
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by eduardalbu on 03.02.2018.
@@ -18,6 +22,14 @@ import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 class UserNotesAdapter(val context: Context): RecyclerView.Adapter<UserNotesAdapter.ViewHolder>() {
 
     var delegate: UserNoteDelegate? = null
+    val data: ArrayList<Note> = arrayListOf()
+    val dateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm aaa", Locale.ENGLISH)
+
+    fun refreshData(data: ArrayList<Note>) {
+        this.data.clear()
+        this.data.addAll(data)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_user_note, parent, false)
@@ -25,32 +37,39 @@ class UserNotesAdapter(val context: Context): RecyclerView.Adapter<UserNotesAdap
     }
 
     override fun getItemCount(): Int {
-        return 14
+        return data.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         if (holder == null) return
-
-        // update item view colors according to card color
-        val cardColor = NoteColor.values()[position]
-        holder.noteCard.setCardBackgroundColor(context.resources.getColor(cardColor.colorRes()))
-        holder.noteTitle.setTextColor(context.resources.getColor(cardColor.textColor()))
-        holder.note.setTextColor(context.resources.getColor(cardColor.textColor()))
-        holder.date.setTextColor(context.resources.getColor(cardColor.textColor()))
-        holder.deleteBtn.setImageResource(cardColor.deleteIcon())
-        holder.editBtn.setImageResource(cardColor.editIcon())
+        val note = data[position]
+        holder.note = note
+        // update item data
+        holder.noteTitle.text = note.title
+        holder.noteLabel.text = note.content
+        holder.date.text = dateFormat.format(note.time)
+        holder.adapter.refreshData(note.tags())
+        // update colors
+        val noteColor = NoteColor.fromString(note.notColor)
+        holder.noteCard.setCardBackgroundColor(context.resources.getColor(noteColor.colorRes()))
+        holder.deleteBtn.setImageResource(noteColor.deleteIcon())
+        holder.editBtn.setImageResource(noteColor.editIcon())
+        holder.noteTitle.setTextColor(context.resources.getColor(noteColor.textColor()))
+        holder.noteLabel.setTextColor(context.resources.getColor(noteColor.textColor()))
+        holder.date.setTextColor(context.resources.getColor(noteColor.textColor()))
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), TagsAdapter.TagDelegate {
 
         val tagsList: RecyclerView = itemView.findViewById(R.id.tagsList)
         val noteTitle: RalewayTextView = itemView.findViewById(R.id.noteTitleLabel)
-        val note: RalewayTextView = itemView.findViewById(R.id.noteLabel)
+        val noteLabel: RalewayTextView = itemView.findViewById(R.id.noteLabel)
         val date: RalewayTextView = itemView.findViewById(R.id.noteDateLabel)
         val noteCard: CardView = itemView.findViewById(R.id.userNoteCard)
         val deleteBtn: ImageButton = itemView.findViewById(R.id.deleteNoteBtn)
         val editBtn: ImageButton = itemView.findViewById(R.id.editNoteBtn)
         var adapter: TagsAdapter
+        lateinit var note: Note
 
         init {
             adapter = TagsAdapter(context)
@@ -58,8 +77,8 @@ class UserNotesAdapter(val context: Context): RecyclerView.Adapter<UserNotesAdap
             tagsList.adapter = adapter
             tagsList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-            editBtn.setOnClickListener { delegate?.onEditNoteClicked() }
-            deleteBtn.setOnClickListener { delegate?.onDeleteNoteClicked() }
+            editBtn.setOnClickListener { delegate?.onEditNoteClicked(note, adapterPosition) }
+            deleteBtn.setOnClickListener { delegate?.onDeleteNoteClicked(note, adapterPosition) }
         }
 
         override fun onRemoveTagClicked() {
@@ -68,7 +87,7 @@ class UserNotesAdapter(val context: Context): RecyclerView.Adapter<UserNotesAdap
     }
 
     interface UserNoteDelegate {
-        fun onEditNoteClicked()
-        fun onDeleteNoteClicked()
+        fun onEditNoteClicked(note: Note, position: Int)
+        fun onDeleteNoteClicked(note: Note, position: Int)
     }
 }

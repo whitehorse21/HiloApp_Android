@@ -16,4 +16,5 @@ open class StandardRequest {
     @JsonProperty("Type") var type: String? = null
     @JsonProperty("ContactID") open var contactId: String? = null
     @JsonProperty("ContactName") var contactName: String? = null
+    @JsonProperty("base64") var image: String? = null
 }

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.v7.widget.CardView
         android:id="@+id/tagCard"
@@ -26,9 +27,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
+                android:hint="@string/no_tag_text"
                 android:padding="2dp"
                 android:textSize="12sp"
-                android:text="Tag name"/>
+                tools:text="Tag name"/>
 
             <ImageButton
                 android:id="@+id/removeTagBtn"

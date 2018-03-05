@@ -174,4 +174,17 @@ interface HiloAPI {
 
     @POST("Addnewevents")
     fun saveEvent(@Body saveEventRequest: SaveEventRequest): Observable<HiloResponse<String>>
+
+    /**
+     *    More
+     */
+
+    @POST("UpdateProfileImage")
+    fun updateUserAvatar(@Body standardRequest: StandardRequest): Observable<HiloResponse<String>>
+
+    @POST("DisplayAllNotePads")
+    fun getNotepadNotes(@Body standardRequest: StandardRequest): Observable<HiloResponse<NotepadNotes>>
+
+    @POST("DeleteUserNote")
+    fun deleteNote(@Body deleteNoteRequest: DeleteNoteRequest): Observable<HiloResponse<String>>
 }

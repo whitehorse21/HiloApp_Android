@@ -32,6 +32,7 @@ class HiloApp: MultiDexApplication() {
         lateinit var instance: HiloApp
         lateinit var retrofit: Retrofit
         lateinit var userData: UserData
+        const val PROVIDER_AUTHORITY = "com.hiloipa.app.hilo.provider"
         fun api(): HiloAPI = retrofit.create(HiloAPI::class.java)
     }
 
