@@ -38,6 +38,7 @@
         android:text="@string/comments"/>
 
     <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+        android:id="@+id/feedbackField"
         android:layout_width="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
@@ -53,6 +54,7 @@
         android:imeOptions="actionDone"/>
 
     <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        android:id="@+id/sendBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/rectangle_orange_rounded"

@@ -1,5 +1,6 @@
 package com.hiloipa.app.hilo.ui.more.notes
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.hiloipa.app.hilo.R
@@ -11,5 +12,10 @@ class NotepadActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notepad)
         toolbar.setNavigationOnClickListener { finish() }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        supportFragmentManager.fragments.forEach { it.onActivityResult(requestCode, resultCode, data) }
     }
 }

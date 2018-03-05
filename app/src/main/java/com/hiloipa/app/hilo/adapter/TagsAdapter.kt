@@ -44,6 +44,7 @@ class TagsAdapter(val context: Context): RecyclerView.Adapter<TagsAdapter.ViewHo
         val tagColor = tag.color()
         holder.tagCard.setCardBackgroundColor(context.resources.getColor(tagColor.colorRes()))
         holder.tagName.setTextColor(context.resources.getColor(tagColor.textColor()))
+        holder.removeTagBtn.setImageResource(tagColor.icon())
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

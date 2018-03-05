@@ -196,4 +196,28 @@ interface HiloAPI {
 
     @POST("NotepadTagsList")
     fun getTagsList(@Body standardRequest: StandardRequest): Observable<HiloResponse<NoteTagsResponse>>
+
+    @POST("RemoveTag")
+    fun deleteTag(@Body request: DeleteTagRequest): Observable<HiloResponse<String>>
+
+    @POST("AddNoteTag")
+    fun addNoteTag(@Body deleteTagRequest: DeleteTagRequest): Observable<HiloResponse<String>>
+
+    @POST("Feedback")
+    fun sendFeedback(@Body standardRequest: StandardRequest): Observable<HiloResponse<String>>
+
+    @POST("DisplayAllProducts")
+    fun getAllProducts(@Body standardRequest: StandardRequest): Observable<HiloResponse<AllProductsResponse>>
+
+    @POST("RevealProductsContactsList")
+    fun getProductContacts(@Body standardRequest: StandardRequest): Observable<HiloResponse<RevealProductsContacts>>
+
+    @POST("AssigningProduct")
+    fun assignProduct(@Body assignProductRequest: AssignProductRequest): Observable<HiloResponse<String>>
+
+    @POST("GetScripts")
+    fun getScripts(@Body scriptsRequest: ScriptsRequest): Observable<HiloResponse<ArrayList<Script>>>
+
+    @POST("DeleteScript")
+    fun deleteScript(@Body deleteScriptRequest: DeleteScriptRequest): Observable<HiloResponse<String>>
 }

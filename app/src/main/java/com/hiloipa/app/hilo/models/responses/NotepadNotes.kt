@@ -85,9 +85,16 @@ class Note(@JsonProperty("Notesid") val id: Int,
 
 class NoteTag(@JsonProperty("TagID") val id: String,
               @JsonProperty("TagName") val name: String,
-              @JsonProperty("TagColor") val colorString: String) {
+              @JsonProperty("TagColor") val colorString: String): Parcelable {
 
     var isSelected: Boolean = false
+
+    constructor(parcel: Parcel) : this(
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString()) {
+        isSelected = parcel.readByte() != 0.toByte()
+    }
 
     fun color(): TagColor = TagColor.fromString(colorString)
 
@@ -101,5 +108,26 @@ class NoteTag(@JsonProperty("TagID") val id: String,
         result = 31 * result + colorString.hashCode()
         result = 31 * result + isSelected.hashCode()
         return result
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
+        parcel.writeString(name)
+        parcel.writeString(colorString)
+        parcel.writeByte(if (isSelected) 1 else 0)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<NoteTag> {
+        override fun createFromParcel(parcel: Parcel): NoteTag {
+            return NoteTag(parcel)
+        }
+
+        override fun newArray(size: Int): Array<NoteTag?> {
+            return arrayOfNulls(size)
+        }
     }
 }

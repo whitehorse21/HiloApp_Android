@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -49,7 +50,7 @@
             android:id="@+id/scriptLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Some script example"
+            tools:text="Some script example"
             android:padding="16dp"/>
     </ScrollView>
 

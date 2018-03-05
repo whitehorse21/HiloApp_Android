@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.models.responses.Script
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 
@@ -16,33 +17,44 @@ import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 class ScriptsAdapter(val context: Context): RecyclerView.Adapter<ScriptsAdapter.ViewHolder>() {
 
     var delegate: ScriptDelegate? = null
+    var scripts: ArrayList<Script> = arrayListOf()
+
+    fun refreshList(scripts: ArrayList<Script>) {
+        this.scripts.clear()
+        this.scripts.addAll(scripts)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_script, parent, false)
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int = 15
+    override fun getItemCount(): Int = scripts.size
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-
+        if (holder == null) return
+        val script = scripts[position]
+        holder.script = script
+        holder.name.text = script.title
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val name: RalewayTextView = itemView.findViewById(R.id.scriptNameLabel)
         val editBtn: ImageButton = itemView.findViewById(R.id.editBtn)
         val deleteBtn: ImageButton = itemView.findViewById(R.id.deleteBtn)
+        lateinit var script: Script
 
         init {
-            itemView.setOnClickListener { delegate?.onScriptClicked() }
-            editBtn.setOnClickListener { delegate?.onEditScriptClicked() }
-            deleteBtn.setOnClickListener { delegate?.onDeleteScriptClicked() }
+            itemView.setOnClickListener { delegate?.onScriptClicked(script, adapterPosition) }
+            editBtn.setOnClickListener { delegate?.onEditScriptClicked(script, adapterPosition) }
+            deleteBtn.setOnClickListener { delegate?.onDeleteScriptClicked(script, adapterPosition) }
         }
     }
 
     interface ScriptDelegate {
-        fun onScriptClicked()
-        fun onEditScriptClicked()
-        fun onDeleteScriptClicked()
+        fun onScriptClicked(script: Script, position: Int)
+        fun onEditScriptClicked(script: Script, position: Int)
+        fun onDeleteScriptClicked(script: Script, position: Int)
     }
 }

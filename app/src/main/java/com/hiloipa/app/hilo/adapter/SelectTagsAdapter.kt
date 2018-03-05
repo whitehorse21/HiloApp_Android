@@ -45,10 +45,9 @@ class SelectTagsAdapter(val context: Context): RecyclerView.Adapter<SelectTagsAd
         holder.checkBox.isChecked = tag.isSelected
         holder.tagName.setBackgroundColor(context.resources.getColor(tagColor.colorRes()))
         holder.tagName.setTextColor(context.resources.getColor(tagColor.textColor()))
-        holder.removeTagBtn.setImageResource(tagColor.icon())
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView), CompoundButton.OnCheckedChangeListener {
+    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         val checkBox: AppCompatCheckBox = itemView.findViewById(R.id.tagCheckBox)
         val tagName: RalewayTextView = itemView.findViewById(R.id.tagNameLabel)
@@ -57,13 +56,11 @@ class SelectTagsAdapter(val context: Context): RecyclerView.Adapter<SelectTagsAd
 
         init {
             removeTagBtn.setOnClickListener { delegate?.onRemoveTagClicked(tag, adapterPosition) }
-            itemView.setOnClickListener { checkBox.isChecked = !checkBox.isChecked }
-            checkBox.setOnCheckedChangeListener(this)
-        }
-
-        override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-            tag.isSelected = isChecked
-            delegate?.onTagSelectedChanged(tag, adapterPosition)
+            itemView.setOnClickListener {
+                checkBox.isChecked = !checkBox.isChecked
+                tag.isSelected = checkBox.isChecked
+                delegate?.onTagSelectedChanged(tag, adapterPosition)
+            }
         }
     }
 

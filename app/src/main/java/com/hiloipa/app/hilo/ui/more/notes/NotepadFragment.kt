@@ -1,6 +1,7 @@
 package com.hiloipa.app.hilo.ui.more.notes
 
 
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -57,7 +58,7 @@ class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
 
         addNoteBtn.setOnClickListener {
             val intent = Intent(activity, CreateNoteActivity::class.java)
-            activity.startActivity(intent)
+            activity.startActivityForResult(intent, 1908)
         }
 
         getNotes()
@@ -65,8 +66,8 @@ class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
 
     override fun onEditNoteClicked(note: Note, position: Int) {
         val intent = Intent(activity, CreateNoteActivity::class.java)
-        intent.putExtra(CreateNoteActivity.noteIdKey, "${note.id}")
-        activity.startActivity(intent)
+        intent.putExtra(CreateNoteActivity.noteKey, note)
+        activity.startActivityForResult(intent, 1908)
     }
 
     override fun onDeleteNoteClicked(note: Note, position: Int) {
@@ -144,5 +145,14 @@ class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
                     error.printStackTrace()
                     activity.showExplanation(message = error.localizedMessage)
                 })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when(requestCode) {
+                1908 -> getNotes()
+            }
+        }
     }
 }

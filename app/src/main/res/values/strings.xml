@@ -323,4 +323,12 @@
     <string name="no_tag_text">No tag text</string>
     <string name="confirm_delete_note">Are you sure you want to delete this note?</string>
     <string name="confirm_delete_tag">Are you sure you want to delete this tag?</string>
+    <string name="enter_tag_name">Enter tag name</string>
+    <string name="enter_note_title">Enter note title</string>
+    <string name="enter_note_content">Enter note content</string>
+    <string name="enter_your_comment">Enter your comment</string>
+    <string name="select_product_type">Select product type</string>
+    <string name="select_product_contact">Select contact to assign to</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="confirm_delete_script">Are you sure you want to delete this script?</string>
 </resources>
