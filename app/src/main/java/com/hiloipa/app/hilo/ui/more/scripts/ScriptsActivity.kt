@@ -1,5 +1,6 @@
 package com.hiloipa.app.hilo.ui.more.scripts
 
+import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -11,6 +12,8 @@ import android.support.design.widget.TabLayout
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.ImageButton
 import android.widget.Toast
 import com.hiloipa.app.hilo.R
@@ -22,10 +25,7 @@ import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.models.responses.Script
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
-import com.hiloipa.app.hilo.utils.HiloApp
-import com.hiloipa.app.hilo.utils.isSuccess
-import com.hiloipa.app.hilo.utils.showExplanation
-import com.hiloipa.app.hilo.utils.showLoading
+import com.hiloipa.app.hilo.utils.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_scripts.*
@@ -34,8 +34,9 @@ import kotlinx.android.synthetic.main.activity_scripts.*
 class ScriptsActivity : AppCompatActivity(), ScriptsAdapter.ScriptDelegate {
 
     lateinit var adapter: ScriptsAdapter
-    val allScripts: ArrayList<Script> = arrayListOf()
-    val filteredScripts: ArrayList<Script> = arrayListOf()
+    private val allScripts: ArrayList<Script> = arrayListOf()
+    private val filteredScripts: ArrayList<Script> = arrayListOf()
+    private var query: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +49,7 @@ class ScriptsActivity : AppCompatActivity(), ScriptsAdapter.ScriptDelegate {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.isNestedScrollingEnabled = false
 
-        tabLayout.setOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+        tabLayout.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 getScripts()
             }
@@ -60,15 +61,34 @@ class ScriptsActivity : AppCompatActivity(), ScriptsAdapter.ScriptDelegate {
 
         addScriptBtn.setOnClickListener {
             val intent = Intent(this, EditScriptActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, 1201)
         }
+
+        goBtn.setOnClickListener {
+            query = searchField.text.toString()
+            getScripts(query)
+        }
+
+        searchField.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                query = searchField.text.toString()
+                if (query.isEmpty())
+                    getScripts()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
 
         getScripts()
     }
 
-    private fun getScripts() {
+    private fun getScripts(query: String = this.query) {
         val loading = showLoading()
-        HiloApp.api().getScripts(ScriptsRequest())
+        val request = ScriptsRequest()
+        request.query = query
+        HiloApp.api().getScripts(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response: HiloResponse<ArrayList<Script>> ->
@@ -79,11 +99,16 @@ class ScriptsActivity : AppCompatActivity(), ScriptsAdapter.ScriptDelegate {
                             allScripts.clear()
                             filteredScripts.clear()
                             allScripts.addAll(data)
-                            if (tabLayout.selectedTabPosition == 0)
+                            if (tabLayout.selectedTabPosition != 1 && tabLayout.selectedTabPosition != 2)
                                 filteredScripts.addAll(allScripts)
-                            else {
+                            else if (tabLayout.selectedTabPosition == 1) {
                                 allScripts.forEach {
-                                    if (it.type == "${tabLayout.selectedTabPosition}")
+                                    if (it.type == "0")
+                                        filteredScripts.add(it)
+                                }
+                            } else if (tabLayout.selectedTabPosition == 2) {
+                                allScripts.forEach {
+                                    if (it.type == "1")
                                         filteredScripts.add(it)
                                 }
                             }
@@ -91,6 +116,8 @@ class ScriptsActivity : AppCompatActivity(), ScriptsAdapter.ScriptDelegate {
                             adapter.refreshList(filteredScripts)
                         }
                     } else showExplanation(message = response.message)
+
+                    hideKeyboard()
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
@@ -104,7 +131,8 @@ class ScriptsActivity : AppCompatActivity(), ScriptsAdapter.ScriptDelegate {
 
     override fun onEditScriptClicked(script: Script, position: Int) {
         val intent = Intent(this, EditScriptActivity::class.java)
-        startActivity(intent)
+        intent.putExtra(EditScriptActivity.scriptKey, script)
+        startActivityForResult(intent, 1201)
     }
 
     override fun onDeleteScriptClicked(script: Script, position: Int) {
@@ -169,5 +197,11 @@ class ScriptsActivity : AppCompatActivity(), ScriptsAdapter.ScriptDelegate {
 
         dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == 1201)
+            getScripts()
     }
 }

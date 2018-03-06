@@ -116,7 +116,8 @@ class GoalTrackerFragment : Fragment() {
                     }, { error: Throwable ->
                         dialog.dismiss()
                         error.printStackTrace()
-                        activity.showExplanation(message = error.localizedMessage)
+                        if (activity != null)
+                            activity.showExplanation(message = error.localizedMessage)
                     })
         } catch (e: Exception) {
             dialog.dismiss()
@@ -196,7 +197,6 @@ class GoalTrackerFragment : Fragment() {
 
         override fun onNothingSelected(parent: AdapterView<*>?) {}
     }
-
 
 
     private fun showCurrentPlanDetails() {

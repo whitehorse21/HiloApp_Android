@@ -220,4 +220,10 @@ interface HiloAPI {
 
     @POST("DeleteScript")
     fun deleteScript(@Body deleteScriptRequest: DeleteScriptRequest): Observable<HiloResponse<String>>
+
+    @POST("AddScript")
+    fun addScript(@Body saveScriptRequest: SaveScriptRequest): Observable<HiloResponse<String>>
+
+    @POST("EditScript")
+    fun updateScript(@Body saveScriptRequest: SaveScriptRequest): Observable<HiloResponse<String>>
 }

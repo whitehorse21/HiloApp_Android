@@ -331,4 +331,6 @@
     <string name="select_product_contact">Select contact to assign to</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="confirm_delete_script">Are you sure you want to delete this script?</string>
+    <string name="enter_script_title">Enter script title!</string>
+    <string name="enter_script_content">Enter script content!</string>
 </resources>

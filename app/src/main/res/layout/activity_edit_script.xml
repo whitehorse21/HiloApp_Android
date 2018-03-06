@@ -38,6 +38,7 @@
             android:orientation="vertical">
 
             <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                android:id="@+id/cardTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="false"
@@ -45,7 +46,7 @@
                 android:background="@drawable/rectangle_top_rounded_orange"
                 android:gravity="start|center_vertical"
                 app:buttonFont="bold"
-                android:text="@string/add_script"
+                android:text="@string/edit_script"
                 android:textColor="@android:color/white"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"/>
