@@ -226,4 +226,7 @@ interface HiloAPI {
 
     @POST("EditScript")
     fun updateScript(@Body saveScriptRequest: SaveScriptRequest): Observable<HiloResponse<String>>
+
+    @POST("GetTemplates")
+    fun getTemplates(@Body standardRequest: StandardRequest): Observable<HiloResponse<ArrayList<Template>>>
 }

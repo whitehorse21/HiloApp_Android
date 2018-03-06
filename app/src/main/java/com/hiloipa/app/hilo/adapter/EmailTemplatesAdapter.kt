@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.models.responses.Template
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 
@@ -15,6 +16,13 @@ import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 class EmailTemplatesAdapter(val context: Context): RecyclerView.Adapter<EmailTemplatesAdapter.ViewHolder>() {
 
     var delegate: EmailTemplateDelegate? = null
+    var templates: ArrayList<Template> = arrayListOf()
+
+    fun refreshList(templates: ArrayList<Template>) {
+        this.templates.clear()
+        this.templates.addAll(templates)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_email_template, parent, false)
@@ -22,25 +30,29 @@ class EmailTemplatesAdapter(val context: Context): RecyclerView.Adapter<EmailTem
     }
 
     override fun getItemCount(): Int {
-        return 15
+        return templates.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-
+        if (holder == null) return
+        val template = templates[position]
+        holder.template = template
+        holder.templateTitle.text = template.name
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val templateTitle: RalewayTextView = itemView.findViewById(R.id.templateTitleLabel)
         val previewBtn: RalewayButton = itemView.findViewById(R.id.previewTemplateBtn)
+        lateinit var template: Template
 
         init {
             previewBtn.setOnClickListener {
-                delegate?.onPreviewTemplateClicked()
+                delegate?.onPreviewTemplateClicked(template, adapterPosition)
             }
         }
     }
 
     interface EmailTemplateDelegate {
-        fun onPreviewTemplateClicked()
+        fun onPreviewTemplateClicked(template: Template, position: Int)
     }
 }
