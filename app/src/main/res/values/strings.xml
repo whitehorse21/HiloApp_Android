@@ -333,4 +333,5 @@
     <string name="confirm_delete_script">Are you sure you want to delete this script?</string>
     <string name="enter_script_title">Enter script title!</string>
     <string name="enter_script_content">Enter script content!</string>
+    <string name="enter_s">Enter %s</string>
 </resources>

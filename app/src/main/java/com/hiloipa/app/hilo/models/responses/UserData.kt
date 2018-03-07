@@ -26,7 +26,7 @@ class UserData(@JsonProperty("Api_Access_token") val accessToken: String,
                @JsonProperty("userimage") val userImage: String?,
                @JsonProperty("usermailid") val userMailId: String,
                @JsonProperty("username") val username: String,
-               @JsonProperty("userplan") val userPlan: String?,
+               @JsonProperty("userplan") var userPlan: String?,
                @JsonProperty("userstatus") val userStatus: String,
                @JsonProperty("usertype") val userType: String,
                @JsonProperty("visionshow") val visionShow: Boolean): Parcelable {

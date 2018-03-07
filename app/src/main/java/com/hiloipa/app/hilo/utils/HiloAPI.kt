@@ -229,4 +229,13 @@ interface HiloAPI {
 
     @POST("GetTemplates")
     fun getTemplates(@Body standardRequest: StandardRequest): Observable<HiloResponse<ArrayList<Template>>>
+
+    @POST("GetAccount")
+    fun getAccount(@Body standardRequest: StandardRequest = StandardRequest()): Observable<HiloResponse<Account>>
+
+    @POST("UpdateAccount")
+    fun updateAccount(@Body request: UpdateAccountRequest): Observable<HiloResponse<String>>
+
+    @POST("InAppPurchase")
+    fun changePaymentPlan(@Body request: ChangePaymentRequest): Observable<HiloResponse<String>>
 }

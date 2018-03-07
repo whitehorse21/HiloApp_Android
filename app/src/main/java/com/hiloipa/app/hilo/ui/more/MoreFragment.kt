@@ -19,6 +19,7 @@ import android.widget.ImageView
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.requests.LogoutRequest
 import com.hiloipa.app.hilo.models.requests.StandardRequest
+import com.hiloipa.app.hilo.models.responses.Account
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.ui.auth.AuthActivity
 import com.hiloipa.app.hilo.ui.more.account.AccountActivity
@@ -123,7 +124,7 @@ class MoreFragment : Fragment() {
 
         accountBtn.setOnClickListener {
             val accountIntent = Intent(activity, AccountActivity::class.java)
-            activity.startActivity(accountIntent)
+            activity.startActivityForResult(accountIntent, 1553)
         }
 
         scriptsBtn.setOnClickListener {
@@ -134,8 +135,6 @@ class MoreFragment : Fragment() {
         Picasso.with(activity)
                 .load(HiloApp.userData.userImage)
                 .into(userAvatar)
-
-        userNameLabel.text = HiloApp.userData.username
 
         userAvatar.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.alert_user_image, null)
@@ -154,6 +153,25 @@ class MoreFragment : Fragment() {
             dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.show()
         }
+
+        getAccount()
+    }
+
+    private fun getAccount() {
+        val loading = activity.showLoading()
+        HiloApp.api().getAccount()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response: HiloResponse<Account> ->
+                    loading.dismiss()
+                    if (response.status.isSuccess()) {
+                        userNameLabel.text = "${response.data!!.firstName} ${response.data!!.lastName}"
+                    } else activity.showExplanation(message = response.message)
+                }, { error: Throwable ->
+                    loading.dismiss()
+                    error.printStackTrace()
+                    activity.showExplanation(message = error.localizedMessage)
+                })
     }
 
     private fun showUpdateImageAlert() {
@@ -177,16 +195,18 @@ class MoreFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && data != null) {
+        if (resultCode == Activity.RESULT_OK) {
             var image: Pair<String, String>? = null
             when (requestCode) {
                 1343 -> {
-                    val file = File(data.extras.getString(CameraActivity.pathKey))
-                    val bitmap = BitmapFactory.decodeFile(file.absolutePath)
-                    val baos = ByteArrayOutputStream()
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                    val encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT)
-                    image = Pair(first = file.absolutePath, second = encodedImage)
+                    if (data != null) {
+                        val file = File(data.extras.getString(CameraActivity.pathKey))
+                        val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+                        val baos = ByteArrayOutputStream()
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                        val encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT)
+                        image = Pair(first = file.absolutePath, second = encodedImage)
+                    }
                 }
 
                 1257 -> {
@@ -204,6 +224,8 @@ class MoreFragment : Fragment() {
                         }
                     }
                 }
+
+                1553 -> getAccount()
             }
 
             if (image != null) {

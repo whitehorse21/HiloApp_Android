@@ -62,6 +62,7 @@
 
                     <!-- Silver plan -->
                     <com.hiloipa.app.hilo.ui.widget.PaymentPlanView
+                        android:tag="Silver"
                         android:id="@+id/silverPlan"
                         android:layout_margin="10dp"
                         android:layout_width="match_parent"
@@ -126,6 +127,7 @@
 
                     <!-- Gold plan -->
                     <com.hiloipa.app.hilo.ui.widget.PaymentPlanView
+                        android:tag="Gold"
                         android:id="@+id/goldPlan"
                         android:layout_margin="10dp"
                         android:layout_width="match_parent"
