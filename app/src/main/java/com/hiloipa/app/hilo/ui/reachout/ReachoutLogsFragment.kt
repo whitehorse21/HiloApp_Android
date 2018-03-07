@@ -71,12 +71,6 @@ class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
             getReachOutLogs()
         }
 
-        // setup add reachout button
-        addReachOutBtn.setOnClickListener {
-            val intent = Intent(activity, EditReachoutActivity::class.java)
-            activity.startActivity(intent)
-        }
-
         contactId = arguments.getString("contactId", null)
         // if we have a contact id we need to hide top views
         // because fragment was added in ContactDetailsActivity
@@ -84,6 +78,14 @@ class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
             searchLayout.visibility = View.GONE
             searchBottomLine.visibility = View.GONE
             resetBtn.visibility = View.GONE
+        }
+
+        // setup add reachout button
+        addReachOutBtn.setOnClickListener {
+            val intent = Intent(activity, EditReachoutActivity::class.java)
+            if (contactId != null)
+                intent.putExtra("contactId", contactId!!)
+            activity.startActivityForResult(intent, 1022)
         }
 
         // setup search button
@@ -169,6 +171,8 @@ class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
         val extras = Bundle()
         extras.putParcelable(EditReachoutActivity.logKey, log)
         intent.putExtras(extras)
+        if (contactId != null)
+            intent.putExtra("contactId", contactId!!)
         activity.startActivityForResult(intent, 1022)
     }
 

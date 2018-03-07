@@ -4,9 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".utils.HiloApp"
@@ -78,12 +78,12 @@
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name=".ui.todos.AddActionActivity"
+        <activity
+            android:name=".ui.todos.AddActionActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".ui.widget.CameraActivity"
-            android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".ui.widget.CameraActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="vn.tungdx.mediapicker.activities.MediaPickerActivity"
             android:launchMode="singleTask"
@@ -99,6 +99,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+        <activity android:name=".ui.HelpActivity"></activity>
     </application>
 
 </manifest>

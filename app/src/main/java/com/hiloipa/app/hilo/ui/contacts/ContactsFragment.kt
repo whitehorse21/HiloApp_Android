@@ -78,6 +78,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         val filter = IntentFilter(ContactsFilterFragment.actionFilterContacts)
         filter.addAction(ContactsFilterFragment.actionResetFilter)
         mainActivity.registerReceiver(broadcastReceiver, filter)
@@ -816,6 +817,13 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                                     activity.showExplanation(message = error.localizedMessage)
                                 })
                     }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            importContactsFromDevice()
         }
     }
 

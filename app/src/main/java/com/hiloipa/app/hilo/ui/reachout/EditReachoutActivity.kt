@@ -40,6 +40,7 @@ class EditReachoutActivity : AppCompatActivity(), FragmentSearchContacts.SearchD
     }
 
     var reachOutLog: ReachOutLog? = null
+    var contactId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,12 +50,15 @@ class EditReachoutActivity : AppCompatActivity(), FragmentSearchContacts.SearchD
             finish()
         }
 
+        if (intent.extras != null)
+            contactId = intent.extras.getString("contactId", null)
+
         if (intent.extras != null && intent.extras.containsKey(logKey)) {
             reachOutLog = intent.extras.getParcelable(logKey)
             // setup views with the data from existent log
             // set selected log type
             reachoutsTypeButton.text = reachOutLog!!.typeName
-            reachoutsTypeButton.tag = "${reachOutLog!!.teamId}"
+            reachoutsTypeButton.tag = "${reachOutLog!!.historyType}"
             // set log date
             dateBtn.text = dateFormat.format(reachOutLog!!.sortTime)
             dateBtn.tag = reachOutLog!!.sortTime
@@ -73,6 +77,11 @@ class EditReachoutActivity : AppCompatActivity(), FragmentSearchContacts.SearchD
             nextFollowUpBtn.tag = reachOutLog!!.sortTime
             contactField.text = reachOutLog!!.contactName
             contactField.tag = "${reachOutLog!!.contactId}"
+        }
+
+        if (contactId != null) {
+            contactField.visibility = View.GONE
+            contactField.tag = contactId
         }
 
         // reach out type spinner and button
@@ -175,20 +184,35 @@ class EditReachoutActivity : AppCompatActivity(), FragmentSearchContacts.SearchD
     private fun saveReachLog() {
         var reachOutId = "0"
         if (reachOutLog != null) reachOutId = "${reachOutLog!!.historyID}"
+
         val reachOutType = reachoutsTypeButton.tag as String? ?: ""
         if (reachOutType.isEmpty()) {
             Toast.makeText(this, getString(R.string.select_reach_out_type),
                     Toast.LENGTH_SHORT).show()
             return
         }
+
         val date = dateBtn.text.toString()
+        if (date.isEmpty()) {
+            Toast.makeText(this, getString(R.string.enter_s, dateBtn.hint),
+                    Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val time = timeBtn.text.toString()
+        if (time.isEmpty()) {
+            Toast.makeText(this, getString(R.string.enter_s, timeBtn.hint),
+                    Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val description = reachoutDescriptionField.text.toString()
         if (description.isEmpty()) {
             Toast.makeText(this, getString(R.string.enter_description),
                     Toast.LENGTH_SHORT).show()
             return
         }
+
         val contactId = contactField.tag as String? ?: ""
         if (contactId.isEmpty()) {
             Toast.makeText(this, getString(R.string.no_selected_contacts),

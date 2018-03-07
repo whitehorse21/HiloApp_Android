@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.fragment_todos.*
  */
 class TodosFragment : Fragment() {
 
-    var toDoData: ToDoData? = null
+    private var toDoData: ToDoData? = null
 
     companion object {
         fun newInstance(): TodosFragment {

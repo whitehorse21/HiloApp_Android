@@ -807,6 +807,10 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         request.zipCode = zipCodeField.text.toString()
         request.state = stateField.text.toString()
         request.stateId = stateField.tag as String? ?: "1"
+        if (request.stateId.isEmpty()) {
+            request.stateId = "1"
+            request.state = newContactData.states[0].text
+        }
 
         val loading = activity.showLoading()
         val observable: Observable<HiloResponse<String>>

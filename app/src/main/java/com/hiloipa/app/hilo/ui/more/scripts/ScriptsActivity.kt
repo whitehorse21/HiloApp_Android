@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageButton
 import android.widget.Toast
 import com.hiloipa.app.hilo.R
@@ -23,6 +25,8 @@ import com.hiloipa.app.hilo.models.requests.DeleteScriptRequest
 import com.hiloipa.app.hilo.models.requests.ScriptsRequest
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.models.responses.Script
+import com.hiloipa.app.hilo.ui.HelpActivity
+import com.hiloipa.app.hilo.ui.more.email.templateHelp
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 import com.hiloipa.app.hilo.utils.*
@@ -30,7 +34,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_scripts.*
 
-
+val scriptsHelp = "Sometimes getting started is the hardest thing! That’s why we love to provide " +
+        "sample language for our team!\r\n\r\nFrom this page you can view and edit scripts you've " +
+        "already created on the main website or add new ones by clicking the \"Add Script\" button " +
+        "toward the top of the page.\r\n\r\nUse the scroll menu to narrow your list to only see " +
+        "your own personal scripts or the ones shared with you by your upline.\r\n\r\nUse these " +
+        "scripts in texts by selecting them from the drop down menu when you click the green \"text\" " +
+        "icon on the Contact List page, or click on a script's name to preview the script content. " +
+        "From there you can \"Copy to Clipboard\" to easily insert the text into a Facebook message " +
+        "or email.\r\n\r\nYou can also search for keywords within a script by using the \"Search\" " +
+        "field at the top of the page."
 class ScriptsActivity : AppCompatActivity(), ScriptsAdapter.ScriptDelegate {
 
     lateinit var adapter: ScriptsAdapter
@@ -41,6 +54,8 @@ class ScriptsActivity : AppCompatActivity(), ScriptsAdapter.ScriptDelegate {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scripts)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener { finish() }
 
         adapter = ScriptsAdapter(this)
@@ -203,5 +218,23 @@ class ScriptsActivity : AppCompatActivity(), ScriptsAdapter.ScriptDelegate {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == 1201)
             getScripts()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.action_help -> {
+                val helpIntent = Intent(this, HelpActivity::class.java)
+                helpIntent.putExtra(HelpActivity.titleKey, toolbarTitle.text)
+                helpIntent.putExtra(HelpActivity.contentKey, scriptsHelp)
+                startActivity(helpIntent)
+                return true
+            }
+        }
+        return false
     }
 }

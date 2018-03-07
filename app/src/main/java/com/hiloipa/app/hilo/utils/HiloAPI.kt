@@ -238,4 +238,26 @@ interface HiloAPI {
 
     @POST("InAppPurchase")
     fun changePaymentPlan(@Body request: ChangePaymentRequest): Observable<HiloResponse<String>>
+
+    /**
+     *    Contact Details
+     */
+
+    @POST("updateContactImage")
+    fun updateContanctImage(@Body standardRequest: StandardRequest): Observable<HiloResponse<String>>
+
+    @POST("DisplayContactnote")
+    fun getContactNotes(@Body standardRequest: StandardRequest): Observable<HiloResponse<DisplayContactNotes>>
+
+    @POST("DeleteContactNote")
+    fun deleteContactNote(@Body request: DeleteContactNote): Observable<HiloResponse<String>>
+
+    @POST("AddContactnote")
+    fun saveContactNote(@Body request: SaveContactNote): Observable<HiloResponse<String>>
+
+    @POST("ProductsListCategory")
+    fun getContactProducts(@Body request: StandardRequest): Observable<HiloResponse<ContactProducts>>
+
+    @POST("UnAssignProducts")
+    fun unassignProduct(@Body request: UnassignProduct): Observable<HiloResponse<String>>
 }

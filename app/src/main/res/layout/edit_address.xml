@@ -142,6 +142,7 @@
                     android:id="@+id/statesSpinner"
                     android:layout_width="match_parent"
                     android:layout_marginBottom="5dp"
+                    android:background="@android:color/transparent"
                     android:layout_height="0.01dp"/>
 
                 <com.hiloipa.app.hilo.ui.widget.RalewayTextView
@@ -195,6 +196,7 @@
                     android:id="@+id/countriesSpinner"
                     android:layout_width="match_parent"
                     android:layout_marginBottom="5dp"
+                    android:background="@android:color/transparent"
                     android:layout_height="0.01dp"/>
             </LinearLayout>
         </LinearLayout>

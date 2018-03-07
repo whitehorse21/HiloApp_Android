@@ -334,4 +334,7 @@
     <string name="enter_script_title">Enter script title!</string>
     <string name="enter_script_content">Enter script content!</string>
     <string name="enter_s">Enter %s</string>
+    <string name="help">Help</string>
+    <string name="s_help">%s Help</string>
+    <string name="confirm_unassign_product">Are you sure you want to UnAssign the Product?</string>
 </resources>
