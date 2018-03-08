@@ -1,6 +1,9 @@
-package com.hiloipa.app.hilo.ui.contacts
+/*
+ * Copyright (c) 2018. Fabity.co / Developer: Eduard Albu
+ */
 
-import android.content.DialogInterface
+package com.hiloipa.app.hilo.ui.contacts.details
+
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment

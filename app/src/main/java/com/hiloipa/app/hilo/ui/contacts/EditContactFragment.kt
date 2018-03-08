@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ImageButton
 import android.widget.Toast
 
 import com.hiloipa.app.hilo.R
@@ -23,6 +22,7 @@ import com.hiloipa.app.hilo.models.responses.CustomField
 import com.hiloipa.app.hilo.models.responses.FullContactDetails
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.models.responses.NewContactData
+import com.hiloipa.app.hilo.ui.contacts.details.ContactDetailsActivity
 import com.hiloipa.app.hilo.ui.widget.CustomFieldView
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import com.hiloipa.app.hilo.utils.*

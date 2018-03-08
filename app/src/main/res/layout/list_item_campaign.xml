@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018. Fabity.co / Developer: Eduard Albu
+  -->
+
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="40dp">
+
+    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        android:id="@+id/messageTitleLabel"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:hint="@string/message_title"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_width="0.3dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray" />
+
+    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        android:id="@+id/campaignLabel"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:hint="@string/campaign"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_width="0.3dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray" />
+
+    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        android:id="@+id/sendDateLabel"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:hint="@string/send_date"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_width="0.3dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray" />
+
+    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        android:id="@+id/emailStatusLabel"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:hint="@string/email_staus"
+        android:textSize="12sp" />
+</TableRow>

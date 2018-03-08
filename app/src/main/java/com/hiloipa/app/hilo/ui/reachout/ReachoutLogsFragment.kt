@@ -2,7 +2,6 @@ package com.hiloipa.app.hilo.ui.reachout
 
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -21,7 +20,7 @@ import com.hiloipa.app.hilo.models.requests.ReachOutLogsRequest
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.models.responses.ReachOutLog
 import com.hiloipa.app.hilo.models.responses.ReachOutLogs
-import com.hiloipa.app.hilo.ui.contacts.ContactDetailsActivity
+import com.hiloipa.app.hilo.ui.contacts.details.ContactDetailsActivity
 import com.hiloipa.app.hilo.utils.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

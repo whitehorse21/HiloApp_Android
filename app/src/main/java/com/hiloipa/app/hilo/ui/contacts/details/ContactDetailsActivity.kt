@@ -1,4 +1,8 @@
-package com.hiloipa.app.hilo.ui.contacts
+/*
+ * Copyright (c) 2018. Fabity.co / Developer: Eduard Albu
+ */
+
+package com.hiloipa.app.hilo.ui.contacts.details
 
 import android.app.Activity
 import android.content.Intent
@@ -20,6 +24,7 @@ import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.FullContactDetails
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.ui.HelpActivity
+import com.hiloipa.app.hilo.ui.contacts.EditContactFragment
 import com.hiloipa.app.hilo.ui.more.email.EmailTemplatesFragment
 import com.hiloipa.app.hilo.ui.reachout.ReachoutLogsFragment
 import com.hiloipa.app.hilo.ui.widget.CameraActivity
@@ -159,17 +164,20 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
     override fun onTabSelected(tab: TabLayout.Tab) {
         val tabType = TabType.fromInt(tab.position)
         when (tabType) {
-            TabType.personal -> replaceFragment(EditContactFragment
-                    .newInstance(contactId = "${contactDetails.contactDetails.contactId}"))
+            TabType.personal -> replaceFragment(EditContactFragment.newInstance(contactId = "${contactDetails.contactDetails.contactId}"))
 
             TabType.reach_out_logs -> replaceFragment(ReachoutLogsFragment
                     .newInstance(contactId = "${contactDetails.contactDetails.contactId}"))
 
-            TabType.notes -> replaceFragment(ContactNotesFragment
+            TabType.notes -> replaceFragment(ContactNotesFragment.newInstance("${contactDetails.contactDetails.contactId}"))
+
+            TabType.products -> replaceFragment(UserProductsFragment.newInstace("${contactDetails.contactDetails.contactId}"))
+
+            TabType.documents -> replaceFragment(DocumentsFragment
                     .newInstance("${contactDetails.contactDetails.contactId}"))
 
-            TabType.products -> replaceFragment(UserProductsFragment
-                    .newInstace("${contactDetails.contactDetails.contactId}"))
+            TabType.campaigns -> replaceFragment(ContactCampaignsFragment
+                    .newInstance("${contactDetails.contactDetails.contactId}"))
 
             TabType.email_templates -> replaceFragment(EmailTemplatesFragment.newInstance())
         }

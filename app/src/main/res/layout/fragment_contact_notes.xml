@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hiloipa.app.hilo.ui.contacts.ContactNotesFragment">
+    tools:context="com.hiloipa.app.hilo.ui.contacts.details.ContactNotesFragment">
 
     <LinearLayout
         android:id="@+id/headerLayout"

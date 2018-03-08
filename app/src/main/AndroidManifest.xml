@@ -35,7 +35,7 @@
             android:name=".ui.tracker.FutureContactsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.contacts.ContactDetailsActivity"
+            android:name=".ui.contacts.details.ContactDetailsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.contacts.EditContactActivity"

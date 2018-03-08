@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.responses.FilterValue
-import com.hiloipa.app.hilo.ui.contacts.ContactsFilterFragment
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 
 /**

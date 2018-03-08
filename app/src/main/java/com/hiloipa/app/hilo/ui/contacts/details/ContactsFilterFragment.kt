@@ -1,4 +1,8 @@
-package com.hiloipa.app.hilo.ui.contacts
+/*
+ * Copyright (c) 2018. Fabity.co / Developer: Eduard Albu
+ */
+
+package com.hiloipa.app.hilo.ui.contacts.details
 
 import android.content.Intent
 import android.os.Bundle
@@ -24,7 +28,6 @@ import com.hiloipa.app.hilo.utils.showLoading
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.alert_contact_filter.*
-import java.util.logging.Filter
 
 /**
  * Created by eduardalbu on 09.02.2018.

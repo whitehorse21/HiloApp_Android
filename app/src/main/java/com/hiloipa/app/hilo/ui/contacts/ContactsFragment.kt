@@ -32,6 +32,8 @@ import com.hiloipa.app.hilo.adapter.TextMessageScriptAdapter
 import com.hiloipa.app.hilo.models.requests.*
 import com.hiloipa.app.hilo.models.responses.*
 import com.hiloipa.app.hilo.ui.MainActivity
+import com.hiloipa.app.hilo.ui.contacts.details.ContactDetailsActivity
+import com.hiloipa.app.hilo.ui.contacts.details.ContactsFilterFragment
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView

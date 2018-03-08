@@ -260,4 +260,10 @@ interface HiloAPI {
 
     @POST("UnAssignProducts")
     fun unassignProduct(@Body request: UnassignProduct): Observable<HiloResponse<String>>
+
+    @POST("ContactDocumentsList")
+    fun getDocuments(@Body request: StandardRequest): Observable<HiloResponse<DocumentResponse>>
+
+    @POST("DisplayContactCampaigns")
+    fun getCampaigns(@Body request: StandardRequest): Observable<HiloResponse<CampaignsResponse>>
 }
