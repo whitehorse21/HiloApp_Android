@@ -13,16 +13,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * For project: Hilo
  * Copyright (c) 2018. Fabity.co
  */
-class Account(@JsonProperty("Company") val company: String,
+class Account(@JsonProperty("Company") val company: String?,
               @JsonProperty("Email") val email: String,
               @JsonProperty("First_Name") val firstName: String,
               @JsonProperty("Hilo_BCC_Email") val bccEmail: String,
               @JsonProperty("Last_Name") val lastName: String,
-              @JsonProperty("Personal_URL") val personalUrl: String,
-              @JsonProperty("Personal_URL_Business_Site") val businessSite: String,
-              @JsonProperty("Phone_Number") val phoneNumber: String,
-              @JsonProperty("Solution_Tool_Link") val solutionToolLink: String,
-              @JsonProperty("Title") val title: String) : Parcelable {
+              @JsonProperty("Personal_URL") val personalUrl: String?,
+              @JsonProperty("Personal_URL_Business_Site") val businessSite: String?,
+              @JsonProperty("Phone_Number") val phoneNumber: String?,
+              @JsonProperty("Solution_Tool_Link") val solutionToolLink: String?,
+              @JsonProperty("Title") val title: String?) : Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),

@@ -13,17 +13,22 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.ContactsAdapter
@@ -83,7 +88,8 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         setHasOptionsMenu(true)
         val filter = IntentFilter(ContactsFilterFragment.actionFilterContacts)
         filter.addAction(ContactsFilterFragment.actionResetFilter)
-        mainActivity.registerReceiver(broadcastReceiver, filter)
+        filter.addAction(ImportDialogFragment.actionContactsImported)
+        LocalBroadcastManager.getInstance(mainActivity).registerReceiver(broadcastReceiver, filter)
 
         adapter = ContactsAdapter(activity)
         adapter.delegate = this
@@ -165,6 +171,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                     loadContactsFromServer()
                 }
 
+                ImportDialogFragment.actionContactsImported,
                 ContactsFilterFragment.actionResetFilter -> {
                     this@ContactsFragment.filterRequest = null
                     adapter.contacts.clear()
@@ -795,29 +802,9 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
             val loading = activity.showLoading()
             mainActivity.getDeviceContacts().subscribeOn(Schedulers.io())
                     .subscribe { contacts: ArrayList<DeviceContact> ->
-                        val request = ImportContactsRequest()
-                        request.contacts = contacts
-                        HiloApp.api().importContacts(request)
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe({ response: HiloResponse<ImportContactsResponse> ->
-                                    loading.dismiss()
-                                    if (response.status.isSuccess()) {
-                                        val data = response.data
-                                        if (data != null) {
-                                            val message = "Imported: ${data.imported}\nSkipped: ${data.skipped}"
-                                            activity.showExplanation(title = getString(R.string.success),
-                                                    message = message)
-                                            adapter.contacts.clear()
-                                            page = 1
-                                            query = ""
-                                            loadContactsFromServer()
-                                        }
-                                    } else activity.showExplanation(message = response.message)
-                                }, { error: Throwable ->
-                                    loading.dismiss()
-                                    error.printStackTrace()
-                                    activity.showExplanation(message = error.localizedMessage)
-                                })
+                        loading.dismiss()
+                        val dialog = ImportDialogFragment.newInstance(contacts)
+                        dialog.show(activity.fragmentManager, "Import")
                     }
         }
     }
@@ -841,19 +828,48 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
     override fun onDestroyView() {
         super.onDestroyView()
         mainActivity.importContactsBtn.visibility = View.GONE
-        mainActivity.unregisterReceiver(broadcastReceiver)
+        LocalBroadcastManager.getInstance(mainActivity).unregisterReceiver(broadcastReceiver)
     }
 }
 
-class DeviceContact {
-    @JsonProperty("ContactNumber")
-    lateinit var number: String
-    @JsonProperty("Email")
-    lateinit var email: String
-    @JsonProperty("FirstName")
-    lateinit var firstName: String
-    @JsonProperty("LastName")
-    lateinit var lastName: String
-    @JsonProperty("PhotoData")
-    var photoData: String = ""
+class DeviceContact(@JsonProperty("ContactNumber") var ContactNumber: String): Parcelable {
+    @JsonProperty("Email") lateinit var email: String
+    @JsonProperty("FirstName") lateinit var firstName: String
+    @JsonProperty("LastName") lateinit var lastName: String
+    @JsonProperty("PhotoData") var photoData: String = ""
+    @JsonProperty("UUID") var uuid: String = UUID.randomUUID().toString()
+    @JsonIgnore var photoPath: Uri? = null
+
+    constructor(parcel: Parcel) : this(parcel.readString()) {
+        email = parcel.readString()
+        firstName = parcel.readString()
+        lastName = parcel.readString()
+        photoData = parcel.readString()
+        uuid = parcel.readString()
+        photoPath = parcel.readParcelable(Uri::class.java.classLoader)
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(ContactNumber)
+        parcel.writeString(email)
+        parcel.writeString(firstName)
+        parcel.writeString(lastName)
+        parcel.writeString(photoData)
+        parcel.writeString(uuid)
+        parcel.writeParcelable(photoPath, flags)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<DeviceContact> {
+        override fun createFromParcel(parcel: Parcel): DeviceContact {
+            return DeviceContact(parcel)
+        }
+
+        override fun newArray(size: Int): Array<DeviceContact?> {
+            return arrayOfNulls(size)
+        }
+    }
 }

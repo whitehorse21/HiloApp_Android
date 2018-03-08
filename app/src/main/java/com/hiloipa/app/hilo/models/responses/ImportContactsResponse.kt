@@ -8,4 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 class ImportContactsResponse(@JsonProperty("Imported") val imported: Int,
-                             @JsonProperty("Skipped") val skipped: Int)
+                             @JsonProperty("Skipped") val skipped: Int,
+                             @JsonProperty("ImportedContacts") val importedContacts: ArrayList<ImportedContact>)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+class ImportedContact(@JsonProperty("UUID") val uuid: String,
+                      @JsonProperty("contact_id") val contactId: Int)

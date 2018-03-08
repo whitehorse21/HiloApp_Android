@@ -16,4 +16,8 @@
     <style name="HiloProgressBar" parent="Base.Widget.AppCompat.ProgressBar">
         <item name="android:indeterminate">true</item>
     </style>
+
+    <style name="HiloProgressBarRed" parent="Base.Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminate">true</item>
+    </style>
 </resources>

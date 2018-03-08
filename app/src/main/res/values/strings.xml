@@ -347,4 +347,8 @@
     <string name="campaign">Campaign</string>
     <string name="send_date">Send date</string>
     <string name="email_staus">Email status</string>
+    <string name="importing_contacts">Importing Contacts</string>
+    <string name="imported_contacts_d">Imported contacts: %d</string>
+    <string name="uploaded_images_d">Uploaded Contact Images: %d</string>
+    <string name="uploading_contact_images">Uploading Contact Images</string>
 </resources>

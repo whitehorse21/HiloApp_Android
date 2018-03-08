@@ -1,6 +1,8 @@
 package com.hiloipa.app.hilo.ui
 
+import android.content.ContentUris
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -203,9 +205,15 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
                 }
 
                 // create device contact object
-                val deviceContact = DeviceContact()
+                val deviceContact = DeviceContact(phone)
+                // try to get contact image
+                var photo: Uri? = null
+                val photos = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI,
+                        contactId.toLong())
+                photo = Uri.withAppendedPath(photos, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY)
+                deviceContact.photoPath = photo
+                // set other contact data
                 deviceContact.email = email
-                deviceContact.number = phone
                 val names = contactName.split(" ")
                 if (names.size > 0)
                     deviceContact.firstName = names[0]
@@ -226,6 +234,11 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         supportFragmentManager.fragments.forEach { it.onActivityResult(requestCode, resultCode, data) }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        supportFragmentManager.fragments.forEach { it.onRequestPermissionsResult(requestCode, permissions, grantResults) }
     }
 
     override fun onDestroy() {

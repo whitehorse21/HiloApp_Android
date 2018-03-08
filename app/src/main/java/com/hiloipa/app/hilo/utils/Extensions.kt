@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.provider.MediaStore
 import android.support.customtabs.CustomTabsIntent
 import android.support.v7.app.AlertDialog
 import android.util.DisplayMetrics
@@ -101,4 +102,14 @@ enum class Status {
 fun Int.isSuccess(): Boolean {
     val status = Status.fromInt(this)
     return status == Status.SUCCESS
+}
+
+fun Uri.getAbsolutePath(): String? {
+    val projection = arrayOf<String>(MediaStore.Images.Media.DATA)
+    val cursor = HiloApp.instance.contentResolver.query(this, projection, null, null, null) ?: return null
+    val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+    cursor.moveToFirst()
+    val s = cursor.getString(column_index)
+    cursor.close()
+    return s
 }

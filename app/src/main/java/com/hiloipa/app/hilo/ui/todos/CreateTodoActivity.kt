@@ -58,6 +58,10 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
             setResult(Activity.RESULT_CANCELED)
             finish()
         }
+
+        // get to do type from intent
+        todoType = TodoType.fromInt(intent.extras.getInt("type"))
+
         // setup spinners and date buttons
         setupAmPmSpinner()
         setupPrioritySpinner()
@@ -65,8 +69,7 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
         setupEndTimeBtn()
         setupEventAmPmSpinner()
         setupEventTypeSpinner()
-        // get to do type from intent
-        todoType = TodoType.fromInt(intent.extras.getInt("type"))
+        setupStartAndEndDateBtns()
 
         // get item from intent
         when (todoType) {
@@ -199,6 +202,59 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
                 val newDate = Date(calendar.timeInMillis)
                 endTimeBtn.text = timeFormat.format(newDate)
                 endTimeBtn.tag = newDate
+            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false)
+            alert.show()
+        }
+    }
+
+    private fun setupStartAndEndDateBtns() {
+        if (todoType != TodoType.event) return
+        val event = item as Event?
+        val calendar = Calendar.getInstance()
+        if (event != null) calendar.time = event.startDate
+
+        eventStartDate.setOnClickListener {
+            val alert = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, month)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                val newDate = Date(calendar.timeInMillis)
+                eventStartDate.text = dateFormat.format(newDate)
+                eventStartDate.tag = newDate
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+            alert.show()
+        }
+
+        eventEndDate.setOnClickListener {
+            val alert = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, month)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                val newDate = Date(calendar.timeInMillis)
+                eventEndDate.text = dateFormat.format(newDate)
+                eventEndDate.tag = newDate
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+            alert.show()
+        }
+
+        eventStartTime.setOnClickListener {
+            val alert = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                calendar.set(Calendar.MINUTE, minute)
+                val newDate = Date(calendar.timeInMillis)
+                eventStartTime.text = timeFormat.format(newDate)
+                eventStartTime.tag = newDate
+            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false)
+            alert.show()
+        }
+
+        eventEndTime.setOnClickListener {
+            val alert = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                calendar.set(Calendar.MINUTE, minute)
+                val newDate = Date(calendar.timeInMillis)
+                eventEndTime.text = timeFormat.format(newDate)
+                eventEndTime.tag = newDate
             }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false)
             alert.show()
         }
@@ -522,6 +578,7 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response: HiloResponse<String> ->
+                    loading.dismiss()
                     if (response.message.contains("successfully", true)) {
                         LocalBroadcastManager.getInstance(this)
                                 .sendBroadcast(Intent(actionUpdateDashboard))

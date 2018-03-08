@@ -7,6 +7,7 @@ package com.hiloipa.app.hilo.ui.contacts.details
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -62,7 +63,7 @@ class ContactsFilterFragment() : BottomSheetDialogFragment() {
 
         resetFilterBtn.setOnClickListener {
             val resetIntent = Intent(actionResetFilter)
-            activity.sendBroadcast(resetIntent)
+            LocalBroadcastManager.getInstance(activity).sendBroadcast(resetIntent)
             this.dismiss()
         }
     }
@@ -284,7 +285,7 @@ class ContactsFilterFragment() : BottomSheetDialogFragment() {
         val extras = Bundle()
         extras.putParcelable("filter", filterRequest)
         filterIntent.putExtras(extras)
-        activity.sendBroadcast(filterIntent)
+        LocalBroadcastManager.getInstance(activity).sendBroadcast(filterIntent)
         this.dismiss()
     }
 
