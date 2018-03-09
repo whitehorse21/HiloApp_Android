@@ -214,7 +214,7 @@
                     android:textSize="12sp"
                     android:text="@string/phone_number"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.github.reinaldoarrosi.maskededittext.MaskedEditText
                     android:id="@+id/phoneNumberField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -222,6 +222,9 @@
                     android:imeOptions="actionNext"
                     android:lines="1"
                     android:inputType="phone"
+                    android:digits="0123456789+"
+                    app:mask="(999) 999-9999"
+                    app:placeholder="_"
                     android:layout_height="45dp"
                     android:background="@drawable/selectable_border_rect"
                     android:paddingLeft="10dp"
@@ -236,7 +239,7 @@
                     android:textSize="12sp"
                     android:text="@string/cell_phone"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.github.reinaldoarrosi.maskededittext.MaskedEditText
                     android:id="@+id/cellPhoneField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -244,6 +247,9 @@
                     android:imeOptions="actionNext"
                     android:lines="1"
                     android:inputType="phone"
+                    android:digits="0123456789+"
+                    app:mask="(999) 999-9999"
+                    app:placeholder="_"
                     android:layout_height="45dp"
                     android:background="@drawable/selectable_border_rect"
                     android:paddingLeft="10dp"
@@ -258,7 +264,7 @@
                     android:textSize="12sp"
                     android:text="@string/work_phone"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.github.reinaldoarrosi.maskededittext.MaskedEditText
                     android:id="@+id/workPhoneField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -266,6 +272,9 @@
                     android:imeOptions="actionNext"
                     android:lines="1"
                     android:inputType="phone"
+                    android:digits="0123456789+"
+                    app:mask="(999) 999-9999"
+                    app:placeholder="_"
                     android:layout_height="45dp"
                     android:background="@drawable/selectable_border_rect"
                     android:paddingLeft="10dp"
@@ -280,7 +289,7 @@
                     android:textSize="12sp"
                     android:text="@string/home_phone"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.github.reinaldoarrosi.maskededittext.MaskedEditText
                     android:id="@+id/homePhoneField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -288,6 +297,9 @@
                     android:imeOptions="actionDone"
                     android:lines="1"
                     android:inputType="phone"
+                    android:digits="0123456789+"
+                    app:mask="(999) 999-9999"
+                    app:placeholder="_"
                     android:layout_height="45dp"
                     android:background="@drawable/selectable_border_rect"
                     android:paddingLeft="10dp"

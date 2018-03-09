@@ -27,7 +27,6 @@
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:imeOptions="actionNext"
-            android:text="nicole@nicolelaino.com"
             android:textSize="16sp"
             android:drawableLeft="@drawable/ic_field_email_white"
             android:drawableStart="@drawable/ic_field_email_white"
@@ -44,7 +43,6 @@
             android:layout_marginRight="16dp"
             android:inputType="textPassword"
             android:imeOptions="actionDone"
-            android:text="Hilo2017"
             android:drawableLeft="@drawable/ic_field_password_white"
             android:drawableStart="@drawable/ic_field_password_white"
             android:drawablePadding="10dp"
@@ -62,7 +60,7 @@
             android:layout_marginRight="7dp"
             android:layout_marginLeft="7dp"
             android:textColor="@android:color/white"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:text="@string/forgot_password"
             android:layout_gravity="end"/>
 
@@ -92,6 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:textSize="12sp"
             android:textColor="@android:color/white"
             android:text="@string/don_t_have_an_account_yet" />
 
@@ -104,7 +103,7 @@
             android:layout_marginEnd="16dp"
             app:buttonFont="bold"
             android:textColor="@android:color/white"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:text="@string/create_an_account"/>
     </LinearLayout>
 </RelativeLayout>

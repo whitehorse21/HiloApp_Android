@@ -3,9 +3,11 @@ package com.hiloipa.app.hilo.ui.contacts
 
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
+import android.telephony.PhoneNumberFormattingTextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +38,7 @@ import kotlinx.android.synthetic.main.edit_rodan_plus_fields.*
 import kotlinx.android.synthetic.main.edit_social_and_websites.*
 import kotlinx.android.synthetic.main.edit_tags_and_custom_fields.*
 import kotlinx.android.synthetic.main.fragment_edit_contact.*
+import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -80,6 +83,13 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         addressToggleBtn.setOnClickListener(this)
         // save button setup
         saveBtn.setOnClickListener { saveContactData() }
+
+        // phones typeface
+        val typeface = Typeface.createFromAsset(context.assets, "Font/Raleway-Regular.ttf")
+        phoneNumberField.setTypeface(typeface)
+        homePhoneField.setTypeface(typeface)
+        cellPhoneField.setTypeface(typeface)
+        workPhoneField.setTypeface(typeface)
     }
 
     private fun getFullContactDetails(contactId: String, loading: AlertDialog = activity.showLoading()) {

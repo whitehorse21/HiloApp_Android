@@ -103,8 +103,9 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
 
         addContactBtn.setOnClickListener {
             val intent = Intent(activity, EditContactActivity::class.java)
-            activity.startActivity(intent)
+            activity.startActivityForResult(intent, 1250)
         }
+
         filterBtn.setOnClickListener {
             ContactsFilterFragment.newInstance().show(childFragmentManager, "ContactsFilterFragment")
         }

@@ -132,9 +132,13 @@ class MoreFragment : Fragment() {
             activity.startActivity(scriptsIntent)
         }
 
-        Picasso.with(activity)
-                .load(HiloApp.userData.userImage)
-                .into(userAvatar)
+        if (HiloApp.userData.userImage != "https://s3.amazonaws.com/hiloipadev/assets/img/avatars/user@2x.png") {
+            Picasso.with(activity)
+                    .load(HiloApp.userData.userImage)
+                    .placeholder(R.mipmap.ic_profile_default_round)
+                    .error(R.mipmap.ic_profile_default_round)
+                    .into(userAvatar)
+        }
 
         userAvatar.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.alert_user_image, null)

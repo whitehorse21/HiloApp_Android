@@ -69,25 +69,27 @@
 
             <com.hiloipa.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/filterBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_margin="10dp"
                 android:singleLine="true"
                 android:lines="1"
                 android:text="@string/filter"
-                android:textSize="14sp"
+                android:layout_weight="1"
+                android:textSize="12sp"
                 android:background="@drawable/orange_border_rect_rounded"
                 android:textColor="@color/colorPrimary"/>
 
             <com.hiloipa.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/actionsBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="5dp"
                 android:singleLine="true"
                 android:lines="1"
-                android:textSize="14sp"
-                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:layout_marginEnd="5dp"
                 android:text="@string/actions"
                 android:background="@drawable/orange_border_rect_rounded"
                 android:textColor="@color/colorPrimary"/>
@@ -101,7 +103,7 @@
                 android:background="@android:color/transparent"
                 android:singleLine="true"
                 android:lines="1"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:ellipsize="end"
                 android:layout_marginEnd="16dp"
                 android:drawablePadding="5dp"

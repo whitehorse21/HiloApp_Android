@@ -24,6 +24,8 @@
                 android:id="@+id/reachoutExpandBtn"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:clickable="false"
+                android:focusable="false"
                 android:src="@drawable/reachout_expand_btn"
                 style="@style/Base.Widget.AppCompat.ActionButton"
                 android:contentDescription="@null"

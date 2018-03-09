@@ -76,12 +76,6 @@ class RegistrationFragment : Fragment() {
                 findUsField.clearFocus()
             }
         }
-
-        firstNameField.setText("Eduard")
-        lastNameField.setText("Albu")
-        emailField.setText("eduardalbu@gmail.com")
-        passwordField.setText("test123")
-        repeatPasswordField.setText("test123")
     }
 
     private fun createNewAccount() {
