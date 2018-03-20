@@ -76,7 +76,7 @@ class CustomField(@JsonProperty("FieldName") var fieldName: String,
 }
 
 //@JsonIgnoreProperties(ignoreUnknown = true)
-class ContactDetails(@JsonProperty("AlternativeEmail") val alternativeEmail: String,
+class ContactDetails(@JsonProperty("AlternativeEmail") val alternativeEmail: String?,
                      @JsonProperty("City") val city: String?,
                      @JsonProperty("ContactID") val contactId: Int,
                      @JsonProperty("ContactNumber") val contactNumber: String,

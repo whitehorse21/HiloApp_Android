@@ -30,6 +30,7 @@ import org.json.JSONObject
 
 val paymentHelp = "Welcome to the Payments page! Here you can choose the plan you'd like to " +
         "subscribe to or update your billing info."
+
 class SubscribeActivity : AppCompatActivity(), View.OnClickListener {
 
     lateinit var plans: MutableList<PaymentPlanView>
@@ -68,8 +69,12 @@ class SubscribeActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         makePaymentBtn.setOnClickListener {
-            val planView = plans.first { it.isChecked }
-            updatePaymentPlan(planView)
+            val planView = plans.firstOrNull { it.isChecked }
+            if (planView != null)
+                updatePaymentPlan(planView)
+            else
+                Toast.makeText(this, getString(R.string.select_plan_first),
+                        Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -132,8 +137,7 @@ class SubscribeActivity : AppCompatActivity(), View.OnClickListener {
                     val sku = jsonObject.getString("productId");
                     if (selectedPlan != null)
                         confirmPayment(selectedPlan!!)
-                }
-                catch (e: JSONException) {
+                } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }
@@ -141,7 +145,7 @@ class SubscribeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.action_help -> {
                 val helpIntent = Intent(this, HelpActivity::class.java)
                 helpIntent.putExtra(HelpActivity.titleKey, toolbarTitle.text)
