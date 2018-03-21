@@ -459,7 +459,8 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         firstNameField.setText(details.firstName)
         lastNameField.setText(details.lastName)
         emailField.setText(details.email)
-        val emails = details.alternativeEmail.split(",")
+        val emails = if (details.alternativeEmail != null) details.alternativeEmail
+                .split(",") else arrayListOf()
         val emailFileds = mutableListOf(emailField1, emailField2, emailField3)
         if (emails.isNotEmpty()) {
             for (i in 0..emails.lastIndex) {

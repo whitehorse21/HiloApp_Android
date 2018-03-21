@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.models.responses.Contact
 import com.hiloipa.app.hilo.models.responses.DetailedContact
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 
@@ -18,12 +19,12 @@ import com.hiloipa.app.hilo.ui.widget.RalewayTextView
  * For project: Hilo
  * Copyright (c) 2018. Fabity.co
  */
-class SearchContactAdapter(val context: Context): RecyclerView.Adapter<SearchContactAdapter.ViewHolder>() {
+class SearchContactAdapter<T: Contact>(val context: Context): RecyclerView.Adapter<SearchContactAdapter<T>.ViewHolder>() {
 
-    private var contacts: ArrayList<DetailedContact> = arrayListOf()
+    private var contacts: ArrayList<T> = arrayListOf()
     var delegate: SearchAdapterDelegate? = null
 
-    fun refreshContacts(contacts: ArrayList<DetailedContact>) {
+    fun refreshContacts(contacts: ArrayList<T>) {
         this.contacts.clear()
         this.contacts.addAll(contacts)
         notifyDataSetChanged()
@@ -41,12 +42,12 @@ class SearchContactAdapter(val context: Context): RecyclerView.Adapter<SearchCon
         if (holder == null) return
         val contact = contacts[position]
         holder.contact = contact
-        holder.nameLabel.text = "${contact.firstName} ${contact.lastName}"
+        holder.nameLabel.text = contact.name
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val nameLabel: RalewayTextView = itemView.findViewById(R.id.contactNameLabel)
-        lateinit var contact: DetailedContact
+        lateinit var contact: T
 
         init {
             itemView.setOnClickListener {
@@ -56,6 +57,6 @@ class SearchContactAdapter(val context: Context): RecyclerView.Adapter<SearchCon
     }
 
     interface SearchAdapterDelegate {
-        fun onContactSelected(contact: DetailedContact, position: Int)
+        fun onContactSelected(contact: Contact, position: Int)
     }
 }

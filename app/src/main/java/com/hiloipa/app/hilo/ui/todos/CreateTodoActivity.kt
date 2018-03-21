@@ -171,8 +171,8 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
         }
     }
 
-    override fun onContactSelected(contact: DetailedContact) {
-        contactField.text = "${contact.firstName} ${contact.lastName}"
+    override fun onContactSelected(contact: Contact) {
+        contactField.text = contact.name
         contactField.tag = "${contact.id}"
     }
 

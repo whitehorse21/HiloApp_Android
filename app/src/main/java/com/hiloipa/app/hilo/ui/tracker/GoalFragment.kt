@@ -42,7 +42,7 @@ import kotlin.collections.ArrayList
 /**
  * A simple [Fragment] subclass.
  */
-class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, FragmentSearchContacts.SearchDelegate {
+class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, FragmentSearchGoalContact.SearchGoalDelegate {
 
     lateinit var adapter: GoalTrackerAdapter
     lateinit var goalType: GoalType
@@ -191,11 +191,11 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
     }
 
     override fun didWantToSearchContact() {
-        FragmentSearchContacts.newInstance(this)
+        FragmentSearchGoalContact.newInstance(this, goalType.searchUrl())
                 .show(activity.fragmentManager, "SearchContacts")
     }
 
-    override fun onContactSelected(contact: DetailedContact) {
+    override fun onContactSelected(contact: Contact) {
         val request = StandardRequest()
         request.type = goalType.apiValue()
         request.contactId = "${contact.id}"

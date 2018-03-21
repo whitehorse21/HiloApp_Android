@@ -13,10 +13,7 @@ import android.widget.DatePicker
 import android.widget.Toast
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.requests.SaveReachOutLogRequest
-import com.hiloipa.app.hilo.models.responses.DetailedContact
-import com.hiloipa.app.hilo.models.responses.DropDownValue
-import com.hiloipa.app.hilo.models.responses.HiloResponse
-import com.hiloipa.app.hilo.models.responses.ReachOutLog
+import com.hiloipa.app.hilo.models.responses.*
 import com.hiloipa.app.hilo.ui.FragmentSearchContacts
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
@@ -176,8 +173,8 @@ class EditReachoutActivity : AppCompatActivity(), FragmentSearchContacts.SearchD
         saveBtn.setOnClickListener { saveReachLog() }
     }
 
-    override fun onContactSelected(contact: DetailedContact) {
-        contactField.text = "${contact.firstName} ${contact.lastName}"
+    override fun onContactSelected(contact: Contact) {
+        contactField.text = contact.name
         contactField.tag = "${contact.id}"
     }
 

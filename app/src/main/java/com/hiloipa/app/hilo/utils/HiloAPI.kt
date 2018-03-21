@@ -6,10 +6,7 @@ import com.hiloipa.app.hilo.models.responses.*
 import com.hiloipa.app.hilo.ui.todos.ActionDropDown
 import io.reactivex.Observable
 import okhttp3.ResponseBody
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * Created by eduardalbu on 31.01.2018.
@@ -64,8 +61,9 @@ interface HiloAPI {
     @POST("RemoveGoalTrackerContact")
     fun removeGoalTrackerContact(@Body standardRequest: StandardRequest = StandardRequest()): Observable<HiloResponse<String>>
 
-    @POST("GoalTrackerReachoutContacts")
-    fun searchContacts(@Body standardRequest: StandardRequest = StandardRequest()): Observable<HiloResponse<ArrayList<SearchContact>>>
+    @POST("{searchUrl}")
+    fun searchContacts(@Path("searchUrl") searhUrl: String,
+                       @Body standardRequest: StandardRequest = StandardRequest()): Observable<HiloResponse<ArrayList<SearchContact>>>
 
     @GET("GetTeamContact?")
     fun getTeamContactId(@Query("teamid") teamId: Int): Observable<ResponseBody>

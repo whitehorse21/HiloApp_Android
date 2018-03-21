@@ -44,4 +44,10 @@ enum class GoalType {
         follow_ups -> "Followup"
         team_reach_outs -> "TeamReach"
     }
+
+    fun searchUrl(): String = when(this) {
+        reach_outs -> "GoalTrackerReachoutContacts"
+        follow_ups -> "GoalTrackerFollowContacts"
+        team_reach_outs -> "GoalTrackerTeamReachContacts"
+    }
 }

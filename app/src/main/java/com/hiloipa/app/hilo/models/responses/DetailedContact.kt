@@ -3,6 +3,7 @@ package com.hiloipa.app.hilo.models.responses
 import android.os.Parcel
 import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.*
 import kotlin.collections.ArrayList
@@ -10,6 +11,7 @@ import kotlin.collections.ArrayList
 /**
  * Created by eduardalbu on 22.02.2018.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 class DetailedContact(@JsonProperty("contact_id") id: Int,
                       @JsonProperty("contact_number") val contactNumber: String?,
                       @JsonProperty("contact_type") val contactType: String?,
@@ -24,7 +26,7 @@ class DetailedContact(@JsonProperty("contact_id") id: Int,
                       @JsonProperty("pipeline_position") val pipelinePos: String,
                       @JsonProperty("temp_id") val tempId: Int,
                       @JsonProperty("temp_name") val tempName: String,
-                      @JsonProperty("user_image") val userImage: String): Parcelable, Contact(id, firstName, 0, Date()) {
+                      @JsonProperty("user_image") val userImage: String): Parcelable, Contact(id, "$firstName $lastName", 0, Date()) {
 
     @JsonIgnore
     var isSelected = false

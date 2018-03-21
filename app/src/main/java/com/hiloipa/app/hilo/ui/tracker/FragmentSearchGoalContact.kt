@@ -2,9 +2,8 @@
  * Copyright (c) 2018. Fabity.co / Developer: Eduard Albu
  */
 
-package com.hiloipa.app.hilo.ui
+package com.hiloipa.app.hilo.ui.tracker
 
-import android.app.Dialog
 import android.app.DialogFragment
 import android.os.Bundle
 import android.os.Handler
@@ -17,10 +16,8 @@ import android.view.ViewGroup
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.SearchContactAdapter
 import com.hiloipa.app.hilo.models.requests.ContactsListRequest
-import com.hiloipa.app.hilo.models.responses.Contact
-import com.hiloipa.app.hilo.models.responses.DetailedContacs
-import com.hiloipa.app.hilo.models.responses.DetailedContact
-import com.hiloipa.app.hilo.models.responses.HiloResponse
+import com.hiloipa.app.hilo.models.requests.StandardRequest
+import com.hiloipa.app.hilo.models.responses.*
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.displaySize
 import com.hiloipa.app.hilo.utils.isSuccess
@@ -31,19 +28,21 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_search_contacts.*
 
 /**
- * Created by Eduard Albu on 28 Февраль 2018.
+ * Created by Eduard Albu on 21 Март 2018.
  * For project: Hilo
  * Copyright (c) 2018. Fabity.co
  */
-class FragmentSearchContacts: DialogFragment(), SearchContactAdapter.SearchAdapterDelegate {
+class FragmentSearchGoalContact: DialogFragment(), SearchContactAdapter.SearchAdapterDelegate {
 
-    var delegate: SearchDelegate? = null
-    lateinit var adapter: SearchContactAdapter<DetailedContact>
+    var delegate: SearchGoalDelegate? = null
+    lateinit var adapter: SearchContactAdapter<SearchContact>
+    lateinit var searchUrl: String
 
     companion object {
-        fun newInstance(delegate: SearchDelegate? = null): FragmentSearchContacts {
+        fun newInstance(delegate: SearchGoalDelegate? = null, searchUrl: String): FragmentSearchGoalContact {
             val args = Bundle()
-            val fragment = FragmentSearchContacts()
+            args.putString("searchUrl", searchUrl)
+            val fragment = FragmentSearchGoalContact()
             fragment.arguments = args
             fragment.delegate = delegate
             return fragment
@@ -69,7 +68,8 @@ class FragmentSearchContacts: DialogFragment(), SearchContactAdapter.SearchAdapt
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
         val handler = Handler()
-        val requests: MutableList<Observable<HiloResponse<DetailedContacs>>> = mutableListOf()
+        searchUrl = arguments.getString("searchUrl")
+        val requests: MutableList<Observable<HiloResponse<ArrayList<SearchContact>>>> = mutableListOf()
         searchField.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
@@ -81,7 +81,7 @@ class FragmentSearchContacts: DialogFragment(), SearchContactAdapter.SearchAdapt
                 val query = s.toString()
                 val request = ContactsListRequest()
                 request.query = query
-                requests.add(HiloApp.api().searchDetailedContacts(request))
+                requests.add(HiloApp.api().searchContacts(searchUrl, request))
                 handler.postDelayed({
                     getAllContactsFromServer(requests)
                 }, 1000)
@@ -93,19 +93,19 @@ class FragmentSearchContacts: DialogFragment(), SearchContactAdapter.SearchAdapt
         val request = ContactsListRequest()
         request.query = ""
         progressBar.visibility = View.VISIBLE
-        getAllContactsFromServer(mutableListOf(HiloApp.api().searchDetailedContacts(request)))
+        getAllContactsFromServer(mutableListOf(HiloApp.api().searchContacts(searchUrl, request)))
     }
 
-    private fun getAllContactsFromServer(requests: MutableList<Observable<HiloResponse<DetailedContacs>>>) {
+    private fun getAllContactsFromServer(requests: MutableList<Observable<HiloResponse<ArrayList<SearchContact>>>>) {
         Observable.merge(requests)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnComplete { progressBar.visibility = View.GONE }
-                .subscribe({ response: HiloResponse<DetailedContacs> ->
+                .subscribe({ response: HiloResponse<ArrayList<SearchContact>> ->
                     if (response.status.isSuccess()) {
                         val data = response.data
                         if (data != null) {
-                            adapter.refreshContacts(data.contacts)
+                            adapter.refreshContacts(data)
                         }
                     }
                 }, { error: Throwable ->
@@ -120,7 +120,7 @@ class FragmentSearchContacts: DialogFragment(), SearchContactAdapter.SearchAdapt
         delegate?.onContactSelected(contact)
     }
 
-    interface SearchDelegate {
+    interface SearchGoalDelegate {
         fun onContactSelected(contact: Contact)
     }
 }

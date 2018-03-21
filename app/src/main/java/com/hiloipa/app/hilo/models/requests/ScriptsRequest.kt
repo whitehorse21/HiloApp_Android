@@ -12,5 +12,5 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Copyright (c) 2018. Fabity.co
  */
 class ScriptsRequest: StandardRequest() {
-    @JsonProperty("SearchTerm") var query: String = ""
+    @JsonProperty("SearchTerm") var query: String? = ""
 }
