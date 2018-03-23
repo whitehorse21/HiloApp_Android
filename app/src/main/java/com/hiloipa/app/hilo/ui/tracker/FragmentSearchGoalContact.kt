@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.SearchContactAdapter
 import com.hiloipa.app.hilo.models.requests.ContactsListRequest
+import com.hiloipa.app.hilo.models.requests.GoalTrackerContacts
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.*
 import com.hiloipa.app.hilo.utils.HiloApp
@@ -79,7 +80,7 @@ class FragmentSearchGoalContact: DialogFragment(), SearchContactAdapter.SearchAd
                 requests.clear()
                 progressBar.visibility = View.VISIBLE
                 val query = s.toString()
-                val request = ContactsListRequest()
+                val request = GoalTrackerContacts()
                 request.query = query
                 requests.add(HiloApp.api().searchContacts(searchUrl, request))
                 handler.postDelayed({
@@ -90,7 +91,7 @@ class FragmentSearchGoalContact: DialogFragment(), SearchContactAdapter.SearchAd
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         })
 
-        val request = ContactsListRequest()
+        val request = GoalTrackerContacts()
         request.query = ""
         progressBar.visibility = View.VISIBLE
         getAllContactsFromServer(mutableListOf(HiloApp.api().searchContacts(searchUrl, request)))

@@ -7,5 +7,5 @@ import com.fasterxml.jackson.annotation.JsonProperty
  */
 class ContactsListRequest: StandardRequest() {
     @JsonProperty("page") var page: Int = 1
-    @JsonProperty("Search") var query: String? = null
+    @JsonProperty("Search") lateinit var query: String
 }

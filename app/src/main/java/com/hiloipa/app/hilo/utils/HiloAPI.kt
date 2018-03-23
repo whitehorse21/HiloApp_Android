@@ -63,7 +63,7 @@ interface HiloAPI {
 
     @POST("{searchUrl}")
     fun searchContacts(@Path("searchUrl") searhUrl: String,
-                       @Body standardRequest: StandardRequest = StandardRequest()): Observable<HiloResponse<ArrayList<SearchContact>>>
+                       @Body standardRequest: GoalTrackerContacts = GoalTrackerContacts()): Observable<HiloResponse<ArrayList<SearchContact>>>
 
     @GET("GetTeamContact?")
     fun getTeamContactId(@Query("teamid") teamId: Int): Observable<ResponseBody>
