@@ -42,15 +42,15 @@ class TodosFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-            inflater!!.inflate(R.layout.fragment_todos, container, false)
+            inflater.inflate(R.layout.fragment_todos, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val filter = IntentFilter(CreateTodoActivity.actionUpdateDashboard)
         filter.addAction(TodoDetailsFragment.updateData)
-        LocalBroadcastManager.getInstance(activity).registerReceiver(broadcastReceiver, filter)
+        LocalBroadcastManager.getInstance(activity!!).registerReceiver(broadcastReceiver, filter)
 
         goalsButton.setOnClickListener {
             if (toDoData != null)
@@ -90,7 +90,7 @@ class TodosFragment : Fragment() {
     }
 
     private fun getDashboardData() {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().getToDoDashboard(StandardRequest())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -102,11 +102,11 @@ class TodosFragment : Fragment() {
                             toDoData = data
                             updateUIWithNewData()
                         }
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -130,11 +130,11 @@ class TodosFragment : Fragment() {
 
         val updateIntent = Intent(TodoDetailsFragment.updateList)
         updateIntent.putExtra("data", toDoData)
-        LocalBroadcastManager.getInstance(activity).sendBroadcast(updateIntent)
+        LocalBroadcastManager.getInstance(activity!!).sendBroadcast(updateIntent)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        LocalBroadcastManager.getInstance(activity).unregisterReceiver(broadcastReceiver)
+        LocalBroadcastManager.getInstance(activity!!).unregisterReceiver(broadcastReceiver)
     }
 }

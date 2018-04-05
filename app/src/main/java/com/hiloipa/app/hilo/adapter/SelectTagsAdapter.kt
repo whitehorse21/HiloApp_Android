@@ -27,8 +27,8 @@ class SelectTagsAdapter(val context: Context): RecyclerView.Adapter<SelectTagsAd
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_select_tag, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_select_tag, parent, false)
         return ViewHolder(view)
     }
 
@@ -36,8 +36,7 @@ class SelectTagsAdapter(val context: Context): RecyclerView.Adapter<SelectTagsAd
         return tags.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder == null) return
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val tag = tags[position]
         holder.tag = tag
         val tagColor = tag.color()

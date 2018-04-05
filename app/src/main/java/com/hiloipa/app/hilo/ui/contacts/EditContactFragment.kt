@@ -7,14 +7,12 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
-import android.telephony.PhoneNumberFormattingTextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.TagsSpinnerAdapter
 import com.hiloipa.app.hilo.models.Tag
@@ -38,7 +36,6 @@ import kotlinx.android.synthetic.main.edit_rodan_plus_fields.*
 import kotlinx.android.synthetic.main.edit_social_and_websites.*
 import kotlinx.android.synthetic.main.edit_tags_and_custom_fields.*
 import kotlinx.android.synthetic.main.fragment_edit_contact.*
-import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -67,11 +64,11 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-            inflater!!.inflate(R.layout.fragment_edit_contact, container, false)
+            inflater.inflate(R.layout.fragment_edit_contact, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getNewContactData()
         // set main buttons click listener
@@ -85,14 +82,14 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         saveBtn.setOnClickListener { saveContactData() }
 
         // phones typeface
-        val typeface = Typeface.createFromAsset(context.assets, "Font/Raleway-Regular.ttf")
-        phoneNumberField.setTypeface(typeface)
-        homePhoneField.setTypeface(typeface)
-        cellPhoneField.setTypeface(typeface)
-        workPhoneField.setTypeface(typeface)
+        val typeface = Typeface.createFromAsset(context!!.assets, "Font/Raleway-Regular.ttf")
+        phoneNumberField.typeface = typeface
+        homePhoneField.typeface = typeface
+        cellPhoneField.typeface = typeface
+        workPhoneField.typeface = typeface
     }
 
-    private fun getFullContactDetails(contactId: String, loading: AlertDialog = activity.showLoading()) {
+    private fun getFullContactDetails(contactId: String, loading: AlertDialog = activity!!.showLoading()) {
         val request = StandardRequest()
         request.contactId = contactId
         HiloApp.api().getContactFullDetails(request)
@@ -107,17 +104,17 @@ class EditContactFragment : Fragment(), View.OnClickListener {
                             this.updateUIWithNewDetails(data)
                         }
                     } else {
-                        activity.showExplanation(message = response.message)
+                        activity!!.showExplanation(message = response.message)
                     }
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
     private fun getNewContactData() {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().getDataForNewContact(StandardRequest())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -130,12 +127,12 @@ class EditContactFragment : Fragment(), View.OnClickListener {
                         }
                     } else {
                         loading.dismiss()
-                        activity.showExplanation(message = response.message)
+                        activity!!.showExplanation(message = response.message)
                     }
                 }, { error ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -357,9 +354,9 @@ class EditContactFragment : Fragment(), View.OnClickListener {
                 val tag = Tag(newTagField.text.toString(), true)
                 adapter.tags.add(tag)
                 var currentText = tagsButton.text
-                if (currentText.isNotEmpty())
-                    currentText = "$currentText,${tag.name}"
-                else currentText = tag.name
+                currentText = if (currentText.isNotEmpty())
+                    "$currentText,${tag.name}"
+                else tag.name
                 tagsButton.text = currentText
                 newTags.add(tag)
                 newTagField.setText("")
@@ -369,12 +366,12 @@ class EditContactFragment : Fragment(), View.OnClickListener {
             val fieldHint = newCustomField.text.toString()
             if (fieldHint.isNotEmpty()) {
                 val customField = CustomField(fieldHint, "")
-                val customFieldView = CustomFieldView(activity, customField)
+                val customFieldView = CustomFieldView(activity!!, customField)
                 customFieldView.deleteClickListener(onDeleteNewFieldListener)
                 this.newCustomFields.add(customFieldView)
                 customFieldsLayout.addView(customFieldView)
                 newCustomField.setText("")
-                activity.hideKeyboard()
+                activity!!.hideKeyboard()
             }
         }
         // rodan plus fields
@@ -382,7 +379,7 @@ class EditContactFragment : Fragment(), View.OnClickListener {
             val gift = giftGivenField.text.toString()
             if (gift.isNotEmpty()) {
                 val giftField = CustomField(getString(R.string.gift_given), gift)
-                val customFieldView = CustomFieldView(activity, giftField)
+                val customFieldView = CustomFieldView(activity!!, giftField)
                 customFieldView.deleteClickListener(onDeleteGiftListener)
                 this.giftsGiven.add(customFieldView)
                 giftFieldsContainer.addView(customFieldView)
@@ -446,8 +443,8 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         }
 
         // get details from arguments if this is the case
-        if (arguments.containsKey("contactId")) {
-            val contactId = arguments.getString("contactId")
+        if (arguments!!.containsKey("contactId")) {
+            val contactId = arguments!!.getString("contactId")
             getFullContactDetails(contactId, loading)
         } else loading.dismiss()
     }
@@ -530,13 +527,13 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         derivedByButton.text = details.derivedBy
         if (details.derivedBy != null)
             derivedByButton.tag = newContactData.derivedBys
-                    .firstOrNull { it.text.equals(details.derivedBy) }?.value
+                    .firstOrNull { it.text == details.derivedBy }?.value
         companyField.setText(details.company)
         // contact source
-        sourceField.setText(details.contactSource)
+        sourceField.text = details.contactSource
         if (details.contactSource.isNotEmpty())
             sourceField.tag = newContactData.sources
-                    .firstOrNull { it.text.equals(details.contactSource) }?.value
+                    .firstOrNull { it.text == details.contactSource }?.value
         jobTitleField.setText(details.jobTitle)
 
         // rodan + fields
@@ -553,7 +550,7 @@ class EditContactFragment : Fragment(), View.OnClickListener {
                     // add a field for each gift
                     if (it.isNotEmpty()) {
                         val giftField = CustomField(getString(R.string.gift_given), it)
-                        val customFieldView = CustomFieldView(activity, giftField)
+                        val customFieldView = CustomFieldView(activity!!, giftField)
                         customFieldView.deleteClickListener(onDeleteGiftListener)
                         this.giftsGiven.add(customFieldView)
                         giftFieldsContainer.addView(customFieldView)
@@ -581,7 +578,7 @@ class EditContactFragment : Fragment(), View.OnClickListener {
 
         // tags and custom fields
         details.assignCustomFields.forEach { field ->
-            val fieldInput = CustomFieldView(activity, field)
+            val fieldInput = CustomFieldView(activity!!, field)
             fieldInput.deleteClickListener(onDeleteFieldListener)
             this.customFields.add(fieldInput)
             customFieldsLayout.addView(fieldInput)
@@ -590,7 +587,7 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         val tagsAdapter = tagsSpinner.adapter as TagsSpinnerAdapter
         if (details.contactTag != null)
             details.contactTag.split(",").forEach { tag: String ->
-                tagsAdapter.tags.firstOrNull { tag.equals(it.name) }?.isSelected = true
+                tagsAdapter.tags.firstOrNull { tag == it.name }?.isSelected = true
                 tagsAdapter.notifyDataSetChanged()
             }
 
@@ -823,7 +820,7 @@ class EditContactFragment : Fragment(), View.OnClickListener {
             request.state = newContactData.states[0].text
         }
 
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         val observable: Observable<HiloResponse<String>>
         if (contactDetails == null)
             observable = HiloApp.api().addNewContact(request)
@@ -835,26 +832,26 @@ class EditContactFragment : Fragment(), View.OnClickListener {
                 .subscribe({ response: HiloResponse<String> ->
                     if (response.status.isSuccess()) {
                         val data = response.data
-                        activity.hideKeyboard()
+                        activity!!.hideKeyboard()
                         if (data != null)
                             Toast.makeText(activity, data, Toast.LENGTH_SHORT).show()
 
-                        activity.setResult(Activity.RESULT_OK)
+                        activity!!.setResult(Activity.RESULT_OK)
                         if (activity is ContactDetailsActivity) {
-                            val contactId = arguments.getString("contactId")
+                            val contactId = arguments!!.getString("contactId")
                             getFullContactDetails(loading = loading, contactId = contactId)
                         } else {
                             loading.dismiss()
-                            activity.finish()
+                            activity!!.finish()
                         }
                     } else {
                         loading.dismiss()
-                        activity.showExplanation(message = response.message)
+                        activity!!.showExplanation(message = response.message)
                     }
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 }

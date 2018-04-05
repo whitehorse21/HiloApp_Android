@@ -47,14 +47,14 @@ class UserProductsFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
             inflater!!.inflate(R.layout.fragment_user_products, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val filter = IntentFilter(UserProductsListFragment.actionUpdateProducts)
-        LocalBroadcastManager.getInstance(activity).registerReceiver(broadcastReceiver, filter)
+        LocalBroadcastManager.getInstance(activity!!).registerReceiver(broadcastReceiver, filter)
 
         purchasedProductsBtn.setOnClickListener(this)
         recomendedProductsBtn.setOnClickListener(this)
@@ -74,9 +74,9 @@ class UserProductsFragment : Fragment(), View.OnClickListener {
     }
 
     private fun getContactProducts() {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         val request = StandardRequest()
-        request.contactId = arguments.getString("contactId")
+        request.contactId = arguments!!.getString("contactId")
         HiloApp.api().getContactProducts(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -86,11 +86,11 @@ class UserProductsFragment : Fragment(), View.OnClickListener {
                         val data = response.data
                         if (data != null)
                             updateUI(data)
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -111,7 +111,7 @@ class UserProductsFragment : Fragment(), View.OnClickListener {
         if (v.tag != null) {
             val products = v.tag as ArrayList<ContactProduct>
             if (products.isNotEmpty()) {
-                UserProductsListFragment.newInstace(products, arguments.getString("contactId"))
+                UserProductsListFragment.newInstace(products, arguments!!.getString("contactId"))
                         .show(childFragmentManager, "ProductsListFragment")
             }
         }
@@ -119,6 +119,6 @@ class UserProductsFragment : Fragment(), View.OnClickListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        LocalBroadcastManager.getInstance(activity).unregisterReceiver(broadcastReceiver)
+        LocalBroadcastManager.getInstance(activity!!).unregisterReceiver(broadcastReceiver)
     }
 }

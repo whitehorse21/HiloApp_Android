@@ -23,7 +23,7 @@ class FiltersAdapter(val data: ArrayList<FilterValue>) :
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_tag_spinner,
                 parent, false)
         return ViewHolder(view)
@@ -31,8 +31,7 @@ class FiltersAdapter(val data: ArrayList<FilterValue>) :
 
     override fun getItemCount(): Int = data.size
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder == null) return
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val value = data[position]
         holder.value = value
         holder.nameLabel.text = value.text

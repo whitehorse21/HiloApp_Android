@@ -43,8 +43,8 @@ class GoalTrackerAdapter(val context: Context) : RecyclerView.Adapter<GoalTracke
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_follow_contact, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_follow_contact, parent, false)
         return ViewHolder(view)
     }
 
@@ -52,8 +52,7 @@ class GoalTrackerAdapter(val context: Context) : RecyclerView.Adapter<GoalTracke
         return rows
     }
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder == null) return
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.rowNumber.text = "${position + 1}"
         // update item data
         when (goalType) {

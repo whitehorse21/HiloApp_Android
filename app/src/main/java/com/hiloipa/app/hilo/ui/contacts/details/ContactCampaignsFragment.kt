@@ -57,9 +57,9 @@ class ContactCampaignsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_contact_campaigns, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = CampaignsAdapter(activity)
+        adapter = CampaignsAdapter(activity!!)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.isNestedScrollingEnabled = false
@@ -72,9 +72,9 @@ class ContactCampaignsFragment : Fragment() {
     }
 
     private fun getContactCampaigns() {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         val request = StandardRequest()
-        request.contactId = arguments.getString("contactId")
+        request.contactId = arguments!!.getString("contactId")
         HiloApp.api().getCampaigns(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -86,11 +86,11 @@ class ContactCampaignsFragment : Fragment() {
                             this.contactCampaigns = data
                             adapter.refreshCampaigns(data.campaigs)
                         }
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -101,7 +101,7 @@ class ContactCampaignsFragment : Fragment() {
         val assignBtn: RalewayButton = dialogView.findViewById(R.id.updateBtn)
         val backBtn: RalewayButton = dialogView.findViewById(R.id.backButton)
 
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().getCampaignData(StandardRequest())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -125,12 +125,12 @@ class ContactCampaignsFragment : Fragment() {
                             }
                             campaignsBtn.setOnClickListener { spinner.performClick() }
 
-                            val dialog = AlertDialog.Builder(activity).setView(dialogView).create()
+                            val dialog = AlertDialog.Builder(activity!!).setView(dialogView).create()
 
                             assignBtn.setOnClickListener {
-                                val contacts = arguments.getString("contactId")
+                                val contacts = arguments!!.getString("contactId")
 
-                                val assignLoading = activity.showLoading()
+                                val assignLoading = activity!!.showLoading()
                                 val request = AssignCampaignRequest()
                                 request.contactId = contacts
                                 request.campaignId = "${campaignsBtn.tag as Int}"
@@ -142,13 +142,13 @@ class ContactCampaignsFragment : Fragment() {
                                             if (response.status.isSuccess()) {
                                                 dialog.dismiss()
                                                 getContactCampaigns()
-                                                activity.showExplanation(title = getString(R.string.success),
+                                                activity!!.showExplanation(title = getString(R.string.success),
                                                         message = response.message)
-                                            } else activity.showExplanation(message = response.message)
+                                            } else activity!!.showExplanation(message = response.message)
                                         }, { error: Throwable ->
                                             assignLoading.dismiss()
                                             error.printStackTrace()
-                                            activity.showExplanation(message = error.localizedMessage)
+                                            activity!!.showExplanation(message = error.localizedMessage)
                                         })
                             }
 
@@ -157,11 +157,11 @@ class ContactCampaignsFragment : Fragment() {
 
                             dialog.show()
                         }
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 }

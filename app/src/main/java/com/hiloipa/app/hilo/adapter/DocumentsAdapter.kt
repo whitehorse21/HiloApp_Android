@@ -31,16 +31,15 @@ class DocumentsAdapter(val context: Context) : RecyclerView.Adapter<DocumentsAda
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.list_item_document, parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int = documents.size
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder == null) return
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val document = documents[position]
         holder.document = document
         holder.titleLabel.text = document.title

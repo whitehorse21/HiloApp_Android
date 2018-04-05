@@ -26,8 +26,8 @@ class ContactProductsAdapter(val context: Context): RecyclerView.Adapter<Contact
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_user_product, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_user_product, parent, false)
         return ViewHolder(view)
     }
 
@@ -35,12 +35,11 @@ class ContactProductsAdapter(val context: Context): RecyclerView.Adapter<Contact
         return products.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder == null) return
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = products[position]
         holder.product = product
         holder.titleLabel.text = product.name
-        Picasso.with(context).load(product.productImage).into(holder.productImage)
+        Picasso.get().load(product.productImage).into(holder.productImage)
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

@@ -49,10 +49,10 @@ class ContactsFilterFragment() : BottomSheetDialogFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater?.inflate(R.layout.alert_contact_filter, container)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.alert_contact_filter, container)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         backButton.setOnClickListener { this.dismiss() }
@@ -63,13 +63,13 @@ class ContactsFilterFragment() : BottomSheetDialogFragment() {
 
         resetFilterBtn.setOnClickListener {
             val resetIntent = Intent(actionResetFilter)
-            LocalBroadcastManager.getInstance(activity).sendBroadcast(resetIntent)
+            LocalBroadcastManager.getInstance(activity!!).sendBroadcast(resetIntent)
             this.dismiss()
         }
     }
 
     private fun getFilterData() {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         val request = StandardRequest()
         HiloApp.api().getFilterData(request)
                 .subscribeOn(Schedulers.io())
@@ -83,12 +83,12 @@ class ContactsFilterFragment() : BottomSheetDialogFragment() {
                             setupAllSpinnersAndButtons(data)
                         } else this.dismiss()
                     } else {
-                        activity.showExplanation(message = response.message)
+                        activity!!.showExplanation(message = response.message)
                     }
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -228,7 +228,7 @@ class ContactsFilterFragment() : BottomSheetDialogFragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
 
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(activity!!)
                 .setView(dialogView)
                 .create()
 
@@ -285,7 +285,7 @@ class ContactsFilterFragment() : BottomSheetDialogFragment() {
         val extras = Bundle()
         extras.putParcelable("filter", filterRequest)
         filterIntent.putExtras(extras)
-        LocalBroadcastManager.getInstance(activity).sendBroadcast(filterIntent)
+        LocalBroadcastManager.getInstance(activity!!).sendBroadcast(filterIntent)
         this.dismiss()
     }
 

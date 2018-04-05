@@ -30,16 +30,15 @@ class FutureContactsAdapter(val context: Context, val goalType: GoalType): Recyc
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_future_contact,
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_future_contact,
                 parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int = contacts.size
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder == null) return
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.position.text = "${position + 1}"
         when (goalType) {
             GoalType.reach_outs -> {

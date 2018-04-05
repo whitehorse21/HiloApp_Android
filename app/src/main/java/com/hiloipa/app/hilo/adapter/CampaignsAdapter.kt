@@ -31,7 +31,7 @@ class CampaignsAdapter(val context: Context): RecyclerView.Adapter<CampaignsAdap
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_campaign,
                 parent, false)
         return ViewHolder(view)
@@ -39,8 +39,7 @@ class CampaignsAdapter(val context: Context): RecyclerView.Adapter<CampaignsAdap
 
     override fun getItemCount(): Int = campaings.size
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder == null) return
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val campaign = campaings[position]
         holder.campaign = campaign
         holder.messageTitleLabel.text = campaign.messageTitle

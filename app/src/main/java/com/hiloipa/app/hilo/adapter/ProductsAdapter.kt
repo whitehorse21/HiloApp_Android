@@ -26,7 +26,7 @@ class ProductsAdapter(val context: Context): RecyclerView.Adapter<ProductsAdapte
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_product, parent, false)
         return ViewHolder(view)
     }
@@ -35,8 +35,7 @@ class ProductsAdapter(val context: Context): RecyclerView.Adapter<ProductsAdapte
         return products.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder == null) return
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = products[position]
         holder.product = product
         holder.productName.text = product.productName
@@ -44,7 +43,7 @@ class ProductsAdapter(val context: Context): RecyclerView.Adapter<ProductsAdapte
         holder.pcPrice.text = "${product.piecePrice}"
         holder.retailPrice.text = "${product.retailPrice}"
 
-        Picasso.with(context).load(product.productImage)
+        Picasso.get().load(product.productImage)
                 .into(holder.productImage)
     }
 

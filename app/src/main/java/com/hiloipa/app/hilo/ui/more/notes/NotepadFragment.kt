@@ -45,20 +45,20 @@ class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
         inflater!!.inflate(R.layout.fragment_notepad, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = UserNotesAdapter(activity)
+        adapter = UserNotesAdapter(activity!!)
         adapter.delegate = this
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
         addNoteBtn.setOnClickListener {
             val intent = Intent(activity, CreateNoteActivity::class.java)
-            activity.startActivityForResult(intent, 1908)
+            activity!!.startActivityForResult(intent, 1908)
         }
 
         getNotes()
@@ -67,16 +67,16 @@ class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
     override fun onEditNoteClicked(note: Note, position: Int) {
         val intent = Intent(activity, CreateNoteActivity::class.java)
         intent.putExtra(CreateNoteActivity.noteKey, note)
-        activity.startActivityForResult(intent, 1908)
+        activity!!.startActivityForResult(intent, 1908)
     }
 
     override fun onDeleteNoteClicked(note: Note, position: Int) {
-        val alert = AlertDialog.Builder(activity)
+        val alert = AlertDialog.Builder(activity!!)
                 .setTitle(getString(R.string.delete))
                 .setMessage(getString(R.string.confirm_delete_note))
                 .setPositiveButton(getString(R.string.yes), { dialog, which ->
                     dialog.dismiss()
-                    val loading = activity.showLoading()
+                    val loading = activity!!.showLoading()
                     val request = DeleteNoteRequest()
                     request.noteId = "${note.id}"
                     HiloApp.api().deleteNote(request)
@@ -87,11 +87,11 @@ class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
                                 if (response.status.isSuccess()) {
                                     adapter.data.remove(note)
                                     adapter.notifyItemRemoved(position)
-                                } else activity.showExplanation(message = response.message)
+                                } else activity!!.showExplanation(message = response.message)
                             }, { error: Throwable ->
                                 loading.dismiss()
                                 error.printStackTrace()
-                                activity.showExplanation(message = error.localizedMessage)
+                                activity!!.showExplanation(message = error.localizedMessage)
                             })
                 })
                 .setNegativeButton(getString(R.string.no), null)
@@ -100,12 +100,12 @@ class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
     }
 
     override fun onDeleteTagClicked(note: Note, notePosition: Int, tag: NoteTag, position: Int) {
-        val alert = AlertDialog.Builder(activity)
+        val alert = AlertDialog.Builder(activity!!)
                 .setTitle(getString(R.string.delete))
                 .setMessage(getString(R.string.confirm_delete_tag))
                 .setPositiveButton(getString(R.string.yes), { dialog, which ->
                     dialog.dismiss()
-                    val loading = activity.showLoading()
+                    val loading = activity!!.showLoading()
                     val request = DeleteNoteRequest()
                     request.noteId = "${note.id}"
                     request.tagId = tag.name
@@ -116,11 +116,11 @@ class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
                                 loading.dismiss()
                                 if (response.status.isSuccess()) {
                                     getNotes()
-                                } else activity.showExplanation(message = response.message)
+                                } else activity!!.showExplanation(message = response.message)
                             }, { error: Throwable ->
                                 loading.dismiss()
                                 error.printStackTrace()
-                                activity.showExplanation(message = error.localizedMessage)
+                                activity!!.showExplanation(message = error.localizedMessage)
                             })
                 })
                 .setNegativeButton(getString(R.string.no), null)
@@ -129,7 +129,7 @@ class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
     }
 
     private fun getNotes() {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().getNotepadNotes(StandardRequest())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -139,11 +139,11 @@ class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
                         val data = response.data
                         if (data != null)
                             adapter.refreshData(data = data.notes)
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 

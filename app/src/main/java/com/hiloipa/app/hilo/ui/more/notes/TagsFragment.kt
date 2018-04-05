@@ -47,19 +47,19 @@ class TagsFragment : BottomSheetDialogFragment(), SelectTagsAdapter.SelectTagDel
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
             inflater!!.inflate(R.layout.fragment_tags, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         backButton.setOnClickListener { this.dismiss() }
-        adapter = SelectTagsAdapter(activity)
+        adapter = SelectTagsAdapter(activity!!)
         adapter.delegate = this
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        selectedTags.addAll(arguments.getParcelableArrayList("tags"))
+        selectedTags.addAll(arguments!!.getParcelableArrayList("tags"))
 
         addTagBtn.setOnClickListener { addNewTag() }
 
@@ -74,7 +74,7 @@ class TagsFragment : BottomSheetDialogFragment(), SelectTagsAdapter.SelectTagDel
             return
         }
 
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         val request = DeleteTagRequest()
         request.tagName = tagName
         HiloApp.api().addNoteTag(request)
@@ -86,17 +86,17 @@ class TagsFragment : BottomSheetDialogFragment(), SelectTagsAdapter.SelectTagDel
                         getTagsList()
                         Toast.makeText(activity, response.message, Toast.LENGTH_SHORT).show()
                         newTagField.setText("")
-                        activity.hideKeyboard()
-                    } else activity.showExplanation(message = response.message)
+                        activity!!.hideKeyboard()
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
     private fun getTagsList() {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().getTagsList(StandardRequest())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -109,21 +109,21 @@ class TagsFragment : BottomSheetDialogFragment(), SelectTagsAdapter.SelectTagDel
                             tags.forEach { it.isSelected = selectedTags.contains(it) }
                             adapter.refreshData(tags)
                         }
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
     override fun onRemoveTagClicked(tag: NoteTag, position: Int) {
-        val alert = AlertDialog.Builder(activity)
+        val alert = AlertDialog.Builder(activity!!)
                 .setTitle(getString(R.string.delete))
                 .setMessage(getString(R.string.confirm_delete_tag))
                 .setPositiveButton(getString(R.string.yes), { dialog, which ->
                     dialog.dismiss()
-                    val loading = activity.showLoading()
+                    val loading = activity!!.showLoading()
                     val request = DeleteTagRequest()
                     request.tagName = tag.name
                     HiloApp.api().deleteTag(request)
@@ -134,11 +134,11 @@ class TagsFragment : BottomSheetDialogFragment(), SelectTagsAdapter.SelectTagDel
                                 if (response.status.isSuccess()) {
                                     adapter.tags.remove(tag)
                                     adapter.notifyItemRemoved(position)
-                                } else activity.showExplanation(message = response.message)
+                                } else activity!!.showExplanation(message = response.message)
                             }, { error: Throwable ->
                                 loading.dismiss()
                                 error.printStackTrace()
-                                activity.showExplanation(message = error.localizedMessage)
+                                activity!!.showExplanation(message = error.localizedMessage)
                             })
                 })
                 .setNegativeButton(getString(R.string.no), null)
@@ -156,7 +156,7 @@ class TagsFragment : BottomSheetDialogFragment(), SelectTagsAdapter.SelectTagDel
         super.onDestroyView()
         val tagsIntent = Intent(actionTagsSelected)
         tagsIntent.putExtra("tags", selectedTags)
-        LocalBroadcastManager.getInstance(activity)
+        LocalBroadcastManager.getInstance(activity!!)
                 .sendBroadcast(tagsIntent)
     }
 }

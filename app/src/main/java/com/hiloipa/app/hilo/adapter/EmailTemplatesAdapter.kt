@@ -24,8 +24,8 @@ class EmailTemplatesAdapter(val context: Context): RecyclerView.Adapter<EmailTem
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_email_template, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_email_template, parent, false)
         return ViewHolder(view)
     }
 
@@ -33,8 +33,7 @@ class EmailTemplatesAdapter(val context: Context): RecyclerView.Adapter<EmailTem
         return templates.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder == null) return
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val template = templates[position]
         holder.template = template
         holder.templateTitle.text = template.name

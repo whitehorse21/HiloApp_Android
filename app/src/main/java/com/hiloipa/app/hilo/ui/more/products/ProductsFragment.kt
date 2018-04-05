@@ -49,13 +49,13 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductDelegate, TextWatche
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-        inflater!!.inflate(R.layout.fragment_products, container, false)
+        inflater.inflate(R.layout.fragment_products, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = ProductsAdapter(activity)
+        adapter = ProductsAdapter(activity!!)
         adapter.delegate = this
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -67,7 +67,7 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductDelegate, TextWatche
     }
 
     private fun getProducts() {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().getAllProducts(StandardRequest())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -80,16 +80,16 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductDelegate, TextWatche
                             allProducts.addAll(data.products)
                             adapter.refreshProducts(data.products)
                         }
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
     override fun onProductAssignClicked(product: Product, position: Int) {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().getProductContacts(StandardRequest())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -99,11 +99,11 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductDelegate, TextWatche
                         val data = response.data
                         if (data != null)
                             showAssignDialog(product, data.contacts)
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -136,7 +136,7 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductDelegate, TextWatche
         val asignToSpinner: Spinner = alertView.findViewById(R.id.assignToSpinner)
         val submitBtn: RalewayButton = alertView.findViewById(R.id.submitBtn)
 
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(activity!!)
                 .setView(alertView)
                 .create()
 
@@ -202,7 +202,7 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductDelegate, TextWatche
             request.contactId = contactId
 
             dialog.dismiss()
-            val loading = activity.showLoading()
+            val loading = activity!!.showLoading()
             HiloApp.api().assignProduct(request)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -210,11 +210,11 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductDelegate, TextWatche
                         loading.dismiss()
                         if (response.status.isSuccess()) {
                             Toast.makeText(activity, response.message, Toast.LENGTH_SHORT).show()
-                        } else activity.showExplanation(message = response.message)
+                        } else activity!!.showExplanation(message = response.message)
                     }, { error: Throwable ->
                         loading.dismiss()
                         error.printStackTrace()
-                        activity.showExplanation(message = error.localizedMessage)
+                        activity!!.showExplanation(message = error.localizedMessage)
                     })
         }
 

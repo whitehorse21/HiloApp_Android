@@ -17,16 +17,15 @@ class TextMessageScriptAdapter(val scripts: ArrayList<MessageScript>):
 
     var delegate: ScriptDelegate? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_script_message,
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_script_message,
                 parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int = scripts.size
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder == null) return
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val script = scripts[position]
         holder.script = script
         holder.titleLabel.text = script.title

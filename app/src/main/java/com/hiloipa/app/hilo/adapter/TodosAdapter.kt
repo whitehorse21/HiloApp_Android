@@ -31,15 +31,14 @@ class TodosAdapter<T: ToDo>(val context: Context, val type: TodoType, val data: 
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_todo, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_todo, parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int = data.size
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder == null) return
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: T = data[position]
         holder.toDo = item
         holder.todoCheckBox.visibility = if (type.needCheckBox()) View.VISIBLE else View.GONE

@@ -58,40 +58,40 @@ class MoreFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-        inflater!!.inflate(R.layout.fragment_more, container, false)
+        inflater.inflate(R.layout.fragment_more, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         templatesBtn.setOnClickListener {
             val templatesIntent = Intent(activity, EmailTemplatesActivity::class.java)
-            activity.startActivity(templatesIntent)
+            activity!!.startActivity(templatesIntent)
         }
 
         notepadBtn.setOnClickListener {
             val notepadIntent = Intent(activity, NotepadActivity::class.java)
-            activity.startActivity(notepadIntent)
+            activity!!.startActivity(notepadIntent)
         }
 
         feedbackBtn.setOnClickListener {
             val feedbackIntent = Intent(activity, FeedbackActivity::class.java)
-            activity.startActivity(feedbackIntent)
+            activity!!.startActivity(feedbackIntent)
         }
 
         productsBtn.setOnClickListener {
             val productsIntent = Intent(activity, ProductsActivity::class.java)
-            activity.startActivity(productsIntent)
+            activity!!.startActivity(productsIntent)
         }
 
         logoutBtn.setOnClickListener {
-            val dialog = AlertDialog.Builder(activity)
+            val dialog = AlertDialog.Builder(activity!!)
                     .setTitle(getString(R.string.log_out))
                     .setMessage(getString(R.string.log_out_confirm))
                     .setPositiveButton(getString(R.string.yes), { dialog, which ->
                         dialog.dismiss()
 
-                        val loadingDialog = activity.showLoading()
+                        val loadingDialog = activity!!.showLoading()
                         try {
                             HiloApp.api().logout(LogoutRequest()).subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
@@ -100,21 +100,21 @@ class MoreFragment : Fragment() {
                                         HiloApp.instance.setIsLoggedIn(false)
                                         HiloApp.instance.saveAccessToken("")
                                         val logoutIntent = Intent(activity, AuthActivity::class.java)
-                                        activity.startActivity(logoutIntent)
-                                        activity.finish()
+                                        activity!!.startActivity(logoutIntent)
+                                        activity!!.finish()
                                     }, { error: Throwable ->
                                         error.printStackTrace()
                                         loadingDialog.dismiss()
                                         val logoutIntent = Intent(activity, AuthActivity::class.java)
-                                        activity.startActivity(logoutIntent)
-                                        activity.finish()
+                                        activity!!.startActivity(logoutIntent)
+                                        activity!!.finish()
                                     })
                         } catch (e: Exception) {
                             e.printStackTrace()
                             loadingDialog.dismiss()
                             val logoutIntent = Intent(activity, AuthActivity::class.java)
-                            activity.startActivity(logoutIntent)
-                            activity.finish()
+                            activity!!.startActivity(logoutIntent)
+                            activity!!.finish()
                         }
                     })
                     .setNegativeButton(getString(R.string.no), null)
@@ -124,16 +124,16 @@ class MoreFragment : Fragment() {
 
         accountBtn.setOnClickListener {
             val accountIntent = Intent(activity, AccountActivity::class.java)
-            activity.startActivityForResult(accountIntent, 1553)
+            activity!!.startActivityForResult(accountIntent, 1553)
         }
 
         scriptsBtn.setOnClickListener {
             val scriptsIntent = Intent(activity, ScriptsActivity::class.java)
-            activity.startActivity(scriptsIntent)
+            activity!!.startActivity(scriptsIntent)
         }
 
         if (HiloApp.userData.userImage != "https://s3.amazonaws.com/hiloipadev/assets/img/avatars/user@2x.png") {
-            Picasso.with(activity)
+            Picasso.get()
                     .load(HiloApp.userData.userImage)
                     .placeholder(R.mipmap.ic_profile_default_round)
                     .error(R.mipmap.ic_profile_default_round)
@@ -144,8 +144,8 @@ class MoreFragment : Fragment() {
             val dialogView = layoutInflater.inflate(R.layout.alert_user_image, null)
             val image: ImageView = dialogView.findViewById(R.id.imageView)
             val button: RalewayButton = dialogView.findViewById(R.id.updateBtn)
-            Picasso.with(activity).load(HiloApp.userData.userImage).into(image)
-            val dialog = AlertDialog.Builder(activity)
+            Picasso.get().load(HiloApp.userData.userImage).into(image)
+            val dialog = AlertDialog.Builder(activity!!)
                     .setView(dialogView)
                     .create()
 
@@ -162,7 +162,7 @@ class MoreFragment : Fragment() {
     }
 
     private fun getAccount() {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().getAccount()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -170,16 +170,16 @@ class MoreFragment : Fragment() {
                     loading.dismiss()
                     if (response.status.isSuccess()) {
                         userNameLabel.text = "${response.data!!.firstName} ${response.data!!.lastName}"
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
     private fun showUpdateImageAlert() {
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(activity!!)
                 .setTitle(getString(R.string.change_avatar))
                 .setMessage(getString(R.string.change_avatar_message))
                 .setPositiveButton(getString(R.string.from_gallery), { dialog, which ->
@@ -190,7 +190,7 @@ class MoreFragment : Fragment() {
                 })
                 .setNegativeButton(getString(R.string.from_camera), { dialog, which ->
                     val pictureIntent = Intent(activity, CameraActivity::class.java)
-                    activity.startActivityForResult(pictureIntent, 1343)
+                    activity!!.startActivityForResult(pictureIntent, 1343)
                 })
                 .setNeutralButton(getString(R.string.cancel), null)
                 .create()
@@ -242,7 +242,7 @@ class MoreFragment : Fragment() {
         val request = StandardRequest()
         request.image = imageData.second
 
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().updateUserAvatar(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -250,14 +250,14 @@ class MoreFragment : Fragment() {
                     loading.dismiss()
                     if (response.status.isSuccess()) {
                         val file = File(imageData.first)
-                        Picasso.with(activity)
+                        Picasso.get()
                                 .load(file)
                                 .into(userAvatar)
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 }

@@ -49,11 +49,11 @@ class LoginFragment : Fragment() {
         authActivity = context as AuthActivity
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-        inflater!!.inflate(R.layout.fragment_login, container, false)
+        inflater.inflate(R.layout.fragment_login, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         createAccountBtn.setOnClickListener {
@@ -65,8 +65,8 @@ class LoginFragment : Fragment() {
         }
 
         loginBtn.setOnClickListener {
-            val dialog = activity.showLoading();
-            val screenSize = activity.displaySize()
+            val dialog = activity!!.showLoading();
+            val screenSize = activity!!.displaySize()
             val screenSizeText = "${screenSize.first}*${screenSize.second}"
             val loginRequest = LoginRequest(email = emailField.text.toString(),
                     password = passwordField.text.toString(), screenSize = screenSizeText)
@@ -83,44 +83,44 @@ class LoginFragment : Fragment() {
                             HiloApp.instance.saveUserCredentials(loginRequest.email, loginRequest.password)
                             showWelcomeDialog(data.messageBody, data.messageImage, data.messageTitle)
                         } else {
-                            activity.showExplanation(message = response.message)
+                            activity!!.showExplanation(message = response.message)
                         }
                     }, { error: Throwable ->
                         dialog.dismiss()
                         error.printStackTrace()
-                        activity.showExplanation(message = error.localizedMessage)
+                        activity!!.showExplanation(message = error.localizedMessage)
                     })
         }
     }
 
     private fun showWelcomeDialog(message: String?, messageImage: String?, messageTitle: String?) {
         if (message != null && messageTitle != null) {
-            val dialogView = activity.layoutInflater.inflate(R.layout.alert_beta_testing, null)
+            val dialogView = activity!!.layoutInflater.inflate(R.layout.alert_beta_testing, null)
             val gotItBtn: Button = dialogView.findViewById(R.id.gotItBtn)
             val titleLabel: RalewayTextView = dialogView.findViewById(R.id.title)
             val messageLabel: RalewayTextView = dialogView.findViewById(R.id.messageLabel)
             val imageView: ImageView = dialogView.findViewById(R.id.betaImage)
 
-            Picasso.with(activity).load(messageImage).into(imageView)
+            Picasso.get().load(messageImage).into(imageView)
             titleLabel.text = messageTitle
             messageLabel.text = message
 
-            val dialog = AlertDialog.Builder(activity)
+            val dialog = AlertDialog.Builder(activity!!)
                     .setView(dialogView).create()
 
             gotItBtn.setOnClickListener {
                 dialog.dismiss()
                 val feedbackIntent = Intent(activity, MainActivity::class.java)
-                activity.startActivity(feedbackIntent)
-                activity.finish()
+                activity!!.startActivity(feedbackIntent)
+                activity!!.finish()
             }
             dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.setCanceledOnTouchOutside(false)
             dialog.show()
         } else {
             val feedbackIntent = Intent(activity, MainActivity::class.java)
-            activity.startActivity(feedbackIntent)
-            activity.finish()
+            activity!!.startActivity(feedbackIntent)
+            activity!!.finish()
         }
     }
 }

@@ -46,9 +46,9 @@ class DocumentsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_documents, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = DocumentsAdapter(activity)
+        adapter = DocumentsAdapter(activity!!)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.isNestedScrollingEnabled = false
@@ -56,9 +56,9 @@ class DocumentsFragment : Fragment() {
     }
 
     private fun getDocumentsList() {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         val request = StandardRequest()
-        request.contactId = arguments.getString("contactId")
+        request.contactId = arguments!!.getString("contactId")
         HiloApp.api().getDocuments(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -68,11 +68,11 @@ class DocumentsFragment : Fragment() {
                         val data = response.data
                         if (data != null)
                             adapter.refreshList(data.documents)
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 }

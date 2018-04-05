@@ -43,8 +43,8 @@ class ReachoutLogsAdapter(val context: Context): RecyclerView.Adapter<ReachoutLo
         notifyItemRemoved(index)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_reachout_log, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_reachout_log, parent, false)
         return ViewHolder(view)
     }
 
@@ -52,8 +52,7 @@ class ReachoutLogsAdapter(val context: Context): RecyclerView.Adapter<ReachoutLo
         return logs.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder == null) return
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val log = logs[position]
         holder.log = log
         holder.contactName.text = log.contactName

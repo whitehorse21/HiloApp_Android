@@ -46,22 +46,22 @@ class UserProductsListFragment: BottomSheetDialogFragment(), ContactProductsAdap
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater?.inflate(R.layout.fragment_user_products_list, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         backButton.setOnClickListener { this.dismiss() }
-        adapter = ContactProductsAdapter(activity)
+        adapter = ContactProductsAdapter(activity!!)
         adapter.delegate = this
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        adapter.refreshProducts(arguments.getParcelableArrayList("products"))
+        adapter.refreshProducts(arguments!!.getParcelableArrayList("products"))
     }
 
     override fun onUnasignProductClicked(product: ContactProduct, position: Int) {
-        val alert = AlertDialog.Builder(activity)
+        val alert = AlertDialog.Builder(activity!!)
                 .setTitle(getString(R.string.hilo))
                 .setMessage(getString(R.string.confirm_unassign_product))
                 .setPositiveButton(getString(R.string.yes), { dialog, which ->
@@ -74,9 +74,9 @@ class UserProductsListFragment: BottomSheetDialogFragment(), ContactProductsAdap
     }
 
     private fun unassigProduct(product: ContactProduct, position: Int) {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         val request = UnassignProduct()
-        request.contactId = arguments.getString("contactId")
+        request.contactId = arguments!!.getString("contactId")
         request.productId = "${product.id}"
         request.productType = product.assignedType
         HiloApp.api().unassignProduct(request)
@@ -85,15 +85,15 @@ class UserProductsListFragment: BottomSheetDialogFragment(), ContactProductsAdap
                 .subscribe({ response: HiloResponse<String> ->
                     loading.dismiss()
                     if (response.status.isSuccess()) {
-                        LocalBroadcastManager.getInstance(activity)
+                        LocalBroadcastManager.getInstance(activity!!)
                                 .sendBroadcastSync(Intent(actionUpdateProducts))
                         adapter.products.remove(product)
                         adapter.notifyItemRemoved(position)
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 }

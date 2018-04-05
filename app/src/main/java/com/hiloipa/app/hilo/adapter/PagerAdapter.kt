@@ -18,7 +18,7 @@ class PagerAdapter(val context: Context, val manager: FragmentManager): Fragment
         mShowTitle = showTitle
     }
 
-    override fun getItemPosition(`object`: Any?): Int = super.getItemPosition(`object`)
+    override fun getItemPosition(`object`: Any): Int = super.getItemPosition(`object`)
 
     override fun getItem(position: Int): Fragment = mFragmentList[position]
 

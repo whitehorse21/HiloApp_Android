@@ -56,13 +56,13 @@ class TermsFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-        inflater!!.inflate(R.layout.fragment_terms, container, false)
+        inflater.inflate(R.layout.fragment_terms, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        closeBtn.setOnClickListener { activity.onBackPressed() }
+        closeBtn.setOnClickListener { activity!!.onBackPressed() }
         termsLabel.text = Html.fromHtml(termsText)
     }
 }

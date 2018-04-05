@@ -79,11 +79,11 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         mainActivity = context as MainActivity
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-            inflater!!.inflate(R.layout.fragment_contacts, container, false)
+            inflater.inflate(R.layout.fragment_contacts, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         val filter = IntentFilter(ContactsFilterFragment.actionFilterContacts)
@@ -91,7 +91,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         filter.addAction(ImportDialogFragment.actionContactsImported)
         LocalBroadcastManager.getInstance(mainActivity).registerReceiver(broadcastReceiver, filter)
 
-        adapter = ContactsAdapter(activity)
+        adapter = ContactsAdapter(activity!!)
         adapter.delegate = this
         recyclerView.adapter = adapter
         recyclerView.isNestedScrollingEnabled = false
@@ -103,7 +103,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
 
         addContactBtn.setOnClickListener {
             val intent = Intent(activity, EditContactActivity::class.java)
-            activity.startActivityForResult(intent, 1250)
+            activity!!.startActivityForResult(intent, 1250)
         }
 
         filterBtn.setOnClickListener {
@@ -138,7 +138,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         else
             observable = HiloApp.api().searchDetailedContacts(request)
 
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response: HiloResponse<DetailedContacs> ->
@@ -151,11 +151,11 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                             if (page == data.totalPages)
                                 loadMoreBtn.visibility = View.GONE
                         }
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -189,17 +189,17 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         val extras = Bundle()
         extras.putString(ContactDetailsActivity.contactIdKey, "${contact.id}")
         intent.putExtras(extras)
-        activity.startActivity(intent)
+        activity!!.startActivity(intent)
     }
 
     override fun onEditContactClicked(contact: DetailedContact, position: Int) {
         val intent = Intent(activity, EditContactActivity::class.java)
         intent.putExtra(EditContactActivity.contactIdKey, "${contact.id}")
-        activity.startActivityForResult(intent, 1250)
+        activity!!.startActivityForResult(intent, 1250)
     }
 
     override fun onDeleteContactClicked(contact: DetailedContact, position: Int) {
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(activity!!)
                 .setTitle(getString(R.string.delete))
                 .setMessage(getString(R.string.are_you_sure_you_want_to_delete))
                 .setPositiveButton(getString(R.string.yes), { dialog, which ->
@@ -215,7 +215,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
     }
 
     private fun deleteContact(contactId: String) {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         val request = DeleteContactRequest()
         request.id = contactId
         HiloApp.api().deleteContact(request)
@@ -235,18 +235,18 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                             adapter.contacts.removeAt(index)
                             adapter.notifyItemRemoved(index)
                         }
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
     override fun onSendSmsClicked(contact: DetailedContact, position: Int) {
         val request = StandardRequest()
         request.contactId = contact.id.toString()
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().getContactFullDetails(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -256,15 +256,15 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                         if (data != null)
                             getScripts(data.contactDetails, loading)
                         else loading.dismiss()
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
-    private fun getScripts(contact: ContactDetails, loading: AlertDialog = activity.showLoading()) {
+    private fun getScripts(contact: ContactDetails, loading: AlertDialog = activity!!.showLoading()) {
         HiloApp.api().getScripts(GetSmsScriptsRequest())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -274,11 +274,11 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                         val data = response.data
                         if (data != null)
                             sendMessageToContact(contact, data)
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -311,20 +311,20 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
             }
         }
 
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(activity!!)
                 .setView(dialogView)
                 .create()
 
         backBtn.setOnClickListener {
             dialog.dismiss()
-            activity.hideKeyboard()
+            activity!!.hideKeyboard()
         }
 
         sendBtn.setOnClickListener {
             val sendMessageIntent = Intent(Intent.ACTION_VIEW)
             sendMessageIntent.data = Uri.parse("sms:${phoneNumber}")
             sendMessageIntent.putExtra("sms_body", messageField.text.toString())
-            activity.startActivity(sendMessageIntent)
+            activity!!.startActivity(sendMessageIntent)
         }
 
         dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -335,7 +335,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         val selectedContacts = adapter.contacts.filter { it.isSelected }
         // check if user has selected at least one contact from the list
         if (selectedContacts.isEmpty()) {
-            activity.showExplanation(message = getString(R.string.no_selected_contacts))
+            activity!!.showExplanation(message = getString(R.string.no_selected_contacts))
             return
         }
 
@@ -354,7 +354,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         val regex = "(,$)*".toRegex()
         val contacts = regex.replace(contatctsBuilder.toString(), "")
 
-        val dialog = AlertDialog.Builder(activity).setView(dialogView).create()
+        val dialog = AlertDialog.Builder(activity!!).setView(dialogView).create()
 
         deleteBtn.setOnClickListener {
             dialog.dismiss()
@@ -365,7 +365,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         assignCampaignBtn.setOnClickListener { showEmailCampaignsDialog() }
         addToGoalTrackerBtn.setOnClickListener {
             dialog.dismiss()
-            val loading = activity.showLoading()
+            val loading = activity!!.showLoading()
             val request = AddToTrackerRequest()
             request.list = contacts
             HiloApp.api().addToGoalTracker(request)
@@ -374,18 +374,18 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                     .subscribe({ response: HiloResponse<String> ->
                         loading.dismiss()
                         if (response.status.isSuccess()) {
-                            activity.showExplanation(getString(R.string.success),
+                            activity!!.showExplanation(getString(R.string.success),
                                     getString(R.string.contacts_added_to_tracker))
-                        } else activity.showExplanation(message = response.message)
+                        } else activity!!.showExplanation(message = response.message)
                     }, { error: Throwable ->
                         loading.dismiss()
-                        activity.showExplanation(message = error.localizedMessage)
+                        activity!!.showExplanation(message = error.localizedMessage)
                         error.printStackTrace()
                     })
         }
 
         backBtn.setOnClickListener {
-            activity.hideKeyboard()
+            activity!!.hideKeyboard()
             dialog.dismiss()
         }
         dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -406,7 +406,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                 newValueCheckBoxesLayout, newValueRadioLayout)
         val updateBtn: RalewayButton = dialogView.findViewById(R.id.updateBtn)
 
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().getBulkUpdateValues()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -422,7 +422,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                             fieldToEditSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                                     val valueToEdit = data.fieldsAvailable[position]
-                                    activity.hideKeyboard()
+                                    activity!!.hideKeyboard()
                                     when (valueToEdit.value) {
                                         "3-way", "Gift", "Give It A Glow Sample" -> {
                                             newValueRadioLayout.visibility = View.VISIBLE
@@ -635,10 +635,10 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                             }
                             fieldToEditBtn.setOnClickListener { fieldToEditSpinner.performClick() }
 
-                            val dialog = AlertDialog.Builder(activity).setView(dialogView).create()
+                            val dialog = AlertDialog.Builder(activity!!).setView(dialogView).create()
 
                             backBtn.setOnClickListener {
-                                activity.hideKeyboard()
+                                activity!!.hideKeyboard()
                                 dialog.dismiss()
                             }
 
@@ -672,7 +672,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                                     request.selectedValue = newValue
                                     request.selectedOption = valueToChange
 
-                                    val bulkLoading = activity.showLoading()
+                                    val bulkLoading = activity!!.showLoading()
                                     HiloApp.api().bulkUpdateContact(request)
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
@@ -687,11 +687,11 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                                                     adapter.contacts.clear()
                                                     page = 1
                                                     loadContactsFromServer()
-                                                } else activity.showExplanation(message = response.message)
+                                                } else activity!!.showExplanation(message = response.message)
                                             }, { error: Throwable ->
                                                 bulkLoading.dismiss()
                                                 error.printStackTrace()
-                                                activity.showExplanation(message = error.localizedMessage)
+                                                activity!!.showExplanation(message = error.localizedMessage)
                                             })
                                 }
                             }
@@ -699,11 +699,11 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                             dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                             dialog.show()
                         }
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -715,7 +715,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         val assignBtn: RalewayButton = dialogView.findViewById(R.id.updateBtn)
         val backBtn: RalewayButton = dialogView.findViewById(R.id.backButton)
 
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().getCampaignData(StandardRequest())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -739,7 +739,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                             }
                             campaignsBtn.setOnClickListener { spinner.performClick() }
 
-                            val dialog = AlertDialog.Builder(activity).setView(dialogView).create()
+                            val dialog = AlertDialog.Builder(activity!!).setView(dialogView).create()
 
                             assignBtn.setOnClickListener {
                                 val contatctsBuilder = StringBuilder()
@@ -747,7 +747,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                                 val regex = "(,$)*".toRegex()
                                 val contacts = regex.replace(contatctsBuilder.toString(), "")
 
-                                val assignLoading = activity.showLoading()
+                                val assignLoading = activity!!.showLoading()
                                 val request = AssignCampaignRequest()
                                 request.contactId = contacts
                                 request.campaignId = "${campaignsBtn.tag as Int}"
@@ -758,13 +758,13 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
                                             assignLoading.dismiss()
                                             if (response.status.isSuccess()) {
                                                 dialog.dismiss()
-                                                activity.showExplanation(title = getString(R.string.success),
+                                                activity!!.showExplanation(title = getString(R.string.success),
                                                         message = response.message)
-                                            } else activity.showExplanation(message = response.message)
+                                            } else activity!!.showExplanation(message = response.message)
                                         }, { error: Throwable ->
                                             assignLoading.dismiss()
                                             error.printStackTrace()
-                                            activity.showExplanation(message = error.localizedMessage)
+                                            activity!!.showExplanation(message = error.localizedMessage)
                                         })
                             }
 
@@ -773,11 +773,11 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
 
                             dialog.show()
                         }
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -796,16 +796,16 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
     }
 
     private fun importContactsFromDevice() {
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_CONTACTS) !=
+        if (ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.READ_CONTACTS) !=
                 PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.READ_CONTACTS), 1200)
+            ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.READ_CONTACTS), 1200)
         } else {
-            val loading = activity.showLoading()
+            val loading = activity!!.showLoading()
             mainActivity.getDeviceContacts().subscribeOn(Schedulers.io())
                     .subscribe { contacts: ArrayList<DeviceContact> ->
                         loading.dismiss()
                         val dialog = ImportDialogFragment.newInstance(contacts)
-                        dialog.show(activity.fragmentManager, "Import")
+                        dialog.show(activity!!.fragmentManager, "Import")
                     }
         }
     }

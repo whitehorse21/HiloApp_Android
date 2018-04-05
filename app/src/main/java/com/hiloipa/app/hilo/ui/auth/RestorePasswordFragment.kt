@@ -33,13 +33,13 @@ class RestorePasswordFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-        inflater!!.inflate(R.layout.fragment_restore_password, container, false)
+        inflater.inflate(R.layout.fragment_restore_password, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        backButton.setOnClickListener { activity.onBackPressed() }
+        backButton.setOnClickListener { activity!!.onBackPressed() }
 
         resetPasswordBtn.setOnClickListener { resetPassword() }
     }
@@ -51,22 +51,22 @@ class RestorePasswordFragment : Fragment() {
             return
         }
 
-        val dialog = activity.showLoading()
+        val dialog = activity!!.showLoading()
         HiloApp.api().resetPassword(ResetPassRequest(email)).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response: HiloResponse<String> ->
                     dialog.dismiss()
                     if (response.status.isSuccess()) {
-                        activity.showExplanation(title = getString(R.string.success),
+                        activity!!.showExplanation(title = getString(R.string.success),
                                 message = response.message)
                         emailField.setText("")
                     } else {
-                        activity.showExplanation(message = response.message)
+                        activity!!.showExplanation(message = response.message)
                     }
                 }, { error: Throwable ->
                     dialog.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 }

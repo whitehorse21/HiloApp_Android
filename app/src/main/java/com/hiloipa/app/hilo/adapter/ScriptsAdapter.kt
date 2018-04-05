@@ -25,15 +25,14 @@ class ScriptsAdapter(val context: Context): RecyclerView.Adapter<ScriptsAdapter.
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_script, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_script, parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int = scripts.size
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder == null) return
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val script = scripts[position]
         holder.script = script
         holder.name.text = script.title

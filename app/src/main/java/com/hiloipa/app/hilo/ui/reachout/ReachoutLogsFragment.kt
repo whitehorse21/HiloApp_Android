@@ -48,13 +48,13 @@ class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-        inflater!!.inflate(R.layout.fragment_rachout_logs, container, false)
+        inflater.inflate(R.layout.fragment_rachout_logs, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = ReachoutLogsAdapter(activity)
+        adapter = ReachoutLogsAdapter(activity!!)
         adapter.delegate = this
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -66,11 +66,11 @@ class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
             search = null
             searchField.setText("")
             searchField.clearFocus()
-            activity.hideKeyboard()
+            activity!!.hideKeyboard()
             getReachOutLogs()
         }
 
-        contactId = arguments.getString("contactId", null)
+        contactId = arguments!!.getString("contactId", null)
         // if we have a contact id we need to hide top views
         // because fragment was added in ContactDetailsActivity
         if (contactId != null) {
@@ -84,7 +84,7 @@ class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
             val intent = Intent(activity, EditReachoutActivity::class.java)
             if (contactId != null)
                 intent.putExtra("contactId", contactId!!)
-            activity.startActivityForResult(intent, 1022)
+            activity!!.startActivityForResult(intent, 1022)
         }
 
         // setup search button
@@ -128,7 +128,7 @@ class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
         request.search = search
         request.contactId = contactId
 
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().getReachOutLogs(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -147,11 +147,11 @@ class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
                             else
                                 adapter.addLogs(data.reachOutLogs)
                         }
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -161,7 +161,7 @@ class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
             val extras = Bundle()
             extras.putString(ContactDetailsActivity.contactIdKey, "${log.contactId}")
             intent.putExtras(extras)
-            activity.startActivity(intent)
+            activity!!.startActivity(intent)
         }
     }
 
@@ -172,16 +172,16 @@ class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
         intent.putExtras(extras)
         if (contactId != null)
             intent.putExtra("contactId", contactId!!)
-        activity.startActivityForResult(intent, 1022)
+        activity!!.startActivityForResult(intent, 1022)
     }
 
     override fun onDeleteLogClicked(log: ReachOutLog, position: Int) {
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(activity!!)
                 .setTitle(getString(R.string.delete))
                 .setMessage(getString(R.string.confirm_delete_log, log.contactName))
                 .setPositiveButton(getString(R.string.yes), { dialog, which ->
                     dialog.dismiss()
-                    val loading = activity.showLoading()
+                    val loading = activity!!.showLoading()
                     val request = DeleteReachOutRequest()
                     request.logId = "${log.historyID}"
                     HiloApp.api().deleteReachOutLog(request)
@@ -191,11 +191,11 @@ class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
                                 loading.dismiss()
                                 if (response.status.isSuccess()) {
                                     adapter.deleteLog(log)
-                                } else activity.showExplanation(message = response.message)
+                                } else activity!!.showExplanation(message = response.message)
                             }, { error: Throwable ->
                                 loading.dismiss()
                                 error.printStackTrace()
-                                activity.showExplanation(message = error.localizedMessage)
+                                activity!!.showExplanation(message = error.localizedMessage)
                             })
                 })
                 .setNegativeButton(getString(R.string.no), null)

@@ -48,23 +48,23 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater?.inflate(R.layout.alert_todos, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.alert_todos, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val filter = IntentFilter(updateList)
-        LocalBroadcastManager.getInstance(activity).registerReceiver(broadcastReceiver, filter)
+        LocalBroadcastManager.getInstance(activity!!).registerReceiver(broadcastReceiver, filter)
 
-        val title = arguments.getString("title")
+        val title = arguments!!.getString("title")
         backButton.text = title
 
         backButton.setOnClickListener { this.dismiss() }
 
-        this.data.addAll(arguments.getParcelableArrayList("data"))
-        this.todoType = TodoType.fromInt(arguments.getInt("type"))
+        this.data.addAll(arguments!!.getParcelableArrayList("data"))
+        this.todoType = TodoType.fromInt(arguments!!.getInt("type"))
 
-        adapter = TodosAdapter(context, todoType, data)
+        adapter = TodosAdapter(context!!, todoType, data)
         adapter.delegate = this
         // setup recycler view
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -75,7 +75,7 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
             val extras = Bundle()
             extras.putInt("type", todoType.toInt())
             editIntent.putExtras(extras)
-            activity.startActivityForResult(editIntent, 2155)
+            activity!!.startActivityForResult(editIntent, 2155)
         }
     }
 
@@ -83,7 +83,7 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
         showToDoDetails(toDo)
     }
 
-    val broadcastReceiver = object : BroadcastReceiver() {
+    private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent == null) return
             when(intent.action) {
@@ -102,12 +102,12 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
 
     override fun onTodoCheckedChanged(toDo: ToDo, position: Int) {
         if (toDo.isSelected) {
-            val alert = AlertDialog.Builder(activity)
+            val alert = AlertDialog.Builder(activity!!)
                     .setTitle(getString(R.string.hilo))
                     .setMessage(getString(R.string.confirm_goal_complete, todoType.title()))
                     .setPositiveButton(getString(R.string.yes), { dialog, which ->
                         dialog.dismiss()
-                        val loading = activity.showLoading()
+                        val loading = activity!!.showLoading()
                         val request = CompleteGoalRequest()
                         request.targetId = "${toDo.id}"
                         request.targetType = todoType.apiName()
@@ -118,15 +118,15 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
                                     loading.dismiss()
                                     val body = JSONObject(response.string())
                                     if (body.getInt("Status").isSuccess()) {
-                                        LocalBroadcastManager.getInstance(activity)
+                                        LocalBroadcastManager.getInstance(activity!!)
                                                 .sendBroadcast(Intent(updateData))
                                         adapter.data.removeAt(position)
                                         adapter.notifyItemRemoved(position)
-                                    } else activity.showExplanation(message = body.getString("Message"))
+                                    } else activity!!.showExplanation(message = body.getString("Message"))
                                 }, { error: Throwable ->
                                     loading.dismiss()
                                     error.printStackTrace()
-                                    activity.showExplanation(message = error.localizedMessage)
+                                    activity!!.showExplanation(message = error.localizedMessage)
                                 })
                     })
                     .setNegativeButton(getString(R.string.no), { dialog, which ->
@@ -155,11 +155,11 @@ class TodoDetailsFragment<T: ToDo>(): BottomSheetDialogFragment(), TodosAdapter.
         }
 
         editIntent.putExtras(extras)
-        activity.startActivity(editIntent)
+        activity!!.startActivity(editIntent)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        LocalBroadcastManager.getInstance(activity).unregisterReceiver(broadcastReceiver)
+        LocalBroadcastManager.getInstance(activity!!).unregisterReceiver(broadcastReceiver)
     }
 }

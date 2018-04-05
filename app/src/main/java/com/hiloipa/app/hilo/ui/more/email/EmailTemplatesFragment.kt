@@ -37,14 +37,14 @@ class EmailTemplatesFragment : Fragment(), TabLayout.OnTabSelectedListener, Emai
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
             inflater!!.inflate(R.layout.fragment_email_templates, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tabLayout.setOnTabSelectedListener(this)
-        adapter = EmailTemplatesAdapter(activity)
+        adapter = EmailTemplatesAdapter(activity!!)
         adapter.delegate = this
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -54,7 +54,7 @@ class EmailTemplatesFragment : Fragment(), TabLayout.OnTabSelectedListener, Emai
     }
 
     private fun getTemplates() {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().getTemplates(StandardRequest())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -80,16 +80,16 @@ class EmailTemplatesFragment : Fragment(), TabLayout.OnTabSelectedListener, Emai
 
                             adapter.refreshList(templates)
                         }
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
     override fun onPreviewTemplateClicked(template: Template, position: Int) {
-        activity.openUrl(template.previewLink)
+        activity!!.openUrl(template.previewLink)
     }
 
     override fun onTabReselected(tab: TabLayout.Tab?) {

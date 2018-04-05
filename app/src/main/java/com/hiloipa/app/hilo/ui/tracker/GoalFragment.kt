@@ -59,38 +59,38 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-            inflater!!.inflate(R.layout.fragment_goal, container, false)
+            inflater.inflate(R.layout.fragment_goal, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val filter = IntentFilter("contacts_ready")
-        LocalBroadcastManager.getInstance(activity).registerReceiver(broadcastReceiver, filter)
+        LocalBroadcastManager.getInstance(activity!!).registerReceiver(broadcastReceiver, filter)
         // init goal duration getting it's value from arguments
-        val duration = arguments.getParcelable<GoalDurationObjc>("duration")
-        goalType = GoalType.fromInt(arguments.getInt("goalType"))
-        val data = arguments.getParcelable<GoalTrackerResponse>("data")
+        val duration = arguments!!.getParcelable<GoalDurationObjc>("duration")
+        goalType = GoalType.fromInt(arguments!!.getInt("goalType"))
+        val data = arguments!!.getParcelable<GoalTrackerResponse>("data")
         // init contacts adapter
-        adapter = GoalTrackerAdapter(activity)
+        adapter = GoalTrackerAdapter(activity!!)
         adapter.delegate = this
         this.updateFragmentData(data, duration)
         // set adapter to recycler view and setup the recycler
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = LinearLayoutManager(activity!!)
         recyclerView.isNestedScrollingEnabled = false
         // set buttons listeners
         showFutureBtn.setOnClickListener {
-            val intent = Intent(activity, FutureContactsActivity::class.java)
+            val intent = Intent(activity!!, FutureContactsActivity::class.java)
             val extras = Bundle()
             extras.putInt("goalType", goalType.toInt())
             intent.putExtras(extras)
-            activity.startActivity(intent)
+            activity!!.startActivity(intent)
         }
     }
 
-    fun updateFragmentData(data: GoalTrackerResponse = arguments.getParcelable("data"),
-                           period: GoalDurationObjc = arguments.getParcelable("duration")) {
+    fun updateFragmentData(data: GoalTrackerResponse = arguments!!.getParcelable("data"),
+                           period: GoalDurationObjc = arguments!!.getParcelable("duration")) {
         // refresh adapter
         adapter.data = data
         adapter.goalType = goalType
@@ -152,12 +152,12 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
     }
 
     override fun onDeleteClicked(contact: Contact, position: Int) {
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(activity!!)
                 .setTitle(getString(R.string.hilo))
                 .setMessage(getString(R.string.remove_goal_contact, getString(goalType.title())))
                 .setPositiveButton(getString(R.string.yes), { dialog, which ->
                     dialog.dismiss()
-                    val loading = activity.showLoading()
+                    val loading = activity!!.showLoading()
                     val request = StandardRequest()
                     request.contactId = "${contact.id}"
                     request.type = goalType.apiValue()
@@ -167,14 +167,14 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
                             .subscribe({ response: HiloResponse<String> ->
                                 loading.dismiss()
                                 if (response.status.isSuccess()) {
-                                    activity.sendBroadcast(Intent("update_tracker"))
+                                    activity!!.sendBroadcast(Intent("update_tracker"))
                                 } else {
-                                    activity.showExplanation(message = response.message)
+                                    activity!!.showExplanation(message = response.message)
                                 }
                             }, { error: Throwable ->
                                 loading.dismiss()
                                 error.printStackTrace()
-                                activity.showExplanation(message = error.localizedMessage)
+                                activity!!.showExplanation(message = error.localizedMessage)
                             })
                 })
                 .setNegativeButton(getString(R.string.no), null)
@@ -187,33 +187,33 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
         val extras = Bundle()
         extras.putString(ContactDetailsActivity.contactIdKey, "${contact.id}")
         intent.putExtras(extras)
-        activity.startActivity(intent)
+        activity!!.startActivity(intent)
     }
 
     override fun didWantToSearchContact() {
         FragmentSearchGoalContact.newInstance(this, goalType.searchUrl())
-                .show(activity.fragmentManager, "SearchContacts")
+                .show(activity!!.fragmentManager, "SearchContacts")
     }
 
     override fun onContactSelected(contact: Contact) {
         val request = StandardRequest()
         request.type = goalType.apiValue()
         request.contactId = "${contact.id}"
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().addGoalTrackerContact(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response: HiloResponse<String> ->
                     loading.dismiss()
                     if (response.status.isSuccess()) {
-                        LocalBroadcastManager.getInstance(activity).sendBroadcast(Intent("update_tracker"))
+                        LocalBroadcastManager.getInstance(activity!!).sendBroadcast(Intent("update_tracker"))
                     } else {
-                        activity.showExplanation(message = response.message)
+                        activity!!.showExplanation(message = response.message)
                     }
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -230,7 +230,7 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
     }
 
     private fun completeContact(contact: Contact) {
-        val dialog = activity.showLoading()
+        val dialog = activity!!.showLoading()
         val request = StandardRequest()
         request.type = goalType.apiValue()
         request.contactId = "${contact.id}"
@@ -242,7 +242,7 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
                         showCompleteOptions(request, dialog)
                     }, { error: Throwable ->
                         error.printStackTrace()
-                        activity.showExplanation(message = error.localizedMessage)
+                        activity!!.showExplanation(message = error.localizedMessage)
                     })
         } else showCompleteOptions(request, dialog)
     }
@@ -262,17 +262,17 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
                             }
                         }
                     } else {
-                        activity.showExplanation(message = response.message)
+                        activity!!.showExplanation(message = response.message)
                     }
                 }, { error: Throwable ->
                     dialog.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
     private fun showCompleteReachOutDialog(option: CompleteOption) {
-        val dialogView = activity.layoutInflater.inflate(R.layout.alert_complete_reach_out, null)
+        val dialogView = activity!!.layoutInflater.inflate(R.layout.alert_complete_reach_out, null)
         val backBtn: RalewayButton = dialogView.findViewById(R.id.completeReachOutBackBtn)
         val title: RalewayTextView = dialogView.findViewById(R.id.completeReachOutTile)
         val leadTempBtn: RalewayButton = dialogView.findViewById(R.id.leadTempBtn)
@@ -389,24 +389,22 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
         var nextFollowUp: Date? = null
         val calendar = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
-        val datePickerDialog = DatePickerDialog(activity, object : DatePickerDialog.OnDateSetListener {
-            override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-                calendar.set(Calendar.YEAR, year)
-                calendar.set(Calendar.MONTH, month)
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                val now = Date()
-                nextFollowUp = Date(calendar.timeInMillis)
-                if (nextFollowUp!! < now) {
-                    activity.showExplanation(title = getString(R.string.wrong_date),
-                            message = getString(R.string.wrong_date_message))
-                    nextFollowUp = null
-                } else
-                    scheduleNextFollowUp.text = dateFormat.format(nextFollowUp!!)
-            }
+        val datePickerDialog = DatePickerDialog(activity, DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, month)
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            val now = Date()
+            nextFollowUp = Date(calendar.timeInMillis)
+            if (nextFollowUp!! < now) {
+                activity!!.showExplanation(title = getString(R.string.wrong_date),
+                        message = getString(R.string.wrong_date_message))
+                nextFollowUp = null
+            } else
+                scheduleNextFollowUp.text = dateFormat.format(nextFollowUp!!)
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
         scheduleNextFollowUp.setOnClickListener { datePickerDialog.show() }
 
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(activity!!)
                 .setView(dialogView)
                 .create()
         completeBtn.setOnClickListener { dialog.dismiss() }
@@ -441,7 +439,7 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
                 request.nextFollowUp = dateFormat.format(nextFollowUp)
             if (selectedContactType != null)
                 request.contactType = selectedContactType!!.value
-            val loading = activity.showLoading()
+            val loading = activity!!.showLoading()
             HiloApp.api().completeGoal(request)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -449,7 +447,7 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
                         loading.dismiss()
                         if (response.status.isSuccess()) {
                             dialog.dismiss()
-                            LocalBroadcastManager.getInstance(activity).sendBroadcast(Intent("update_tracker"))
+                            LocalBroadcastManager.getInstance(activity!!).sendBroadcast(Intent("update_tracker"))
                         } else {
                             Toast.makeText(activity, response.message, Toast.LENGTH_SHORT).show()
                         }
@@ -495,7 +493,7 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
             logReachOutTypeSpinner.performClick()
         }
 
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(activity!!)
                 .setView(dialogView)
                 .create()
         completeBtn.setOnClickListener { dialog.dismiss() }
@@ -517,7 +515,7 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
             request.reachOutType = selectedLogType!!.value
             request.reachOutComments = logReachOutComment.text.toString()
 
-            val loading = activity.showLoading()
+            val loading = activity!!.showLoading()
             HiloApp.api().completeGoal(request)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -525,7 +523,7 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
                         loading.dismiss()
                         if (response.status.isSuccess()) {
                             dialog.dismiss()
-                            activity.sendBroadcast(Intent("update_tracker"))
+                            activity!!.sendBroadcast(Intent("update_tracker"))
                         } else {
                             Toast.makeText(activity, response.message, Toast.LENGTH_SHORT).show()
                         }
@@ -541,6 +539,6 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
 
     override fun onDestroyView() {
         super.onDestroyView()
-        LocalBroadcastManager.getInstance(activity).unregisterReceiver(broadcastReceiver)
+        LocalBroadcastManager.getInstance(activity!!).unregisterReceiver(broadcastReceiver)
     }
 }

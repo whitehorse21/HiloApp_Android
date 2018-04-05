@@ -48,14 +48,14 @@ class RegistrationFragment : Fragment() {
         authActivity = context as AuthActivity
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-            inflater!!.inflate(R.layout.fragment_registration, container, false)
+            inflater.inflate(R.layout.fragment_registration, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        backButton.setOnClickListener { activity.onBackPressed() }
+        backButton.setOnClickListener { activity!!.onBackPressed() }
 
         termsAndCoditionsBtn.setOnClickListener { authActivity.replaceFragment(TermsFragment.newInstance()) }
 
@@ -80,7 +80,7 @@ class RegistrationFragment : Fragment() {
 
     private fun createNewAccount() {
         if (!termsAndCoditionsCheckBox.isChecked) {
-            Toast.makeText(activity, getString(R.string.accept_tersms), Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity!!, getString(R.string.accept_tersms), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -89,7 +89,7 @@ class RegistrationFragment : Fragment() {
         val email = emailField.text.toString()
         val password = passwordField.text.toString()
         val repeatPass = repeatPasswordField.text.toString()
-        val screenSize = activity.displaySize()
+        val screenSize = activity!!.displaySize()
         val screenSizeText = "${screenSize.first}*${screenSize.second}"
 
         if (firstName.isEmpty()) {
@@ -118,16 +118,16 @@ class RegistrationFragment : Fragment() {
         }
 
         if (selectedCompanyName == null) {
-            Toast.makeText(activity, getString(R.string.select_company), Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity!!, getString(R.string.select_company), Toast.LENGTH_SHORT).show()
             return
         }
 
         if (selectedFindSounce == null) {
-            Toast.makeText(activity, getString(R.string.how_did_you_hear_about_us), Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity!!, getString(R.string.how_did_you_hear_about_us), Toast.LENGTH_SHORT).show()
             return
         }
 
-        val dialog = activity.showLoading()
+        val dialog = activity!!.showLoading()
 
         val registrationRequest = RegistrationRequest(
                 firstName = firstName,
@@ -154,18 +154,18 @@ class RegistrationFragment : Fragment() {
                                     registrationRequest.password)
                             showWelcomeDialog(data.messageBody, data.messageImage, data.messageTitle)
                         } else
-                            activity.showExplanation(message = getString(R.string.unknown_error))
+                            activity!!.showExplanation(message = getString(R.string.unknown_error))
                     } else
-                        activity.showExplanation(message = response.message)
+                        activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     dialog.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
     private fun prepareSignUpData() {
-        val dialog = activity.showLoading()
+        val dialog = activity!!.showLoading()
         HiloApp.api().getSignUpData().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response: HiloResponse<SignUpResponse> ->
@@ -174,14 +174,14 @@ class RegistrationFragment : Fragment() {
                         val data = response.data
                         if (data != null)
                             this.prepareUiWithNewData(data)
-                        else activity.onBackPressed()
+                        else activity!!.onBackPressed()
                     } else {
-                        activity.showExplanation(message = response.message)
+                        activity!!.showExplanation(message = response.message)
                     }
                 }, { error: Throwable ->
                     dialog.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -191,14 +191,14 @@ class RegistrationFragment : Fragment() {
         val companyNames = mutableListOf<String>()
         companyNames.add(getString(R.string.select_company))
         signUpData.companies.forEach { companyNames.add(it.companyName) }
-        companySpinner.adapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item, companyNames)
+        companySpinner.adapter = ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_dropdown_item, companyNames)
         companySpinner.onItemSelectedListener = onCompanySelectedListener
 
         // setup find us spinner
         val findSources = mutableListOf<String>()
         findSources.add(getString(R.string.how_did_you_hear_about_us))
         signUpData.hears.forEach { findSources.add(it.hearName) }
-        findUsSpinner.adapter = ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item, findSources)
+        findUsSpinner.adapter = ArrayAdapter<String>(activity!!, android.R.layout.simple_spinner_dropdown_item, findSources)
         findUsSpinner.onItemSelectedListener = onFindUsSelectedListener
     }
 
@@ -236,32 +236,32 @@ class RegistrationFragment : Fragment() {
 
     private fun showWelcomeDialog(message: String?, messageImage: String?, messageTitle: String?) {
         if (message != null && messageTitle != null) {
-            val dialogView = activity.layoutInflater.inflate(R.layout.alert_beta_testing, null)
+            val dialogView = activity!!.layoutInflater.inflate(R.layout.alert_beta_testing, null)
             val gotItBtn: Button = dialogView.findViewById(R.id.gotItBtn)
             val titleLabel: RalewayTextView = dialogView.findViewById(R.id.title)
             val messageLabel: RalewayTextView = dialogView.findViewById(R.id.messageLabel)
             val imageView: ImageView = dialogView.findViewById(R.id.betaImage)
 
-            Picasso.with(activity).load(messageImage).into(imageView)
+            Picasso.get().load(messageImage).into(imageView)
             titleLabel.text = messageTitle
             messageLabel.text = message
 
-            val dialog = AlertDialog.Builder(activity)
+            val dialog = AlertDialog.Builder(activity!!)
                     .setView(dialogView).create()
 
             gotItBtn.setOnClickListener {
                 dialog.dismiss()
-                val feedbackIntent = Intent(activity, MainActivity::class.java)
-                activity.startActivity(feedbackIntent)
-                activity.finish()
+                val feedbackIntent = Intent(activity!!, MainActivity::class.java)
+                activity!!.startActivity(feedbackIntent)
+                activity!!.finish()
             }
             dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.setCanceledOnTouchOutside(false)
             dialog.show()
         } else {
-            val feedbackIntent = Intent(activity, MainActivity::class.java)
-            activity.startActivity(feedbackIntent)
-            activity.finish()
+            val feedbackIntent = Intent(activity!!, MainActivity::class.java)
+            activity!!.startActivity(feedbackIntent)
+            activity!!.finish()
         }
     }
 }

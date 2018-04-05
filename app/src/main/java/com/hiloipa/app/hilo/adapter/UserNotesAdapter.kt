@@ -31,8 +31,8 @@ class UserNotesAdapter(val context: Context): RecyclerView.Adapter<UserNotesAdap
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_user_note, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_user_note, parent, false)
         return ViewHolder(view)
     }
 
@@ -40,8 +40,7 @@ class UserNotesAdapter(val context: Context): RecyclerView.Adapter<UserNotesAdap
         return data.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder == null) return
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val note = data[position]
         holder.note = note
         // update item data

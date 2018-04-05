@@ -55,15 +55,15 @@ class GoalTrackerFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-            inflater!!.inflate(R.layout.fragment_goal_tracker, container, false)
+            inflater.inflate(R.layout.fragment_goal_tracker, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val filter = IntentFilter("update_tracker")
-        LocalBroadcastManager.getInstance(activity).registerReceiver(broadcastReceiver, filter)
-        adapter = PagerAdapter(activity, childFragmentManager)
+        LocalBroadcastManager.getInstance(activity!!).registerReceiver(broadcastReceiver, filter)
+        adapter = PagerAdapter(activity!!, childFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
         viewPager.offscreenPageLimit = 4
         // set buttons listeners
@@ -92,7 +92,7 @@ class GoalTrackerFragment : Fragment() {
     }
 
     private fun getTrackerData(duration: GoalDuration = GoalDuration.Weekly, hiloMyWeek: Boolean = false) {
-        val dialog = activity.showLoading()
+        val dialog = activity!!.showLoading()
         try {
             val request = GoalTrackerRequest()
             request.goalDuration = duration.name
@@ -108,16 +108,16 @@ class GoalTrackerFragment : Fragment() {
                                 goalTrackerData = data
                                 updateTrackerWithNewData(data)
                             } else {
-                                activity.showExplanation(message = getString(R.string.unknown_error))
+                                activity!!.showExplanation(message = getString(R.string.unknown_error))
                             }
                         } else {
-                            activity.showExplanation(message = response.message)
+                            activity!!.showExplanation(message = response.message)
                         }
                     }, { error: Throwable ->
                         dialog.dismiss()
                         error.printStackTrace()
                         if (activity != null)
-                            activity.showExplanation(message = error.localizedMessage)
+                            activity!!.showExplanation(message = error.localizedMessage)
                     })
         } catch (e: Exception) {
             dialog.dismiss()
@@ -126,7 +126,7 @@ class GoalTrackerFragment : Fragment() {
     }
 
     private fun updateTrackerWithNewData(data: GoalTrackerResponse = this.goalTrackerData) {
-        val dialog = activity.showLoading()
+        val dialog = activity!!.showLoading()
         // setup recycler view and adapter
         // setup period spinner
         val periodNames = mutableListOf<String>()
@@ -161,7 +161,7 @@ class GoalTrackerFragment : Fragment() {
     }
 
     private fun setupPagerAdapter(data: GoalTrackerResponse): Observable<PagerAdapter> = Observable.create {
-        val adapter = PagerAdapter(activity, childFragmentManager)
+        val adapter = PagerAdapter(activity!!, childFragmentManager)
         if (this.selectedDuration != null) {
             if (adapter.count == 0) {
                 fragments.put(GoalType.reach_outs.toInt(),
@@ -215,7 +215,7 @@ class GoalTrackerFragment : Fragment() {
         followUps.text = "${plan.followUps}"
         teamNeeds.text = "${plan.teamReachOuts}"
 
-        val dialog = AlertDialog.Builder(activity).setView(dialogView).create()
+        val dialog = AlertDialog.Builder(activity!!).setView(dialogView).create()
         dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         backBtn.setOnClickListener { dialog.dismiss() }
@@ -224,6 +224,6 @@ class GoalTrackerFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        LocalBroadcastManager.getInstance(activity).unregisterReceiver(broadcastReceiver)
+        LocalBroadcastManager.getInstance(activity!!).unregisterReceiver(broadcastReceiver)
     }
 }

@@ -48,10 +48,10 @@ class ChangePlanFragment: BottomSheetDialogFragment(), View.OnClickListener {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater?.inflate(R.layout.fragment_change_plan, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_change_plan, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // set dismiss buttons click listeners
         changePlanBackBtn.setOnClickListener { this.dismiss() }
@@ -70,7 +70,7 @@ class ChangePlanFragment: BottomSheetDialogFragment(), View.OnClickListener {
     }
 
     private fun showGoalPlans() {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().showGoalPlans(StandardRequest())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -83,12 +83,12 @@ class ChangePlanFragment: BottomSheetDialogFragment(), View.OnClickListener {
                             updateDefaultValues(goalPlans = goalPlans)
                         } else this.dismiss()
                     } else {
-                        activity.showExplanation(message = response.message)
+                        activity!!.showExplanation(message = response.message)
                     }
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -139,7 +139,7 @@ class ChangePlanFragment: BottomSheetDialogFragment(), View.OnClickListener {
         request.customFollow = customFollow
         request.customTeam = customTeam
 
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         HiloApp.api().saveGoalPlan(request).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response: HiloResponse<String> ->
@@ -149,15 +149,15 @@ class ChangePlanFragment: BottomSheetDialogFragment(), View.OnClickListener {
                         if (data != null)
                             Toast.makeText(activity, data, Toast.LENGTH_SHORT).show()
                         // dismiss plans fragment
-                        LocalBroadcastManager.getInstance(activity).sendBroadcast(Intent("update_tracker"))
+                        LocalBroadcastManager.getInstance(activity!!).sendBroadcast(Intent("update_tracker"))
                         this.dismiss()
                     } else {
-                        activity.showExplanation(message = response.message)
+                        activity!!.showExplanation(message = response.message)
                     }
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 

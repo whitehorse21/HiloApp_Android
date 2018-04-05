@@ -50,6 +50,7 @@ val contactDetailsHelp = "Welcome to the Contact Detail view! Here you can edit 
         "view each area (e.g. Contact Info, Tags & Custom Fields, etc.).\r\n\r\nYou can also send " +
         "Email Templates and Assign an Email Campaign to a contact by accessing those tabs in the " +
         "horizontal menu."
+
 class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
     companion object {
@@ -104,7 +105,7 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
         // set basic data like name and avatar
         contactFullName.text = "${contactDetails.contactDetails.firstName} " +
                 "${contactDetails.contactDetails.lastName}"
-        Picasso.with(this)
+        Picasso.get()
                 .load(contactDetails.contactDetails.userImage)
                 .placeholder(R.mipmap.ic_profile_default_round)
                 .error(R.mipmap.ic_profile_default_round)
@@ -116,7 +117,7 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
             val dialogView = layoutInflater.inflate(R.layout.alert_user_image, null)
             val image: ImageView = dialogView.findViewById(R.id.imageView)
             val button: RalewayButton = dialogView.findViewById(R.id.updateBtn)
-            Picasso.with(this).load(contactDetails.contactDetails.userImage).into(image)
+            Picasso.get().load(contactDetails.contactDetails.userImage).into(image)
             val dialog = AlertDialog.Builder(this)
                     .setView(dialogView)
                     .create()
@@ -205,7 +206,7 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.action_help -> {
                 val helpIntent = Intent(this, HelpActivity::class.java)
                 helpIntent.putExtra(HelpActivity.titleKey, toolbarTitle.text)
@@ -221,7 +222,7 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             var image: Pair<String, String>? = null
-            when(requestCode) {
+            when (requestCode) {
                 1257 -> {
                     val items: ArrayList<MediaItem>? = MediaPickerActivity.getMediaItemSelected(data);
                     if (items != null && items.size > 0) {
@@ -270,7 +271,7 @@ class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListe
                     loading.dismiss()
                     if (response.status.isSuccess()) {
                         val file = File(imageData.first)
-                        Picasso.with(this)
+                        Picasso.get()
                                 .load(file)
                                 .into(contactImage)
                     } else showExplanation(message = response.message)

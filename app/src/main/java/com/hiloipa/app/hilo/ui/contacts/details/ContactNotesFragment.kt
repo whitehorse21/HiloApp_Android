@@ -53,13 +53,13 @@ class ContactNotesFragment : Fragment(), ContactNotesAdapter.ContactNoteDelegate
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-        inflater!!.inflate(R.layout.fragment_contact_notes, container, false)
+        inflater.inflate(R.layout.fragment_contact_notes, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = ContactNotesAdapter(activity)
+        adapter = ContactNotesAdapter(activity!!)
         adapter.delegate = this
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
@@ -67,15 +67,15 @@ class ContactNotesFragment : Fragment(), ContactNotesAdapter.ContactNoteDelegate
 
         addNoteBtn.setOnClickListener { this.showNoteDialog() }
 
-        getContactNotes(arguments.getString("contactId"))
+        getContactNotes(arguments!!.getString("contactId"))
     }
 
     override fun onEditNoteClicked(note: ContactNote, position: Int) {
         this.showNoteDialog(note)
     }
 
-    private fun getContactNotes(contactId: String = arguments.getString("contactId")) {
-        val loading = activity.showLoading()
+    private fun getContactNotes(contactId: String = arguments!!.getString("contactId")) {
+        val loading = activity!!.showLoading()
         val request = StandardRequest()
         request.contactId = contactId
         HiloApp.api().getContactNotes(request)
@@ -88,16 +88,16 @@ class ContactNotesFragment : Fragment(), ContactNotesAdapter.ContactNoteDelegate
                         if (data != null) {
                             adapter.refreshNotes(data.notes)
                         }
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
     override fun onDeleteNoteClicked(note: ContactNote, position: Int) {
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(activity!!)
                 .setTitle(getString(R.string.delete))
                 .setMessage(getString(R.string.are_you_sure_you_want_to_delete))
                 .setPositiveButton(getString(R.string.yes), { dialog, _ ->
@@ -111,10 +111,10 @@ class ContactNotesFragment : Fragment(), ContactNotesAdapter.ContactNoteDelegate
     }
 
     private fun deleteNote(note: ContactNote, position: Int) {
-        val loading = activity.showLoading()
+        val loading = activity!!.showLoading()
         val request = DeleteContactNote()
         request.noteId = "${note.id}"
-        request.contactId = arguments.getString("contactId")
+        request.contactId = arguments!!.getString("contactId")
 
         HiloApp.api().deleteContactNote(request)
                 .subscribeOn(Schedulers.io())
@@ -124,11 +124,11 @@ class ContactNotesFragment : Fragment(), ContactNotesAdapter.ContactNoteDelegate
                     if (response.status.isSuccess()) {
                         adapter.notes.remove(note)
                         adapter.notifyItemRemoved(position)
-                    } else activity.showExplanation(message = response.message)
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity!!.showExplanation(message = error.localizedMessage)
                 })
     }
 
@@ -139,7 +139,7 @@ class ContactNotesFragment : Fragment(), ContactNotesAdapter.ContactNoteDelegate
         val cancelBtn: RalewayButton = alertView.findViewById(R.id.cancelBtn)
         val saveBtn: RalewayButton = alertView.findViewById(R.id.saveBtn)
 
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(activity!!)
                 .setView(alertView)
                 .create()
 
@@ -167,12 +167,12 @@ class ContactNotesFragment : Fragment(), ContactNotesAdapter.ContactNoteDelegate
             val request = SaveContactNote()
             request.content = Base64.encodeToString(content.toByteArray(), Base64.DEFAULT)
             request.title = title
-            request.contactId = arguments.getString("contactId")
+            request.contactId = arguments!!.getString("contactId")
             if (note != null)
                 request.noteId = "${note.id}"
 
             dialog.dismiss()
-            val loading = activity.showLoading()
+            val loading = activity!!.showLoading()
             HiloApp.api().saveContactNote(request)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -180,11 +180,11 @@ class ContactNotesFragment : Fragment(), ContactNotesAdapter.ContactNoteDelegate
                         loading.dismiss()
                         if (response.status.isSuccess()) {
                             getContactNotes()
-                        } else activity.showExplanation(message = response.message)
+                        } else activity!!.showExplanation(message = response.message)
                     }, { error: Throwable ->
                         loading.dismiss()
                         error.printStackTrace()
-                        activity.showExplanation(message = error.localizedMessage)
+                        activity!!.showExplanation(message = error.localizedMessage)
                     })
         }
 
