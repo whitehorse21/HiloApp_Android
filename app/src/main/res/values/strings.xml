@@ -352,4 +352,6 @@
     <string name="uploaded_images_d">Uploaded Contact Images: %d</string>
     <string name="uploading_contact_images">Uploading Contact Images</string>
     <string name="select_plan_first">Please select your Plan first</string>
+    <string name="create_new_action_for_goal">Create New Avtion for Goal</string>
+    <string name="action_title">Action title</string>
 </resources>

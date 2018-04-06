@@ -37,8 +37,8 @@ import kotlinx.android.synthetic.main.fragment_products.*
 class ProductsFragment : Fragment(), ProductsAdapter.ProductDelegate, TextWatcher {
 
     lateinit var adapter: ProductsAdapter
-    val filteredProducts: ArrayList<Product> = arrayListOf()
-    val allProducts: ArrayList<Product> = arrayListOf()
+    private val filteredProducts: ArrayList<Product> = arrayListOf()
+    private val allProducts: ArrayList<Product> = arrayListOf()
 
     companion object {
         fun newInstance(): ProductsFragment {
@@ -51,7 +51,7 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductDelegate, TextWatche
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_products, container, false)
+            inflater.inflate(R.layout.fragment_products, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -127,7 +127,7 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductDelegate, TextWatche
     }
 
     private fun showAssignDialog(product: Product, contacts: ArrayList<DashContact>) {
-        val assignAsValues = arrayListOf<String>("Product purchased", "Recommended product",
+        val assignAsValues = arrayListOf("", "Product purchased", "Recommended product",
                 "Product Interested", "Solution tool recommended")
         val alertView = layoutInflater.inflate(R.layout.alert_assign_product, null)
         val asignAsBtn: RalewayButton = alertView.findViewById(R.id.assignAsBtn)
@@ -140,44 +140,45 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductDelegate, TextWatche
                 .setView(alertView)
                 .create()
 
-        var isAssignAsFromUser = false
         asignAsSpinner.adapter = ArrayAdapter<String>(activity,
                 android.R.layout.simple_spinner_dropdown_item, assignAsValues)
         asignAsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if (isAssignAsFromUser) {
+                if (position != 0) {
                     asignAsBtn.text = assignAsValues[position]
                     asignAsBtn.tag = assignAsValues[position]
-                    isAssignAsFromUser = false
+                } else {
+                    asignAsBtn.text = ""
+                    asignAsBtn.tag = null
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
+
         asignAsBtn.setOnClickListener {
-            isAssignAsFromUser = true
             asignAsSpinner.performClick()
         }
 
-        var isContactFromUser = false
-        val contactNames = arrayListOf<String>()
+        val contactNames = arrayListOf("")
         contacts.forEach { contactNames.add(it.contactName) }
         asignToSpinner.adapter = ArrayAdapter<String>(activity,
                 android.R.layout.simple_spinner_dropdown_item, contactNames)
         asignToSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if (isContactFromUser) {
+                if (position != 0) {
                     val contact = contacts[position]
                     asignToBtn.text = contact.contactName
                     asignToBtn.tag = "${contact.contactId}"
-                    isContactFromUser = false
+                } else {
+                    asignToBtn.text = ""
+                    asignToBtn.tag = null
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
         asignToBtn.setOnClickListener {
-            isContactFromUser = true
             asignToSpinner.performClick()
         }
 

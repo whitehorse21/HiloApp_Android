@@ -204,7 +204,7 @@ class AddActionActivity : AppCompatActivity(), FiltersAdapter.FiltersDelegate {
     private fun setupDueDateBtn() {
         val calendar = Calendar.getInstance()
         dueDateBtn.setOnClickListener {
-            val alert = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+            val alert = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, month)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -219,7 +219,7 @@ class AddActionActivity : AppCompatActivity(), FiltersAdapter.FiltersDelegate {
     private fun setupEndTimeBtn() {
         val calendar = Calendar.getInstance()
         endTimeBtn.setOnClickListener {
-            val alert = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+            val alert = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
                 calendar.set(Calendar.MINUTE, minute)
                 val newDate = Date(calendar.timeInMillis)

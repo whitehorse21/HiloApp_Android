@@ -164,14 +164,11 @@ class GoalTrackerFragment : Fragment() {
         val adapter = PagerAdapter(activity!!, childFragmentManager)
         if (this.selectedDuration != null) {
             if (adapter.count == 0) {
-                fragments.put(GoalType.reach_outs.toInt(),
-                        GoalFragment.newInstance(data, GoalType.reach_outs, selectedDuration!!))
+                fragments[GoalType.reach_outs.toInt()] = GoalFragment.newInstance(data, GoalType.reach_outs, selectedDuration!!)
 
-                fragments.put(GoalType.follow_ups.toInt(),
-                        GoalFragment.newInstance(data, GoalType.follow_ups, selectedDuration!!))
+                fragments[GoalType.follow_ups.toInt()] = GoalFragment.newInstance(data, GoalType.follow_ups, selectedDuration!!)
 
-                fragments.put(GoalType.team_reach_outs.toInt(),
-                        GoalFragment.newInstance(data, GoalType.team_reach_outs, selectedDuration!!))
+                fragments[GoalType.team_reach_outs.toInt()] = GoalFragment.newInstance(data, GoalType.team_reach_outs, selectedDuration!!)
 
                 fragments.forEach { adapter.addFragment(it.value, getString(GoalType.fromInt(it.key).title())) }
             }

@@ -167,7 +167,7 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
                             .subscribe({ response: HiloResponse<String> ->
                                 loading.dismiss()
                                 if (response.status.isSuccess()) {
-                                    activity!!.sendBroadcast(Intent("update_tracker"))
+                                    LocalBroadcastManager.getInstance(activity!!).sendBroadcast(Intent("update_tracker"))
                                 } else {
                                     activity!!.showExplanation(message = response.message)
                                 }

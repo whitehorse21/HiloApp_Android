@@ -145,7 +145,7 @@
                         android:gravity="start|center_vertical"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
-                        android:text="@string/add_existent_action"
+                        android:text="@string/create_new_action_for_goal"
                         android:textColor="@drawable/edit_contact_text" />
 
                     <LinearLayout
@@ -170,7 +170,7 @@
                             android:layout_height="50dp"
                             android:layout_margin="10dp"
                             android:background="@drawable/selectable_border_rect"
-                            android:hint="@string/s_title"
+                            android:hint="@string/action_title"
                             android:imeOptions="actionNext"
                             android:inputType="textCapSentences"
                             android:lines="1"

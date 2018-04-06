@@ -177,7 +177,7 @@ interface HiloAPI {
      *    More
      */
 
-    @POST("UpdateProfileImage")
+    @POST("updateProfileImage")
     fun updateUserAvatar(@Body standardRequest: StandardRequest): Observable<HiloResponse<String>>
 
     @POST("DisplayAllNotePads")

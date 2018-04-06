@@ -300,7 +300,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
         var phoneNumber = ""
-        if (contact.contactNumber.isNotEmpty()) {
+        if (contact.contactNumber != null && contact.contactNumber.isNotEmpty()) {
             contactPhoneLabel.text = getString(R.string.phone_number_s, contact.contactNumber)
             phoneNumber = contact.contactNumber
         } else if (contact.alternatephns.isNotEmpty()) {
