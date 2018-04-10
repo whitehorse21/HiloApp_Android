@@ -241,6 +241,7 @@ class MoreFragment : Fragment() {
     private fun saveUserImage(imageData: Pair<String, String>) {
         val request = StandardRequest()
         request.image = imageData.second
+        request.contactId = "0"
 
         val loading = activity!!.showLoading()
         HiloApp.api().updateUserAvatar(request)
