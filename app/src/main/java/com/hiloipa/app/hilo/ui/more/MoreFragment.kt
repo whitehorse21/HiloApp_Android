@@ -169,7 +169,15 @@ class MoreFragment : Fragment() {
                 .subscribe({ response: HiloResponse<Account> ->
                     loading.dismiss()
                     if (response.status.isSuccess()) {
-                        userNameLabel.text = "${response.data!!.firstName} ${response.data!!.lastName}"
+                        val data = response.data
+                        if (data != null) {
+                            userNameLabel.text = "${data.firstName} ${data.lastName}"
+                            Picasso.get()
+                                    .load(HiloApp.userData.userImage)
+                                    .placeholder(R.mipmap.ic_profile_default_round)
+                                    .error(R.mipmap.ic_profile_default_round)
+                                    .into(userAvatar)
+                        }
                     } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
@@ -242,6 +250,7 @@ class MoreFragment : Fragment() {
         val request = StandardRequest()
         request.image = imageData.second
         request.contactId = "0"
+        request.fileName = "${File(imageData.first).nameWithoutExtension}.jpg"
 
         val loading = activity!!.showLoading()
         HiloApp.api().updateUserAvatar(request)
