@@ -354,4 +354,5 @@
     <string name="select_plan_first">Please select your Plan first</string>
     <string name="create_new_action_for_goal">Create New Avtion for Goal</string>
     <string name="action_title">Action title</string>
+    <string name="invalid_url">Invalid link</string>
 </resources>

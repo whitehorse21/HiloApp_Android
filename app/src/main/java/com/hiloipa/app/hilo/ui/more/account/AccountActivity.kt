@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Toast
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.requests.UpdateAccountRequest
@@ -117,21 +118,18 @@ class AccountActivity : AppCompatActivity() {
             return
         }
 
-        if (personalUrl.isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_s, getString(R.string.personal_url)),
-                    Toast.LENGTH_SHORT).show()
+        if (!Patterns.WEB_URL.matcher(personalUrl).matches()) {
+            personalUrlField.error = getString(R.string.invalid_url)
             return
         }
 
-        if (businessUrl.isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_s, getString(R.string.personal_url_business_site)),
-                    Toast.LENGTH_SHORT).show()
+        if (!Patterns.WEB_URL.matcher(businessUrl).matches()) {
+            businessUrlField.error = getString(R.string.invalid_url)
             return
         }
 
-        if (solutionToolLink.isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_s, getString(R.string.solution_tool_link)),
-                    Toast.LENGTH_SHORT).show()
+        if (!Patterns.WEB_URL.matcher(solutionToolLink).matches()) {
+            solutionToolUrlField.error = getString(R.string.invalid_url)
             return
         }
 
