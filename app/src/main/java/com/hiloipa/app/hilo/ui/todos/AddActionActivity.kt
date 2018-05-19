@@ -254,7 +254,7 @@ class AddActionActivity : AppCompatActivity(), FiltersAdapter.FiltersDelegate {
 
     private fun setupPrioritySpinner() {
         var isFromUser = false
-        val priorities = mutableListOf<String>("", "Low", "Medium", "Hight")
+        val priorities = mutableListOf<String>("", "Low", "Medium", "High")
         prioritySpinner.adapter = ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, priorities)
         prioritySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
