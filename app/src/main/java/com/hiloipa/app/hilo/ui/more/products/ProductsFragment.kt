@@ -78,7 +78,10 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductDelegate, TextWatche
                         if (data != null) {
                             allProducts.clear()
                             allProducts.addAll(data.products)
-                            adapter.refreshProducts(data.products)
+                            if (data.products.isEmpty())
+                                adapter.refreshProducts(data.userProducts)
+                            else
+                                adapter.refreshProducts(data.products)
                         }
                     } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
