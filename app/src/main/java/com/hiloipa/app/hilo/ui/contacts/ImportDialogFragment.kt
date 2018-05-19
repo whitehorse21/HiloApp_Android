@@ -82,31 +82,31 @@ class ImportDialogFragment: DialogFragment() {
                     if (response.status.isSuccess()) {
                         val data = response.data
                         if (data != null) {
-                            importedContactsLabel.text = getString(R.string.imported_contacts_d, data.imported)
+                            importedContactsLabel?.text = getString(R.string.imported_contacts_d, data.imported)
                             val importedContacts = arrayListOf<Pair<String, Uri>>()
                             data.importedContacts.forEach { imported: ImportedContact ->
                                 val deviceContact = contacts.firstOrNull { it.uuid == imported.uuid }
-                                if (deviceContact != null && deviceContact.photoPath != null)
+                                if (deviceContact?.photoPath != null)
                                     importedContacts.add(Pair("${imported.contactId}", deviceContact.photoPath!!))
                             }
                             importContactImages(importedContacts)
                         }
                     } else {
-                        activity.showExplanation(message = response.message)
+                        activity?.showExplanation(message = response.message)
                         this.dismiss()
                     }
                 }, { error: Throwable ->
                     error.printStackTrace()
-                    activity.showExplanation(message = error.localizedMessage)
+                    activity?.showExplanation(message = error.localizedMessage)
                     this.dismiss()
                 })
     }
 
     private fun importContactImages(contacts: ArrayList<Pair<String, Uri>>) {
-        titleLabel.text = getString(R.string.uploading_contact_images)
+        titleLabel?.text = getString(R.string.uploading_contact_images)
         val observables = arrayListOf<Observable<HiloResponse<String>>>()
-        importProgressBar.visibility = View.GONE
-        photosProgressLayout.visibility = View.VISIBLE
+        importProgressBar?.visibility = View.GONE
+        photosProgressLayout?.visibility = View.VISIBLE
         contacts.forEach { pair: Pair<String, Uri> ->
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, pair.second)

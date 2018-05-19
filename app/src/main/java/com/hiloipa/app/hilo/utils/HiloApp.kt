@@ -10,6 +10,7 @@ import com.hiloipa.app.hilo.BuildConfig
 import com.hiloipa.app.hilo.models.responses.UserData
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.ReplaySubject
 import okhttp3.*
 import okio.Buffer
 import org.json.JSONObject
@@ -36,7 +37,7 @@ class HiloApp : MultiDexApplication() {
         lateinit var userData: UserData
         const val PROVIDER_AUTHORITY = "com.hiloipa.app.hilo.provider"
         val CONNECTIVITY_CHANGE_ACTION = "android.net.conn.CONNECTIVITY_CHANGE"
-        val networkState: PublishSubject<Boolean> = PublishSubject.create()
+        val networkState: ReplaySubject<Boolean> = ReplaySubject.create()
         fun api(): HiloAPI = retrofit.create(HiloAPI::class.java)
     }
 
