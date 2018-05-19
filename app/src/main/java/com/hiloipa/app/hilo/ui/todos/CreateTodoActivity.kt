@@ -3,12 +3,10 @@ package com.hiloipa.app.hilo.ui.todos
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.LocalBroadcastManager
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -36,7 +34,6 @@ import kotlinx.android.synthetic.main.layout_event_time.*
 import kotlinx.android.synthetic.main.layout_todo_time.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDelegate {
 
@@ -346,8 +343,11 @@ class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDel
 
     private fun setupEventTypeSpinner() {
         var isFromUser = false
-        val eventTypes = arrayListOf<String>("Meeting", "Follow up", "New Reachout", "Phone call",
-                "Scheduled Meeting", "Personal", "Other")
+        val eventTypes = arrayListOf("Meeting", "Follow up", "New Reachout", "Phone call",
+                "Scheduled Meeting", "Personal", "Bag Drop",
+                "Social", "One-on-One", "Opportunity Event", "Phone Call",
+                "Text",
+                "FB Messenger", "Email", "Handwritten Note", "Other")
         eventTypeSpinner.adapter = ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, eventTypes)
         eventTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

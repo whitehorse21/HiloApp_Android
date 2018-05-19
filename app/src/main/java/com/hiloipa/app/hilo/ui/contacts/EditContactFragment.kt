@@ -468,8 +468,8 @@ class EditContactFragment : Fragment(), View.OnClickListener {
             }
         }
         phoneNumberField.setText(details.contactNumber)
-        val otherPhones = details.alternatephns.split(",")
-        otherPhones.forEach {
+        val otherPhones = details.alternatephns?.split(",")
+        otherPhones?.forEach {
             if (!it.equals("empty", true)) {
                 if (cellPhoneField.text.isEmpty()) {
                     cellPhoneField.setText(it)

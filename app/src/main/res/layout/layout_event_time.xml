@@ -23,7 +23,7 @@
         android:id="@+id/eventTypeSpinner"
         android:layout_width="match_parent"
         android:background="@android:color/transparent"
-        android:layout_height="1dp"
+        android:layout_height="0dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"/>
@@ -157,14 +157,14 @@
         <Spinner
             android:id="@+id/eventStartTimeAmPmSpinner"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0dp"
             android:background="@android:color/transparent"
             android:layout_weight="1"/>
 
         <Spinner
             android:id="@+id/eventEndTimeAmPmSpinner"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0dp"
             android:background="@android:color/transparent"
             android:layout_weight="1"/>
     </LinearLayout>

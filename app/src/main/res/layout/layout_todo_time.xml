@@ -46,7 +46,7 @@
     <Spinner
         android:id="@+id/prioritySpinner"
         android:layout_width="match_parent"
-        android:layout_height="0.01dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="10dp"
         android:background="@android:color/transparent"
         android:layout_marginRight="10dp"
@@ -94,7 +94,7 @@
     <Spinner
         android:id="@+id/amPmSpinner"
         android:layout_width="match_parent"
-        android:layout_height="0.01dp"
+        android:layout_height="0dp"
         android:background="@android:color/transparent"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"/>

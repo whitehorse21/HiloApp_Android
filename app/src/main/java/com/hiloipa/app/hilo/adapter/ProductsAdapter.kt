@@ -39,9 +39,9 @@ class ProductsAdapter(val context: Context): RecyclerView.Adapter<ProductsAdapte
         val product = products[position]
         holder.product = product
         holder.productName.text = product.productName
-        holder.wholeSalePrice.text = "${product.wholeSalePrice}"
-        holder.pcPrice.text = "${product.piecePrice}"
-        holder.retailPrice.text = "${product.retailPrice}"
+        holder.wholeSalePrice.text = context.getString(R.string.wholesale_price_s, product.wholeSalePrice)
+        holder.pcPrice.text = context.getString(R.string.pc_price_s, product.piecePrice)
+        holder.retailPrice.text = context.getString(R.string.retail_price_s, product.retailPrice)
 
         Picasso.get().load(product.productImage)
                 .into(holder.productImage)

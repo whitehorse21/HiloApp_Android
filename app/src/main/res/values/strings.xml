@@ -191,9 +191,9 @@
     <string name="add_tag">Add tag</string>
     <string name="comments">Comments *</string>
     <string name="send_feedback">Send Feedback</string>
-    <string name="wholesale_price_s">WholeSale Price: %s</string>
-    <string name="pc_price_s">PC Price: %s</string>
-    <string name="retail_price_s">Retail Price: %s</string>
+    <string name="wholesale_price_s">WholeSale Price: \$%d</string>
+    <string name="pc_price_s">PC Price: \$%d</string>
+    <string name="retail_price_s">Retail Price: \$%d</string>
     <string name="assign">Assign</string>
     <string name="assign_as">Assign as *</string>
     <string name="assign_to">Assign to *</string>

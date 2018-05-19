@@ -167,7 +167,7 @@ class ProductsFragment : Fragment(), ProductsAdapter.ProductDelegate, TextWatche
         asignToSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (position != 0) {
-                    val contact = contacts[position]
+                    val contact = contacts[position - 1]
                     asignToBtn.text = contact.contactName
                     asignToBtn.tag = "${contact.contactId}"
                 } else {

@@ -30,7 +30,7 @@
         <Spinner
             android:id="@+id/assignAsSpinner"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0dp"
             android:layout_marginBottom="10dp"
             android:background="@android:color/transparent" />
 
@@ -51,7 +51,7 @@
         <Spinner
             android:id="@+id/assignToSpinner"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0dp"
             android:layout_marginBottom="10dp"
             android:background="@android:color/transparent" />
 

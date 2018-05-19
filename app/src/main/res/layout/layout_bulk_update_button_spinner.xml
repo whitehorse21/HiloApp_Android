@@ -29,7 +29,7 @@
     <Spinner
         android:id="@+id/valueToChangeSpinner"
         android:layout_width="match_parent"
-        android:layout_height="0.01dp"
+        android:layout_height="0dp"
         android:alpha="0"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"

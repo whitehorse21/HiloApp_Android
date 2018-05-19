@@ -33,7 +33,7 @@
                 android:layout_below="@id/userAvatar"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="80dp"
-                android:text="Eduard Albu"
+                tools:text="Eduard Albu"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
         </RelativeLayout>

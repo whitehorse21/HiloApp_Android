@@ -23,7 +23,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +31,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.adapter.ContactsAdapter
-import com.hiloipa.app.hilo.models.responses.MessageScript
 import com.hiloipa.app.hilo.adapter.TextMessageScriptAdapter
 import com.hiloipa.app.hilo.models.requests.*
 import com.hiloipa.app.hilo.models.responses.*
@@ -50,7 +48,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 /**
@@ -303,7 +300,7 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
         if (contact.contactNumber != null && contact.contactNumber.isNotEmpty()) {
             contactPhoneLabel.text = getString(R.string.phone_number_s, contact.contactNumber)
             phoneNumber = contact.contactNumber
-        } else if (contact.alternatephns.isNotEmpty()) {
+        } else if (contact.alternatephns != null && contact.alternatephns.isNotEmpty()) {
             val alternPhones = contact.alternatephns.split(",")
             if (alternPhones.isNotEmpty() && !alternPhones[0].equals("empty", true)) {
                 contactPhoneLabel.text = getString(R.string.phone_number_s, alternPhones[0])
