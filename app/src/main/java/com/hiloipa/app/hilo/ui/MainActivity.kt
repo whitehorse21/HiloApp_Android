@@ -138,33 +138,33 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
                     "with the Goal Plan you've chosen. Fill your New Reach Out and Follow Up queues for the week " +
                     "either by typing contact names in the empty slots or have Hilo do it for you by clicking the " +
                     "“Hilo My Week” button at the top of the page.\r\n\r\nCheck this page regularly! Contacts " +
-                    "scheduled for follow up will be added to your follow up queue when the date forfollow up " +
+                    "scheduled for follow up will be added to your follow up queue when the date for follow up " +
                     "is reached.\r\n\r\nYou can log your reach outs right from this page by clicking the \"Complete\"" +
                     " button next to a contact’s name.\r\n\r\nThe graphs above each queue let you know how close " +
                     "you are to hitting your daily, weekly, monthly, and annual goals. Change the graph views by " +
                     "selecting a different time frame from the drop down menu at the top of the page."
             contacts -> "Welcome to the \"Contact List\" view! Here you’ll see all of your contacts in a list " +
-                    "format.\r\n\r\nImport Contacts: By clicking the Import Contacts button in the top-right " +
+                    "format.\r\n\r\nImport Contacts: By clicking the Import  button in the top-left " +
                     "corner of the page you'll be able to instantly import contacts straight from your phone! " +
                     "To import contacts from Facebook or Excel please log in to the desktop site at www.hiloipa.com." +
-                    "\r\n\r\nClick the greentext icon to prepare a text to be sent through the iMessage app in your " +
-                    "phone. Texts sent through the app will be recorded inthe Reach Out Log automatically. This is " +
+                    "\r\n\r\nClick the green text icon to prepare a text to be sent through the default Messaging app in your " +
+                    "phone. Texts sent through the app will be recorded in the Reach Out Log automatically. This is " +
                     "an app only feature and can't be used on the desktop site.\r\n\r\nFilter your list by clicking " +
                     "the \"Filter\" button at the top of the page.\r\n\r\nBulk Features: You can also update multiple " +
                     "contacts by selecting the contacts using the checkboxes to the left, and clicking the “Actions” " +
-                    "button towardthe top of the page. From here you can Assign Campaigns, Bulk Update Attributes for " +
-                    "a Contact, Add ContactsTo Your Goal Tracker Queues, or Bulk Delete Contacts.\r\n\r\nClick on any " +
+                    "button toward the top of the page. From here you can Assign Campaigns, Bulk Update Attributes for " +
+                    "a Contact, Add Contacts to Your Goal Tracker Queues, or Bulk Delete Contacts.\r\n\r\nClick on any " +
                     "name to bring up the contact details page for anyone on your list."
             logs -> "Welcome to the Reach Out Log! On the Reach Out Log page you can see a complete list of all reach" +
                     " outs recorded from anywhere in the system (e.g. the Goal Tracker \"Complete\" menu, Contact Detail" +
-                    " page, etc.).\r\n\r\nLognew reach outs by clicking the \"Add Reach Out\" button towards the top-right" +
+                    " page, etc.).\r\n\r\nLog new reach outs by clicking the \"Add Reach Out\" button towards the top-right" +
                     " of the page.\r\n\r\nSearch a contact name in the Search field at the top of the page to see all " +
                     "reach outs logged for that particular contact.\r\n\r\nClicking on a Contact's Name will bring you to " +
                     "their Contact Detail page, and clicking the \"arrow\" icon to the left of a contact's name will allow " +
                     "you to read the reach out details below the contact's name.\r\n\r\nClick the \"pencil\" icon to edit the " +
                     "reach out."
             todos -> "Welcome to the To Do's page! From here you can enter your Goals, the Actions you need to take to " +
-                    "achieve those goals, and tasks to support your team which we call Team Needs. You canalso see the " +
+                    "achieve those goals, and tasks to support your team which we call Team Needs. You can also see the " +
                     "calendar events you have scheduled at the bottom of the page.\r\n\r\nTap on any of the sections to" +
                     " the the full list of entries.\r\n\r\nTeam Needs are tasks specifically meant to support your team." +
                     " Some examples of team needs are: scheduling a happy hour for your local team, helping a new " +
