@@ -22,18 +22,23 @@ class DocumentResponse(@JsonProperty("Documents") val documents: ArrayList<Docum
 class Document(@JsonProperty("docu_title") val title: String,
                @JsonProperty("uploaddate") val uploadDate: Date,
                @JsonProperty("url") val url: String,
+               @JsonProperty("doc_id") val docId: String,
+               @JsonProperty("type") val type: String,
                @JsonProperty("filename") val fileName: String): Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readSerializable() as Date,
             parcel.readString(),
-            parcel.readString()) {
-    }
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(title)
         parcel.writeSerializable(uploadDate)
         parcel.writeString(url)
+        parcel.writeString(docId)
+        parcel.writeString(type)
         parcel.writeString(fileName)
     }
 
