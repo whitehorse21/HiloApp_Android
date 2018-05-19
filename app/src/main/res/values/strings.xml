@@ -145,7 +145,7 @@
     <string name="monthly">Monthly</string>
     <string name="future_scheduled_follow_ups">Future Scheduled Follow Ups</string>
     <string name="future_scheduled_team_reach_outs">Future Scheduled Team Reach Outs</string>
-    <string name="tags_and_custom_fields"><![CDATA[Tags & Cusom Fields]]></string>
+    <string name="tags_and_custom_fields"><![CDATA[Tags & Custom Fields]]></string>
     <string name="goals_setting_menu">Goals Setting Menu</string>
     <string name="change_plan_description">Choose how hard you would like to run.\nPick a plan from below and Hilo will track your Goals according to your plan. Don\'t worry, you can always change the plan at another time!</string>
     <string name="selected_plan">Selected Plan:</string>
@@ -234,7 +234,7 @@
     <string name="contact">Contact</string>
     <string name="contact_filter_options">Contact Filter Options</string>
     <string name="reset_filter">Reset filter</string>
-    <string name="email_un_subscribed">Emai Un-Subscribed</string>
+    <string name="email_un_subscribed">Email Un-Subscribed</string>
     <string name="products_purchased">Product Purchased</string>
     <string name="recommended_product">Recommended Product</string>
     <string name="solution_tool_yn">Solution Tool Y/N</string>
@@ -270,7 +270,7 @@
     <string name="passwords_do_not_match">Passwords don\'t match!</string>
     <string name="unknown_error">Something went wrong, please try again!</string>
     <string name="success">Success</string>
-    <string name="check_your_inbox">Please check your inbox for furhter instructions.</string>
+    <string name="check_your_inbox">Please check your inbox for further instructions.</string>
     <string name="select_period">Select Goal Period</string>
     <string name="developed_by_fabity">developed by Fabity</string>
     <string name="backlogs">Backlogs</string>
@@ -352,7 +352,7 @@
     <string name="uploaded_images_d">Uploaded Contact Images: %d</string>
     <string name="uploading_contact_images">Uploading Contact Images</string>
     <string name="select_plan_first">Please select your Plan first</string>
-    <string name="create_new_action_for_goal">Create New Avtion for Goal</string>
+    <string name="create_new_action_for_goal">Create New Action for Goal</string>
     <string name="action_title">Action title</string>
     <string name="invalid_url">Invalid link</string>
 </resources>
