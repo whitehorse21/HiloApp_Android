@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_email_templates.*
 val templateHelp = "Welcome to the Email Templates page! From here you can view all of the templates " +
         "you've created on the Hilo desktop site, along with any templates your upline has shared " +
         "with you through Hilo. Please note: you cannot create templates in the app. You can only " +
-        "create a new template by logging into theTemplate Builder page on the main website at " +
+        "create a new template by logging into the Template Builder page on the main website at " +
         "www.hiloipa.com.\r\n\r\nUse the scroll menu at the top of the page to filter between your " +
         "own personal templates, the ones you've shared, and the ones that have been shared with " +
         "you.\r\n\r\nClick on any template name to preview."
