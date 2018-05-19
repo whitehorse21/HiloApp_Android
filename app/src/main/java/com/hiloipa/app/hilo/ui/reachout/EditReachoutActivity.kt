@@ -66,7 +66,7 @@ class EditReachoutActivity : AppCompatActivity(), FragmentSearchContacts.SearchD
             val description = reachOutLog!!.description
             if (description.isNotEmpty()) {
                 val data = Base64.decode(description, Base64.DEFAULT)
-                reachoutDescriptionField.setText(String(data, Charset.forName("utf-8")))
+                reachoutDescriptionField.setText(String(data, Charset.forName("utf-8")).replace("\\n", "\n"))
             } else
                 reachoutDescriptionField.setText(description)
             // set next follow up date

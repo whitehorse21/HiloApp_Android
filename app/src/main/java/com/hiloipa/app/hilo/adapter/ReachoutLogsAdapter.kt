@@ -59,7 +59,7 @@ class ReachoutLogsAdapter(val context: Context): RecyclerView.Adapter<ReachoutLo
         holder.reachTypeLabel.text = context.getString(R.string.reach_type_s, log.typeName)
         if (log.description.isNotEmpty()) {
             val data = Base64.decode(log.description, Base64.DEFAULT)
-            holder.commentLabel.setText(String(data, Charset.forName("utf-8")))
+            holder.commentLabel.setText(String(data, Charset.forName("utf-8")).replace("\\n", "\n"))
         } else {
             holder.commentLabel.setText(log.description)
         }

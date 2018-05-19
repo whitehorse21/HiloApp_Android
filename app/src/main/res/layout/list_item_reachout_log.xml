@@ -97,6 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        tools:visibility="visible"
         android:orientation="vertical"
         android:paddingLeft="45dp"
         android:paddingStart="45dp"
@@ -108,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:editable="false"
-            android:focusable="false"
+            android:inputType="textCapSentences|textMultiLine"            android:focusable="false"
             android:focusableInTouchMode="false"
             android:clickable="false"/>
     </LinearLayout>
