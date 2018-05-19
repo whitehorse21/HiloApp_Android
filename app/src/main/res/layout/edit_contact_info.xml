@@ -70,7 +70,7 @@
                     android:textSize="14sp"
                     android:hint="@string/title"/>
 
-                <Spinner
+                <com.hiloipa.app.hilo.ui.widget.NDSpinner
                     android:id="@+id/titleSpinner"
                     android:layout_width="match_parent"
                     android:layout_marginBottom="5dp"

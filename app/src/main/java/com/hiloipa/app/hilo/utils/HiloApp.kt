@@ -154,6 +154,7 @@ class HiloApp : MultiDexApplication() {
     private lateinit var receiver: BroadcastReceiver
 
     private fun registerNetworkStateListener() {
+        networkState.onNext(true)
         val filter = IntentFilter()
         filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
         receiver = object : BroadcastReceiver() {

@@ -70,7 +70,7 @@
                     android:textSize="14sp"
                     android:hint="@string/group"/>
 
-                <Spinner
+                <com.hiloipa.app.hilo.ui.widget.NDSpinner
                     android:id="@+id/groupSpinner"
                     android:layout_width="match_parent"
                     android:layout_marginBottom="5dp"
@@ -100,7 +100,7 @@
                     android:textSize="14sp"
                     android:hint="@string/contact_type"/>
 
-                <Spinner
+                <com.hiloipa.app.hilo.ui.widget.NDSpinner
                     android:id="@+id/contactTypeSpinner"
                     android:layout_width="match_parent"
                     android:layout_marginBottom="5dp"
@@ -130,7 +130,7 @@
                     android:textSize="14sp"
                     android:hint="@string/pipeline_postion"/>
 
-                <Spinner
+                <com.hiloipa.app.hilo.ui.widget.NDSpinner
                     android:id="@+id/pipelinePositionSpinner"
                     android:layout_width="match_parent"
                     android:layout_marginBottom="5dp"
@@ -160,7 +160,7 @@
                     android:textSize="14sp"
                     android:hint="@string/temp"/>
 
-                <Spinner
+                <com.hiloipa.app.hilo.ui.widget.NDSpinner
                     android:id="@+id/tempSpinner"
                     android:layout_width="match_parent"
                     android:layout_marginBottom="5dp"
@@ -281,7 +281,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <Spinner
+                <com.hiloipa.app.hilo.ui.widget.NDSpinner
                     android:id="@+id/threeWayCallSpinner"
                     android:layout_width="match_parent"
                     android:layout_marginBottom="5dp"
@@ -311,7 +311,7 @@
                     android:textSize="14sp"
                     android:hint="@string/derived_by"/>
 
-                <Spinner
+                <com.hiloipa.app.hilo.ui.widget.NDSpinner
                     android:id="@+id/derivedBySpinner"
                     android:layout_width="match_parent"
                     android:layout_marginBottom="5dp"
@@ -362,7 +362,7 @@
                     android:textSize="14sp"
                     android:hint="@string/source"/>
 
-                <Spinner
+                <com.hiloipa.app.hilo.ui.widget.NDSpinner
                     android:id="@+id/sourceSpinner"
                     android:layout_width="match_parent"
                     android:layout_marginBottom="5dp"

@@ -139,7 +139,7 @@
                 android:paddingRight="16dp"
                 android:textSize="16sp"/>
 
-            <Spinner
+            <com.hiloipa.app.hilo.ui.widget.NDSpinner
                 android:id="@+id/companySpinner"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -163,7 +163,7 @@
                 android:paddingRight="16dp"
                 android:textSize="16sp"/>
 
-            <Spinner
+            <com.hiloipa.app.hilo.ui.widget.NDSpinner
                 android:id="@+id/findUsSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

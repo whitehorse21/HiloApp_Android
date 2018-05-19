@@ -75,7 +75,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"/>
 
-                <Spinner
+                <com.hiloipa.app.hilo.ui.widget.NDSpinner
                     android:id="@+id/reachTypeSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"

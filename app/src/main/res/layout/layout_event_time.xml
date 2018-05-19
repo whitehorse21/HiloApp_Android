@@ -19,7 +19,7 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/selectable_border_rect"/>
 
-    <Spinner
+    <com.hiloipa.app.hilo.ui.widget.NDSpinner
         android:id="@+id/eventTypeSpinner"
         android:layout_width="match_parent"
         android:background="@android:color/transparent"
@@ -154,14 +154,14 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
-        <Spinner
+        <com.hiloipa.app.hilo.ui.widget.NDSpinner
             android:id="@+id/eventStartTimeAmPmSpinner"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@android:color/transparent"
             android:layout_weight="1"/>
 
-        <Spinner
+        <com.hiloipa.app.hilo.ui.widget.NDSpinner
             android:id="@+id/eventEndTimeAmPmSpinner"
             android:layout_width="match_parent"
             android:layout_height="0dp"

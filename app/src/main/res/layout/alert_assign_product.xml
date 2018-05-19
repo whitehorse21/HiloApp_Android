@@ -27,7 +27,7 @@
             android:paddingRight="16dp"
             android:singleLine="true" />
 
-        <Spinner
+        <com.hiloipa.app.hilo.ui.widget.NDSpinner
             android:id="@+id/assignAsSpinner"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -48,7 +48,7 @@
             android:paddingRight="16dp"
             android:singleLine="true" />
 
-        <Spinner
+        <com.hiloipa.app.hilo.ui.widget.NDSpinner
             android:id="@+id/assignToSpinner"
             android:layout_width="match_parent"
             android:layout_height="0dp"

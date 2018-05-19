@@ -52,7 +52,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="textCapWords"/>
 
-            <Spinner
+            <com.hiloipa.app.hilo.ui.widget.NDSpinner
                 android:id="@+id/emailCampaignsSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

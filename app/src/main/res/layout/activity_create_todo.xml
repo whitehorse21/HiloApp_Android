@@ -122,7 +122,7 @@
                         android:layout_height="50dp"
                         android:background="@drawable/selectable_border_rect"/>
 
-                    <Spinner
+                    <com.hiloipa.app.hilo.ui.widget.NDSpinner
                         android:id="@+id/actionsSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"

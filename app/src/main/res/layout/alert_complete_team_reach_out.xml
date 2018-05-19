@@ -53,7 +53,7 @@
                     android:textSize="14sp"
                     android:hint="@string/log_reach_out_type"/>
 
-                <Spinner
+                <com.hiloipa.app.hilo.ui.widget.NDSpinner
                     android:id="@+id/logReachOutTypeSpinner"
                     android:layout_width="match_parent"
                     android:layout_marginBottom="10dp"

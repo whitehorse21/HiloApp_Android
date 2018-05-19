@@ -43,7 +43,7 @@
             android:singleLine="true" />
     </LinearLayout>
 
-    <Spinner
+    <com.hiloipa.app.hilo.ui.widget.NDSpinner
         android:id="@+id/prioritySpinner"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -91,7 +91,7 @@
             android:singleLine="true" />
     </LinearLayout>
 
-    <Spinner
+    <com.hiloipa.app.hilo.ui.widget.NDSpinner
         android:id="@+id/amPmSpinner"
         android:layout_width="match_parent"
         android:layout_height="0dp"

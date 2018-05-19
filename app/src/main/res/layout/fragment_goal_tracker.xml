@@ -55,7 +55,7 @@
                     android:textColor="@android:color/white" />
             </LinearLayout>
 
-            <Spinner
+            <com.hiloipa.app.hilo.ui.widget.NDSpinner
                 android:id="@+id/adjustGraphsSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
