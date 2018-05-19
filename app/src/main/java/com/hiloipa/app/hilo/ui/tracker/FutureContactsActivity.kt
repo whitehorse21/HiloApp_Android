@@ -117,7 +117,7 @@ class FutureContactsActivity : AppCompatActivity(), GoalTrackerAdapter.ContactCl
                         val data = response.data
                         if (data != null) {
                             adapter.updateAdapterData<TeamReachOutContact>(data.futureFollowups)
-                            if (data.backlogs.isNotEmpty()) {
+                            if (data.backlogs!=null && data.backlogs.isNotEmpty()) {
                                 backLogsHeader.visibility = View.VISIBLE
                                 backLogsAdapter.updateAdapterData<TeamReachOutContact>(data.backlogs)
                             }
