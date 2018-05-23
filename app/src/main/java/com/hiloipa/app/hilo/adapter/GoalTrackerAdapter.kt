@@ -1,24 +1,19 @@
 package com.hiloipa.app.hilo.adapter
 
 import android.content.Context
-import android.content.Intent
-import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.widget.RecyclerView
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.Spinner
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.GoalType
 import com.hiloipa.app.hilo.models.responses.Contact
 import com.hiloipa.app.hilo.models.responses.DetailedContact
 import com.hiloipa.app.hilo.models.responses.GoalTrackerResponse
-import com.hiloipa.app.hilo.models.responses.SearchContact
-import com.hiloipa.app.hilo.ui.tracker.GoalFragment
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
-import com.hiloipa.app.hilo.ui.widget.RalewaySuggestionsField
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 import kotlin.properties.Delegates
 
@@ -63,6 +58,8 @@ class GoalTrackerAdapter(val context: Context) : RecyclerView.Adapter<GoalTracke
                     holder.contact = contact
                     holder.searchResultField.text = contact.name
                     holder.isFilled = true
+                } else {
+                    holder.isFilled = false
                 }
                 holder.scheduleStatus.visibility = View.GONE
                 holder.scheduleDaysLabel.visibility = View.GONE
@@ -91,6 +88,8 @@ class GoalTrackerAdapter(val context: Context) : RecyclerView.Adapter<GoalTracke
                     holder.contact = contact
                     holder.searchResultField.text = contact.name
                     holder.isFilled = true
+                } else {
+                    holder.isFilled = false
                 }
                 holder.scheduleStatus.visibility = View.GONE
                 holder.scheduleDaysLabel.visibility = View.GONE
@@ -114,6 +113,9 @@ class GoalTrackerAdapter(val context: Context) : RecyclerView.Adapter<GoalTracke
             if (newValue) {
                 searchField.visibility = View.GONE
                 searchResultLayout.visibility = View.VISIBLE
+            } else {
+                searchField.visibility = View.VISIBLE
+                searchResultLayout.visibility = View.GONE
             }
         }
 
