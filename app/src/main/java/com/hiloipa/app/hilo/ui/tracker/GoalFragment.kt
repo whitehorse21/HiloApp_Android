@@ -523,7 +523,7 @@ class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, Fragme
                         loading.dismiss()
                         if (response.status.isSuccess()) {
                             dialog.dismiss()
-                            activity!!.sendBroadcast(Intent("update_tracker"))
+                            LocalBroadcastManager.getInstance(activity!!).sendBroadcast(Intent("update_tracker"))
                         } else {
                             Toast.makeText(activity, response.message, Toast.LENGTH_SHORT).show()
                         }
