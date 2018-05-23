@@ -29,8 +29,8 @@ import java.util.*
 class EditReachoutActivity : AppCompatActivity(), FragmentSearchContacts.SearchDelegate {
 
     val reachOutTypes = buildReachOutTypes()
-    val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH)
-    val timeFormat = SimpleDateFormat("hh:mm aaa", Locale.ENGLISH)
+    val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
+    val timeFormat = SimpleDateFormat("hh:mm aaa", Locale.getDefault())
 
     companion object {
         val logKey = "com.hiloipa.app.hilo.ui.reachout.LOG"

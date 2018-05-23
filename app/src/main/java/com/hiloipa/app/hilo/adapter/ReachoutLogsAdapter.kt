@@ -23,7 +23,7 @@ class ReachoutLogsAdapter(val context: Context): RecyclerView.Adapter<ReachoutLo
 
     private var logs: MutableList<ReachOutLog> = mutableListOf()
     var delegate: ReachOutDelegate? = null
-    val dateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm aaa", Locale.ENGLISH)
+    val dateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm aaa", Locale.getDefault())
 
     fun refreshLogList(logs: ArrayList<ReachOutLog>) {
         this.logs.clear()

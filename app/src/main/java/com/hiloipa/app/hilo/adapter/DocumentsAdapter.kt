@@ -23,7 +23,7 @@ import java.util.*
 class DocumentsAdapter(val context: Context) : RecyclerView.Adapter<DocumentsAdapter.ViewHolder>() {
 
     var documents: ArrayList<Document> = arrayListOf()
-    val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH)
+    val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
 
     fun refreshList(documents: ArrayList<Document>) {
         this.documents.clear()

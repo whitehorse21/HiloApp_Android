@@ -23,7 +23,7 @@ class UserNotesAdapter(val context: Context): RecyclerView.Adapter<UserNotesAdap
 
     var delegate: UserNoteDelegate? = null
     val data: ArrayList<Note> = arrayListOf()
-    val dateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm aaa", Locale.ENGLISH)
+    val dateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm aaa", Locale.getDefault())
 
     fun refreshData(data: ArrayList<Note>) {
         this.data.clear()

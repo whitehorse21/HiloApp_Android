@@ -39,9 +39,9 @@ class AddActionActivity : AppCompatActivity(), FiltersAdapter.FiltersDelegate {
     lateinit var adapter: FiltersAdapter
     lateinit var goalId: String
     var selectedActions: MutableList<FilterValue> = mutableListOf()
-    val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH)
-    val timeFormat = SimpleDateFormat("hh:mm", Locale.ENGLISH)
-    val sessionFormat = SimpleDateFormat("aaa", Locale.ENGLISH)
+    val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
+    val timeFormat = SimpleDateFormat("hh:mm", Locale.getDefault())
+    val sessionFormat = SimpleDateFormat("aaa", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

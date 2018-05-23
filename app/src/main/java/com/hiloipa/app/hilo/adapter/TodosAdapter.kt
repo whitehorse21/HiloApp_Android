@@ -23,7 +23,7 @@ class TodosAdapter<T: ToDo>(val context: Context, val type: TodoType, val data: 
         RecyclerView.Adapter<TodosAdapter<T>.ViewHolder>() {
 
     var delegate: TodoDelegate? = null
-    val dateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm aaa", Locale.ENGLISH)
+    val dateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm aaa", Locale.getDefault())
 
     fun refreshList(data: ArrayList<T>) {
         this.data.clear()

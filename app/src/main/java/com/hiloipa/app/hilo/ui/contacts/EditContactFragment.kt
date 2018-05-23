@@ -255,7 +255,7 @@ class EditContactFragment : Fragment(), View.OnClickListener {
             val datePicker = DatePickerDialog(activity, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                 calendar.set(year, month, dayOfMonth)
                 val birthDate = Date(calendar.timeInMillis)
-                val birthDateFormat = SimpleDateFormat("MMM dd", Locale.ENGLISH)
+                val birthDateFormat = SimpleDateFormat("MMM dd", Locale.getDefault())
                 birthDayButton.text = birthDateFormat.format(birthDate)
                 birthDayButton.tag = birthDate
             }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
@@ -508,12 +508,12 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         if (details.birthdayMonth != null && details.birthdayMonth.isNotEmpty()) {
             val calendar = Calendar.getInstance()
             try {
-                val month = SimpleDateFormat("MMM", Locale.ENGLISH).parse(details.birthdayMonth)
+                val month = SimpleDateFormat("MMM", Locale.getDefault()).parse(details.birthdayMonth)
                 calendar.time = month
                 calendar.set(Calendar.DAY_OF_MONTH, details.birthdayDay)
                 // set seleceted date in the button if it is not null
                 val date = Date(calendar.timeInMillis)
-                birthDayButton.text = SimpleDateFormat("MMM dd", Locale.ENGLISH)
+                birthDayButton.text = SimpleDateFormat("MMM dd", Locale.getDefault())
                         .format(date)
                 birthDayButton.tag = date
             } catch (e: Exception) {
@@ -729,7 +729,7 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         request.spouse = spouseField.text.toString()
         val birthDate = birthDayButton.tag as Date?
         if (birthDate != null) {
-            val birthDayMonthFormat = SimpleDateFormat("MMM", Locale.ENGLISH)
+            val birthDayMonthFormat = SimpleDateFormat("MMM", Locale.getDefault())
             request.birthDateMonth = birthDayMonthFormat.format(birthDate)
             request.birthDateDay = "${birthDate.date}"
         }
@@ -744,7 +744,7 @@ class EditContactFragment : Fragment(), View.OnClickListener {
         request.glowSample = "${enableGlowSampleBtn.isChecked}"
         if ((autoShipDayButton.tag as Date?) != null) {
             val date = autoShipDayButton.tag as Date
-            request.shipDateTime = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(date)
+            request.shipDateTime = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date)
         }
         request.wrinkless = "${wrinklesCheckBox.isChecked}"
         request.sensit = "${sensitivityCheckBox.isChecked}"

@@ -23,7 +23,7 @@ import java.util.*
 class CampaignsAdapter(val context: Context): RecyclerView.Adapter<CampaignsAdapter.ViewHolder>() {
 
     val campaings: ArrayList<Campaign> = arrayListOf()
-    val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH)
+    val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
 
     fun refreshCampaigns(campaigns: ArrayList<Campaign>) {
         this.campaings.clear()

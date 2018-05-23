@@ -20,7 +20,7 @@ class ContactNotesAdapter(val context: Context): RecyclerView.Adapter<ContactNot
 
     var delegate: ContactNoteDelegate? = null
     var notes: ArrayList<ContactNote> = arrayListOf()
-    val dateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm aaa", Locale.ENGLISH)
+    val dateFormat = SimpleDateFormat("MM/dd/yyyy hh:mm aaa", Locale.getDefault())
 
     fun refreshNotes(notes: ArrayList<ContactNote>) {
         this.notes.clear()
