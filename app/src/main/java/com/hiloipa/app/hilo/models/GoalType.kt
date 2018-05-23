@@ -41,7 +41,7 @@ enum class GoalType {
 
     fun apiValue(): String = when(this) {
         reach_outs -> "Reachout"
-        follow_ups -> "Folowup"
+        follow_ups -> "Followup"
         team_reach_outs -> "TeamReach"
     }
 
