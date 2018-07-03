@@ -26,6 +26,7 @@ import com.hiloipa.app.hilo.models.requests.ScriptsRequest
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.models.responses.Script
 import com.hiloipa.app.hilo.ui.HelpActivity
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import com.hiloipa.app.hilo.ui.more.email.templateHelp
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
@@ -44,7 +45,7 @@ val scriptsHelp = "Sometimes getting started is the hardest thing! That’s why 
         "From there you can \"Copy to Clipboard\" to easily insert the text into a Facebook message " +
         "or email.\r\n\r\nYou can also search for keywords within a script by using the \"Search\" " +
         "field at the top of the page."
-class ScriptsActivity : AppCompatActivity(), ScriptsAdapter.ScriptDelegate {
+class ScriptsActivity : BaseActivity(), ScriptsAdapter.ScriptDelegate {
 
     lateinit var adapter: ScriptsAdapter
     private val allScripts: ArrayList<Script> = arrayListOf()

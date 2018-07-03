@@ -7,12 +7,13 @@ import android.widget.Toast
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.HiloResponse
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import com.hiloipa.app.hilo.utils.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_feedback.*
 
-class FeedbackActivity : AppCompatActivity() {
+class FeedbackActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

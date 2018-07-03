@@ -16,6 +16,7 @@ import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.requests.RegistrationRequest
 import com.hiloipa.app.hilo.models.responses.*
 import com.hiloipa.app.hilo.ui.MainActivity
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 import com.hiloipa.app.hilo.utils.*
 import com.squareup.picasso.Picasso
@@ -27,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_registration.*
 /**
  * A simple [Fragment] subclass.
  */
-class RegistrationFragment : Fragment() {
+class RegistrationFragment : BaseFragment() {
 
     private lateinit var authActivity: AuthActivity
     lateinit var signUpData: SignUpResponse

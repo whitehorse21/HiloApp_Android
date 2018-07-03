@@ -22,6 +22,7 @@ import com.hiloipa.app.hilo.models.requests.CompleteReachRequest
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.*
 import com.hiloipa.app.hilo.ui.FragmentSearchContacts
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.ui.contacts.details.ContactDetailsActivity
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
@@ -42,7 +43,7 @@ import kotlin.collections.ArrayList
 /**
  * A simple [Fragment] subclass.
  */
-class GoalFragment : Fragment(), GoalTrackerAdapter.ContactClickListener, FragmentSearchGoalContact.SearchGoalDelegate {
+class GoalFragment : BaseFragment(), GoalTrackerAdapter.ContactClickListener, FragmentSearchGoalContact.SearchGoalDelegate {
 
     lateinit var adapter: GoalTrackerAdapter
     lateinit var goalType: GoalType

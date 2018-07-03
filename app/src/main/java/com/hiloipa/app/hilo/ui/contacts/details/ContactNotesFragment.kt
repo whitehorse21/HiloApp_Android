@@ -25,6 +25,7 @@ import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.ContactNote
 import com.hiloipa.app.hilo.models.responses.DisplayContactNotes
 import com.hiloipa.app.hilo.models.responses.HiloResponse
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import com.hiloipa.app.hilo.utils.HiloApp
@@ -39,7 +40,7 @@ import kotlinx.android.synthetic.main.fragment_contact_notes.*
 /**
  * A simple [Fragment] subclass.
  */
-class ContactNotesFragment : Fragment(), ContactNotesAdapter.ContactNoteDelegate {
+class ContactNotesFragment : BaseFragment(), ContactNotesAdapter.ContactNoteDelegate {
 
     lateinit var adapter: ContactNotesAdapter
 

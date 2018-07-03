@@ -17,6 +17,7 @@ import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.models.responses.ToDoData
 import com.hiloipa.app.hilo.models.responses.TodoType
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
 import com.hiloipa.app.hilo.utils.showExplanation
@@ -29,7 +30,7 @@ import kotlinx.android.synthetic.main.fragment_todos.*
 /**
  * A simple [Fragment] subclass.
  */
-class TodosFragment : Fragment() {
+class TodosFragment : BaseFragment() {
 
     private var toDoData: ToDoData? = null
 

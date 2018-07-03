@@ -14,7 +14,6 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.util.Base64
 import android.view.Menu
 import android.view.MenuItem
@@ -24,6 +23,7 @@ import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.FullContactDetails
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.ui.HelpActivity
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import com.hiloipa.app.hilo.ui.contacts.EditContactFragment
 import com.hiloipa.app.hilo.ui.more.email.EmailTemplatesFragment
 import com.hiloipa.app.hilo.ui.reachout.ReachoutLogsFragment
@@ -51,7 +51,7 @@ val contactDetailsHelp = "Welcome to the Contact Detail view! Here you can edit 
         "Email Templates and Assign an Email Campaign to a contact by accessing those tabs in the " +
         "horizontal menu."
 
-class ContactDetailsActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
+class ContactDetailsActivity : BaseActivity(), TabLayout.OnTabSelectedListener {
 
     companion object {
         const val contactIdKey = "com.hiloipa.app.hilo.ui.contacts.CONTACT_ID"

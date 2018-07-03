@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.widget.RadioGroup
 import com.hiloipa.app.hilo.ui.auth.AuthActivity
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import com.hiloipa.app.hilo.ui.contacts.ContactsFragment
 import com.hiloipa.app.hilo.ui.contacts.DeviceContact
 import com.hiloipa.app.hilo.ui.more.MoreFragment
@@ -26,7 +27,7 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.coroutines.experimental.coroutineContext
 
-class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
+class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
 
     private var selectedTab: SelectedTab = SelectedTab.tracker
 

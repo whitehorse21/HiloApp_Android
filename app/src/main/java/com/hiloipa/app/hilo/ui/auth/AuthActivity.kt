@@ -1,11 +1,11 @@
 package com.hiloipa.app.hilo.ui.auth
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 
-class AuthActivity : AppCompatActivity() {
+class AuthActivity : BaseActivity() {
 
     lateinit var loginFragment: LoginFragment
     override fun onCreate(savedInstanceState: Bundle?) {

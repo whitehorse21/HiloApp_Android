@@ -10,6 +10,7 @@ import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.requests.UpdateAccountRequest
 import com.hiloipa.app.hilo.models.responses.Account
 import com.hiloipa.app.hilo.models.responses.HiloResponse
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
 import com.hiloipa.app.hilo.utils.showExplanation
@@ -18,7 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_account.*
 
-class AccountActivity : AppCompatActivity() {
+class AccountActivity : BaseActivity() {
 
     lateinit var account: Account
 

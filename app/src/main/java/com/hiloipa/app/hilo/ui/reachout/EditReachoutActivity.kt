@@ -15,6 +15,7 @@ import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.requests.SaveReachOutLogRequest
 import com.hiloipa.app.hilo.models.responses.*
 import com.hiloipa.app.hilo.ui.FragmentSearchContacts
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
 import com.hiloipa.app.hilo.utils.showExplanation
@@ -26,7 +27,7 @@ import java.nio.charset.Charset
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EditReachoutActivity : AppCompatActivity(), FragmentSearchContacts.SearchDelegate {
+class EditReachoutActivity : BaseActivity(), FragmentSearchContacts.SearchDelegate {
 
     val reachOutTypes = buildReachOutTypes()
     val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())

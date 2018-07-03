@@ -25,6 +25,7 @@ import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.CampaignsData
 import com.hiloipa.app.hilo.models.responses.CampaignsResponse
 import com.hiloipa.app.hilo.models.responses.HiloResponse
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
@@ -38,7 +39,7 @@ import kotlinx.android.synthetic.main.fragment_contact_campaigns.*
 /**
  * A simple [Fragment] subclass.
  */
-class ContactCampaignsFragment : Fragment() {
+class ContactCampaignsFragment : BaseFragment() {
 
     lateinit var adapter: CampaignsAdapter
     lateinit var contactCampaigns: CampaignsResponse

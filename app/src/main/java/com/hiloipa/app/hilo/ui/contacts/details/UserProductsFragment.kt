@@ -21,6 +21,7 @@ import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.ContactProduct
 import com.hiloipa.app.hilo.models.responses.ContactProducts
 import com.hiloipa.app.hilo.models.responses.HiloResponse
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
 import com.hiloipa.app.hilo.utils.showExplanation
@@ -33,7 +34,7 @@ import kotlinx.android.synthetic.main.fragment_user_products.*
 /**
  * A simple [Fragment] subclass.
  */
-class UserProductsFragment : Fragment(), View.OnClickListener {
+class UserProductsFragment : BaseFragment(), View.OnClickListener {
 
     lateinit var contactProducts: ContactProducts
 

@@ -10,13 +10,14 @@ import android.graphics.Bitmap
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import com.hiloipa.app.hilo.utils.showLoading
 import com.otaliastudios.cameraview.CameraListener
 import com.otaliastudios.cameraview.CameraUtils
 import kotlinx.android.synthetic.main.activity_camera.*
 import java.io.File
 
-class CameraActivity : AppCompatActivity() {
+class CameraActivity : BaseActivity() {
 
     companion object {
         const val pathKey = "co.fabity.software.joodworld.NEW_IMAGE_PATH"

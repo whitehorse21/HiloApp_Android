@@ -22,6 +22,7 @@ import com.hiloipa.app.hilo.models.requests.ActionToGoalRequest
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.FilterValue
 import com.hiloipa.app.hilo.models.responses.HiloResponse
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
 import com.hiloipa.app.hilo.utils.showExplanation
@@ -33,7 +34,7 @@ import kotlinx.android.synthetic.main.layout_todo_time.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddActionActivity : AppCompatActivity(), FiltersAdapter.FiltersDelegate {
+class AddActionActivity : BaseActivity(), FiltersAdapter.FiltersDelegate {
 
     lateinit var contactId: String
     lateinit var adapter: FiltersAdapter

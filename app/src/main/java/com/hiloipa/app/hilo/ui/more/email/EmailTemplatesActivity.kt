@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.ui.HelpActivity
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_email_templates.*
 
 val templateHelp = "Welcome to the Email Templates page! From here you can view all of the templates " +
@@ -17,7 +18,7 @@ val templateHelp = "Welcome to the Email Templates page! From here you can view 
         "own personal templates, the ones you've shared, and the ones that have been shared with " +
         "you.\r\n\r\nClick on any template name to preview."
 
-class EmailTemplatesActivity : AppCompatActivity() {
+class EmailTemplatesActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

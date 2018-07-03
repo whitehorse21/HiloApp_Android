@@ -24,6 +24,7 @@ import com.hiloipa.app.hilo.models.requests.GoalDuration
 import com.hiloipa.app.hilo.models.requests.GoalTrackerRequest
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.*
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 import com.hiloipa.app.hilo.utils.HiloApp
@@ -39,7 +40,7 @@ import kotlinx.android.synthetic.main.fragment_goal_tracker.*
 /**
  * A simple [Fragment] subclass.
  */
-class GoalTrackerFragment : Fragment() {
+class GoalTrackerFragment : BaseFragment() {
 
     lateinit var adapter: PagerAdapter
     private lateinit var goalTrackerData: GoalTrackerResponse

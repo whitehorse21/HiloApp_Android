@@ -22,6 +22,7 @@ import com.hiloipa.app.hilo.models.requests.SaveEventRequest
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.*
 import com.hiloipa.app.hilo.ui.FragmentSearchContacts
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
 import com.hiloipa.app.hilo.utils.showExplanation
@@ -35,7 +36,7 @@ import kotlinx.android.synthetic.main.layout_todo_time.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CreateTodoActivity : AppCompatActivity(), FragmentSearchContacts.SearchDelegate {
+class CreateTodoActivity : BaseActivity(), FragmentSearchContacts.SearchDelegate {
 
     companion object {
         const val actionUpdateDashboard = "com.hiloipa.app.hilo.ui.todos.UPDATE_DASHBOARD"

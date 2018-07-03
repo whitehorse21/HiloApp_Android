@@ -20,6 +20,7 @@ import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.models.responses.Note
 import com.hiloipa.app.hilo.models.responses.NoteTag
 import com.hiloipa.app.hilo.models.responses.NotepadNotes
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
 import com.hiloipa.app.hilo.utils.showExplanation
@@ -32,7 +33,7 @@ import kotlinx.android.synthetic.main.fragment_notepad.*
 /**
  * A simple [Fragment] subclass.
  */
-class NotepadFragment : Fragment(), UserNotesAdapter.UserNoteDelegate {
+class NotepadFragment : BaseFragment(), UserNotesAdapter.UserNoteDelegate {
 
     lateinit var adapter: UserNotesAdapter
 

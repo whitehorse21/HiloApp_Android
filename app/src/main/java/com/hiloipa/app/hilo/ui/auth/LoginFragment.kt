@@ -13,12 +13,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.requests.LoginRequest
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.models.responses.UserData
 import com.hiloipa.app.hilo.ui.MainActivity
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 import com.hiloipa.app.hilo.utils.*
 import com.squareup.picasso.Picasso
@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.fragment_login.*
 /**
  * A simple [Fragment] subclass.
  */
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
     lateinit var authActivity: AuthActivity
     lateinit var response: HiloResponse<UserData>

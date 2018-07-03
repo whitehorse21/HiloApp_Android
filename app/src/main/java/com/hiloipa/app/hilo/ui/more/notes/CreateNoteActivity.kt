@@ -16,6 +16,7 @@ import com.hiloipa.app.hilo.models.requests.SaveNoteRequest
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.models.responses.Note
 import com.hiloipa.app.hilo.models.responses.NoteTag
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import com.hiloipa.app.hilo.ui.widget.ColorButton
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
@@ -25,7 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_create_note.*
 
-class CreateNoteActivity : AppCompatActivity(), View.OnClickListener {
+class CreateNoteActivity : BaseActivity(), View.OnClickListener {
 
     var colorBtns: MutableList<ColorButton> = mutableListOf()
     var selectedTags: ArrayList<NoteTag> = arrayListOf()

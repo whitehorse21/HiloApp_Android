@@ -13,6 +13,7 @@ import com.hiloipa.app.hilo.adapter.EmailTemplatesAdapter
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.models.responses.Template
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.utils.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_email_templates.*
 /**
  * A simple [Fragment] subclass.
  */
-class EmailTemplatesFragment : Fragment(), TabLayout.OnTabSelectedListener, EmailTemplatesAdapter.EmailTemplateDelegate {
+class EmailTemplatesFragment : BaseFragment(), TabLayout.OnTabSelectedListener, EmailTemplatesAdapter.EmailTemplateDelegate {
 
     lateinit var adapter: EmailTemplatesAdapter
     private val CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome"

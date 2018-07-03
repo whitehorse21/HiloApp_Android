@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.ui.HelpActivity
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import com.hiloipa.app.hilo.ui.more.scripts.scriptsHelp
 import kotlinx.android.synthetic.main.activity_notepad.*
 
@@ -14,7 +15,7 @@ val notepadHelp = "Welcome to the Notepad! Think of this as the bulletin board y
         "your office or the blotter on your desk. Create notes that you want to keep, or use this " +
         "like sticky notes for tasks that are temporary. Notes can be color-coded and tagged for " +
         "easy reference."
-class NotepadActivity : AppCompatActivity() {
+class NotepadActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

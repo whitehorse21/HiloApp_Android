@@ -4,9 +4,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_edit_contact.*
 
-class EditContactActivity : AppCompatActivity() {
+class EditContactActivity : BaseActivity() {
 
     companion object {
         const val contactIdKey = "com.hiloipa.app.hilo.ui.contacts.CONTACT_ID"

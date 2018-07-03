@@ -20,6 +20,7 @@ import com.hiloipa.app.hilo.models.requests.ReachOutLogsRequest
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.models.responses.ReachOutLog
 import com.hiloipa.app.hilo.models.responses.ReachOutLogs
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.ui.contacts.details.ContactDetailsActivity
 import com.hiloipa.app.hilo.utils.*
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,7 +31,7 @@ import kotlinx.android.synthetic.main.fragment_rachout_logs.*
 /**
  * A simple [Fragment] subclass.
  */
-class ReachoutLogsFragment : Fragment(), ReachoutLogsAdapter.ReachOutDelegate {
+class ReachoutLogsFragment : BaseFragment(), ReachoutLogsAdapter.ReachOutDelegate {
 
     lateinit var adapter: ReachoutLogsAdapter
     var page: Int = 1

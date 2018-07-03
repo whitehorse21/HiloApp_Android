@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.models.requests.ResetPassRequest
 import com.hiloipa.app.hilo.models.responses.HiloResponse
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
 import com.hiloipa.app.hilo.utils.showExplanation
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_restore_password.*
 /**
  * A simple [Fragment] subclass.
  */
-class RestorePasswordFragment : Fragment() {
+class RestorePasswordFragment : BaseFragment() {
 
     companion object {
         fun newInstance(): RestorePasswordFragment {

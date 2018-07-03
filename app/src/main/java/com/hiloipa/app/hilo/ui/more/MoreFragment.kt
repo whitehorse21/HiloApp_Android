@@ -22,6 +22,7 @@ import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.Account
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.ui.auth.AuthActivity
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.ui.more.account.AccountActivity
 import com.hiloipa.app.hilo.ui.more.email.EmailTemplatesActivity
 import com.hiloipa.app.hilo.ui.more.notes.NotepadActivity
@@ -47,7 +48,7 @@ import java.io.File
 /**
  * A simple [Fragment] subclass.
  */
-class MoreFragment : Fragment() {
+class MoreFragment : BaseFragment() {
 
     companion object {
         fun newInstance(): MoreFragment {

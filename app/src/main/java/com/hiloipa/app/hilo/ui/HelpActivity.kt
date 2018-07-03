@@ -7,9 +7,10 @@ package com.hiloipa.app.hilo.ui
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.hiloipa.app.hilo.R
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_help.*
 
-class HelpActivity : AppCompatActivity() {
+class HelpActivity : BaseActivity() {
 
     companion object {
         val titleKey = "com.hiloipa.app.hilo.ui.HELP_TITLE"

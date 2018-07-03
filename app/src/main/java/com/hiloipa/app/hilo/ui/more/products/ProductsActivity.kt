@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.hiloipa.app.hilo.R
 import com.hiloipa.app.hilo.ui.HelpActivity
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import com.hiloipa.app.hilo.ui.more.scripts.scriptsHelp
 import kotlinx.android.synthetic.main.activity_products.*
 
@@ -14,7 +15,7 @@ val productsHelp = "Here we list all of your company’s products. Click \"Assig
         "this product as one that a contact has purchased, shown interest in, or has been " +
         "recommended. Once assigned, you'll be able to see this product in the \"Products\" " +
         "section of a contact's detail information."
-class ProductsActivity : AppCompatActivity() {
+class ProductsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

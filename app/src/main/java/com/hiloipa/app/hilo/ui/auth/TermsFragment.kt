@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.hiloipa.app.hilo.R
 import kotlinx.android.synthetic.main.fragment_terms.*
-
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 
 /**
  * A simple [Fragment] subclass.
@@ -45,7 +45,7 @@ val termsText = "<p style=\"text-align: center;\">Terms and Conditions<br />Upda
         "<p style=\"text-align: center;\">All provisions of the Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of liability.</p>\n" +
         "<p style=\"text-align: center;\"><br />Indemnification <br />You agree to defend, indemnify and hold harmless Hilo LLC and its licensee and licensors, and their employees, contractors, agents, officers and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees), resulting from or arising out of a) your use and access of the Service, by you or ...</p>"
 
-class TermsFragment : Fragment() {
+class TermsFragment : BaseFragment() {
 
     companion object {
         fun newInstance(): TermsFragment {

@@ -21,6 +21,7 @@ import com.hiloipa.app.hilo.adapter.ProductsAdapter
 import com.hiloipa.app.hilo.models.requests.AssignProductRequest
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.*
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.ui.widget.RalewayButton
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
@@ -34,7 +35,7 @@ import kotlinx.android.synthetic.main.fragment_products.*
 /**
  * A simple [Fragment] subclass.
  */
-class ProductsFragment : Fragment(), ProductsAdapter.ProductDelegate, TextWatcher {
+class ProductsFragment : BaseFragment(), ProductsAdapter.ProductDelegate, TextWatcher {
 
     lateinit var adapter: ProductsAdapter
     private val filteredProducts: ArrayList<Product> = arrayListOf()

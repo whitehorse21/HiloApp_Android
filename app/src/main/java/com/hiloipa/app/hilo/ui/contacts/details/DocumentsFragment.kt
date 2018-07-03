@@ -17,6 +17,7 @@ import com.hiloipa.app.hilo.adapter.DocumentsAdapter
 import com.hiloipa.app.hilo.models.requests.StandardRequest
 import com.hiloipa.app.hilo.models.responses.DocumentResponse
 import com.hiloipa.app.hilo.models.responses.HiloResponse
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.utils.HiloApp
 import com.hiloipa.app.hilo.utils.isSuccess
 import com.hiloipa.app.hilo.utils.showExplanation
@@ -29,7 +30,7 @@ import kotlinx.android.synthetic.main.fragment_documents.*
 /**
  * A simple [Fragment] subclass.
  */
-class DocumentsFragment : Fragment() {
+class DocumentsFragment : BaseFragment() {
 
     lateinit var adapter: DocumentsAdapter
 

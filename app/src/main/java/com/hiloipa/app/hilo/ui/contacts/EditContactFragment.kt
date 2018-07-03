@@ -22,6 +22,7 @@ import com.hiloipa.app.hilo.models.responses.CustomField
 import com.hiloipa.app.hilo.models.responses.FullContactDetails
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.models.responses.NewContactData
+import com.hiloipa.app.hilo.ui.base.BaseFragment
 import com.hiloipa.app.hilo.ui.contacts.details.ContactDetailsActivity
 import com.hiloipa.app.hilo.ui.widget.CustomFieldView
 import com.hiloipa.app.hilo.ui.widget.RalewayEditText
@@ -43,7 +44,7 @@ import java.util.*
 /**
  * A simple [Fragment] subclass.
  */
-class EditContactFragment : Fragment(), View.OnClickListener {
+class EditContactFragment : BaseFragment(), View.OnClickListener {
 
     var contactDetails: FullContactDetails? = null
     var customFields: MutableList<CustomFieldView> = mutableListOf()

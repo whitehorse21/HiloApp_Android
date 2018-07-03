@@ -19,6 +19,7 @@ import com.hiloipa.app.hilo.models.requests.ChangePaymentRequest
 import com.hiloipa.app.hilo.models.requests.SavePlanRequest
 import com.hiloipa.app.hilo.models.responses.HiloResponse
 import com.hiloipa.app.hilo.ui.HelpActivity
+import com.hiloipa.app.hilo.ui.base.BaseActivity
 import com.hiloipa.app.hilo.ui.more.scripts.scriptsHelp
 import com.hiloipa.app.hilo.ui.widget.PaymentPlanView
 import com.hiloipa.app.hilo.utils.*
@@ -31,7 +32,7 @@ import org.json.JSONObject
 val paymentHelp = "Welcome to the Payments page! Here you can choose the plan you'd like to " +
         "subscribe to or update your billing info."
 
-class SubscribeActivity : AppCompatActivity(), View.OnClickListener {
+class SubscribeActivity : BaseActivity(), View.OnClickListener {
 
     lateinit var plans: MutableList<PaymentPlanView>
     var selectedPlan: PaymentPlanView? = null
