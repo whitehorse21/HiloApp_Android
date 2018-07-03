@@ -42,6 +42,7 @@ import com.hiloipa.app.hilo.ui.widget.RalewayEditText
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 import com.hiloipa.app.hilo.utils.*
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -137,23 +138,42 @@ class ContactsFragment : Fragment(), ContactsDelegate, TextWatcher {
 
         val loading = activity!!.showLoading()
         observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ response: HiloResponse<DetailedContacs> ->
-                    loading.dismiss()
+                .flatMapSingle {response: HiloResponse<DetailedContacs> ->
                     if (response.status.isSuccess()) {
                         val data = response.data
                         if (data != null) {
-                            adapter.addContacts(data.contacts)
-                            // hide load more button if we've reached the maximum pages
                             if (page == data.totalPages)
                                 loadMoreBtn.visibility = View.GONE
+                            getDetaiList(data)
+                        } else{
+                            Single.error(Throwable("Received data is not valid. "))
                         }
-                    } else activity!!.showExplanation(message = response.message)
+                    } else {
+                        Single.error(Throwable(response.message))
+                    }
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response: List<ContactWrapper> ->
+                    loading.dismiss()
+                            adapter.addContacts(response)
+                            // hide load more button if we've reached the maximum pages
+
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
                     activity!!.showExplanation(message = error.localizedMessage)
                 })
+    }
+
+    private fun getDetaiList(data: DetailedContacs): Single<List<ContactWrapper>> {
+        return Observable.fromIterable(data.contacts)
+                .flatMap {detailedContact ->
+                    val request = StandardRequest()
+                    request.contactId = detailedContact.id.toString()
+                    HiloApp.api()
+                            .getContactFullDetails(request)
+                            .map { ContactWrapper(detailedContact, it.data!!.contactDetails) }
+                }.toList()
     }
 
     private val broadcastReceiver = object : BroadcastReceiver() {

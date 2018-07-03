@@ -5,7 +5,6 @@ import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.*
-import kotlin.collections.HashSet
 
 /**
  * Created by eduardalbu on 23.02.2018.
@@ -74,6 +73,8 @@ class CustomField(@JsonProperty("FieldName") var fieldName: String,
         return other is CustomField && other.fieldName == fieldName
     }
 }
+
+class ContactWrapper(val detailContact: DetailedContact, val contactDetails: ContactDetails)
 
 //@JsonIgnoreProperties(ignoreUnknown = true)
 class ContactDetails(@JsonProperty("AlternativeEmail") val alternativeEmail: String?,
