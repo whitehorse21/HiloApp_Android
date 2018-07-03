@@ -4,6 +4,8 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.hiloipa.app.hilo.R
@@ -39,10 +41,14 @@ class ProductsAdapter(val context: Context): RecyclerView.Adapter<ProductsAdapte
         val product = products[position]
         holder.product = product
         holder.productName.text = product.productName
+
         holder.wholeSalePrice.text = context.getString(R.string.wholesale_price_s, product.wholeSalePrice)
         holder.pcPrice.text = context.getString(R.string.pc_price_s, product.piecePrice)
         holder.retailPrice.text = context.getString(R.string.retail_price_s, product.retailPrice)
 
+        holder.wholeSalePrice.visibility = if (product.wholeSalePrice > 0) VISIBLE else GONE
+        holder.pcPrice.visibility = if (product.piecePrice > 0) VISIBLE else GONE
+        holder.retailPrice.visibility = if (product.retailPrice > 0) VISIBLE else GONE
         Picasso.get().load(product.productImage)
                 .into(holder.productImage)
     }
