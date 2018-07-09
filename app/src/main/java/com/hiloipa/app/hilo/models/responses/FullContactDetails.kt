@@ -101,7 +101,7 @@ class ContactDetails(@JsonProperty("AlternativeEmail") val alternativeEmail: Str
                      @JsonProperty("Persicope") val periscope: String?,
                      @JsonProperty("Pinterest") val pinterest: String?,
                      @JsonProperty("Pipeline") val pipeline: Int,
-                     @JsonProperty("PipelinePosition") val pipelinePosition: String,
+                     @JsonProperty("PipelinePosition") val pipelinePosition: String?,
                      @JsonProperty("ProductInterest") val productInterest: String?,
                      @JsonProperty("ProductPurchased") val productPurchased: String?,
                      @JsonProperty("RecommendedProduct") val recommendedProduct: String?,

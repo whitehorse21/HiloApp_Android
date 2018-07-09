@@ -139,6 +139,7 @@ class ContactsFragment : BaseFragment(), ContactsDelegate, TextWatcher {
 
         val loading = activity!!.showLoading()
         observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMapSingle {response: HiloResponse<DetailedContacs> ->
                     if (response.status.isSuccess()) {
                         val data = response.data
@@ -168,6 +169,7 @@ class ContactsFragment : BaseFragment(), ContactsDelegate, TextWatcher {
 
     private fun getDetaiList(data: DetailedContacs): Single<List<ContactWrapper>> {
         return Observable.fromIterable(data.contacts)
+                .subscribeOn(Schedulers.io())
                 .flatMap {detailedContact ->
                     val request = StandardRequest()
                     request.contactId = detailedContact.id.toString()

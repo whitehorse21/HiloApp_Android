@@ -23,7 +23,7 @@ class DetailedContact(@JsonProperty("contact_id") id: Int,
                       @JsonProperty("last_name") val lastName: String,
                       @JsonProperty("last_reachedout") val lastReachOut: Date?,
                       @JsonProperty("pipeline") val pipeline: Int,
-                      @JsonProperty("pipeline_position") val pipelinePos: String,
+                      @JsonProperty("pipeline_position") val pipelinePos: String?,
                       @JsonProperty("temp_id") val tempId: Int,
                       @JsonProperty("temp_name") val tempName: String,
                       @JsonProperty("user_image") val userImage: String): Parcelable, Contact(id, "$firstName $lastName", 0, Date()) {
@@ -99,7 +99,7 @@ class DetailedContact(@JsonProperty("contact_id") id: Int,
         result = 31 * result + lastName.hashCode()
         result = 31 * result + (lastReachOut?.hashCode() ?: 0)
         result = 31 * result + pipeline
-        result = 31 * result + pipelinePos.hashCode()
+        result = 31 * result + pipelinePos!!.hashCode()
         result = 31 * result + tempId
         result = 31 * result + tempName.hashCode()
         result = 31 * result + userImage.hashCode()

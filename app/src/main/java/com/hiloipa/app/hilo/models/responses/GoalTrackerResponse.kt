@@ -360,7 +360,7 @@ class GraphData(@JsonProperty("Target") val target: Int,
 // plan object
 @JsonIgnoreProperties(ignoreUnknown = true)
 class GoalPlan(@JsonProperty("GoalPlanID") val planId: Int,
-               @JsonProperty("GoalPlanName") val name: String,
+               @JsonProperty("GoalPlanName") val name: String?,
                @JsonProperty("Reachouts") val reachOuts: Int,
                @JsonProperty("Followups") val followUps: Int,
                @JsonProperty("TeamReachouts") val teamReachOuts: Int) : Parcelable {

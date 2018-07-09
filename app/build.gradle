@@ -27,7 +27,7 @@ android {
         }
 
         debug {
-            buildConfigField "String", "BASE_URL", "\"http://54.242.152.154:81/Hilo/\""
+            buildConfigField "String", "BASE_URL", "\"http://dev.hilocrm.com:81/Hilo/\""
             buildConfigField "String", "HELP_URL", "\"http://54.242.152.154:81/Help/\""
         }
     }
