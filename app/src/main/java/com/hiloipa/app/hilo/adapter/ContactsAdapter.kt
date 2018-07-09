@@ -8,9 +8,9 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageButton
 import com.hiloipa.app.hilo.R
-import com.hiloipa.app.hilo.models.responses.ContactWrapper
 import com.hiloipa.app.hilo.models.responses.DetailedContact
 import com.hiloipa.app.hilo.ui.widget.RalewayTextView
 import com.hiloipa.app.hilo.utils.ContactsDelegate
@@ -23,21 +23,18 @@ class ContactsAdapter(val context: Context): RecyclerView.Adapter<ContactsAdapte
 
     var delegate: ContactsDelegate? = null
 
-    var contactWrapper: ArrayList<ContactWrapper> by
-    Delegates.observable(arrayListOf()) { _, _, _ ->
+    var contacts: ArrayList<DetailedContact> by
+    Delegates.observable(arrayListOf<DetailedContact>()) { property, oldValue, newValue ->
         notifyDataSetChanged()
     }
 
-    internal var contacts: MutableList<DetailedContact> = arrayListOf()
-        get() = contactWrapper.map { it.detailContact }.toMutableList()
-
-    fun addContacts(contacts: List<ContactWrapper>) {
-        if (this.contactWrapper.isEmpty()) {
-            this.contactWrapper.addAll(contacts)
+    fun addContacts(contacts: ArrayList<DetailedContact>) {
+        if (this.contacts.isEmpty()) {
+            this.contacts.addAll(contacts)
             notifyDataSetChanged()
         } else {
-            val lastIndex = this.contactWrapper.lastIndex
-            this.contactWrapper.addAll(contacts)
+            val lastIndex = this.contacts.lastIndex
+            this.contacts.addAll(contacts)
             notifyItemRangeInserted(lastIndex, contacts.size)
         }
     }
@@ -47,10 +44,10 @@ class ContactsAdapter(val context: Context): RecyclerView.Adapter<ContactsAdapte
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int = contactWrapper.size
+    override fun getItemCount(): Int = contacts.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val contact = contactWrapper[position].detailContact
+        val contact = contacts[position]
         holder.contact = contact
         holder.contactName.text = "${contact.firstName} ${contact.lastName}"
         holder.contactStatus.text = contact.pipelinePos
@@ -61,8 +58,7 @@ class ContactsAdapter(val context: Context): RecyclerView.Adapter<ContactsAdapte
             "Warm" -> color = R.color.colorDarkYellow
             "Hot" -> color = R.color.colorPrimary
         }
-        val alternatephns = contactWrapper[position].contactDetails.alternatephns
-        if (contact.contactNumber != null && contact.contactNumber.isNotEmpty() && alternatephns != null && alternatephns.isNotEmpty()) {
+        if (contact.contactNumber != null && contact.contactNumber!!.isNotEmpty()) {
             holder.messageBtn.visibility = VISIBLE
         } else {
             holder.messageBtn.visibility = GONE

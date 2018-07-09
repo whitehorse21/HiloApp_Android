@@ -140,43 +140,22 @@ class ContactsFragment : BaseFragment(), ContactsDelegate, TextWatcher {
         val loading = activity!!.showLoading()
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMapSingle {response: HiloResponse<DetailedContacs> ->
+                .subscribe({ response: HiloResponse<DetailedContacs> ->
+                    loading.dismiss()
                     if (response.status.isSuccess()) {
                         val data = response.data
                         if (data != null) {
+                            adapter.addContacts(data.contacts)
+                            // hide load more button if we've reached the maximum pages
                             if (page == data.totalPages)
                                 loadMoreBtn.visibility = View.GONE
-                            getDetaiList(data)
-                        } else{
-                            Single.error(Throwable("Received data is not valid. "))
                         }
-                    } else {
-                        Single.error(Throwable(response.message))
-                    }
-                }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ response: List<ContactWrapper> ->
-                    loading.dismiss()
-                            adapter.addContacts(response)
-                            // hide load more button if we've reached the maximum pages
-
+                    } else activity!!.showExplanation(message = response.message)
                 }, { error: Throwable ->
                     loading.dismiss()
                     error.printStackTrace()
                     activity!!.showExplanation(message = error.localizedMessage)
                 })
-    }
-
-    private fun getDetaiList(data: DetailedContacs): Single<List<ContactWrapper>> {
-        return Observable.fromIterable(data.contacts)
-                .subscribeOn(Schedulers.io())
-                .flatMap {detailedContact ->
-                    val request = StandardRequest()
-                    request.contactId = detailedContact.id.toString()
-                    HiloApp.api()
-                            .getContactFullDetails(request)
-                            .map { ContactWrapper(detailedContact, it.data!!.contactDetails) }
-                }.toList()
     }
 
     private val broadcastReceiver = object : BroadcastReceiver() {

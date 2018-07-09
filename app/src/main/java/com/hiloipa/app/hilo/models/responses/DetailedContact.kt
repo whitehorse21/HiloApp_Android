@@ -13,7 +13,7 @@ import kotlin.collections.ArrayList
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 class DetailedContact(@JsonProperty("contact_id") id: Int,
-                      @JsonProperty("contact_number") val contactNumber: String?,
+                      @JsonProperty("contact_number") var contactNumber: String?,
                       @JsonProperty("contact_type") val contactType: String?,
                       @JsonProperty("contact_type_position") val contactTypePos: Int,
                       @JsonProperty("email") val email: String,
