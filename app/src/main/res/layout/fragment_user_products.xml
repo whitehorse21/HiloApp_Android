@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.hiloipa.app.hilo.ui.contacts.details.UserProductsFragment">
+    tools:context="com.hilocrm.app.hilo.ui.contacts.details.UserProductsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             app:cardElevation="3dp"
             app:cardCornerRadius="4dp">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                 android:id="@+id/purchasedProductsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             app:cardElevation="3dp"
             app:cardCornerRadius="4dp">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                 android:id="@+id/recomendedProductsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
             app:cardElevation="3dp"
             app:cardCornerRadius="4dp">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                 android:id="@+id/interestedProductsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
             app:cardElevation="3dp"
             app:cardCornerRadius="4dp">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                 android:id="@+id/toolRecomendedProductsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

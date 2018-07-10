@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hiloipa.app.hilo.ui.contacts.EditContactActivity">
+    tools:context="com.hilocrm.app.hilo.ui.contacts.EditContactActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -14,7 +14,7 @@
         app:navigationIcon="@drawable/ic_action_back_white"
         android:background="@color/colorPrimary">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:id="@+id/toolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

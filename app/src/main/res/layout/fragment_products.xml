@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.hiloipa.app.hilo.ui.contacts.ContactsFragment">
+    tools:context="com.hilocrm.app.hilo.ui.contacts.ContactsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 app:cardCornerRadius="5dp"
                 android:layout_margin="16dp">
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/searchField"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"

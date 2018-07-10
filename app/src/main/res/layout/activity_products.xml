@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context="com.hiloipa.app.hilo.ui.more.products.ProductsActivity">
+    tools:context="com.hilocrm.app.hilo.ui.more.products.ProductsActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,7 +16,7 @@
         app:navigationIcon="@drawable/ic_action_back_white"
         android:background="@color/colorPrimary">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:id="@+id/toolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
         android:id="@+id/productsFragment"
-        android:name="com.hiloipa.app.hilo.ui.more.products.ProductsFragment"/>
+        android:name="com.hilocrm.app.hilo.ui.more.products.ProductsFragment"/>
 
     <View
         android:layout_width="match_parent"

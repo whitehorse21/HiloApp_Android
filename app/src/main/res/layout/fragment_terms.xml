@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:background="@drawable/img_login_bg"
-    tools:context="com.hiloipa.app.hilo.ui.auth.TermsFragment">
+    tools:context="com.hilocrm.app.hilo.ui.auth.TermsFragment">
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         android:layout_marginBottom="10dp"
         app:textFont="bold"/>
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+    <com.hilocrm.app.hilo.ui.widget.RalewayButton
         style="@style/Base.Widget.AppCompat.ActionButton"
         android:id="@+id/closeBtn"
         android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
         android:layout_below="@id/title"
         android:layout_above="@id/closeBtn">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:id="@+id/termsLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

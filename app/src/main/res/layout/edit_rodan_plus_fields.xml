@@ -24,7 +24,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/rodanFieldsToggleBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 android:padding="16dp"
                 android:orientation="vertical">
                 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/give_it_a_glow_sample"/>
@@ -82,13 +82,13 @@
                         android:drawableStart="@drawable/radio_button_normal"/>
                 </RadioGroup>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/auto_ship_date"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                <com.hilocrm.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/autoShipDayButton"
                     android:layout_width="match_parent"
                     android:gravity="start|center_vertical"
@@ -106,7 +106,7 @@
                     android:textSize="14sp"
                     android:hint="@string/auto_ship_date"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/concerns"/>
@@ -168,7 +168,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="@string/dullness"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/gift"/>
@@ -204,7 +204,7 @@
                         android:drawableStart="@drawable/radio_button_normal"/>
                 </RadioGroup>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
@@ -214,7 +214,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp">
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                    <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                         android:id="@+id/giftGivenField"
                         android:layout_width="match_parent"
                         android:singleLine="true"

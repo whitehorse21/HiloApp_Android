@@ -24,7 +24,7 @@
             android:src="@drawable/ic_action_back"
             android:contentDescription="@string/back" />
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+        <com.hilocrm.app.hilo.ui.widget.RalewayEditText
             android:id="@+id/searchField"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -9,7 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="?selectableItemBackground">
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
         android:id="@+id/contactNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

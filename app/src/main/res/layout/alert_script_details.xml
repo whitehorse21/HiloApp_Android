@@ -21,7 +21,7 @@
             android:src="@drawable/ic_action_back_white"
             android:contentDescription="@null" />
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:id="@+id/scriptNameLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
         android:background="@android:color/white"
         android:layout_height="200dp">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:id="@+id/scriptLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/copyBtn"
             android:layout_width="match_parent"
             android:layout_height="40dp"

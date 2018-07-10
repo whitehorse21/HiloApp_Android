@@ -26,14 +26,14 @@
             android:orientation="vertical"
             android:layout_weight="1">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                 android:id="@+id/todoLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 tools:text="Some text"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                 android:id="@+id/todoDateLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

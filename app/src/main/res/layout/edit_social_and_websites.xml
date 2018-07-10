@@ -23,7 +23,7 @@
             android:animateLayoutChanges="true"
             android:orientation="vertical">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/socialAndWebsitesToggleBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,13 +46,13 @@
                 android:padding="16dp"
                 android:orientation="vertical">
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/facebook_personal"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/facebookPersonalField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -68,13 +68,13 @@
                     android:textSize="14sp"
                     android:hint="@string/facebook_personal"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/facebook_work"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/facebookBusinessField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -90,13 +90,13 @@
                     android:textSize="14sp"
                     android:hint="@string/facebook_work"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/twitter"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/twitterField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -112,13 +112,13 @@
                     android:textSize="14sp"
                     android:hint="@string/twitter"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/instagram"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/instagramField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -134,13 +134,13 @@
                     android:textSize="14sp"
                     android:hint="@string/instagram"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/pinterest"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/pinterestField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -156,13 +156,13 @@
                     android:textSize="14sp"
                     android:hint="@string/pinterest"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/periscope"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/periscopeField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -178,13 +178,13 @@
                     android:textSize="14sp"
                     android:hint="@string/periscope"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/linkedin"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/linkedInField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -200,13 +200,13 @@
                     android:textSize="14sp"
                     android:hint="@string/linkedin"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/snap_chat"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/snapChatField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -222,13 +222,13 @@
                     android:textSize="14sp"
                     android:hint="@string/snap_chat"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/vine"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/vineField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -244,13 +244,13 @@
                     android:textSize="14sp"
                     android:hint="@string/vine"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/tumblr"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/tumblrField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -266,13 +266,13 @@
                     android:textSize="14sp"
                     android:hint="@string/tumblr"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/youtube"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/youTubeField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -288,13 +288,13 @@
                     android:textSize="14sp"
                     android:hint="@string/youtube"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/google_plus"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/googlePlusField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -310,13 +310,13 @@
                     android:textSize="14sp"
                     android:hint="@string/google_plus"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/meetup"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/meetupField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -332,13 +332,13 @@
                     android:textSize="14sp"
                     android:hint="@string/meetup"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/website_personal"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/websitePersonalField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -354,13 +354,13 @@
                     android:textSize="14sp"
                     android:hint="@string/website_personal"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/website_work"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/websiteBusinessField"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -376,13 +376,13 @@
                     android:textSize="14sp"
                     android:hint="@string/website_work"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/other_one"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/other1Field"
                     android:layout_width="match_parent"
                     android:singleLine="true"
@@ -398,13 +398,13 @@
                     android:textSize="14sp"
                     android:hint="@string/other_one"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/other_two"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/other2Field"
                     android:layout_width="match_parent"
                     android:singleLine="true"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hiloipa.app.hilo">
+    package="com.hilocrm.app.hilo">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -93,7 +93,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.hiloipa.app.hilo.provider"
+            android:authorities="com.hilocrm.app.hilo.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

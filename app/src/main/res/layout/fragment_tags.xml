@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hiloipa.app.hilo.ui.more.notes.TagsFragment">
+    tools:context="com.hilocrm.app.hilo.ui.more.notes.TagsFragment">
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+    <com.hilocrm.app.hilo.ui.widget.RalewayButton
         android:id="@+id/backButton"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
@@ -25,7 +25,7 @@
         android:layout_below="@id/backButton"
         android:orientation="horizontal">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+        <com.hilocrm.app.hilo.ui.widget.RalewayEditText
             android:id="@+id/newTagField"
             android:layout_width="0dp"
             android:layout_height="45dp"

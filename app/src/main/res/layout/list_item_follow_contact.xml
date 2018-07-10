@@ -9,7 +9,7 @@
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
         android:id="@+id/rowNumberLabel"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true" />
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/searchField"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -56,7 +56,7 @@
             android:singleLine="true"
             android:textSize="14sp" />
 
-        <com.hiloipa.app.hilo.ui.widget.NDSpinner
+        <com.hilocrm.app.hilo.ui.widget.NDSpinner
             android:id="@+id/searchSpinner"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -85,7 +85,7 @@
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/searchResultLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                     android:textSize="14sp"
                     tools:text="Search result" />
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/followUpDaysRemainedLabel"
                     android:visibility="gone"
                     android:layout_width="wrap_content"
@@ -121,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                    <com.hilocrm.app.hilo.ui.widget.RalewayButton
                         android:id="@+id/completeBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -143,7 +143,7 @@
                         android:src="@drawable/ic_action_delete_empty" />
                 </LinearLayout>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                <com.hilocrm.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/scheduleStatusBtn"
                     android:clickable="false"
                     android:focusable="false"

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context="com.hiloipa.app.hilo.ui.tracker.GoalTrackerFragment">
+    tools:context="com.hilocrm.app.hilo.ui.tracker.GoalTrackerFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                 android:paddingRight="16dp"
                 android:paddingTop="16dp">
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                <com.hilocrm.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/adjustGraphsBtn"
                     style="@style/Base.Widget.AppCompat.ActionButton"
                     android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                     android:text="@string/adjust_my_graphs"
                     android:textColor="@android:color/darker_gray" />
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                <com.hilocrm.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/hiloMyWeekBtn"
                     style="@style/Base.Widget.AppCompat.ActionButton"
                     android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                     android:textColor="@android:color/white" />
             </LinearLayout>
 
-            <com.hiloipa.app.hilo.ui.widget.NDSpinner
+            <com.hilocrm.app.hilo.ui.widget.NDSpinner
                 android:id="@+id/adjustGraphsSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -76,13 +76,13 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/current_goal_plan"
                         android:textSize="12sp" />
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                    <com.hilocrm.app.hilo.ui.widget.RalewayButton
                         android:id="@+id/currentPlanBtn"
                         style="@style/Base.Widget.AppCompat.ActionButton"
                         android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                         android:text="Keep the lights on" />
                 </LinearLayout>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                <com.hilocrm.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/changePlanBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

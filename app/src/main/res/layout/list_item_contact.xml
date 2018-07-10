@@ -45,7 +45,7 @@
                 android:layout_marginEnd="10dp"
                 android:orientation="vertical">
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/contactNameLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                     android:textColor="@color/colorPrimary"
                     tools:text="Eduard Albu"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/contactStatusLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

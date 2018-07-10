@@ -13,7 +13,7 @@
         android:layout_weight="1"
         tools:listitem="@layout/list_item_tag_spinner"/>
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+    <com.hilocrm.app.hilo.ui.widget.RalewayButton
         android:id="@+id/doneBtn"
         android:layout_width="150dp"
         android:layout_gravity="center_horizontal"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.hiloipa.app.hilo.ui.more.notes.CreateNoteActivity">
+    tools:context="com.hilocrm.app.hilo.ui.more.notes.CreateNoteActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -15,7 +15,7 @@
         app:navigationIcon="@drawable/ic_action_back_white"
         android:background="@color/colorPrimary">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:id="@+id/toolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                     android:focusable="true"
                     android:orientation="vertical">
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                    <com.hilocrm.app.hilo.ui.widget.RalewayButton
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clickable="false"
@@ -64,7 +64,7 @@
                         android:paddingRight="16dp"
                         android:background="@drawable/rectangle_top_rounded_orange"/>
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                    <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                         android:id="@+id/noteTitleField"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
@@ -78,7 +78,7 @@
                         android:background="@drawable/selectable_border_rect"/>
 
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                    <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                         android:id="@+id/noteContentField"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
@@ -137,7 +137,7 @@
                     android:gravity="center_horizontal"
                     android:paddingRight="16dp">
 
-                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                    <com.hilocrm.app.hilo.ui.widget.ColorButton
                         android:tag="White"
                         android:id="@+id/whiteBtn"
                         android:layout_width="30dp"
@@ -145,7 +145,7 @@
                         app:color="@color/colorWhite"
                         app:checked="true"/>
 
-                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                    <com.hilocrm.app.hilo.ui.widget.ColorButton
                         android:tag="Red"
                         android:id="@+id/redBtn"
                         android:layout_width="30dp"
@@ -154,14 +154,14 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp" />
 
-                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                    <com.hilocrm.app.hilo.ui.widget.ColorButton
                         android:tag="Rose"
                         android:id="@+id/roseBtn"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         app:color="@color/colorRose" />
 
-                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                    <com.hilocrm.app.hilo.ui.widget.ColorButton
                         android:tag="Purple"
                         android:id="@+id/purpleBtn"
                         android:layout_width="30dp"
@@ -170,7 +170,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp" />
 
-                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                    <com.hilocrm.app.hilo.ui.widget.ColorButton
                         android:tag="Dark Blue"
                         android:id="@+id/darkBlueBtn"
                         android:layout_width="30dp"
@@ -187,14 +187,14 @@
                     android:gravity="center_horizontal"
                     android:paddingRight="16dp">
 
-                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                    <com.hilocrm.app.hilo.ui.widget.ColorButton
                         android:tag="Blue"
                         android:id="@+id/blueBtn"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         app:color="@color/colorBlue" />
 
-                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                    <com.hilocrm.app.hilo.ui.widget.ColorButton
                         android:tag="Sky Blue"
                         android:id="@+id/skyBlueBtn"
                         android:layout_width="30dp"
@@ -203,14 +203,14 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp" />
 
-                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                    <com.hilocrm.app.hilo.ui.widget.ColorButton
                         android:tag="Olive"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         app:color="@color/colorOlive"
                         android:id="@+id/oliveBtn"/>
 
-                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                    <com.hilocrm.app.hilo.ui.widget.ColorButton
                         android:tag="Green"
                         android:id="@+id/greenBtn"
                         android:layout_width="30dp"
@@ -219,7 +219,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp" />
 
-                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                    <com.hilocrm.app.hilo.ui.widget.ColorButton
                         android:tag="Chartreuse"
                         android:id="@+id/chartreuseBtn"
                         android:layout_width="30dp"
@@ -236,14 +236,14 @@
                     android:gravity="center_horizontal"
                     android:paddingRight="16dp">
 
-                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                    <com.hilocrm.app.hilo.ui.widget.ColorButton
                         android:tag="Yellow"
                         android:id="@+id/yellowBtn"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         app:color="@color/colorYellow"/>
 
-                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                    <com.hilocrm.app.hilo.ui.widget.ColorButton
                         android:tag="Dark Yellow"
                         android:id="@+id/darkYellowBtn"
                         android:layout_width="30dp"
@@ -252,14 +252,14 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginLeft="10dp" />
 
-                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                    <com.hilocrm.app.hilo.ui.widget.ColorButton
                         android:tag="Brown"
                         android:id="@+id/brownBtn"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         app:color="@color/colorBrown" />
 
-                    <com.hiloipa.app.hilo.ui.widget.ColorButton
+                    <com.hilocrm.app.hilo.ui.widget.ColorButton
                         android:tag="Grey"
                         android:id="@+id/grayBtn"
                         android:layout_width="30dp"
@@ -278,7 +278,7 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                <com.hilocrm.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/cancelBtn"
                     style="@style/Base.Widget.AppCompat.ActionButton"
                     android:layout_width="wrap_content"
@@ -297,7 +297,7 @@
                     android:textSize="14sp"
                     app:buttonFont="bold" />
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                <com.hilocrm.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/saveBtn"
                     style="@style/Base.Widget.AppCompat.ActionButton"
                     android:layout_width="wrap_content"

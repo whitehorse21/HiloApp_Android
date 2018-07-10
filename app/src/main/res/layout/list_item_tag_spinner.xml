@@ -10,7 +10,7 @@
     android:background="?selectableItemBackground"
     android:orientation="horizontal">
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

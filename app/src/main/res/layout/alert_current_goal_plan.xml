@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/backButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

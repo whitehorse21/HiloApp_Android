@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+    <com.hilocrm.app.hilo.ui.widget.RalewayButton
         android:id="@+id/valueToChangeBtn"
         android:layout_width="match_parent"
         style="@style/Base.Widget.AppCompat.ActionButton"
@@ -26,7 +26,7 @@
         android:imeOptions="actionNext"
         android:inputType="textCapWords"/>
 
-    <com.hiloipa.app.hilo.ui.widget.NDSpinner
+    <com.hilocrm.app.hilo.ui.widget.NDSpinner
         android:id="@+id/valueToChangeSpinner"
         android:layout_width="match_parent"
         android:layout_height="0dp"

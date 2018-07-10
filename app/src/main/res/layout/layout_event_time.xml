@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+    <com.hilocrm.app.hilo.ui.widget.RalewayButton
         android:id="@+id/eventTypeBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/selectable_border_rect"/>
 
-    <com.hiloipa.app.hilo.ui.widget.NDSpinner
+    <com.hilocrm.app.hilo.ui.widget.NDSpinner
         android:id="@+id/eventTypeSpinner"
         android:layout_width="match_parent"
         android:background="@android:color/transparent"
@@ -35,7 +35,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/eventStartDate"
             style="@style/Base.Widget.AppCompat.ActionButton"
             android:layout_width="match_parent"
@@ -51,7 +51,7 @@
             android:lines="1"
             android:singleLine="true" />
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/eventEndDate"
             style="@style/Base.Widget.AppCompat.ActionButton"
             android:layout_width="match_parent"
@@ -75,7 +75,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/eventStartTime"
             style="@style/Base.Widget.AppCompat.ActionButton"
             android:layout_width="match_parent"
@@ -91,7 +91,7 @@
             android:lines="1"
             android:singleLine="true" />
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/eventEndTime"
             style="@style/Base.Widget.AppCompat.ActionButton"
             android:layout_width="match_parent"
@@ -114,7 +114,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/eventStartTimeAmPm"
             style="@style/Base.Widget.AppCompat.ActionButton"
             android:layout_width="match_parent"
@@ -130,7 +130,7 @@
             android:lines="1"
             android:singleLine="true" />
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/eventEndTimeAmPm"
             style="@style/Base.Widget.AppCompat.ActionButton"
             android:layout_width="match_parent"
@@ -154,14 +154,14 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
-        <com.hiloipa.app.hilo.ui.widget.NDSpinner
+        <com.hilocrm.app.hilo.ui.widget.NDSpinner
             android:id="@+id/eventStartTimeAmPmSpinner"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@android:color/transparent"
             android:layout_weight="1"/>
 
-        <com.hiloipa.app.hilo.ui.widget.NDSpinner
+        <com.hilocrm.app.hilo.ui.widget.NDSpinner
             android:id="@+id/eventEndTimeAmPmSpinner"
             android:layout_width="match_parent"
             android:layout_height="0dp"

@@ -23,7 +23,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/tagsAndFieldsToggleBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,13 +46,13 @@
                 android:visibility="gone"
                 tools:visibility="visible">
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/tags"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                <com.hilocrm.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/tagsButton"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -70,19 +70,19 @@
                     android:singleLine="true"
                     android:textSize="14sp" />
 
-                <com.hiloipa.app.hilo.ui.widget.NDSpinner
+                <com.hilocrm.app.hilo.ui.widget.NDSpinner
                     android:id="@+id/tagsSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginBottom="5dp" />
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/new_tag"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/newTagField"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -98,7 +98,7 @@
                     android:singleLine="true"
                     android:textSize="14sp" />
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                <com.hilocrm.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/addTagBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
@@ -111,13 +111,13 @@
                     android:textColor="@android:color/white"
                     app:buttonFont="bold" />
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/new_custom_field"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+                <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                     android:id="@+id/newCustomField"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -133,7 +133,7 @@
                     android:singleLine="true"
                     android:textSize="14sp" />
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                <com.hilocrm.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/addFieldBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"

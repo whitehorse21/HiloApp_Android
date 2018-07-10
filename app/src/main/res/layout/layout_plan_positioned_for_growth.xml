@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/positionedForGrowthBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,13 +43,13 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:textSize="16sp"
                         android:text="@string/weekly_reachouts"/>
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textSize="16sp"
@@ -65,13 +65,13 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:textSize="16sp"
                         android:text="@string/weekly_followups"/>
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:layout_weight="1"
@@ -87,13 +87,13 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:textSize="16sp"
                         android:text="@string/weekly_team_needs"/>
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textSize="16sp"

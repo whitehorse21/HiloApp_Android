@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                 android:id="@+id/titleLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                             app:cpb_progressbar_color="@color/colorPrimary"
                             android:progressDrawable="@drawable/circular_progress_bar" />
 
-                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                             android:id="@+id/progressLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -75,13 +75,13 @@
                             tools:text="43%"/>
                     </FrameLayout>
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                         android:id="@+id/importedContactsLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/imported_contacts_d"/>
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                         android:id="@+id/uploadedImagesLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

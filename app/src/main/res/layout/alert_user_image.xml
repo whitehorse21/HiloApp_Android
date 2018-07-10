@@ -13,7 +13,7 @@
         android:layout_height="400dp"
         android:scaleType="fitXY" />
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+    <com.hilocrm.app.hilo.ui.widget.RalewayButton
         android:id="@+id/updateBtn"
         android:layout_width="wrap_content"
         android:layout_height="40dp"

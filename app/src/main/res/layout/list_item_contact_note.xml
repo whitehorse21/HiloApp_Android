@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                 android:id="@+id/noteTitleLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
                 app:textFont="bold"
                 android:text="Note tile"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                 android:id="@+id/noteLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                     android:src="@drawable/ic_action_delete_empty"
                     android:contentDescription="@null" />
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/noteDateLabel"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

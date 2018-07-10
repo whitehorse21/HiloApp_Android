@@ -5,7 +5,7 @@
     android:background="@drawable/alert_background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:background="@color/colorAccent"
         android:layout_below="@id/title"/>
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
         android:id="@+id/messageLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
         app:textFont="medium"
         android:textSize="16sp"/>
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+    <com.hilocrm.app.hilo.ui.widget.RalewayButton
         android:id="@+id/gotItBtn"
         android:layout_width="match_parent"
         android:layout_height="48dp"

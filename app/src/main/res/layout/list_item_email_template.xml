@@ -15,7 +15,7 @@
             android:padding="16dp"
             android:gravity="center_vertical">
             
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                 android:id="@+id/templateTitleLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
                 android:textColor="@color/colorPrimary"
                 android:text="Template title"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/previewTemplateBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"

@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.hiloipa.app.hilo.ui.HelpActivity">
+    tools:context="com.hilocrm.app.hilo.ui.HelpActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -18,7 +18,7 @@
         android:background="@color/colorPrimary"
         app:navigationIcon="@drawable/ic_action_back_white">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:id="@+id/toolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:id="@+id/helpText"
             android:padding="16dp"
             android:textSize="16sp"

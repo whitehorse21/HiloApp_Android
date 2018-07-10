@@ -9,7 +9,7 @@ android {
     buildToolsVersion '27.0.3'
 
     defaultConfig {
-        applicationId "com.hiloipa.app.hilo"
+        applicationId "com.hilocrm.app.hilo"
         minSdkVersion 16
         targetSdkVersion 27
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "3c3c3cc3522e4040b1cf1ce15820de79"]

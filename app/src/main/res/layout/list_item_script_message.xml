@@ -7,14 +7,14 @@
     android:padding="10dp"
     android:background="?selectableItemBackground">
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
         android:id="@+id/scriptNameLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:hint="@string/hilo_scripts"/>
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+    <com.hilocrm.app.hilo.ui.widget.RalewayButton
         android:id="@+id/insertTextBtn"
         android:layout_width="wrap_content"
         android:layout_height="30dp"

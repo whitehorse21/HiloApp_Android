@@ -7,7 +7,7 @@
     android:layout_marginBottom="5dp"
     android:orientation="vertical">
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
         android:id="@+id/fieldTItle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+        <com.hilocrm.app.hilo.ui.widget.RalewayEditText
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
             android:singleLine="true"

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.hiloipa.app.hilo.ui.contacts.details.ContactCampaignsFragment">
+    tools:context="com.hilocrm.app.hilo.ui.contacts.details.ContactCampaignsFragment">
 
     <LinearLayout
         android:id="@+id/headerLayout"
@@ -21,7 +21,7 @@
         android:paddingRight="16dp"
         android:paddingTop="5dp">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/assignBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
         android:layout_height="40dp"
         android:background="#ededed">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -59,7 +59,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray" />
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -74,7 +74,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray" />
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -89,7 +89,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray" />
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

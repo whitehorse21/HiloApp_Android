@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hiloipa.app.hilo.ui.more.scripts.EditScriptActivity">
+    tools:context="com.hilocrm.app.hilo.ui.more.scripts.EditScriptActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:id="@+id/toolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/cardTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+            <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                 android:id="@+id/scriptNameField"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -95,7 +95,7 @@
                     android:textColor="@android:color/darker_gray"/>
             </RadioGroup>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+            <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                 android:id="@+id/scriptContentField"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
@@ -117,7 +117,7 @@
                 android:orientation="horizontal"
                 android:gravity="center">
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                <com.hilocrm.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/cancelBtn"
                     style="@style/Base.Widget.AppCompat.ActionButton"
                     android:layout_width="wrap_content"
@@ -136,7 +136,7 @@
                     android:textSize="14sp"
                     app:buttonFont="bold" />
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                <com.hilocrm.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/saveBtn"
                     style="@style/Base.Widget.AppCompat.ActionButton"
                     android:layout_width="wrap_content"

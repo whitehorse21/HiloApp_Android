@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:background="@drawable/img_login_bg"
-    tools:context="com.hiloipa.app.hilo.ui.auth.LoginFragment">
+    tools:context="com.hilocrm.app.hilo.ui.auth.LoginFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_height="130dp"
             android:src="@drawable/ic_hilo_white"/>
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+        <com.hilocrm.app.hilo.ui.widget.RalewayEditText
             android:id="@+id/emailField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:textColor="@android:color/white"
             android:theme="@style/HiloET"/>
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+        <com.hilocrm.app.hilo.ui.widget.RalewayEditText
             android:id="@+id/passwordField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:textColor="@android:color/white"
             android:hint="@string/password"/>
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/forgotPasswordBtn"
             style="@style/Base.Widget.AppCompat.ActionButton"
             android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
             android:text="@string/forgot_password"
             android:layout_gravity="end"/>
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/loginBtn"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -86,7 +86,7 @@
         android:gravity="center"
         android:layout_alignParentBottom="true">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -94,7 +94,7 @@
             android:textColor="@android:color/white"
             android:text="@string/don_t_have_an_account_yet" />
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/createAccountBtn"
             style="@style/Base.Widget.AppCompat.ActionButton"
             android:layout_width="wrap_content"

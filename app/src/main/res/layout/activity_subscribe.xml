@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hiloipa.app.hilo.ui.more.account.SubscribeActivity">
+    tools:context="com.hilocrm.app.hilo.ui.more.account.SubscribeActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -14,7 +14,7 @@
         app:navigationIcon="@drawable/ic_action_back_white"
         android:background="@color/colorPrimary">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:id="@+id/toolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                    <com.hilocrm.app.hilo.ui.widget.RalewayButton
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clickable="false"
@@ -61,7 +61,7 @@
                         style="@style/Base.Widget.AppCompat.ActionButton"/>
 
                     <!-- Silver plan -->
-                    <com.hiloipa.app.hilo.ui.widget.PaymentPlanView
+                    <com.hilocrm.app.hilo.ui.widget.PaymentPlanView
                         android:tag="Silver"
                         android:id="@+id/silverPlan"
                         android:layout_margin="10dp"
@@ -72,7 +72,7 @@
                         android:orientation="vertical"
                         app:selected="true">
 
-                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_checkmark_cirlce"
@@ -83,7 +83,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp" />
 
-                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_checkmark_cirlce"
@@ -93,7 +93,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp" />
 
-                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_checkmark_cirlce"
@@ -103,7 +103,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"/>
 
-                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_checkmark_cirlce"
@@ -113,7 +113,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"/>
 
-                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_checkmark_cirlce"
@@ -123,10 +123,10 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
                             android:layout_marginBottom="16dp"/>
-                    </com.hiloipa.app.hilo.ui.widget.PaymentPlanView>
+                    </com.hilocrm.app.hilo.ui.widget.PaymentPlanView>
 
                     <!-- Gold plan -->
-                    <com.hiloipa.app.hilo.ui.widget.PaymentPlanView
+                    <com.hilocrm.app.hilo.ui.widget.PaymentPlanView
                         android:tag="Gold"
                         android:id="@+id/goldPlan"
                         android:layout_margin="10dp"
@@ -136,7 +136,7 @@
                         app:planPrice="$39.99 / month"
                         android:orientation="vertical">
 
-                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_checkmark_cirlce"
@@ -147,7 +147,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp" />
 
-                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_checkmark_cirlce"
@@ -157,7 +157,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp" />
 
-                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_checkmark_cirlce"
@@ -167,7 +167,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"/>
 
-                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_checkmark_cirlce"
@@ -177,7 +177,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"/>
 
-                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_checkmark_cirlce"
@@ -187,7 +187,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"/>
 
-                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_checkmark_cirlce"
@@ -197,11 +197,11 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
                             android:layout_marginBottom="16dp"/>
-                    </com.hiloipa.app.hilo.ui.widget.PaymentPlanView>
+                    </com.hilocrm.app.hilo.ui.widget.PaymentPlanView>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/makePaymentBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
@@ -214,13 +214,13 @@
                 android:textColor="@android:color/white"
                 android:text="@string/make_payment"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/plans_description"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/privacyBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
@@ -228,7 +228,7 @@
                 android:singleLine="true"
                 android:text="@string/privacy_policy"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/termsBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"

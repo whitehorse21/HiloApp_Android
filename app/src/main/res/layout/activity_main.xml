@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ededed"
-    tools:context="com.hiloipa.app.hilo.ui.MainActivity">
+    tools:context="com.hilocrm.app.hilo.ui.MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/importContactsBtn"
             style="@style/Base.Widget.AppCompat.ActionButton"
             android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
             android:text="@string/import_contacts"
             android:visibility="gone"/>
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
             android:id="@+id/toolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         android:orientation="horizontal"
         android:background="@android:color/white">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayRadioButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayRadioButton
             android:id="@+id/navGoalTracker"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -55,7 +55,7 @@
             android:drawableTop="@drawable/navigation_dashboard"
             android:text="@string/goal_tracker"/>
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayRadioButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayRadioButton
             android:id="@+id/navContacts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -67,7 +67,7 @@
             android:drawableTop="@drawable/navigation_contacts"
             android:text="@string/contacts"/>
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayRadioButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayRadioButton
             android:id="@+id/navReachoutLogs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -82,7 +82,7 @@
             android:drawableTop="@drawable/navigation_reachoutlog"
             android:text="@string/reachout_log"/>
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayRadioButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayRadioButton
             android:id="@+id/navToDos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -94,7 +94,7 @@
             android:drawableTop="@drawable/navigation_todos"
             android:text="@string/todos"/>
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayRadioButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayRadioButton
             android:id="@+id/navMore"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hiloipa.app.hilo.ui.auth.AuthActivity">
+    tools:context="com.hilocrm.app.hilo.ui.auth.AuthActivity">
 
     <ImageView
         android:layout_width="match_parent"

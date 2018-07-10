@@ -6,7 +6,7 @@
     android:background="@drawable/plan_bg_card"
     android:orientation="vertical">
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
         android:id="@+id/titleLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:textFont="bold"
         android:background="@drawable/plan_bg_header"/>
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
         android:id="@+id/priceLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/backButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
                 android:lines="1"
                 android:text="@string/assign_campaign"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -36,7 +36,7 @@
                 android:textSize="12sp"
                 android:text="@string/email_campaigns"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/emailCampaignsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -52,7 +52,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="textCapWords"/>
 
-            <com.hiloipa.app.hilo.ui.widget.NDSpinner
+            <com.hilocrm.app.hilo.ui.widget.NDSpinner
                 android:id="@+id/emailCampaignsSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -60,7 +60,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/updateBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"

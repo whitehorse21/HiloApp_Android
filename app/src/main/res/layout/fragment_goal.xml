@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.hiloipa.app.hilo.ui.tracker.GoalFragment">
+    tools:context="com.hilocrm.app.hilo.ui.tracker.GoalFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/reachoutsTypeLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                             app:cpb_progressbar_color="@color/colorPrimary"
                             android:progressDrawable="@drawable/circular_progress_bar" />
 
-                        <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                        <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                             android:id="@+id/progressLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                             android:gravity="center"
                             android:layout_marginBottom="8dp">
 
-                            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                                 android:id="@+id/targetTitleLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                                 android:background="@android:color/darker_gray"
                                 android:layout_column="1"/>
 
-                            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                                 android:id="@+id/targetLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -117,7 +117,7 @@
                             android:gravity="center"
                             android:layout_marginBottom="8dp">
 
-                            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                                 android:id="@+id/completedTitleLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
                                 android:background="@android:color/darker_gray"
                                 android:layout_column="1"/>
 
-                            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                                 android:id="@+id/completedLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -154,7 +154,7 @@
                             android:gravity="center"
                             android:layout_marginBottom="8dp">
 
-                            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                                 android:id="@+id/percentageTitleLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -173,7 +173,7 @@
                                 android:background="@android:color/darker_gray"
                                 android:layout_column="1"/>
 
-                            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                                 android:id="@+id/percentageLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -195,7 +195,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                         android:id="@+id/selectedTypeTitleLabel"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

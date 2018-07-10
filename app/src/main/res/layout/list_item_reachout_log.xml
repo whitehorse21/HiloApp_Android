@@ -41,7 +41,7 @@
                 android:layout_marginEnd="10dp"
                 android:orientation="vertical">
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/contactNameLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -54,14 +54,14 @@
                     android:textColor="@color/colorPrimary"
                     tools:text="Eduard Albu"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/reachoutTypeLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="@string/reach_type_s"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/dateLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
         android:paddingRight="10dp"
         android:paddingEnd="10dp">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+        <com.hilocrm.app.hilo.ui.widget.RalewayEditText
             android:id="@+id/logCommentLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

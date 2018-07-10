@@ -9,7 +9,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
         android:id="@+id/rowNumberLabel"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                 android:id="@+id/contactNameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 android:textSize="14sp"
                 tools:text="Search result" />
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+            <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                 android:id="@+id/followUpDaysRemainedLabel"
                 android:visibility="gone"
                 android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                <com.hilocrm.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/completeBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
@@ -100,7 +100,7 @@
                     android:src="@drawable/ic_action_delete_empty" />
             </LinearLayout>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/badgeBtn"
                 android:clickable="false"
                 android:focusable="false"

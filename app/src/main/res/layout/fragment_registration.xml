@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:background="@drawable/img_login_bg"
-    tools:context="com.hiloipa.app.hilo.ui.auth.RegistrationFragment">
+    tools:context="com.hilocrm.app.hilo.ui.auth.RegistrationFragment">
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayButton
+    <com.hilocrm.app.hilo.ui.widget.RalewayButton
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:minWidth="100dp"
@@ -38,7 +38,7 @@
                 android:src="@drawable/ic_hilo_white"
                 android:contentDescription="@string/app_name" />
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+            <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                 android:id="@+id/firstNameField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:paddingRight="16dp"
                 android:textSize="16sp"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+            <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                 android:id="@+id/lastNameField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                 android:paddingRight="16dp"
                 android:textSize="16sp"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+            <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                 android:id="@+id/emailField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                 android:paddingRight="16dp"
                 android:textSize="16sp"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+            <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                 android:id="@+id/passwordField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                 android:paddingRight="16dp"
                 android:textSize="16sp"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+            <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                 android:id="@+id/repeatPasswordField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
                 android:paddingRight="16dp"
                 android:textSize="16sp"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+            <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                 android:id="@+id/companyField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
                 android:paddingRight="16dp"
                 android:textSize="16sp"/>
 
-            <com.hiloipa.app.hilo.ui.widget.NDSpinner
+            <com.hilocrm.app.hilo.ui.widget.NDSpinner
                 android:id="@+id/companySpinner"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -147,7 +147,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="5dp"/>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayEditText
+            <com.hilocrm.app.hilo.ui.widget.RalewayEditText
                 android:id="@+id/findUsField"
                 android:inputType="textCapSentences"
                 android:imeOptions="actionDone"
@@ -163,7 +163,7 @@
                 android:paddingRight="16dp"
                 android:textSize="16sp"/>
 
-            <com.hiloipa.app.hilo.ui.widget.NDSpinner
+            <com.hilocrm.app.hilo.ui.widget.NDSpinner
                 android:id="@+id/findUsSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -183,7 +183,7 @@
                     android:layout_height="wrap_content"
                     app:buttonTint="@android:color/white"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayButton
+                <com.hilocrm.app.hilo.ui.widget.RalewayButton
                     android:id="@+id/termsAndCoditionsBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
                     android:text="@string/terms_amp_conditions"/>
             </LinearLayout>
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/signUpBtn"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"

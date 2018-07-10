@@ -10,7 +10,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/dueDateBtn"
             style="@style/Base.Widget.AppCompat.ActionButton"
             android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:lines="1"
             android:singleLine="true" />
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/priorityBtn"
             style="@style/Base.Widget.AppCompat.ActionButton"
             android:layout_width="match_parent"
@@ -43,7 +43,7 @@
             android:singleLine="true" />
     </LinearLayout>
 
-    <com.hiloipa.app.hilo.ui.widget.NDSpinner
+    <com.hilocrm.app.hilo.ui.widget.NDSpinner
         android:id="@+id/prioritySpinner"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -58,7 +58,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/endTimeBtn"
             style="@style/Base.Widget.AppCompat.ActionButton"
             android:layout_width="match_parent"
@@ -74,7 +74,7 @@
             android:lines="1"
             android:singleLine="true" />
 
-        <com.hiloipa.app.hilo.ui.widget.RalewayButton
+        <com.hilocrm.app.hilo.ui.widget.RalewayButton
             android:id="@+id/amPmBtn"
             style="@style/Base.Widget.AppCompat.ActionButton"
             android:layout_width="match_parent"
@@ -91,7 +91,7 @@
             android:singleLine="true" />
     </LinearLayout>
 
-    <com.hiloipa.app.hilo.ui.widget.NDSpinner
+    <com.hilocrm.app.hilo.ui.widget.NDSpinner
         android:id="@+id/amPmSpinner"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -20,7 +20,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginEnd="10dp"/>
 
-    <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+    <com.hilocrm.app.hilo.ui.widget.RalewayTextView
         android:id="@+id/tagNameLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

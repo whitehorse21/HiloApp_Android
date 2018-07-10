@@ -32,7 +32,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_centerVertical="true"
                 app:layout_constraintTop_toTopOf="parent" />
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/productNameLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                     app:layout_constraintTop_toTopOf="@id/productImage"
                     android:textSize="16sp"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/wholeSalePriceLabel"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/wholesale_price_s"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/pcPriceLabel"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -63,7 +63,7 @@
                     app:layout_constraintTop_toBottomOf="@id/wholeSalePriceLabel"
                     android:text="@string/pc_price_s"/>
 
-                <com.hiloipa.app.hilo.ui.widget.RalewayTextView
+                <com.hilocrm.app.hilo.ui.widget.RalewayTextView
                     android:id="@+id/retailPriceLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                     android:text="@string/retail_price_s"/>
 
 
-            <com.hiloipa.app.hilo.ui.widget.RalewayButton
+            <com.hilocrm.app.hilo.ui.widget.RalewayButton
                 android:id="@+id/assignBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
